@@ -1,0 +1,31 @@
+import { Prop } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
+import dayjs from 'dayjs';
+import { FORMAT } from 'src/config/dayjs';
+
+export class BaseTime {
+  @Prop({
+    type: Date,
+    default: null,
+    get: (time) => dayjs(time).format(FORMAT),
+  })
+  @ApiProperty({ type: Date, description: '删除时间', default: null })
+  /** 时间删除 */
+  deletedTime: Date;
+
+  @Prop({
+    type: Date,
+    default: Date.now,
+    get: (time) => dayjs(time).format(FORMAT),
+  })
+  /** 创建日期 */
+  createdTime: Date;
+
+  @Prop({
+    type: Date,
+    default: Date.now,
+    get: (time) => dayjs(time).format(FORMAT),
+  })
+  /** 更新日期 */
+  updateTime: Date;
+}
