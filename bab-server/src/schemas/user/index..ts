@@ -89,9 +89,10 @@ export class User extends Base {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-// UserSchema.set('toJSON', {
-//   getters: true,
-// });
+
+UserSchema.set('toJSON', {
+  getters: true,
+});
 
 export const UserMongooseModule = MongooseModule.forFeature([
   {

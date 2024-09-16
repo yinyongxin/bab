@@ -7,7 +7,7 @@ export class BaseTime {
   @Prop({
     type: Date,
     default: null,
-    get: (time) => dayjs(time).format(FORMAT),
+    get: (time) => (time ? dayjs(time).format(FORMAT) : time),
   })
   @ApiProperty({ type: Date, description: '删除时间', default: null })
   /** 时间删除 */
