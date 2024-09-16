@@ -1,9 +1,7 @@
-import { ApiProperty } from "@nestjs/swagger";
+import { PickType } from '@nestjs/swagger';
+import { User } from 'src/schemas/user/index.';
 
-export class CreateUserBodyDto {
-  @ApiProperty()
-  username: string;
-
-  @ApiProperty()
-  password: string;
-}
+export class CreateUserBodyDto extends PickType(User, [
+  'password',
+  'username',
+]) {}

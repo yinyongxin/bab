@@ -8,22 +8,14 @@ export type UserDocument = HydratedDocument<User>;
 @Schema()
 export class User extends Base {
   /**
-   * 头像
-   */
-  @Prop({
-    default: null,
-  })
-  @ApiProperty({ type: String, description: '头像' })
-  avatar: string;
-
-  /**
    * 用户名
    */
   @Prop({
     unique: true,
     required: true,
   })
-  @ApiProperty({ type: String, required: true })
+  // swagger
+  @ApiProperty({ required: true, description: '用户名' })
   username: string;
 
   /**
@@ -32,8 +24,19 @@ export class User extends Base {
   @Prop({
     required: true,
   })
-  @ApiProperty({ type: String, required: true })
+  // swaggerF
+  @ApiProperty({ required: true, description: '密码' })
   password: string;
+
+  /**
+   * 头像
+   */
+  @Prop({
+    default: null,
+  })
+  // swagger
+  @ApiProperty({ description: '头像' })
+  avatar: string;
 
   /**
    * 姓名
@@ -41,15 +44,9 @@ export class User extends Base {
   @Prop({
     default: null,
   })
+  // swagger
+  @ApiProperty({ description: '姓名' })
   name: string;
-
-  /**
-   * 邮箱
-   */
-  @Prop({
-    default: null,
-  })
-  email: string;
 
   /**
    * 年龄
@@ -58,6 +55,8 @@ export class User extends Base {
     min: 0,
     default: 0,
   })
+  // swagger
+  @ApiProperty({ description: '年龄' })
   age: number;
 
   /**
@@ -66,7 +65,19 @@ export class User extends Base {
   @Prop({
     default: null,
   })
+  // swagger
+  @ApiProperty({ description: '电话号码' })
   phone: string;
+
+  /**
+   * 邮箱
+   */
+  @Prop({
+    default: null,
+  })
+  // swagger
+  @ApiProperty({ description: '邮箱' })
+  email: string;
 
   /** 角色类型 */
   @Prop({
@@ -78,7 +89,6 @@ export class User extends Base {
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
-
 // UserSchema.set('toJSON', {
 //   getters: true,
 // });

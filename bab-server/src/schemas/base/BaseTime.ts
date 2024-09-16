@@ -18,6 +18,7 @@ export class BaseTime {
     default: Date.now,
     get: (time) => dayjs(time).format(FORMAT),
   })
+  @ApiProperty({ type: Date, description: '创建日期', default: Date.now() })
   /** 创建日期 */
   createdTime: Date;
 
@@ -26,6 +27,7 @@ export class BaseTime {
     default: Date.now,
     get: (time) => dayjs(time).format(FORMAT),
   })
+  @ApiProperty({ type: Date, description: '更新日期', default: Date.now() })
   /** 更新日期 */
   updateTime: Date;
 }
