@@ -29,9 +29,18 @@ export class UserService {
     return res;
   }
   async findById(id: string) {
-    const userInfo = this.userModel.findById(id, {
+    const res = this.userModel.findById(id, {
       password: false,
     });
-    return userInfo;
+    return res;
+  }
+  async deleteByIds(idsToUpdate: string[]) {
+    const res = await this.userModel.updateMany(
+      { _id: { $in: idsToUpdate } },
+      {
+        deletedTime: new Date(),
+      },
+    );
+    return res;
   }
 }

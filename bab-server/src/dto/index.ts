@@ -7,3 +7,11 @@ export class QueryIdDto {
   })
   id: string;
 }
+
+export class DeleteIdsDto {
+  @ApiProperty({
+    required: true,
+    description: '删除Id列表',
+  })
+  ids: string[];
+}

@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Query, Put, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Query,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import {
   ApiOkResponse,
   ApiOperation,
@@ -10,7 +18,7 @@ import {
 import { UserService } from './UserService';
 import { CreateUserBodyDto } from './dtos';
 import { User } from 'src/schemas/user/index.';
-import { QueryIdDto } from 'src/dto';
+import { DeleteIdsDto, QueryIdDto } from 'src/dto';
 
 @ApiTags('用户')
 @Controller('user')
@@ -33,7 +41,7 @@ export class UserController {
 
   @Get('findById')
   @ApiOkResponse({
-    description: '查找用户成功',
+    description: '查找成功',
     type: OmitType(User, ['password']),
   })
   @ApiOperation({
@@ -42,6 +50,20 @@ export class UserController {
   })
   async findById(@Query() query: QueryIdDto) {
     const res = await this.userService.findById(query.id);
+    return res;
+  }
+
+  @Delete('deleteByIds')
+  @ApiOkResponse({
+    description: '删除成功',
+    type: OmitType(User, ['password']),
+  })
+  @ApiOperation({
+    description: '通过Ids删除用户',
+    summary: '通过Id删除用户',
+  })
+  async deleteByIds(@Body() body: DeleteIdsDto) {
+    const res = await this.userService.deleteByIds(body.ids);
     return res;
   }
 }
