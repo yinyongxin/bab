@@ -29,7 +29,9 @@ export class UserService {
     return res;
   }
   async findById(id: string) {
-    const userInfo = this.userModel.findById(id);
+    const userInfo = this.userModel.findById(id, {
+      password: false,
+    });
     return userInfo;
   }
 }

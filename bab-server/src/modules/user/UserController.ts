@@ -10,7 +10,7 @@ import {
 import { UserService } from './UserService';
 import { CreateUserBodyDto } from './dtos';
 import { User } from 'src/schemas/user/index.';
-import { IdDto } from 'src/dto';
+import { QueryIdDto } from 'src/dto';
 
 @ApiTags('用户')
 @Controller('user')
@@ -40,7 +40,7 @@ export class UserController {
     description: '通过Id查找用户',
     summary: '通过Id查找用户',
   })
-  async findById(@Query() query: IdDto) {
+  async findById(@Query() query: QueryIdDto) {
     console.log('query', query);
     const res = await this.userService.findById(query.id);
     return res;

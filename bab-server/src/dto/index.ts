@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class IdDto {
+export class QueryIdDto {
   @ApiProperty({
     required: true,
     description: '唯一值',
