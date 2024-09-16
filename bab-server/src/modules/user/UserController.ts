@@ -8,7 +8,7 @@ import {
   PickType,
 } from '@nestjs/swagger';
 import { UserService } from './UserService';
-import { CreateUserBodyDto } from './dtos/CreateUserDto';
+import { CreateUserBodyDto } from './dtos';
 import { User } from 'src/schemas/user/index.';
 import { IdDto } from 'src/dto';
 
