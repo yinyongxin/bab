@@ -77,11 +77,11 @@ export class User extends Base {
   role: Types.ObjectId[];
 }
 
-export const UserSchema = SchemaFactory.createForClass(User)
-// .set('toJSON', {
+export const UserSchema = SchemaFactory.createForClass(User);
+
+// UserSchema.set('toJSON', {
 //   getters: true,
 // });
-console.log('User.name', User.name)
 
 export const UserMongooseModule = MongooseModule.forFeature([
   {
