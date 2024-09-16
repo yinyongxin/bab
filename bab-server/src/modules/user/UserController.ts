@@ -41,7 +41,6 @@ export class UserController {
     summary: '通过Id查找用户',
   })
   async findById(@Query() query: QueryIdDto) {
-    console.log('query', query);
     const res = await this.userService.findById(query.id);
     return res;
   }

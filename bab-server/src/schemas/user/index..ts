@@ -83,9 +83,10 @@ export class User extends Base {
   @Prop({
     type: Array,
     default: [],
+    ref: 'roles',
   })
   @ApiProperty({ type: Array, description: '角色列表' })
-  role: Types.ObjectId[];
+  roles: Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
