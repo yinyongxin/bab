@@ -1,18 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from '../user/UserModule';
+import { AppMongooseModule } from './modules';
+
 @Module({
-  imports: [
-    MongooseModule.forRoot(
-      // 'http://124.221.183.172:27017/bab',
-      'mongodb://localhost:27017/bab',
-      {
-        user: 'babAdmin',
-        pass: 'babAdmin',
-      },
-    ),
-    UserModule,
-  ],
+  imports: [AppMongooseModule, UserModule],
   controllers: [],
   providers: [],
 })
