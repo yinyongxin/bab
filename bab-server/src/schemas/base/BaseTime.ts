@@ -9,7 +9,13 @@ export class BaseTime {
     default: null,
     get: (time) => (time ? dayjs(time).format(FORMAT) : time),
   })
-  @ApiProperty({ type: Date, description: '删除时间', default: null })
+  @ApiProperty({
+    type: Date,
+    description: '删除时间',
+    default: null,
+    readOnly: true,
+    required: false,
+  })
   /** 时间删除 */
   deletedTime: Date;
 
