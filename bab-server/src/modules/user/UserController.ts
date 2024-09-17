@@ -13,12 +13,9 @@ import {
   ApiOperation,
   ApiResponse,
   ApiTags,
-  OmitType,
-  PartialType,
 } from '@nestjs/swagger';
 import { UserService } from './UserService';
-import { CreateUserBodyDto } from './dtos';
-import { User } from 'src/schemas/user/index.';
+import { CreateUserBodyDto, QueryUserDto, ResultUserDto, UpdateUserDto } from './dtos';
 import { DeleteIdsDto, QueryIdDto, UpdateResDto } from 'src/dto';
 
 @ApiTags('用户')
@@ -29,7 +26,7 @@ export class UserController {
   @Put('addOne')
   @ApiOkResponse({
     description: '添加用户成功',
-    type: OmitType(User, ['password']),
+    type: ResultUserDto,
   })
   @ApiOperation({
     description: '添加一个用户',
@@ -43,7 +40,7 @@ export class UserController {
   @Get('findById')
   @ApiOkResponse({
     description: '查找成功',
-    type: OmitType(User, ['password']),
+    type: ResultUserDto,
   })
   @ApiOperation({
     description: '通过Id查找用户',
@@ -57,7 +54,7 @@ export class UserController {
   @Delete('deleteByIds')
   @ApiResponse({
     description: '删除成功',
-    type: UpdateResDto
+    type: UpdateResDto,
   })
   @ApiOperation({
     description: '通过Ids删除用户',
@@ -71,13 +68,13 @@ export class UserController {
   @Post('findAllByFields')
   @ApiOkResponse({
     description: '查询成功',
-    type: [OmitType(User, ['password'])],
+    type: [ResultUserDto],
   })
   @ApiOperation({
     description: '通过字段值查询所有数据',
     summary: '通过字段值查询所有数据',
   })
-  async findAllByFields(@Body() body: User) {
+  async findAllByFields(@Body() body: QueryUserDto) {
     const res = await this.userService.findAllByFields(body);
     return res;
   }
@@ -85,13 +82,13 @@ export class UserController {
   @Patch('updateOne')
   @ApiResponse({
     description: '更新结果',
-    type: UpdateResDto
+    type: UpdateResDto,
   })
   @ApiOperation({
     description: '更新单条数据',
     summary: '更新单条数据',
   })
-  async updateOne(@Query() query: QueryIdDto, @Body() body: User) {
+  async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateUserDto) {
     const res = await this.userService.updateOne(query.id, body);
     return res;
   }
