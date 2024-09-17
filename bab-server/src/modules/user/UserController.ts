@@ -11,6 +11,7 @@ import {
 import {
   ApiOkResponse,
   ApiOperation,
+  ApiResponse,
   ApiTags,
   OmitType,
   PartialType,
@@ -18,7 +19,7 @@ import {
 import { UserService } from './UserService';
 import { CreateUserBodyDto } from './dtos';
 import { User } from 'src/schemas/user/index.';
-import { DeleteIdsDto, QueryIdDto } from 'src/dto';
+import { DeleteIdsDto, QueryIdDto, UpdateResDto } from 'src/dto';
 
 @ApiTags('用户')
 @Controller('user')
@@ -54,8 +55,9 @@ export class UserController {
   }
 
   @Delete('deleteByIds')
-  @ApiOkResponse({
+  @ApiResponse({
     description: '删除成功',
+    type: UpdateResDto
   })
   @ApiOperation({
     description: '通过Ids删除用户',
@@ -81,8 +83,9 @@ export class UserController {
   }
 
   @Patch('updateOne')
-  @ApiOkResponse({
-    description: '更新成功',
+  @ApiResponse({
+    description: '更新结果',
+    type: UpdateResDto
   })
   @ApiOperation({
     description: '更新单条数据',
