@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { CreateUserBodyDto } from './dtos/CreateUserBodyDto';
 import { User, UserDocument } from 'src/schemas/user/index.';
+import { toFuzzyParams } from 'src/utils/db/find';
 
 @Injectable()
 export class UserService {
@@ -41,6 +42,13 @@ export class UserService {
         deletedTime: new Date(),
       },
     );
+    return res;
+  }
+
+  async findAllByFields(data: Omit<User, 'password'>) {
+    const res = await this.userModel.find(toFuzzyParams(data), {
+      password: false,
+    });
     return res;
   }
 }

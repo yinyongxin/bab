@@ -98,3 +98,8 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 7 OPTIONS 返回服务器支持的 HTTP 方法。用于检查服务器支持哪些请求方法，通常用于跨域资源共享（CORS）的预检请求。
 8 TRACE 回显服务器收到的请求，主要用于诊断。客户端可以查看请求在服务器中的处理路径。
 9 CONNECT 建立一个到服务器的隧道，通常用于 HTTPS 连接。客户端可以通过该隧道发送加密的数据。
+
+## 依赖库
+
+[radash(中文)](https://www.radash.wiki/)
+[radash(英文官网)](https://radash-docs.vercel.app/docs/getting-started)

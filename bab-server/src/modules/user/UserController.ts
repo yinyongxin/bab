@@ -6,6 +6,7 @@ import {
   Put,
   Param,
   Delete,
+  Post,
 } from '@nestjs/common';
 import {
   ApiOkResponse,
@@ -64,6 +65,20 @@ export class UserController {
   })
   async deleteByIds(@Body() body: DeleteIdsDto) {
     const res = await this.userService.deleteByIds(body.ids);
+    return res;
+  }
+
+  @Post('findAllByFields')
+  @ApiOkResponse({
+    description: '查询成功',
+    type: OmitType(User, ['password']),
+  })
+  @ApiOperation({
+    description: '通过字段值查询所有数据',
+    summary: '通过字段值查询所有数据',
+  })
+  async findAllByFields(@Body() body: User) {
+    const res = await this.userService.findAllByFields(body);
     return res;
   }
 }
