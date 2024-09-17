@@ -5,6 +5,9 @@ import { CreateUserBodyDto, QueryUserDto, UpdateUserDto } from './dtos';
 import { User } from 'src/schemas/user/index.';
 import { toFuzzyParams } from 'src/utils/db/find';
 import { PaginationDto } from 'src/dto';
+import dayjs from 'dayjs';
+import { list } from 'radash';
+import { FORMAT } from 'src/config/dayjs';
 
 @Injectable()
 export class UserService {
@@ -60,26 +63,55 @@ export class UserService {
   }
 
   async updateOne(id: string, data: UpdateUserDto) {
-    const res = await this.userModel.findByIdAndUpdate(id, data).exec();
+    const res = await this.userModel
+      .findByIdAndUpdate(id, { ...data, updatedTime: dayjs() })
+      .exec();
     return res;
   }
 
   async getPageList(pagination: PaginationDto, data: UpdateUserDto) {
     console.log('pagination', pagination);
-    const modal = this.userModel;
-    const modalFind = modal.find(toFuzzyParams(data), {
-      deletedTime: false,
-      password: false,
-    });
-    const list = await modalFind.setOptions({
-      limit: pagination.pageSize,
-      skip: pagination.pageSize * (pagination.pageNo - 1),
-      sort: '-createdTime',
-    });
-    const total = await modalFind.countDocuments().clone();
+    const [res] = await this.userModel
+      .aggregate([
+        {
+          $sort: {
+            createdTime: -1,
+          },
+        },
+        {
+          $match: toFuzzyParams(data),
+        },
+        {
+          $group: {
+            _id: null,
+            total: { $sum: 1 },
+            list: { $push: '$$ROOT' },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            total: '$total',
+            list: {
+              $slice: [
+                '$list',
+                pagination.pageSize * (pagination.pageNo - 1),
+                pagination.pageSize,
+              ],
+            },
+          },
+        },
+      ])
+      .exec();
     return {
-      list,
-      total,
+      list:
+        res?.list.map((item) => ({
+          ...item,
+          createdTime: dayjs(item.createdTime).format(FORMAT),
+          deletedTime: dayjs(item.createdTime).format(FORMAT),
+          updatedTime: dayjs(item.createdTime).format(FORMAT),
+        })) || [],
+      total: res?.total ?? 0,
       ...pagination,
     };
   }

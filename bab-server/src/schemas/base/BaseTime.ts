@@ -35,5 +35,5 @@ export class BaseTime {
   })
   @ApiProperty({ type: Date, description: '更新日期', default: Date.now() })
   /** 更新日期 */
-  updateTime: Date;
+  updatedTime: Date;
 }
