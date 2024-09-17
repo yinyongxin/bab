@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Post,
+  Patch,
 } from '@nestjs/common';
 import {
   ApiOkResponse,
@@ -79,6 +80,20 @@ export class UserController {
   })
   async findAllByFields(@Body() body: User) {
     const res = await this.userService.findAllByFields(body);
+    return res;
+  }
+
+  @Patch('updateOne')
+  @ApiOkResponse({
+    description: '更新成功',
+    type: OmitType(User, ['password']),
+  })
+  @ApiOperation({
+    description: '更新单条数据',
+    summary: '更新单条数据',
+  })
+  async updateOne(@Query() query: QueryIdDto, @Body() body: User) {
+    const res = await this.userService.updateOne(query.id, body);
     return res;
   }
 }

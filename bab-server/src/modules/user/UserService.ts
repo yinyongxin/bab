@@ -51,4 +51,9 @@ export class UserService {
     });
     return res;
   }
+
+  async updateOne(id: string, data: Omit<User, 'password'>) {
+    const res = await this.userModel.updateOne({ _id: id }, data);
+    return res;
+  }
 }

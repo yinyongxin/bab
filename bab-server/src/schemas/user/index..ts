@@ -35,7 +35,7 @@ export class User extends Base {
     default: null,
   })
   // swagger
-  @ApiProperty({ description: '头像' })
+  @ApiProperty({ required: false, description: '头像' })
   avatar: string;
 
   /**
@@ -45,7 +45,7 @@ export class User extends Base {
     default: null,
   })
   // swagger
-  @ApiProperty({ description: '姓名' })
+  @ApiProperty({ required: false, description: '姓名' })
   name: string;
 
   /**
@@ -56,7 +56,7 @@ export class User extends Base {
     default: 0,
   })
   // swagger
-  @ApiProperty({ description: '年龄' })
+  @ApiProperty({ required: false, description: '年龄' })
   age: number;
 
   /**
@@ -66,7 +66,7 @@ export class User extends Base {
     default: null,
   })
   // swagger
-  @ApiProperty({ description: '电话号码' })
+  @ApiProperty({ required: false, description: '电话号码' })
   phone: string;
 
   /**
@@ -76,7 +76,7 @@ export class User extends Base {
     default: null,
   })
   // swagger
-  @ApiProperty({ description: '邮箱' })
+  @ApiProperty({ required: false, description: '邮箱' })
   email: string;
 
   /** 角色类型 */
