@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ObjectId } from 'mongoose';
 
 export class QueryIdDto {
   @ApiProperty({
@@ -63,4 +64,13 @@ export class ResultPaginationDto extends PaginationDto {
     description: '所有数量',
   })
   total: number;
+}
+
+export class BaseIdDto {
+  @ApiProperty({
+    required: true,
+    description: '唯一值',
+    type: String,
+  })
+  _id: ObjectId;
 }

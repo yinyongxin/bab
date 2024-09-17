@@ -6,7 +6,7 @@ import { User } from 'src/schemas/user/index.';
 import { toFuzzyParams } from 'src/utils/db/find';
 import { PaginationDto } from 'src/dto';
 import dayjs from 'dayjs';
-import { list } from 'radash';
+import { list, omit } from 'radash';
 import { FORMAT } from 'src/config/dayjs';
 
 @Injectable()
@@ -70,7 +70,6 @@ export class UserService {
   }
 
   async getPageList(pagination: PaginationDto, data: UpdateUserDto) {
-    console.log('pagination', pagination);
     const [res] = await this.userModel
       .aggregate([
         {
@@ -85,7 +84,31 @@ export class UserService {
           $group: {
             _id: null,
             total: { $sum: 1 },
-            list: { $push: '$$ROOT' },
+            list: {
+              $push: {
+                data: '$$ROOT',
+                dateData: {
+                  createdTime: {
+                    $dateToString: {
+                      format: '%Y-%m-%d %H:%M:%S',
+                      date: '$createdTime',
+                    },
+                  },
+                  updatedTime: {
+                    $dateToString: {
+                      format: '%Y-%m-%d %H:%M:%S',
+                      date: '$updatedTime',
+                    },
+                  },
+                  deletedTime: {
+                    $dateToString: {
+                      format: '%Y-%m-%d %H:%M:%S',
+                      date: '$deletedTime',
+                    },
+                  },
+                },
+              },
+            },
           },
         },
         {
@@ -105,12 +128,9 @@ export class UserService {
       .exec();
     return {
       list:
-        res?.list.map((item) => ({
-          ...item,
-          createdTime: dayjs(item.createdTime).format(FORMAT),
-          deletedTime: dayjs(item.createdTime).format(FORMAT),
-          updatedTime: dayjs(item.createdTime).format(FORMAT),
-        })) || [],
+        res?.list.map((item) =>
+          omit({ ...item.data, ...item.dateData }, ['password']),
+        ) || [],
       total: res?.total ?? 0,
       ...pagination,
     };
