@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { CreateUserBodyDto, QueryUserDto, UpdateUserDto } from './dtos';
 import { User } from 'src/schemas/user/index.';
 import { toFuzzyParams } from 'src/utils/db/find';
+import { PaginationDto } from 'src/dto';
 
 @Injectable()
 export class UserService {
@@ -30,30 +31,56 @@ export class UserService {
     return res;
   }
   async findById(id: string) {
-    const res = this.userModel.findById(id, {
-      password: false,
-    });
+    const res = this.userModel
+      .findById(id, {
+        password: false,
+      })
+      .exec();
     return res;
   }
   async deleteByIds(idsToUpdate: string[]) {
-    const res = await this.userModel.updateMany(
-      { _id: { $in: idsToUpdate } },
-      {
-        deletedTime: new Date(),
-      },
-    );
+    const res = await this.userModel
+      .updateMany(
+        { _id: { $in: idsToUpdate } },
+        {
+          deletedTime: new Date(),
+        },
+      )
+      .exec();
     return res;
   }
 
   async findAllByFields(data: QueryUserDto) {
-    const res = await this.userModel.find(toFuzzyParams(data), {
-      password: false,
-    });
+    const res = await this.userModel
+      .find(toFuzzyParams(data), {
+        password: false,
+      })
+      .exec();
     return res;
   }
 
   async updateOne(id: string, data: UpdateUserDto) {
-    const res = await this.userModel.updateOne({ _id: id }, data);
+    const res = await this.userModel.findByIdAndUpdate(id, data).exec();
     return res;
+  }
+
+  async getPageList(pagination: PaginationDto, data: UpdateUserDto) {
+    console.log('pagination', pagination);
+    const modal = this.userModel;
+    const modalFind = modal.find(toFuzzyParams(data), {
+      deletedTime: false,
+      password: false,
+    });
+    const list = await modalFind.setOptions({
+      limit: pagination.pageSize,
+      skip: pagination.pageSize * (pagination.pageNo - 1),
+      sort: '-createdTime',
+    });
+    const total = await modalFind.countDocuments().clone();
+    return {
+      list,
+      total,
+      ...pagination,
+    };
   }
 }

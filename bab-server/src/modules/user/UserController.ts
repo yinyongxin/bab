@@ -15,8 +15,15 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UserService } from './UserService';
-import { CreateUserBodyDto, QueryUserDto, ResultUserDto, UpdateUserDto } from './dtos';
-import { DeleteIdsDto, QueryIdDto, UpdateResDto } from 'src/dto';
+import {
+  CreateUserBodyDto,
+  QueryUserDto,
+  ResultUserDto,
+  UpdateUserDto,
+  UserPaginationQueryResultDto,
+} from './dtos';
+import { DeleteIdsDto, PaginationDto, QueryIdDto, UpdateResDto } from 'src/dto';
+import { toInt } from 'radash';
 
 @ApiTags('用户')
 @Controller('user')
@@ -90,6 +97,29 @@ export class UserController {
   })
   async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateUserDto) {
     const res = await this.userService.updateOne(query.id, body);
+    return res;
+  }
+
+  @Post('getPageList')
+  @ApiResponse({
+    description: '获取分页列表',
+    type: UserPaginationQueryResultDto,
+  })
+  @ApiOperation({
+    description: '获取分页列表',
+    summary: '获取分页列表',
+  })
+  async getPageList(
+    @Query() pagination: PaginationDto,
+    @Body() body: QueryUserDto,
+  ) {
+    const res = await this.userService.getPageList(
+      {
+        pageNo: toInt(pagination.pageNo),
+        pageSize: toInt(pagination.pageSize),
+      },
+      body,
+    );
     return res;
   }
 }

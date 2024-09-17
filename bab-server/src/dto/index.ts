@@ -43,3 +43,24 @@ export class UpdateResDto {
   })
   matchedCount?: number;
 }
+
+export class PaginationDto {
+  @ApiProperty({
+    required: true,
+    description: '当前页面',
+  })
+  pageNo: number;
+  @ApiProperty({
+    required: true,
+    description: '分页大小',
+  })
+  pageSize: number;
+}
+
+export class ResultPaginationDto extends PaginationDto {
+  @ApiProperty({
+    required: true,
+    description: '所有数量',
+  })
+  total: number;
+}
