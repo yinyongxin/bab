@@ -23,7 +23,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第一步： 安装.md",
+                "file": "1 安装构建.md",
                 "mode": "source",
                 "source": false
               }
@@ -35,14 +35,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "第二步：Swagger.md",
+                "file": "1 安装构建.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "80bfb116e6d9b520",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "3 MongoDB数据库.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -108,7 +120,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "第二步：Swagger.md",
+                "file": "3 MongoDB数据库.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -125,7 +137,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "第二步：Swagger.md",
+                "file": "3 MongoDB数据库.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -148,16 +160,16 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "第二步：Swagger.md"
+                "file": "3 MongoDB数据库.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -169,9 +181,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "d9d59327406b29fa",
+  "active": "1a0d41baa2880697",
   "lastOpenFiles": [
-    "第一步： 安装.md",
-    "第二步：Swagger.md"
+    "1 安装构建.md",
+    "mongodb.md",
+    "2 Swagger.md",
+    "3 MongoDB数据库.md",
+    "未命名.canvas"
   ]
 }

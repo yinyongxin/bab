@@ -6,6 +6,10 @@ import { UserModule } from '../user/UserModule';
     MongooseModule.forRoot(
       // 'http://124.221.183.172:27017/bab',
       'mongodb://localhost:27017/bab',
+      {
+        user: 'babAdmin',
+        pass: 'babAdmin',
+      },
     ),
     UserModule,
   ],
