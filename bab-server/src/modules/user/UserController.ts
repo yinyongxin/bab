@@ -13,6 +13,7 @@ import {
   ApiOperation,
   ApiTags,
   OmitType,
+  PartialType,
 } from '@nestjs/swagger';
 import { UserService } from './UserService';
 import { CreateUserBodyDto } from './dtos';
@@ -55,7 +56,6 @@ export class UserController {
   @Delete('deleteByIds')
   @ApiOkResponse({
     description: '删除成功',
-    type: OmitType(User, ['password']),
   })
   @ApiOperation({
     description: '通过Ids删除用户',
@@ -69,7 +69,7 @@ export class UserController {
   @Post('findAllByFields')
   @ApiOkResponse({
     description: '查询成功',
-    type: OmitType(User, ['password']),
+    type: [OmitType(User, ['password'])],
   })
   @ApiOperation({
     description: '通过字段值查询所有数据',
@@ -83,7 +83,6 @@ export class UserController {
   @Patch('updateOne')
   @ApiOkResponse({
     description: '更新成功',
-    type: OmitType(User, ['password']),
   })
   @ApiOperation({
     description: '更新单条数据',
