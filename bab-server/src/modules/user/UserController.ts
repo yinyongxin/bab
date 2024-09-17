@@ -4,7 +4,6 @@ import {
   Get,
   Query,
   Put,
-  Param,
   Delete,
   Post,
   Patch,
@@ -12,10 +11,8 @@ import {
 import {
   ApiOkResponse,
   ApiOperation,
-  ApiQuery,
   ApiTags,
   OmitType,
-  PickType,
 } from '@nestjs/swagger';
 import { UserService } from './UserService';
 import { CreateUserBodyDto } from './dtos';
