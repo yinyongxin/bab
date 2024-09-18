@@ -1,9 +1,9 @@
 import { OmitType, ApiProperty } from '@nestjs/swagger';
 import { ObjectId } from 'mongoose';
 import { ResultPaginationDto } from '../../../../dto';
-import { User } from '../../../../schemas/user/index.';
+import { UserDocument } from '../../../../schemas/user/index.';
 
-export class ResultUserDto extends OmitType(User, ['password', 'deletedTime']) {
+export class ResultUserDto extends OmitType(UserDocument, ['password', 'deletedTime']) {
   @ApiProperty({
     required: true,
     description: '唯一值',

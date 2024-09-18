@@ -1,7 +1,7 @@
 import { PickType } from '@nestjs/swagger';
-import { User } from '../../../../schemas/user/index.';
+import { UserDocument } from '../../../../schemas/user/index.';
 
-export class CreateUserBodyDto extends PickType(User, [
+export class CreateUserBodyDto extends PickType(UserDocument, [
   'password',
   'username',
 ]) {}

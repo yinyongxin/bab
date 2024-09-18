@@ -1,6 +1,6 @@
 import { OmitType, PartialType } from "@nestjs/swagger";
-import { User } from "../../../../schemas/user/index.";
+import { UserDocument } from "../../../../schemas/user/index.";
 
 export class UpdateUserDto extends PartialType(
-  OmitType(User, ['password', 'deletedTime', 'createdTime', 'deletedTime']),
+  OmitType(UserDocument, ['password', 'deletedTime', 'createdTime', 'deletedTime']),
 ) {}

@@ -1,12 +1,11 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, Types } from 'mongoose';
-import { Base } from '../base';
+import { BaseDocument } from '../base';
 import { ApiProperty } from '@nestjs/swagger';
 
-export type UserDocument = HydratedDocument<User>;
 
 @Schema()
-export class User extends Base {
+export class UserDocument extends BaseDocument {
   /**
    * 用户名
    */
@@ -89,7 +88,7 @@ export class User extends Base {
   roles: Types.ObjectId[];
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UserSchema = SchemaFactory.createForClass(UserDocument);
 
 UserSchema.set('toJSON', {
   getters: true,
@@ -97,7 +96,7 @@ UserSchema.set('toJSON', {
 
 export const UserMongooseModule = MongooseModule.forFeature([
   {
-    name: User.name,
+    name: UserDocument.name,
     schema: UserSchema,
   },
 ]);

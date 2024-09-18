@@ -2,8 +2,9 @@ import { Prop } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import dayjs from 'dayjs';
 import { FORMAT } from '../../config/dayjs';
+import { Document } from 'mongoose';
 
-export class BaseTime {
+export class BaseTimeDocument extends Document {
   @Prop({
     type: Date,
     default: null,

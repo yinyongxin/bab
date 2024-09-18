@@ -1,3 +1,3 @@
-import { BaseTime } from './BaseTime';
+import { BaseTimeDocument } from './BaseTime';
 
-export class Base extends BaseTime {}
+export class BaseDocument extends BaseTimeDocument {}

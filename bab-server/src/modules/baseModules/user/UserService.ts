@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserBodyDto, QueryUserDto, UpdateUserDto } from './dtos';
-import { User } from '../../../schemas/user/index.';
+import { UserDocument } from '../../../schemas/user/index.';
 import { toFuzzyParams } from '../../../utils/db/find';
 import { PaginationDto } from '../../../dto';
 import dayjs from 'dayjs';
@@ -10,7 +10,9 @@ import { omit } from 'radash';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(UserDocument.name) private userModel: Model<UserDocument>,
+  ) {}
 
   async addOne(data: CreateUserBodyDto) {
     const session = await this.userModel.startSession();

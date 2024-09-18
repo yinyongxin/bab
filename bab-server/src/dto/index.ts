@@ -68,12 +68,3 @@ export class ResultPaginationDto extends PaginationDto {
   })
   total: number;
 }
-
-export class BaseIdDto {
-  @ApiProperty({
-    required: true,
-    description: '唯一值',
-    type: String,
-  })
-  _id: ObjectId;
-}
