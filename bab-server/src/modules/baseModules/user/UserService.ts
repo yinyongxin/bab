@@ -28,103 +28,95 @@ export class UserService {
     } finally {
       session.endSession();
     }
-    // const createdUser = new this.userModel(data);
-    // const res = await createdUser.save();
-    // return res;
   }
+
   async findById(id: string) {
-    const res = this.userModel
-      .findById(id, {
-        password: false,
-      })
-      .exec();
+    const res = this.userModel.findById(id, {
+      password: false,
+    });
     return res;
   }
+
   async deleteByIds(idsToUpdate: string[]) {
-    const res = await this.userModel
-      .updateMany(
-        { _id: { $in: idsToUpdate } },
-        {
-          deletedTime: new Date(),
-        },
-      )
-      .exec();
+    const res = await this.userModel.updateMany(
+      { _id: { $in: idsToUpdate } },
+      {
+        deletedTime: dayjs(),
+      },
+    );
     return res;
   }
 
   async findAllByFields(data: QueryUserDto) {
-    const res = await this.userModel
-      .find(toFuzzyParams(data), {
-        password: false,
-      })
-      .exec();
+    const res = await this.userModel.find(toFuzzyParams(data), {
+      password: false,
+    });
     return res;
   }
 
   async updateOne(id: string, data: UpdateUserDto) {
-    const res = await this.userModel
-      .findByIdAndUpdate(id, { ...data, updatedTime: dayjs() })
-      .exec();
+    const res = await this.userModel.findByIdAndUpdate(id, {
+      ...data,
+      updatedTime: dayjs(),
+    });
     return res;
   }
 
   async getPageList(pagination: PaginationDto, data: UpdateUserDto) {
-    const [res] = await this.userModel
-      .aggregate([
-        {
-          $sort: {
-            createdTime: -1,
-          },
+    const [res] = await this.userModel.aggregate([
+      {
+        $sort: {
+          createdTime: -1,
         },
-        {
-          $match: toFuzzyParams(data),
-        },
-        {
-          $group: {
-            _id: null,
-            total: { $sum: 1 },
-            list: {
-              $push: {
-                data: '$$ROOT',
-                dateData: {
-                  createdTime: {
-                    $dateToString: {
-                      format: '%Y-%m-%d %H:%M:%S',
-                      date: '$createdTime',
-                    },
+      },
+      {
+        $match: toFuzzyParams(data),
+      },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: 1 },
+          list: {
+            $push: {
+              data: '$$ROOT',
+              dateData: {
+                createdTime: {
+                  $dateToString: {
+                    format: '%Y-%m-%d %H:%M:%S',
+                    date: '$createdTime',
                   },
-                  updatedTime: {
-                    $dateToString: {
-                      format: '%Y-%m-%d %H:%M:%S',
-                      date: '$updatedTime',
-                    },
+                },
+                updatedTime: {
+                  $dateToString: {
+                    format: '%Y-%m-%d %H:%M:%S',
+                    date: '$updatedTime',
                   },
-                  deletedTime: {
-                    $dateToString: {
-                      format: '%Y-%m-%d %H:%M:%S',
-                      date: '$deletedTime',
-                    },
+                },
+                deletedTime: {
+                  $dateToString: {
+                    format: '%Y-%m-%d %H:%M:%S',
+                    date: '$deletedTime',
                   },
                 },
               },
             },
           },
         },
-        {
-          $project: {
-            _id: 0,
-            total: '$total',
-            list: {
-              $slice: [
-                '$list',
-                pagination.pageSize * (pagination.pageNo - 1),
-                pagination.pageSize,
-              ],
-            },
+      },
+      {
+        $project: {
+          _id: 0,
+          total: '$total',
+          list: {
+            $slice: [
+              '$list',
+              pagination.pageSize * (pagination.pageNo - 1),
+              pagination.pageSize,
+            ],
           },
         },
-      ])
-      .exec();
+      },
+    ]);
     return {
       list:
         res?.list.map((item) =>

@@ -7,4 +7,4 @@ import { BaseMongooseModule } from './dbModules';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class EnterModule {}
