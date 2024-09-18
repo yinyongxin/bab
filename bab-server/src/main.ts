@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './modules/app/AppModule';
+import { AppModule } from './modules';
 import { initSwagger } from './plugins/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 
@@ -11,9 +11,5 @@ async function bootstrap() {
 
   await app.listen(3000);
 }
-
-
-
-
 
 bootstrap();

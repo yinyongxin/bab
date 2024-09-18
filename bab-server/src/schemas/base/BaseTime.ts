@@ -1,7 +1,7 @@
 import { Prop } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import dayjs from 'dayjs';
-import { FORMAT } from 'src/config/dayjs';
+import { FORMAT } from '../../config/dayjs';
 
 export class BaseTime {
   @Prop({

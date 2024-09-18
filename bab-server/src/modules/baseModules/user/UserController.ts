@@ -22,7 +22,12 @@ import {
   UpdateUserDto,
   UserPaginationQueryResultDto,
 } from './dtos';
-import { DeleteIdsDto, PaginationDto, QueryIdDto, UpdateResDto } from 'src/dto';
+import {
+  DeleteIdsDto,
+  PaginationDto,
+  QueryIdDto,
+  UpdateResDto,
+} from '../../../dto';
 import { toInt } from 'radash';
 
 @ApiTags('用户')
