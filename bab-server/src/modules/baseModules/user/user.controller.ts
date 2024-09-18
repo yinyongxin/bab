@@ -14,7 +14,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { UserService } from './UserService';
+import { UserService } from './user.service';
 import {
   CreateUserBodyDto,
   QueryUserDto,
