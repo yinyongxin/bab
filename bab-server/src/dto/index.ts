@@ -64,6 +64,7 @@ export class ResultPaginationDto extends PaginationDto {
   @ApiProperty({
     required: true,
     description: '所有数量',
+    example: 1,
   })
   total: number;
 }
