@@ -5,10 +5,11 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import middlewares from './middlewares';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(EnterModule);
+  const app = await NestFactory.create<NestExpressApplication>(EnterModule, {
+    // 开启跨域
+    cors: true,
+  });
   initSwagger(app);
-  // 开启跨域
-  app.enableCors();
   middlewares.forEach((middleware) => {
     app.use(middleware);
   });
