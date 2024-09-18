@@ -4,57 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "6a2936d0a4354030",
+        "id": "81a6aad41cbf13de",
         "type": "tabs",
         "children": [
           {
-            "id": "e1e0a0eedf42259a",
+            "id": "62b3f0755dad1962",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
-              "state": {
-                "currentVersion": "1.5.3"
-              }
-            }
-          },
-          {
-            "id": "25bc5360d1784e92",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "1 安装构建.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "d9d59327406b29fa",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "1 安装构建.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "80bfb116e6d9b520",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "3 MongoDB数据库.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -91,14 +52,6 @@
                 "sortOrder": "alphabetical"
               }
             }
-          },
-          {
-            "id": "288f1ec10c319781",
-            "type": "leaf",
-            "state": {
-              "type": "bookmarks",
-              "state": {}
-            }
           }
         ]
       }
@@ -120,7 +73,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "3 MongoDB数据库.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -137,7 +89,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "3 MongoDB数据库.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -159,9 +110,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "3 MongoDB数据库.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -181,11 +130,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "80bfb116e6d9b520",
+  "active": "62b3f0755dad1962",
   "lastOpenFiles": [
-    "2 Swagger.md",
     "1 安装构建.md",
     "3 MongoDB数据库.md",
+    "2 Swagger.md",
     "mongodb.md",
     "未命名.canvas"
   ]
