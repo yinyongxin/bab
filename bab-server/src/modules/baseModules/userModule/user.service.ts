@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserBodyDto, QueryUserDto, UpdateUserDto } from './dtos';
-import { User } from '../../../schemas/user/index.';
+import { User } from '../../../schemas/user';
 import { toFuzzyParams } from '../../../utils/db/find';
-import { PaginationDto } from '../../../dto';
+import { PaginationDto } from '../../../dtos';
 import dayjs from 'dayjs';
 import { omit } from 'radash';
 

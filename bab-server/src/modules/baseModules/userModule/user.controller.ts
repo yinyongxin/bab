@@ -27,7 +27,7 @@ import {
   PaginationDto,
   QueryIdDto,
   UpdateResDto,
-} from '../../../dto';
+} from '../../../dtos';
 import { toInt } from 'radash';
 
 @ApiTags('用户')

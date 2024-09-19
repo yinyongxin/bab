@@ -1,5 +1,5 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
-import { User } from '../../../../schemas/user/index.';
+import { User } from '../../../../schemas/user';
 
 export class CreateUserBodyDto extends PickType(User, [
   'password',
