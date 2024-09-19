@@ -13,6 +13,7 @@ import {
   ApiOperation,
   ApiResponse,
   ApiTags,
+  IntersectionType,
 } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import {
@@ -24,6 +25,7 @@ import {
 } from './dto';
 import {
   DeleteIdsDto,
+  DeleteResDto,
   PaginationDto,
   QueryIdDto,
   UpdateResDto,
@@ -52,7 +54,7 @@ export class UsersController {
   @Delete('deleteByIds')
   @ApiResponse({
     description: '删除成功',
-    type: UpdateResDto,
+    type: IntersectionType(UpdateResDto, DeleteResDto),
   })
   @ApiOperation({
     description: '通过Ids删除用户',

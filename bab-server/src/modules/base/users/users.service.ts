@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { CreateUserBodyDto, QueryUserDto, UpdateUserDto } from './dto';
 import { Users } from '../../../db/schemas';
 import { toFuzzyParams } from '../../../db/tools';
 import { PaginationDto } from '../../../dtos';
 import dayjs from 'dayjs';
 import { omit } from 'radash';
+import { deleteByIds } from '../../../db/tools';
 
 @Injectable()
 export class UsersService {
@@ -37,13 +38,8 @@ export class UsersService {
     return res;
   }
 
-  async deleteByIds(idsToUpdate: string[]) {
-    const res = await this.userModel.updateMany(
-      { _id: { $in: idsToUpdate } },
-      {
-        deletedTime: dayjs(),
-      },
-    );
+  async deleteByIds(idsToUpdate: ObjectId[]) {
+    const res = await deleteByIds(this.userModel, idsToUpdate);
     return res;
   }
 
@@ -55,10 +51,15 @@ export class UsersService {
   }
 
   async updateOne(id: string, data: UpdateUserDto) {
-    const res = await this.userModel.findByIdAndUpdate(id, {
-      ...data,
-      updatedTime: dayjs(),
-    });
+    const res = await this.userModel
+      .updateOne(
+        { _id: id },
+        {
+          ...data,
+          updatedTime: dayjs(),
+        },
+      )
+      .exec();
     return res;
   }
 

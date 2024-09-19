@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ObjectId } from 'mongoose';
 export class QueryIdDto {
   @ApiProperty({
     required: true,
@@ -12,7 +13,7 @@ export class DeleteIdsDto {
     required: true,
     description: '删除Id列表',
   })
-  ids: string[];
+  ids: ObjectId[];
 }
 
 export class UpdateResDto {
@@ -41,6 +42,19 @@ export class UpdateResDto {
     description: '匹配数量',
   })
   matchedCount?: number;
+}
+
+export class DeleteResDto {
+  @ApiProperty({
+    required: true,
+    description: '是否成功',
+  })
+  acknowledged: boolean;
+  @ApiProperty({
+    required: false,
+    description: '匹配数量',
+  })
+  deletedCount?: number;
 }
 
 export class PaginationDto {
