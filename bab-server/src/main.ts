@@ -9,8 +9,9 @@ async function bootstrap() {
     // 开启跨域
     cors: true,
   });
-  
+
   initSwagger(app);
+
   middlewares.forEach((middleware) => {
     app.use(middleware);
   });

@@ -49,20 +49,6 @@ export class UsersController {
     return res;
   }
 
-  @Get('findById')
-  @ApiOkResponse({
-    description: '查找成功',
-    type: ResultUserDto,
-  })
-  @ApiOperation({
-    description: '通过Id查找用户',
-    summary: '通过Id查找用户',
-  })
-  async findById(@Query() query: QueryIdDto) {
-    const res = await this.usersService.findById(query.id);
-    return res;
-  }
-
   @Delete('deleteByIds')
   @ApiResponse({
     description: '删除成功',
@@ -77,20 +63,6 @@ export class UsersController {
     return res;
   }
 
-  @Post('findAllByFields')
-  @ApiOkResponse({
-    description: '查询成功',
-    type: [ResultUserDto],
-  })
-  @ApiOperation({
-    description: '通过字段值查询所有数据',
-    summary: '通过字段值查询所有数据',
-  })
-  async findAllByFields(@Body() body: QueryUserDto) {
-    const res = await this.usersService.findAllByFields(body);
-    return res;
-  }
-
   @Patch('updateOne')
   @ApiResponse({
     description: '更新结果',
@@ -102,6 +74,34 @@ export class UsersController {
   })
   async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateUserDto) {
     const res = await this.usersService.updateOne(query.id, body);
+    return res;
+  }
+
+  @Get('findById')
+  @ApiOkResponse({
+    description: '查找成功',
+    type: ResultUserDto,
+  })
+  @ApiOperation({
+    description: '通过Id查找用户',
+    summary: '通过Id查找用户',
+  })
+  async findById(@Query() query: QueryIdDto) {
+    const res = await this.usersService.findById(query.id);
+    return res;
+  }
+
+  @Post('findAllByFields')
+  @ApiOkResponse({
+    description: '查询成功',
+    type: [ResultUserDto],
+  })
+  @ApiOperation({
+    description: '通过字段值查询所有数据',
+    summary: '通过字段值查询所有数据',
+  })
+  async findAllByFields(@Body() body: QueryUserDto) {
+    const res = await this.usersService.findAllByFields(body);
     return res;
   }
 
