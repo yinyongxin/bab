@@ -21,7 +21,7 @@ import {
   ResultUserDto,
   UpdateUserDto,
   UserPaginationQueryResultDto,
-} from './dtos';
+} from './dto';
 import {
   DeleteIdsDto,
   PaginationDto,
