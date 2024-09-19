@@ -4,7 +4,7 @@ import { BaseDocument } from '../base';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Schema()
-export class User extends BaseDocument {
+export class Users extends BaseDocument {
   /**
    * 用户名
    */
@@ -87,15 +87,15 @@ export class User extends BaseDocument {
   roles: Types.ObjectId[];
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const UsersSchema = SchemaFactory.createForClass(Users);
 
-UserSchema.set('toJSON', {
+UsersSchema.set('toJSON', {
   getters: true,
 });
 
 export const UserMongooseModule = MongooseModule.forFeature([
   {
-    name: User.name,
-    schema: UserSchema,
+    name: Users.name,
+    schema: UsersSchema,
   },
 ]);

@@ -1,6 +1,6 @@
 import { OmitType, PartialType } from '@nestjs/swagger';
-import { User } from '../../../../schemas/user';
+import { Users } from '../../../../db/schemas';
 
 export class QueryUserDto extends PartialType(
-  OmitType(User, ['password', 'deletedTime']),
+  OmitType(Users, ['password', 'deletedTime']),
 ) {}

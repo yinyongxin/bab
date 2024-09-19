@@ -14,7 +14,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { UserService } from './user.service';
+import { UsersService } from './users.service';
 import {
   CreateUserBodyDto,
   QueryUserDto,
@@ -31,9 +31,9 @@ import {
 import { toInt } from 'radash';
 
 @ApiTags('用户')
-@Controller('user')
-export class UserController {
-  constructor(private readonly userService: UserService) {}
+@Controller('users')
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
 
   @Put('addOne')
   @ApiOkResponse({
@@ -45,7 +45,7 @@ export class UserController {
     summary: '添加一个用户',
   })
   async addOne(@Body() body: CreateUserBodyDto) {
-    const res = await this.userService.addOne(body);
+    const res = await this.usersService.addOne(body);
     return res;
   }
 
@@ -59,7 +59,7 @@ export class UserController {
     summary: '通过Id查找用户',
   })
   async findById(@Query() query: QueryIdDto) {
-    const res = await this.userService.findById(query.id);
+    const res = await this.usersService.findById(query.id);
     return res;
   }
 
@@ -73,7 +73,7 @@ export class UserController {
     summary: '通过Id删除用户',
   })
   async deleteByIds(@Body() body: DeleteIdsDto) {
-    const res = await this.userService.deleteByIds(body.ids);
+    const res = await this.usersService.deleteByIds(body.ids);
     return res;
   }
 
@@ -87,7 +87,7 @@ export class UserController {
     summary: '通过字段值查询所有数据',
   })
   async findAllByFields(@Body() body: QueryUserDto) {
-    const res = await this.userService.findAllByFields(body);
+    const res = await this.usersService.findAllByFields(body);
     return res;
   }
 
@@ -101,7 +101,7 @@ export class UserController {
     summary: '更新单条数据',
   })
   async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateUserDto) {
-    const res = await this.userService.updateOne(query.id, body);
+    const res = await this.usersService.updateOne(query.id, body);
     return res;
   }
 
@@ -118,7 +118,7 @@ export class UserController {
     @Query() pagination: PaginationDto,
     @Body() body: QueryUserDto,
   ) {
-    const res = await this.userService.getPageList(
+    const res = await this.usersService.getPageList(
       {
         pageNo: toInt(pagination.pageNo),
         pageSize: toInt(pagination.pageSize),
