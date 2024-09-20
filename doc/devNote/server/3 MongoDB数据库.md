@@ -2,6 +2,65 @@
 
 需要在无权限时先初始化副本集在开启权限
 
+> 1 无权限启动数据库
+
+```bash
+mongod --dbpath D:\MongoDB\Server\8.0\data --logpath D:\MongoDB\Server\8.0\log\mongod.log --replSet rs0
+```
+
+> 2 创建用户并增加权限
+
+```bash
+use bab
+db.createUser({
+    user: "babAdmin",
+    pwd: "babAdmin",
+    roles: [
+       {
+            role: "dbAdmin",
+            db: "bab"
+        },
+        {
+            role: "readWrite",
+            db: "bab"
+        },
+        {
+            role: "enableSharding",
+            db: "bab"
+        },
+        {
+            role: "dbOwner",
+            db: "bab"
+        },
+        {
+            role: "read",
+            db: "bab"
+        },
+        {
+            role: "userAdmin",
+            db: "bab"
+        }
+    ],
+    authenticationRestrictions: [ ]
+})
+```
+
+> 3 初始化副本集
+
+```bash
+mongosh
+```
+
+```shell
+rs.initiate()
+```
+
+> 4 同时开启权限和副本集
+
+```bash
+mongod --dbpath D:\MongoDB\Server\8.0\data --logpath D:\MongoDB\Server\8.0\log\mongod.log --replSet rs0 --auth --keyFile D:\MongoDB\Server\8.0\bin\keyFile.key 
+```
+
 ## 安装
 
 [自管理部署](https://www.mongodb.com/zh-cn/docs/manual/self-managed-deployments/)
@@ -124,13 +183,7 @@ _this node was not started with the replSet option_
 mongod --replSet=rs0
 ```
 
-> 初始化副本集
 
-```bash
-mongo
-
-> rs.initiate()
-```
 
 ## 常用操作
 
