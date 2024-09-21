@@ -46,6 +46,7 @@ db.createUser({
 ```
 
 > 3 初始化副本集
+> 您只需启动副本集一次。
 
 ```bash
 mongosh
@@ -115,7 +116,9 @@ db.updateUser("babAdmin", {
         }
     ]
 })
+```
 
+```shell
 db.auth({"user":"babAdmin","pwd":"babAdmin"})
 ```
 

@@ -2,12 +2,12 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { CreateUserBodyDto, QueryUserDto, UpdateUserDto } from './dto';
-import { Users } from '../../../db/schemas';
-import { toFuzzyParams } from '../../../db/tools';
+import { Users } from '../../../mongo/base';
+import { toFuzzyParams } from '../../../mongo/tools';
 import { PaginationDto } from '../../../dtos';
 import dayjs from 'dayjs';
 import { omit } from 'radash';
-import { deleteByIds } from '../../../db/tools';
+import { deleteByIds } from '../../../mongo/tools';
 
 @Injectable()
 export class UsersService {

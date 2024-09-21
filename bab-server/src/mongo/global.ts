@@ -1,7 +1,7 @@
 import { Prop } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import dayjs from 'dayjs';
-import { FORMAT } from '../../../config';
+import { FORMAT } from '../config';
 import { Document } from 'mongoose';
 
 export class BaseTimeDocument extends Document {
@@ -38,3 +38,5 @@ export class BaseTimeDocument extends Document {
   /** 更新日期 */
   updatedTime: Date;
 }
+
+export class BaseDocument extends BaseTimeDocument {}

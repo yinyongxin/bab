@@ -1,6 +1,6 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
-import { BaseDocument } from '../base';
+import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Schema()
@@ -13,7 +13,7 @@ export class Users extends BaseDocument {
     required: true,
   })
   // swagger
-  @ApiProperty({ required: true, description: '用户名' })
+  @ApiProperty({ required: true, description: '用户名', example: 'username' })
   username: string;
 
   /**
@@ -23,7 +23,7 @@ export class Users extends BaseDocument {
     required: true,
   })
   // swaggerF
-  @ApiProperty({ required: true, description: '密码' })
+  @ApiProperty({ required: true, description: '密码', example: '123456' })
   password: string;
 
   /**
@@ -33,7 +33,7 @@ export class Users extends BaseDocument {
     default: null,
   })
   // swagger
-  @ApiProperty({ required: false, description: '头像' })
+  @ApiProperty({ required: false, description: '头像', example: '' })
   avatar: string;
 
   /**
@@ -43,7 +43,7 @@ export class Users extends BaseDocument {
     default: null,
   })
   // swagger
-  @ApiProperty({ required: false, description: '姓名' })
+  @ApiProperty({ required: false, description: '姓名', example: '' })
   name: string;
 
   /**
@@ -54,7 +54,7 @@ export class Users extends BaseDocument {
     default: 0,
   })
   // swagger
-  @ApiProperty({ required: false, description: '年龄' })
+  @ApiProperty({ required: false, description: '年龄', example: '0' })
   age: number;
 
   /**
@@ -64,7 +64,7 @@ export class Users extends BaseDocument {
     default: null,
   })
   // swagger
-  @ApiProperty({ required: false, description: '电话号码' })
+  @ApiProperty({ required: false, description: '电话号码', example: '' })
   phone: string;
 
   /**
@@ -74,16 +74,15 @@ export class Users extends BaseDocument {
     default: null,
   })
   // swagger
-  @ApiProperty({ required: false, description: '邮箱' })
+  @ApiProperty({ required: false, description: '邮箱', example: '' })
   email: string;
 
   /** 角色类型 */
   @Prop({
     type: Array,
     default: [],
-    ref: 'roles',
   })
-  @ApiProperty({ type: Array, description: '角色列表' })
+  @ApiProperty({ type: Array, description: '角色列表', example: [] })
   roles: Types.ObjectId[];
 }
 

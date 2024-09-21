@@ -22,24 +22,36 @@ export class UpdateResDto {
     description: '是否成功',
   })
   acknowledged: boolean;
+
+  /** 
+   * 更新数量
+   */
   @ApiProperty({
     required: false,
     description: '更新数量',
   })
   modifiedCount?: number;
+
+
   @ApiProperty({
     required: false,
     description: '更新插入id',
   })
   upsertedId?: null | string;
+
+  
   @ApiProperty({
     required: false,
     description: '更新插入数量',
   })
   upsertedCount?: number;
+
+  /**
+   * 符合更新条件的数量
+   */
   @ApiProperty({
     required: false,
-    description: '匹配数量',
+    description: '符合更新条件的数量',
   })
   matchedCount?: number;
 }

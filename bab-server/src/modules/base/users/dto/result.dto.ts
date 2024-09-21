@@ -1,7 +1,7 @@
 import { OmitType, ApiProperty } from '@nestjs/swagger';
 import { ObjectId } from 'mongoose';
 import { ResultPaginationDto } from '../../../../dtos';
-import { Users } from '../../../../db/schemas';
+import { Users } from '../../../../mongo/base';
 
 export class ResultUserDto extends OmitType(Users, [
   'password',
