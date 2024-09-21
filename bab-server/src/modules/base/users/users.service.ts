@@ -65,65 +65,35 @@ export class UsersService {
 
   async getPageList(pagination: PaginationDto, data: UpdateUserDto) {
     const [res] = await this.userModel.aggregate([
-      {
-        $sort: {
-          createdTime: -1,
-        },
-      },
-      {
-        $match: toFuzzyParams(data),
-      },
-      {
-        $group: {
-          _id: null,
-          total: { $sum: 1 },
-          list: {
-            $push: {
-              data: '$$ROOT',
-              dateData: {
-                createdTime: {
-                  $dateToString: {
-                    format: '%Y-%m-%d %H:%M:%S',
-                    date: '$createdTime',
-                  },
-                },
-                updatedTime: {
-                  $dateToString: {
-                    format: '%Y-%m-%d %H:%M:%S',
-                    date: '$updatedTime',
-                  },
-                },
-                deletedTime: {
-                  $dateToString: {
-                    format: '%Y-%m-%d %H:%M:%S',
-                    date: '$deletedTime',
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
+      { $match: toFuzzyParams(data) },
+      { $sort: { createdTime: -1 } },
       {
         $project: {
-          _id: 0,
-          total: '$total',
-          list: {
-            $slice: [
-              '$list',
-              pagination.pageSize * (pagination.pageNo - 1),
-              pagination.pageSize,
-            ],
-          },
+          password: 0,
+        },
+      },
+      {
+        $facet: {
+          metadata: [{ $count: 'total' }],
+          list: [
+            { $skip: pagination.pageSize * (pagination.pageNo - 1) },
+            { $limit: pagination.pageSize },
+          ],
+        },
+      },
+      { $unwind: '$metadata' },
+      {
+        $project: {
+          total: '$metadata.total',
+          list: 1,
         },
       },
     ]);
     return {
-      list:
-        res?.list.map((item) =>
-          omit({ ...item.data, ...item.dateData }, ['password']),
-        ) || [],
-      total: res?.total ?? 0,
+      ...(res || {
+        list: [],
+        total: 0,
+      }),
       ...pagination,
     };
   }
