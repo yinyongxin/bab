@@ -56,7 +56,10 @@ export class UsersService {
         { _id: id },
         {
           ...data,
-          updatedTime: dayjs(),
+          // 更新updatedTime为当前时间
+          $currentDate: {
+            updatedTime: true,
+          }
         },
       )
       .exec();

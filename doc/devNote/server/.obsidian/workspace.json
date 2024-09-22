@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "81a6aad41cbf13de",
+        "id": "ad45e93f98a755b9",
         "type": "tabs",
         "children": [
           {
-            "id": "62b3f0755dad1962",
+            "id": "5c50923a7867ec27",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -51,6 +51,14 @@
                 "extraContext": false,
                 "sortOrder": "alphabetical"
               }
+            }
+          },
+          {
+            "id": "e90406392812e5f4",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
             }
           }
         ]
@@ -130,11 +138,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "62b3f0755dad1962",
+  "active": "bb1ca0ae4d5ad55e",
   "lastOpenFiles": [
-    "1 安装构建.md",
+    "未命名",
     "3 MongoDB数据库.md",
     "2 Swagger.md",
+    "1 安装构建.md",
     "mongodb.md",
     "未命名.canvas"
   ]

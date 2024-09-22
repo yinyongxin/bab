@@ -177,23 +177,3 @@ mongod --auth --replSet rs0 --keyFile D:\MongoDB\Server\5.0\bin\keyFile.key --db
 
 **MongoDB 的事务只能在开启副本集的时候才能使用,
 MongoDB 安装后默认是单副本，我们可以将其转换成多副本后再运行事务**
-
-_this node was not started with the replSet option_
-
-> 启动 mongodb 加选项
-
-```bash
-mongod --replSet=rs0
-```
-
-
-
-## 常用操作
-
-关闭服务
-
-```bash
-mongo
-
-> db.shutdownServer();
-```
