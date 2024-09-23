@@ -31,6 +31,7 @@ import {
   UpdateResDto,
 } from '../../../dtos';
 import { toInt } from 'radash';
+import { Public } from '../../../decorators';
 
 @ApiTags('用户')
 @Controller('users')
@@ -107,6 +108,7 @@ export class UsersController {
     return res;
   }
 
+  @Public()
   @Post('getPageList')
   @ApiResponse({
     description: '获取分页列表',

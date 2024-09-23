@@ -38,6 +38,10 @@ export class UsersService {
     return res;
   }
 
+  async findOneByUsername(username: string) {
+    return this.userModel.findOne({username});
+  }
+
   async deleteByIds(idsToUpdate: ObjectId[]) {
     const res = await deleteByIds(this.userModel, idsToUpdate);
     return res;

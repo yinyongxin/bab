@@ -1,5 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PickType } from '@nestjs/swagger';
 import { ObjectId } from 'mongoose';
+import { Users } from 'src/mongo/base';
 export class QueryIdDto {
   @ApiProperty({
     required: true,
@@ -23,7 +24,7 @@ export class UpdateResDto {
   })
   acknowledged: boolean;
 
-  /** 
+  /**
    * 更新数量
    */
   @ApiProperty({
@@ -32,14 +33,12 @@ export class UpdateResDto {
   })
   modifiedCount?: number;
 
-
   @ApiProperty({
     required: false,
     description: '更新插入id',
   })
   upsertedId?: null | string;
 
-  
   @ApiProperty({
     required: false,
     description: '更新插入数量',
