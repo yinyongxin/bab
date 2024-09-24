@@ -1,9 +1,9 @@
 import { OmitType, ApiProperty } from '@nestjs/swagger';
 import { ObjectId } from 'mongoose';
 import { ResultPaginationDto } from '../../../../dtos';
-import { Users } from '../../../../mongo/base';
+import { Admintors } from '../../../../mongo/base';
 
-export class ResultUserDto extends OmitType(Users, [
+export class ResultAdmintorDto extends OmitType(Admintors, [
   'password',
   'deletedTime',
 ]) {
@@ -15,11 +15,11 @@ export class ResultUserDto extends OmitType(Users, [
   _id: ObjectId;
 }
 
-export class UserPaginationQueryResultDto extends ResultPaginationDto {
+export class AdmintorPaginationQueryResultDto extends ResultPaginationDto {
   @ApiProperty({
     required: true,
     description: '所有数量',
-    type: [ResultUserDto],
+    type: [ResultAdmintorDto],
   })
-  list: ResultUserDto[];
+  list: ResultAdmintorDto[];
 }

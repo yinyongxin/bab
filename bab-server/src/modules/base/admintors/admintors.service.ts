@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { CreateUserBodyDto, QueryUserDto, UpdateUserDto } from './dto';
-import { Users } from '../../../mongo/base';
+import { CreateAdmintorBodyDto, QueryAdmintorDto, UpdateAdmintorDto } from './dto';
+import { Admintors } from '../../../mongo/base';
 import { toFuzzyParams } from '../../../mongo/tools';
 import { PaginationDto } from '../../../dtos';
 import dayjs from 'dayjs';
@@ -10,15 +10,15 @@ import { omit } from 'radash';
 import { deleteByIds } from '../../../mongo/tools';
 
 @Injectable()
-export class UsersService {
-  constructor(@InjectModel(Users.name) private userModel: Model<Users>) {}
+export class AdmintorsService {
+  constructor(@InjectModel(Admintors.name) private userModel: Model<Admintors>) {}
 
-  async addOne(data: CreateUserBodyDto) {
+  async addOne(data: CreateAdmintorBodyDto) {
     const session = await this.userModel.startSession();
     try {
       session.startTransaction();
-      const createdUser = new this.userModel(data);
-      const res = await createdUser.save({
+      const createdAdmintor = new this.userModel(data);
+      const res = await createdAdmintor.save({
         session,
       });
       await session.commitTransaction();
@@ -38,7 +38,7 @@ export class UsersService {
     return res;
   }
 
-  async findOneByUsername(username: string) {
+  async findOneByAdmintorname(username: string) {
     return this.userModel.findOne({username});
   }
 
@@ -47,14 +47,14 @@ export class UsersService {
     return res;
   }
 
-  async findAllByFields(data: QueryUserDto) {
+  async findAllByFields(data: QueryAdmintorDto) {
     const res = await this.userModel.find(toFuzzyParams(data), {
       password: false,
     });
     return res;
   }
 
-  async updateOne(id: string, data: UpdateUserDto) {
+  async updateOne(id: string, data: UpdateAdmintorDto) {
     const res = await this.userModel
       .updateOne(
         { _id: id },
@@ -70,7 +70,7 @@ export class UsersService {
     return res;
   }
 
-  async getPageList(pagination: PaginationDto, data: UpdateUserDto) {
+  async getPageList(pagination: PaginationDto, data: UpdateAdmintorDto) {
     const [res] = await this.userModel.aggregate([
       { $match: toFuzzyParams(data) },
       { $sort: { createdTime: -1 } },

@@ -4,7 +4,7 @@ import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Schema()
-export class Users extends BaseDocument {
+export class Admintors extends BaseDocument {
   /**
    * 用户名
    */
@@ -76,25 +76,17 @@ export class Users extends BaseDocument {
   // swagger
   @ApiProperty({ required: false, description: '邮箱', example: '' })
   email: string;
-
-  /** 角色类型 */
-  @Prop({
-    type: Array,
-    default: [],
-  })
-  @ApiProperty({ type: Array, description: '角色列表', example: [] })
-  roles: Types.ObjectId[];
 }
 
-export const UsersSchema = SchemaFactory.createForClass(Users);
+export const AdmintorsSchema = SchemaFactory.createForClass(Admintors);
 
-UsersSchema.set('toJSON', {
+AdmintorsSchema.set('toJSON', {
   getters: true,
 });
 
-export const UserMongooseModule = MongooseModule.forFeature([
+export const AdmintorMongooseModule = MongooseModule.forFeature([
   {
-    name: Users.name,
-    schema: UsersSchema,
+    name: Admintors.name,
+    schema: AdmintorsSchema,
   },
 ]);

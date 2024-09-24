@@ -12,7 +12,7 @@ mongod --dbpath D:\MongoDB\Server\8.0\data --logpath D:\MongoDB\Server\8.0\log\m
 
 ```bash
 use bab
-db.createUser({
+db.createAdmintor({
     user: "babAdmin",
     pwd: "babAdmin",
     roles: [
@@ -76,7 +76,7 @@ MongoDB version v5.0.6
 
 ```shell
 use bab
-db.createUser({
+db.createAdmintor({
     user: "babAdmin",
     pwd: "babAdmin",
     roles: [
@@ -88,7 +88,7 @@ db.createUser({
     authenticationRestrictions: [ ]
 })
 
-db.updateUser("babAdmin", {
+db.updateAdmintor("babAdmin", {
     roles: [
         {
             role: "dbAdmin",

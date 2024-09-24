@@ -15,13 +15,13 @@ import {
   ApiTags,
   IntersectionType,
 } from '@nestjs/swagger';
-import { UsersService } from './users.service';
+import { AdmintorsService } from './admintors.service';
 import {
-  CreateUserBodyDto,
-  QueryUserDto,
-  ResultUserDto,
-  UpdateUserDto,
-  UserPaginationQueryResultDto,
+  CreateAdmintorBodyDto,
+  QueryAdmintorDto,
+  ResultAdmintorDto,
+  UpdateAdmintorDto,
+  AdmintorPaginationQueryResultDto,
 } from './dto';
 import {
   DeleteIdsDto,
@@ -34,20 +34,20 @@ import { toInt } from 'radash';
 import { Public } from '../../../decorators';
 
 @ApiTags('用户')
-@Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+@Controller('admintors')
+export class AdmintorsController {
+  constructor(private readonly usersService: AdmintorsService) {}
 
   @Put('addOne')
   @ApiOkResponse({
     description: '添加用户成功',
-    type: ResultUserDto,
+    type: ResultAdmintorDto,
   })
   @ApiOperation({
     description: '添加一个用户',
     summary: '添加一个用户',
   })
-  async addOne(@Body() body: CreateUserBodyDto) {
+  async addOne(@Body() body: CreateAdmintorBodyDto) {
     const res = await this.usersService.addOne(body);
     return res;
   }
@@ -75,7 +75,7 @@ export class UsersController {
     description: '更新单条数据',
     summary: '更新单条数据',
   })
-  async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateUserDto) {
+  async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateAdmintorDto) {
     const res = await this.usersService.updateOne(query.id, body);
     return res;
   }
@@ -83,7 +83,7 @@ export class UsersController {
   @Get('findById')
   @ApiOkResponse({
     description: '查找成功',
-    type: ResultUserDto,
+    type: ResultAdmintorDto,
   })
   @ApiOperation({
     description: '通过Id查找用户',
@@ -97,13 +97,13 @@ export class UsersController {
   @Post('findAllByFields')
   @ApiOkResponse({
     description: '查询成功',
-    type: [ResultUserDto],
+    type: [ResultAdmintorDto],
   })
   @ApiOperation({
     description: '通过字段值查询所有数据',
     summary: '通过字段值查询所有数据',
   })
-  async findAllByFields(@Body() body: QueryUserDto) {
+  async findAllByFields(@Body() body: QueryAdmintorDto) {
     const res = await this.usersService.findAllByFields(body);
     return res;
   }
@@ -112,7 +112,7 @@ export class UsersController {
   @Post('getPageList')
   @ApiResponse({
     description: '获取分页列表',
-    type: UserPaginationQueryResultDto,
+    type: AdmintorPaginationQueryResultDto,
   })
   @ApiOperation({
     description: '获取分页列表',
@@ -120,7 +120,7 @@ export class UsersController {
   })
   async getPageList(
     @Query() pagination: PaginationDto,
-    @Body() body: QueryUserDto,
+    @Body() body: QueryAdmintorDto,
   ) {
     const res = await this.usersService.getPageList(
       {
