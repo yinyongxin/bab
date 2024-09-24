@@ -71,12 +71,14 @@ export class PaginationDto {
   @ApiProperty({
     required: true,
     description: '当前页面',
+    minimum: 1,
     example: 1,
   })
   pageNo: number;
   @ApiProperty({
     required: true,
     description: '分页大小',
+    minimum: 1,
     example: 10,
   })
   pageSize: number;
