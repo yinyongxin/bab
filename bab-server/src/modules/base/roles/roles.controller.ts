@@ -15,13 +15,13 @@ import {
   ApiTags,
   IntersectionType,
 } from '@nestjs/swagger';
-import { AdmintorsService } from './admintors.service';
+import { RolesService } from './roles.service';
 import {
-  CreateAdmintorBodyDto,
-  QueryAdmintorDto,
-  ResultAdmintorDto,
-  UpdateAdmintorDto,
-  AdmintorPaginationQueryResultDto,
+  CreateRoleBodyDto,
+  QueryRoleDto,
+  ResultRoleDto,
+  UpdateRoleDto,
+  RolePaginationQueryResultDto,
 } from './dto';
 import {
   DeleteIdsDto,
@@ -33,21 +33,21 @@ import {
 import { toInt } from 'radash';
 import { Public } from '../../../decorators';
 
-@ApiTags('管理人员')
-@Controller('admintors')
-export class AdmintorsController {
-  constructor(private readonly usersService: AdmintorsService) {}
+@ApiTags('角色')
+@Controller('roles')
+export class RolesController {
+  constructor(private readonly usersService: RolesService) {}
 
   @Put('addOne')
   @ApiOkResponse({
-    description: '添加管理人员成功',
-    type: ResultAdmintorDto,
+    description: '添加角色成功',
+    type: ResultRoleDto,
   })
   @ApiOperation({
-    description: '添加一个管理人员',
-    summary: '添加一个管理人员',
+    description: '添加一个角色',
+    summary: '添加一个角色',
   })
-  async addOne(@Body() body: CreateAdmintorBodyDto) {
+  async addOne(@Body() body: CreateRoleBodyDto) {
     const res = await this.usersService.addOne(body);
     return res;
   }
@@ -58,8 +58,8 @@ export class AdmintorsController {
     type: IntersectionType(UpdateResDto, DeleteResDto),
   })
   @ApiOperation({
-    description: '通过Ids删除管理人员',
-    summary: '通过Id删除管理人员',
+    description: '通过Ids删除角色',
+    summary: '通过Id删除角色',
   })
   async deleteByIds(@Body() body: DeleteIdsDto) {
     const res = await this.usersService.deleteByIds(body.ids);
@@ -75,7 +75,7 @@ export class AdmintorsController {
     description: '更新单条数据',
     summary: '更新单条数据',
   })
-  async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateAdmintorDto) {
+  async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateRoleDto) {
     const res = await this.usersService.updateOne(query.id, body);
     return res;
   }
@@ -83,11 +83,11 @@ export class AdmintorsController {
   @Get('findById')
   @ApiOkResponse({
     description: '查找成功',
-    type: ResultAdmintorDto,
+    type: ResultRoleDto,
   })
   @ApiOperation({
-    description: '通过Id查找管理人员',
-    summary: '通过Id查找管理人员',
+    description: '通过Id查找角色',
+    summary: '通过Id查找角色',
   })
   async findById(@Query() query: QueryIdDto) {
     const res = await this.usersService.findById(query.id);
@@ -97,13 +97,13 @@ export class AdmintorsController {
   @Post('findAllByFields')
   @ApiOkResponse({
     description: '查询成功',
-    type: [ResultAdmintorDto],
+    type: [ResultRoleDto],
   })
   @ApiOperation({
     description: '通过字段值查询所有数据',
     summary: '通过字段值查询所有数据',
   })
-  async findAllByFields(@Body() body: QueryAdmintorDto) {
+  async findAllByFields(@Body() body: QueryRoleDto) {
     const res = await this.usersService.findAllByFields(body);
     return res;
   }
@@ -112,7 +112,7 @@ export class AdmintorsController {
   @Post('getPageList')
   @ApiResponse({
     description: '获取分页列表',
-    type: AdmintorPaginationQueryResultDto,
+    type: RolePaginationQueryResultDto,
   })
   @ApiOperation({
     description: '获取分页列表',
@@ -120,7 +120,7 @@ export class AdmintorsController {
   })
   async getPageList(
     @Query() pagination: PaginationDto,
-    @Body() body: QueryAdmintorDto,
+    @Body() body: QueryRoleDto,
   ) {
     const res = await this.usersService.getPageList(
       {

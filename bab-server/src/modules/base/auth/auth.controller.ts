@@ -29,7 +29,7 @@ export class AuthController {
     summary: '登录',
   })
   @ApiOkResponse({
-    description: 'Token和用户信息',
+    description: 'Token和管理人员信息',
     type: ResultAdmintorDto,
   })
   @Post('login')

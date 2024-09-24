@@ -2,18 +2,23 @@ import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
 import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
+import { AdmintorStatusEnum } from 'src/enums';
 
 @Schema()
 export class Admintors extends BaseDocument {
   /**
-   * 用户名
+   * 管理人员名
    */
   @Prop({
     unique: true,
     required: true,
   })
   // swagger
-  @ApiProperty({ required: true, description: '用户名', example: 'username' })
+  @ApiProperty({
+    required: true,
+    description: '管理人员名称',
+    example: 'admin',
+  })
   username: string;
 
   /**
@@ -76,6 +81,19 @@ export class Admintors extends BaseDocument {
   // swagger
   @ApiProperty({ required: false, description: '邮箱', example: '' })
   email: string;
+
+  @Prop({
+    default: AdmintorStatusEnum.Open,
+    required: true,
+    enum: AdmintorStatusEnum,
+  })
+  @ApiProperty({
+    description: '状态',
+    example: AdmintorStatusEnum.Open,
+    enum: AdmintorStatusEnum,
+    // enumName: 'AdmintorStatus',
+  })
+  status: string;
 }
 
 export const AdmintorsSchema = SchemaFactory.createForClass(Admintors);
@@ -84,7 +102,7 @@ AdmintorsSchema.set('toJSON', {
   getters: true,
 });
 
-export const AdmintorMongooseModule = MongooseModule.forFeature([
+export const AdmintorsMongooseModule = MongooseModule.forFeature([
   {
     name: Admintors.name,
     schema: AdmintorsSchema,

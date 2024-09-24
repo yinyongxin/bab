@@ -6,7 +6,7 @@ export class CreateAdmintorBodyDto extends PickType(Admintors, [
   'username',
 ]) {
   @ApiProperty({
-    example: 'username',
+    example: 'admin',
   })
   username: string;
   @ApiProperty({

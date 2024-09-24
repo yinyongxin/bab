@@ -8,7 +8,7 @@
 mongod --dbpath D:\MongoDB\Server\8.0\data --logpath D:\MongoDB\Server\8.0\log\mongod.log --replSet rs0
 ```
 
-> 2 创建用户并增加权限
+> 2 创建管理人员并增加权限
 
 ```bash
 use bab
@@ -148,7 +148,7 @@ mongod --dbpath D:\MongoDB\Server\8.0\data --logpath D:\MongoDB\Server\8.0\log\m
 | --dbpath D:\MongoDB\Server\5.0\data            |           数据存放地址            |
 | --logpath D:\MongoDB\Server\5.0\log\mongod.log |           日志存放地址            |
 | --bind_ip 0.0.0.0                              |           外网可以访问            |
-| --auth                                         |           开启用户验证            |
+| --auth                                         |           开启管理人员验证            |
 | --keyFile                                      | 密钥(开启验证和副本集&事务时需要) |
 
 ## Linux (生产环境)
@@ -168,7 +168,7 @@ mongod --auth --replSet rs0 --keyFile D:\MongoDB\Server\5.0\bin\keyFile.key --db
 | --logpath /var/log/mongodb/mongod.log |            日志存放地址            |
 | --fork                                | 以守护程序的方式启用，即在后台运行 |
 | --bind_ip 0.0.0.0                     |            外网可以访问            |
-| --auth                                |            开启用户验证            |
+| --auth                                |            开启管理人员验证            |
 | --keyFile                             | 密钥(开启验证和副本集&事务时需要)  |
 
 ## 配置
