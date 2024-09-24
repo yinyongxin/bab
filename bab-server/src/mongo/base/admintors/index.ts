@@ -1,13 +1,12 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
 import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
-import { AdmintorStatusEnum } from 'src/enums';
+import { AdmintorStatusEnum } from '../../../enums';
 
 @Schema()
 export class Admintors extends BaseDocument {
   /**
-   * 管理人员名
+   * 管理人员名称
    */
   @Prop({
     unique: true,
