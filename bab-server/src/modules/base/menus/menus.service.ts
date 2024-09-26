@@ -59,7 +59,7 @@ export class MenusService {
     const getTree = (parentId: Types.ObjectId) => {
       const list = dataList.filter((dataItem) => dataItem.parent === parentId);
       return list.map((listItem) => {
-        return { children: getTree(listItem._id), ...listItem.toJSON() };
+        return { children: getTree(listItem.id), ...listItem.toJSON() };
       });
     };
     return getTree(null) as TreeData<

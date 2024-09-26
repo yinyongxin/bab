@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Menus } from '../../../../mongo/base';
+import { Types } from 'mongoose';
 
 export * from './create.dto';
 export * from './query.dto';
@@ -13,5 +14,11 @@ export class TreeMenuDataDto extends Menus {
     type: Array(TreeMenuDataDto),
     examples: [],
   })
-  children: TreeMenuDataDto[];
+  children: Array<TreeMenuDataDto>;
+  @ApiProperty({
+    required: true,
+    description: '唯一值',
+    type: String,
+  })
+  _id: Types.ObjectId;
 }
