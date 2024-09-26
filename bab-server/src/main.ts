@@ -1,11 +1,11 @@
 import { NestFactory } from '@nestjs/core';
-import { EnterModule } from './modules';
+import { AppModule } from './modules';
 import { initSwagger } from './plugins/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import middlewares from './middlewares';
 declare const module: any;
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(EnterModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     /**
      * 开启跨域
      * https://docs.nestjs.com/security/cors

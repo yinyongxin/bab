@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { BaseMongooseModule } from '../mongo';
-import { RolesModule, AuthModule, AdmintorsModule } from './base';
+import BaseModuleList from './base';
 
 @Module({
-  imports: [BaseMongooseModule, AuthModule, AdmintorsModule, RolesModule],
+  imports: [BaseMongooseModule, ...BaseModuleList],
   controllers: [],
   providers: [],
 })
-export class EnterModule {}
+export class AppModule {}
