@@ -1,6 +1,5 @@
 import { OmitType, ApiProperty } from '@nestjs/swagger';
-import { ObjectId } from 'mongoose';
-import { ResultPaginationDto } from '../../../../dtos';
+import { Types } from 'mongoose';
 import { Menus } from '../../../../mongo/base';
 
 export class ResultMenuDto extends OmitType(Menus, ['deletedTime']) {
@@ -9,5 +8,5 @@ export class ResultMenuDto extends OmitType(Menus, ['deletedTime']) {
     description: '唯一值',
     type: String,
   })
-  _id: ObjectId;
+  _id: Types.ObjectId;
 }

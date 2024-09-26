@@ -1,13 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId, Types } from 'mongoose';
-import { CreateMenuBodyDto, QueryMenuDto, UpdateMenuDto } from './dto';
+import {
+  CreateMenuBodyDto,
+  QueryMenuDto,
+  ResultMenuDto,
+  UpdateMenuDto,
+} from './dto';
 import { Menus } from '../../../mongo/base';
 import { toFuzzyParams } from '../../../mongo/tools';
 import { PaginationDto } from '../../../dtos';
 import dayjs from 'dayjs';
 import { omit } from 'radash';
 import { deleteByIds } from '../../../mongo/tools';
+import { TreeData } from 'src/typings';
 
 @Injectable()
 export class MenusService {
@@ -49,18 +55,17 @@ export class MenusService {
 
   async getTreeData() {
     const dataList = await this.menusModel.find().exec();
-    console.log('dataList', dataList);
-    console.time()
-    const getTree = (parentId = null) => {
+
+    const getTree = (parentId: Types.ObjectId) => {
       const list = dataList.filter((dataItem) => dataItem.parent === parentId);
       return list.map((listItem) => {
-        return {
-          ...listItem.toObject(),
-          children: getTree(listItem.id),
-        };
+        return { children: getTree(listItem._id), ...listItem.toJSON() };
       });
     };
-    console.timeEnd()
-    return getTree();
+    return getTree(null) as TreeData<
+      Menus & {
+        _id: Types.ObjectId;
+      }
+    >;
   }
 }

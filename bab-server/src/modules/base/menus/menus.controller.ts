@@ -16,7 +16,12 @@ import {
   IntersectionType,
 } from '@nestjs/swagger';
 import { MenusService } from './menus.service';
-import { CreateMenuBodyDto, ResultMenuDto, UpdateMenuDto } from './dto';
+import {
+  CreateMenuBodyDto,
+  ResultMenuDto,
+  TreeMenuDataDto,
+  UpdateMenuDto,
+} from './dto';
 import {
   DeleteIdsDto,
   DeleteResDto,
@@ -91,7 +96,7 @@ export class MenusController {
   @Get('getTreeData')
   @ApiOkResponse({
     description: '获取树形结构',
-    type: ResultMenuDto,
+    type: TreeMenuDataDto,
   })
   @ApiOperation({
     description: '获取树形结构',
