@@ -6,7 +6,10 @@ import middlewares from './middlewares';
 declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(EnterModule, {
-    // 开启跨域
+    /**
+     * 开启跨域
+     * https://docs.nestjs.com/security/cors
+     */
     cors: true,
   });
 
