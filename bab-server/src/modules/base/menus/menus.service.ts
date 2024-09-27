@@ -68,4 +68,9 @@ export class MenusService {
       }
     >;
   }
+
+  async getAllMenus() {
+    const dataList = await this.menusModel.find().exec();
+    return dataList;
+  }
 }
