@@ -1,12 +1,9 @@
-import { OmitType, ApiProperty } from '@nestjs/swagger';
+import { OmitType, ApiProperty, IntersectionType } from '@nestjs/swagger';
 import { Types } from 'mongoose';
 import { Menus } from '../../../../mongo/base';
+import { Document_idDto } from 'src/dtos';
 
-export class ResultMenuDto extends OmitType(Menus, ['deletedTime']) {
-  @ApiProperty({
-    required: true,
-    description: '唯一值',
-    type: String,
-  })
-  _id: Types.ObjectId;
-}
+export class ResultMenuDto extends IntersectionType(
+  OmitType(Menus, ['deletedTime']),
+  Document_idDto,
+) {}

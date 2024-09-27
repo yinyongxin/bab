@@ -1,13 +1,14 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, IntersectionType } from '@nestjs/swagger';
 import { Menus } from '../../../../mongo/base';
 import { Types } from 'mongoose';
+import { Document_idDto } from 'src/dtos';
 
 export * from './create.dto';
 export * from './query.dto';
 export * from './result.dto';
 export * from './update.dto';
 
-export class TreeMenuDataDto extends Menus {
+export class TreeMenuDataDto extends IntersectionType(Menus, Document_idDto) {
   @ApiProperty({
     required: true,
     description: '唯一值',
@@ -15,10 +16,4 @@ export class TreeMenuDataDto extends Menus {
     examples: [],
   })
   children: Array<TreeMenuDataDto>;
-  @ApiProperty({
-    required: true,
-    description: '唯一值',
-    type: String,
-  })
-  _id: Types.ObjectId;
 }
