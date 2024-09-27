@@ -2,7 +2,7 @@ import { routes } from "~/routes";
 import { Router } from '@solidjs/router';
 export default function Layout() {
   return (
-    <>
+    <div>
       <header>
         header
       </header>
@@ -15,6 +15,6 @@ export default function Layout() {
       <footer>
         footer
       </footer>
-    </>
+    </div>
   );
 }
