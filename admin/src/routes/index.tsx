@@ -7,7 +7,7 @@ export const routes: RouteDefinition[] = [
     component: lazy(() => import('../pages/home')),
   },
   {
-    path: '/*',
+    path: '*',
     component: () => (
       <div>404</div>
     )

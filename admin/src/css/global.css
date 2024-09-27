@@ -1,0 +1,12 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  transition: color 0.5s, background-color 0.5s;
+  background-color: var(--color-bg-9);
+  color: var(--color-text-9);
+}
+* {
+  box-sizing: border-box;
+  
+}

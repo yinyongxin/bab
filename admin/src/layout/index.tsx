@@ -1,20 +1,18 @@
 import { routes } from "~/routes";
 import { Router } from '@solidjs/router';
-export default function Layout() {
+import Menu from "./Menu";
+import styles from './index.module.less'
+const Layout = () => {
   return (
-    <div>
-      <header>
-        header
-      </header>
-      <main>
+    <div class={styles.layout}>
+      <Menu />
+      <main class={styles.main}>
         <Router>
           {routes}
-
         </Router>
       </main>
-      <footer>
-        footer
-      </footer>
     </div>
   );
 }
+
+export default Layout

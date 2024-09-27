@@ -40,3 +40,8 @@ npm test
 ```
 
 ## This project was created with the [Solid CLI](https://solid-cli.netlify.app)
+
+
+## 配色方案
+
+https://colors.dopely.top/color-pedia
