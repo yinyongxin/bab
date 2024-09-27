@@ -4,7 +4,7 @@ import { createSignal } from 'solid-js';
 const Menu = () => {
   const [dark, setDark] = createSignal(false);
   return (
-    <Box class={styles.nav}>
+    <Box class={styles.nav} radius={8}>
       nav
       <button onclick={() => {
         if (dark()) {
