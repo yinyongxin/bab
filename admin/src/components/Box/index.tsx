@@ -39,7 +39,7 @@ export const Box: Component<BoxProps> = (props) => {
       {...rest}
     >
       <div
-        class={`${styles.bg} ${contentClassName}`}
+        class={`${styles.bg} ${bgClassName}`}
         style={{
           "border-radius": `${radius}px`,
           'background-color': `var(--color-${bgColor}-${bgColorLevel})`,
@@ -49,7 +49,7 @@ export const Box: Component<BoxProps> = (props) => {
         {...contentPropsRest}
 
       />
-      <div class={`${styles.content} ${bgClassName}`}  {...bgPropsRest}>
+      <div class={`${styles.content} ${contentClassName}`}  {...bgPropsRest}>
         {children}
       </div>
     </div>

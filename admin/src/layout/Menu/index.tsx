@@ -4,10 +4,15 @@ import { toggleTheme } from '~/utils';
 import { ColorEnum } from '~/components/enum';
 const Menu = () => {
   return (
-    <Box class={styles.nav} radius={16} bgProps={{
-      bgColor: ColorEnum.Primary,
-      bgColorLevel: 2
-    }}>
+    <Box
+      class={styles.nav}
+      radius={16}
+      bgProps={{
+        bgColor: ColorEnum.Primary,
+        bgColorLevel: 2
+      }}
+      contentProps={{ class: styles.content }}
+    >
       <Text
         cursor='pointer'
         onClick={() => {
