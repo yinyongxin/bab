@@ -1,21 +1,57 @@
 import { Component, JSX } from "solid-js";
 import styles from "./index.module.less";
-type BoxProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'style'> & {
+import { ColorEnum } from "../enum";
+export type BoxProps = Omit<JSX.HTMLAttributes<HTMLDivElement>, 'style'> & {
   children?: JSX.Element,
   radius?: number,
-  style?: JSX.CSSProperties
+  contentProps?: JSX.HTMLAttributes<HTMLDivElement>
+  bgProps?: Omit<JSX.HTMLAttributes<HTMLDivElement>, 'style'> & {
+    bgColor?: ColorEnum,
+    bgColorLevel?: GlobalNS.ColorLevelType,
+    style?: JSX.CSSProperties
+  }
 }
-const Box: Component<BoxProps> = (props) => {
+export const Box: Component<BoxProps> = (props) => {
   const {
     children,
     radius = 0,
-    style,
     class: className,
+    contentProps,
+    bgProps,
     ...rest
   } = props
-  return <div class={`${styles.box} ${className}`} style={{
-    "border-radius": `${radius}px`,
-    ...style,
-  }} {...rest}>{children}</div>
+  const {
+    class: contentClassName,
+    ...contentPropsRest
+  } = { ...contentProps }
+
+  const {
+    class: bgClassName,
+    style: bgStyle,
+    bgColor = ColorEnum.Bg,
+    bgColorLevel = 9,
+    ...bgPropsRest
+  } = { ...bgProps }
+
+  return (
+    <div
+      class={`${styles.box} ${className || ''}`}
+      {...rest}
+    >
+      <div
+        class={`${styles.bg} ${contentClassName}`}
+        style={{
+          "border-radius": `${radius}px`,
+          'background-color': `var(--color-${bgColor}-${bgColorLevel})`,
+          'box-shadow': `0 0 8px 0 var(--color-${bgColor}-3)`,
+          ...bgStyle,
+        }}
+        {...contentPropsRest}
+
+      />
+      <div class={`${styles.content} ${bgClassName}`}  {...bgPropsRest}>
+        {children}
+      </div>
+    </div>
+  )
 };
-export default Box;

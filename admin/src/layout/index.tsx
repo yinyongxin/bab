@@ -7,9 +7,11 @@ const Layout = () => {
     <div class={styles.layout}>
       <Menu />
       <main class={styles.main}>
-        <Router>
-          {routes}
-        </Router>
+        <div class={styles.content}>
+          <Router>
+            {routes}
+          </Router>
+        </div>
       </main>
     </div>
   );

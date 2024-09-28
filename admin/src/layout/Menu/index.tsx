@@ -1,22 +1,50 @@
-import Box from '~/components/Box';
+import { Box, Text } from '~/components';
 import styles from './index.module.less'
-import { createSignal } from 'solid-js';
+import { toggleTheme } from '~/utils';
+import { ColorEnum } from '~/components/enum';
 const Menu = () => {
-  const [dark, setDark] = createSignal(false);
   return (
-    <Box class={styles.nav} radius={8}>
-      nav
-      <button onclick={() => {
-        if (dark()) {
-          document.body.setAttribute('theme-mode', 'light')
-          setDark(false)
-        } else {
-          document.body.setAttribute('theme-mode', 'dark')
-          setDark(true)
-        }
-      }}>
-        adasssda
-      </button>
+    <Box class={styles.nav} radius={16} bgProps={{
+      bgColor: ColorEnum.Primary,
+      bgColorLevel: 2
+    }}>
+      <Text
+        cursor='pointer'
+        onClick={() => {
+          toggleTheme()
+        }}>
+        nav
+      </Text>
+      <Text
+        cursor='pointer'
+        color={ColorEnum.Primary}
+      >
+        Error
+      </Text>
+      <Text
+        cursor='pointer'
+        color={ColorEnum.Success}
+      >
+        Error
+      </Text>
+      <Text
+        cursor='pointer'
+        color={ColorEnum.Warning}
+      >
+        Error
+      </Text>
+      <Text
+        cursor='pointer'
+        color={ColorEnum.Error}
+      >
+        Error
+      </Text>
+      <Text
+        cursor='pointer'
+        color={ColorEnum.Link}
+      >
+        Link
+      </Text>
     </Box >
   )
 };
