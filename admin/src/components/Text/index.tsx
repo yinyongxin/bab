@@ -24,7 +24,7 @@ export const Text: Component<TextProps> = (props) => {
     <span
       class={`${styles.text} ${className || ''}`}
       style={{
-        color: `var(--color-${props.color}-${colorLevel})`,
+        color: `var(--color-${color}-${colorLevel})`,
         cursor,
         ...style
       }}
