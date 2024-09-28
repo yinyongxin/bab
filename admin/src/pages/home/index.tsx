@@ -8,13 +8,6 @@ export default function Home() {
     <main class={styles.home}>
       <Text
         cursor='pointer'
-        onClick={() => {
-          toggleTheme()
-        }}>
-        nav
-      </Text>
-      <Text
-        cursor='pointer'
         color={ColorEnum.Primary}
       >
         Error
@@ -40,6 +33,9 @@ export default function Home() {
       <Text
         cursor='pointer'
         color={ColorEnum.Link}
+        onClick={() => {
+          toggleTheme()
+        }}
       >
         Link
       </Text>
