@@ -43,7 +43,7 @@ export const Box: Component<BoxProps> = (props) => {
         style={{
           "border-radius": `${radius}px`,
           'background-color': `var(--color-${bgColor}-${bgColorLevel})`,
-          'box-shadow': `0 0 8px 0 var(--color-${bgColor}-${bgColorLevel})`,
+          'box-shadow': `0 0 8px 0 var(--color-grap-${bgColorLevel})`,
           ...bgStyle,
         }}
         {...contentPropsRest}

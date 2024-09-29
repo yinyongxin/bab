@@ -1,4 +1,4 @@
-import { Component, JSX } from "solid-js";
+import { Component, JSX, children, mergeProps, splitProps } from "solid-js";
 import {
   ColorEnum
 } from '../enum'
@@ -11,24 +11,22 @@ export type TextProps = {
   style?: JSX.CSSProperties
 } & Omit<JSX.HTMLAttributes<HTMLSpanElement>, 'style'>
 export const Text: Component<TextProps> = (props) => {
-  const {
-    children,
-    class: className,
-    color = ColorEnum.Text,
-    colorLevel = 9,
-    cursor,
-    style,
-    ...rest
-  } = props
+  const [
+    local, other
+  ] = splitProps(props, ["class", "color", 'colorLevel', 'cursor', 'children']);
+  const merge = mergeProps({
+    color: ColorEnum.Text,
+    colorLevel: 9,
+  }, local)
   return (
     <span
-      class={`${styles.text} ${className || ''}`}
+      class={`${styles.text} ${merge.class || ''}`}
       style={{
-        color: `var(--color-${color}-${colorLevel})`,
-        cursor,
-        ...style
+        color: `var(--color-${merge.color}-${merge.colorLevel})`,
+        cursor: merge.cursor,
+        ...props.style
       }}
-      {...rest}
-    >{children}</span>
+      {...other}
+    >{merge.children}</span>
   )
 };

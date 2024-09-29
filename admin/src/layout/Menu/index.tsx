@@ -2,14 +2,16 @@ import { Box, Text } from '~/components';
 import styles from './index.module.less'
 import { toggleTheme } from '~/utils';
 import { ColorEnum } from '~/components/enum';
+import { createSignal } from 'solid-js';
 const Menu = () => {
+  const [theme,setTheme] = createSignal(document.body.getAttribute("theme-mode"))
   return (
     <Box
       class={styles.nav}
       radius={16}
       bgProps={{
-        bgColor: ColorEnum.Primary,
-        bgColorLevel: 2
+        bgColor: ColorEnum.Bg,
+        bgColorLevel: 9
       }}
       contentProps={{ class: styles.content }}
     >
@@ -17,8 +19,9 @@ const Menu = () => {
         cursor='pointer'
         onClick={() => {
           toggleTheme()
+          setTheme(document.body.getAttribute("theme-mode"))
         }}>
-        nav
+        {theme()}
       </Text>
       <Text
         cursor='pointer'
