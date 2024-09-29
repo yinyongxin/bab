@@ -21,12 +21,12 @@ export const Flex: Component<FlexProps> = (props) => {
 		<div
 			style={{
 				display: "flex",
-				"justify-content": props?.justify || "flex-start", // 水平对齐，默认为flex-start
-				"align-items": props?.align || "unset", // 垂直对齐，默认为unset
-				"flex-direction": props?.direction || "row", // 弹性盒子方向，默认为row
+				"justify-content": props?.justify, // 水平对齐
+				"align-items": props?.align, // 垂直对齐
+				"flex-direction": props?.direction, // 弹性盒子方向
 				gap: props?.gap || "0px", // 项目间距，默认为0px
-				height: props?.height || "unset", // 高度，默认为unset
-				width: props?.width || "unset", // 宽度，默认为unset
+				height: props?.height, // 高度
+				width: props?.width, // 宽度
 			}}
 		>
 			{/* 渲染子元素 */}
