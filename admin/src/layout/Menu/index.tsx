@@ -1,6 +1,6 @@
-import { Box, Text } from '~/components';
+import { Avatar, Box, Text } from '~/components';
 import styles from './index.module.less'
-import { ColorEnum } from '~/components/enum';
+import { ColorEnum, RadiusSizeEnum, SizeEnum } from '~/components/enum';
 import MenuItem from './MenuItem';
 const Menu = () => {
   return (
@@ -13,10 +13,18 @@ const Menu = () => {
       }}
       contentProps={{ class: styles.content }}
     >
-      <MenuItem icon='1' title='title1' />
-      <MenuItem icon='2' title='title2' />
-      <MenuItem icon='3' title='title3' />
-      <MenuItem icon='4' title='title4' />
+      <div class={styles.logo}>
+        logo
+      </div>
+      <div>
+        <MenuItem icon='1' title='title1' />
+        <MenuItem icon='2' title='title2' />
+        <MenuItem icon='3' title='title3' />
+        <MenuItem icon='4' title='title4' />
+      </div>
+      <div class={styles.user}>
+        <Avatar src='' />
+      </div>
     </Box >
   )
 };
