@@ -17,7 +17,7 @@ export const Avatar: Component<AvatarProps> = (props) => {
     radius: RadiusSizeEnum.Default, // 默认的圆角大小
     size: SizeEnum.Default // 默认的头像大小
   }, props);
-  
+
   // 返回头像的DOM结构
   return (
     <div class={styles.avatar}
@@ -27,7 +27,11 @@ export const Avatar: Component<AvatarProps> = (props) => {
         height: `var(--size-${merge.size})`, // 设置高度
       }}
     >
-      <img src={props.src} onError={(e) => e.currentTarget.src = 'https://avatars.githubusercontent.com/u/10290406?v=4'} /> // 加载头像图片，错误时使用默认头像
+      <img
+        src={props.src}
+        //  加载头像图片，错误时使用默认头像
+        onError={(e) => e.currentTarget.src = 'https://avatars.githubusercontent.com/u/10290406?v=4'}
+      />
     </div>
   )
 };
