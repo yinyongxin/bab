@@ -4,12 +4,25 @@
   left: 24px;
   top: 24px;
   bottom: 24px;
+
+  .user {
+
+    cursor: pointer;
+
+    .content {
+      position: absolute;
+      left: calc(100% + 12px);
+      bottom: 0px;
+      background: #fff;
+      padding: 12px;
+      border-radius: 16px;
+      width: 300px;
+      height: 400px;
+    }
+  }
 }
 
-.content {
+.navContent {
   padding: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  position: relative;
 }

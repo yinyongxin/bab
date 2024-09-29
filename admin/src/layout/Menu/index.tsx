@@ -3,7 +3,9 @@ import styles from "./index.module.less";
 import { ColorEnum, RadiusSizeEnum, SizeEnum } from "~/components/enum";
 import MenuItem from "./MenuItem";
 import { Flex, FlexItem } from "~/components/Flex";
+import { createSignal, Show } from "solid-js";
 const Menu = () => {
+	const [isHover, setIsHover] = createSignal(false);
 	return (
 		<Box
 			class={styles.nav}
@@ -12,7 +14,7 @@ const Menu = () => {
 				bgColor: ColorEnum.Bg,
 				bgColorLevel: 9,
 			}}
-			contentProps={{ class: styles.content }}
+			contentProps={{ class: styles.navContent }}
 		>
 			<Flex direction="column" justify="space-between" height="100%" gap="16px">
 				<div class={styles.logo}>logo</div>
@@ -25,7 +27,10 @@ const Menu = () => {
 					</Flex>
 				</FlexItem>
 				<div class={styles.user}>
-					<Avatar src="" />
+					<Avatar src="" onClick={() => setIsHover(!isHover())} />
+					<Show when={isHover()}>
+						<div class={styles.content}>CacaCSCCS</div>
+					</Show>
 				</div>
 			</Flex>
 		</Box>
