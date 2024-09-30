@@ -1,16 +1,18 @@
-import { Button } from "ui/button";
-import { Link, Outlet } from "react-router-dom";
-
+import { Outlet } from "react-router-dom";
+import * as Icons from "lucide-react";
+import { Button } from "@/components/ui/button";
 const Layout = () => {
 	return (
-		<div>
-			<Button>
-				<Link to="/home">home</Link>
-			</Button>
-			<Button>
-				<Link to="/personalCenter">personalCenter</Link>
-			</Button>
-			<Outlet />
+		<div
+			style={{ display: "grid", gridTemplateColumns: "auto 1fr" }}
+			className="h-screen"
+		>
+			<div>
+				<Button></Button>
+			</div>
+			<main>
+				<Outlet />
+			</main>
 		</div>
 	);
 };

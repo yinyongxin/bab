@@ -1,11 +1,7 @@
 import HomePage from "@/pages/home";
 import PersonalCenterPage from "@/pages/personalCenter";
 import Layout from "@/Layout";
-import {
-	createBrowserRouter,
-	RouteObject,
-	useLoaderData,
-} from "react-router-dom";
+import { createBrowserRouter, RouteObject } from "react-router-dom";
 
 const routes: RouteObject[] = [
 	{
