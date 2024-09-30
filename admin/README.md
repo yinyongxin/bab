@@ -1,47 +1,50 @@
-# SolidStart
+# React + TypeScript + Vite
 
-Everything you need to build a Solid project, powered by [`solid-start`](https://start.solidjs.com);
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Creating a project
+Currently, two official plugins are available:
 
-```bash
-# create a new project in the current directory
-npm init solid@latest
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-# create a new project in my-app
-npm init solid@latest my-app
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+
+- Configure the top-level `parserOptions` property like this:
+
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
 ```
 
-## Developing
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
 ```
-
-## Building
-
-Solid apps are built with _presets_, which optimise your project for deployment to different environments.
-
-By default, `npm run build` will generate a Node app that you can run with `npm start`. To use a different preset, add it to the `devDependencies` in `package.json` and specify in your `app.config.js`.
-
-## Testing
-
-Tests are written with `vitest`, `@solidjs/testing-library` and `@testing-library/jest-dom` to extend expect with some helpful custom matchers.
-
-To run them, simply start:
-
-```sh
-npm test
-```
-
-## This project was created with the [Solid CLI](https://solid-cli.netlify.app)
-
-
-## 配色方案
-
-https://colors.dopely.top/color-pedia
