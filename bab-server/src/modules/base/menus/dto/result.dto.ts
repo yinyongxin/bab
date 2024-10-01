@@ -1,9 +1,8 @@
-import { OmitType, ApiProperty, IntersectionType } from '@nestjs/swagger';
-import { Types } from 'mongoose';
+import { OmitType, IntersectionType } from '@nestjs/swagger';
 import { Menus } from '../../../../mongo/base';
-import { Document_idDto } from 'src/dtos';
+import { Result_idDto } from '../../../../dtos';
 
 export class ResultMenuDto extends IntersectionType(
   OmitType(Menus, ['deletedTime']),
-  Document_idDto,
+  Result_idDto,
 ) {}

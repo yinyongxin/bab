@@ -1,19 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId, Types } from 'mongoose';
-import {
-  CreateMenuBodyDto,
-  QueryMenuDto,
-  ResultMenuDto,
-  UpdateMenuDto,
-} from './dto';
+import { CreateMenuBodyDto, UpdateMenuDto } from './dto';
 import { Menus } from '../../../mongo/base';
-import { toFuzzyParams } from '../../../mongo/tools';
-import { PaginationDto } from '../../../dtos';
-import dayjs from 'dayjs';
-import { omit } from 'radash';
 import { deleteByIds } from '../../../mongo/tools';
-import { TreeData } from 'src/typings';
+import { TreeData } from '../../../typings';
 
 @Injectable()
 export class MenusService {
@@ -64,7 +55,7 @@ export class MenusService {
     };
     return getTree(null) as TreeData<
       Menus & {
-        _id: Types.ObjectId;
+        _id: string;
       }
     >;
   }

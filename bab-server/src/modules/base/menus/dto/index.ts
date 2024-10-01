@@ -1,7 +1,6 @@
 import { ApiProperty, IntersectionType } from '@nestjs/swagger';
 import { Menus } from '../../../../mongo/base';
-import { Types } from 'mongoose';
-import { Document_idDto, Result_idDto } from '../../../../dtos';
+import { Result_idDto } from '../../../../dtos';
 
 export * from './create.dto';
 export * from './query.dto';
