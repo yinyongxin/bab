@@ -10,12 +10,10 @@ import {
 	MenusControllerGetTreeDataResponse,
 } from "@/services";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import MenuNavBarItem from "./MenuNavBarItem";
 
 const MenuNavBar = () => {
-	let location = useLocation();
-
 	const [menuTree, setMenuTree] =
 		useState<MenusControllerGetTreeDataResponse>();
 	const getMenu = async () => {
@@ -25,10 +23,6 @@ const MenuNavBar = () => {
 	useEffect(() => {
 		getMenu();
 	}, []);
-	useEffect(() => {
-		console.log("location", location);
-	}, [location]);
-
 	return (
 		<nav className="p-5 h-full">
 			<Card className="flex justify-between flex-col gap-2 p-4 h-full">

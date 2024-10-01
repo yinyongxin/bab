@@ -11,32 +11,28 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { TreeMenuDataDto } from "@/services";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@/components";
-import { useEffect } from "react";
 
 export type MenuNavBarItemProps = {
 	data: TreeMenuDataDto;
 };
 const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 	let location = useLocation();
+	const navigate = useNavigate();
 	const { data } = props;
-	useEffect(() => {
-		console.log("location", location);
-	}, [location]);
 	const hasChildren = (
 		<HoverCard openDelay={0} closeDelay={100}>
-			<HoverCardTrigger asChild>
+			<HoverCardTrigger>
 				<Button
 					className="h-10 w-10"
 					size="icon"
 					variant={location.pathname === data.path ? "default" : "secondary"}
-					asChild
-					onClick={() => {}}
+					onClick={() => {
+						navigate(data.path);
+					}}
 				>
-					<Link to={data.path}>
-						<Icon name={data.icon as any} />
-					</Link>
+					<Icon name="House" />
 				</Button>
 			</HoverCardTrigger>
 			<HoverCardContent side="right" align="start" className="ml-6">
@@ -47,16 +43,16 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 	const notChildren = (
 		<TooltipProvider delayDuration={0}>
 			<Tooltip>
-				<TooltipTrigger>
+				<TooltipTrigger asChild>
 					<Button
-						asChild
 						className="h-10 w-10"
 						variant={location.pathname === data.path ? "default" : "secondary"}
 						size="icon"
+						onClick={() => {
+							navigate(data.path);
+						}}
 					>
-						<Link to={data.path}>
-							<Icon name={data.icon as any} />
-						</Link>
+						<Icon name="House" />
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent side="right" className="ml-6">
