@@ -13,6 +13,7 @@ import {
 import { TreeMenuDataDto } from "@/services";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@/components";
+import { useRef, useState } from "react";
 
 export type MenuNavBarItemProps = {
 	data: TreeMenuDataDto;
@@ -20,30 +21,78 @@ export type MenuNavBarItemProps = {
 const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 	let location = useLocation();
 	const navigate = useNavigate();
+	const [open, setOpen] = useState(false);
 	const { data } = props;
+	const ref = useRef<{
+		time: NodeJS.Timeout | null;
+	}>({
+		time: null,
+	});
 	const hasChildren = (
-		<HoverCard openDelay={0} closeDelay={100}>
-			<HoverCardTrigger>
+		<HoverCard open={open}>
+			<HoverCardTrigger
+				onMouseEnter={() => {
+					if (ref.current.time) {
+						clearTimeout(ref.current.time);
+					}
+					setOpen(true);
+				}}
+				onMouseLeave={() => {
+					ref.current.time = setTimeout(() => {
+						setOpen(false);
+					}, 200);
+				}}
+			>
 				<Button
 					className="h-10 w-10"
 					size="icon"
 					variant={location.pathname === data.path ? "default" : "secondary"}
-					onClick={() => {
-						navigate(data.path);
-					}}
 				>
-					<Icon name="House" />
+					<Icon name={data.icon as any} />
 				</Button>
 			</HoverCardTrigger>
-			<HoverCardContent side="right" align="start" className="ml-6">
-				The React Framework – created and maintained by @vercel.
+			<HoverCardContent
+				onMouseEnter={() => {
+					if (ref.current.time) {
+						clearTimeout(ref.current.time);
+					}
+				}}
+				onMouseLeave={() => {
+					ref.current.time = setTimeout(() => {
+						setOpen(false);
+					}, 200);
+				}}
+				side="right"
+				align="start"
+				className="translate-x-6"
+			>
+				{data.children.map((child) => {
+					return (
+						<div key={data._id}>
+							<Button size="icon" variant="secondary">
+								<Icon name={child.icon as any} />
+							</Button>
+						</div>
+					);
+				})}
 			</HoverCardContent>
 		</HoverCard>
 	);
 	const notChildren = (
-		<TooltipProvider delayDuration={0}>
-			<Tooltip>
-				<TooltipTrigger asChild>
+		<TooltipProvider>
+			<Tooltip open={open}>
+				<TooltipTrigger
+					onMouseEnter={() => {
+						if (ref.current.time) {
+							clearTimeout(ref.current.time);
+						}
+						setOpen(true);
+					}}
+					onMouseLeave={() => {
+						setOpen(false);
+					}}
+					asChild
+				>
 					<Button
 						className="h-10 w-10"
 						variant={location.pathname === data.path ? "default" : "secondary"}
@@ -52,7 +101,7 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 							navigate(data.path);
 						}}
 					>
-						<Icon name="House" />
+						<Icon name={data.icon as any} />
 					</Button>
 				</TooltipTrigger>
 				<TooltipContent side="right" className="ml-6">
