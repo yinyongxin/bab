@@ -323,10 +323,6 @@ export type RolePaginationQueryResultDto = {
     list: Array<ResultRoleDto>;
 };
 
-export type ObjectId = {
-    [key: string]: unknown;
-};
-
 export type CreateMenuBodyDto = {
     /**
      * 菜单名称
@@ -351,13 +347,17 @@ export type CreateMenuBodyDto = {
     /**
      * 图标
      */
-    parent?: (ObjectId);
+    parent?: string;
 };
 
 /**
  * 页面权限
  */
 export type pageAuthority = 'Open' | 'Delete' | 'Update' | 'Query';
+
+export type ObjectId = {
+    [key: string]: unknown;
+};
 
 export type ResultMenuDto = {
     /**
@@ -391,7 +391,7 @@ export type ResultMenuDto = {
     /**
      * 图标
      */
-    parent?: (ObjectId);
+    parent?: string;
     /**
      * 唯一值
      */
@@ -426,7 +426,7 @@ export type UpdateMenuDto = {
     /**
      * 图标
      */
-    parent?: (ObjectId);
+    parent?: string;
 };
 
 export type TreeMenuDataDto = {
@@ -465,11 +465,11 @@ export type TreeMenuDataDto = {
     /**
      * 图标
      */
-    parent?: (ObjectId);
+    parent?: string;
     /**
      * 唯一值
      */
-    _id: (ObjectId);
+    _id: string;
     /**
      * 唯一值
      */

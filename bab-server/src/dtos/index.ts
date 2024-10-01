@@ -17,6 +17,15 @@ export class Document_idDto {
   _id: Types.ObjectId;
 }
 
+export class Result_idDto {
+  @ApiProperty({
+    required: true,
+    description: '唯一值',
+    type: String,
+  })
+  _id: string;
+}
+
 export class DeleteIdsDto {
   @ApiProperty({
     required: true,

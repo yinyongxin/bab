@@ -1,14 +1,14 @@
 import { ApiProperty, IntersectionType } from '@nestjs/swagger';
 import { Menus } from '../../../../mongo/base';
 import { Types } from 'mongoose';
-import { Document_idDto } from 'src/dtos';
+import { Document_idDto, Result_idDto } from '../../../../dtos';
 
 export * from './create.dto';
 export * from './query.dto';
 export * from './result.dto';
 export * from './update.dto';
 
-export class TreeMenuDataDto extends IntersectionType(Menus, Document_idDto) {
+export class TreeMenuDataDto extends IntersectionType(Menus, Result_idDto) {
   @ApiProperty({
     required: true,
     description: '唯一值',

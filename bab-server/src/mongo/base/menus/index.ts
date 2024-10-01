@@ -106,7 +106,7 @@ export class Menus extends BaseDocument {
   @Prop({
     required: false,
     default: null,
-    type: Types.ObjectId,
+    type: String,
   })
   // swagger
   @ApiProperty({
@@ -114,7 +114,7 @@ export class Menus extends BaseDocument {
     description: '图标',
     example: null,
   })
-  parent: Types.ObjectId;
+  parent: string;
 }
 
 export const MenusSchema = SchemaFactory.createForClass(Menus);

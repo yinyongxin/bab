@@ -56,7 +56,7 @@ export class MenusService {
   async getTreeData() {
     const dataList = await this.menusModel.find().exec();
 
-    const getTree = (parentId: Types.ObjectId) => {
+    const getTree = (parentId: string) => {
       const list = dataList.filter((dataItem) => dataItem.parent === parentId);
       return list.map((listItem) => {
         return { children: getTree(listItem.id), ...listItem.toJSON() };
