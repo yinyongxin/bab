@@ -46,7 +46,11 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 				<Button
 					className="h-10 w-10"
 					size="icon"
-					variant={location.pathname === data.path ? "default" : "secondary"}
+					variant={
+						data.children.map((child) => child.path).includes(location.pathname)
+							? "default"
+							: "secondary"
+					}
 				>
 					<Icon name={data.icon as any} />
 				</Button>
