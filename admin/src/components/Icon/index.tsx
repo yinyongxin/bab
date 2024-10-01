@@ -17,7 +17,7 @@ export type IconProps = LucideProps & {
 export const Icon = ({ name, ...rest }: IconProps) => {
 	// 确保 name 是一个有效的键
 	if (!(name in icons)) {
-		throw new Error(`Invalid icon name: ${name}`);
+		return <icons.Ban />;
 	}
 
 	// 根据 name 属性获取对应的 LucideIcon 组件
