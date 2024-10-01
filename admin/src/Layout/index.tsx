@@ -1,6 +1,10 @@
 import { Outlet } from "react-router-dom";
-import * as Icons from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
+} from "@/components/ui/popover";
+
 const Layout = () => {
 	return (
 		<div
@@ -8,7 +12,11 @@ const Layout = () => {
 			className="h-screen"
 		>
 			<div>
-				<Button></Button>
+				<Popover >
+					<PopoverTrigger>Open</PopoverTrigger>
+					<PopoverContent align="end" side="right">Place content for the popover here.</PopoverContent>
+					
+				</Popover>
 			</div>
 			<main>
 				<Outlet />
