@@ -102,7 +102,6 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 					onMouseLeave={() => {
 						setOpen(false);
 					}}
-					asChild
 				>
 					<Button
 						className="h-10 w-10"

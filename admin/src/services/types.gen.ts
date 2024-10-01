@@ -355,10 +355,6 @@ export type CreateMenuBodyDto = {
  */
 export type pageAuthority = 'Open' | 'Delete' | 'Update' | 'Query';
 
-export type ObjectId = {
-    [key: string]: unknown;
-};
-
 export type ResultMenuDto = {
     /**
      * 创建日期
@@ -395,7 +391,7 @@ export type ResultMenuDto = {
     /**
      * 唯一值
      */
-    _id: (ObjectId);
+    _id: string;
 };
 
 export type UpdateMenuDto = {
