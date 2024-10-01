@@ -1,0 +1,81 @@
+:root body[theme-mode=dark] {
+  --color-primary-9: #7E57C2;
+  --color-primary-8: #6D42B7;
+  --color-primary-7: #5F3AA0;
+  --color-primary-6: #523289;
+  --color-primary-5: #442973;
+  --color-primary-4: #37215C;
+  --color-primary-3: #291945;
+  --color-primary-2: #1B112E;
+  --color-primary-1: #0E0817;
+
+  --color-error-9: #F44336;
+  --color-error-8: #F21F10;
+  --color-error-7: #D3180B;
+  --color-error-6: #B01409;
+  --color-error-5: #8D1007;
+  --color-error-4: #690C06;
+  --color-error-3: #460804;
+  --color-error-2: #230402;
+  --color-error-1: #000000;
+
+  --color-success-9: #66BB6A;
+  --color-success-8: #4EB153;
+  --color-success-7: #429847;
+  --color-success-6: #377E3B;
+  --color-success-5: #2C652F;
+  --color-success-4: #214C23;
+  --color-success-3: #163318;
+  --color-success-2: #0B190C;
+  --color-success-1: #000000;
+
+  --color-warning-9: #FF9800;
+  --color-warning-8: #DF8600;
+  --color-warning-7: #BF7300;
+  --color-warning-6: #9F6000;
+  --color-warning-5: #804D00;
+  --color-warning-4: #603900;
+  --color-warning-3: #402600;
+  --color-warning-2: #201300;
+  --color-warning-1: #000000;
+
+  --color-link-9: #29B6F6;
+  --color-link-8: #0FACF5;
+  --color-link-7: #099CE0;
+  --color-link-6: #088BC7;
+  --color-link-5: #077AAE;
+  --color-link-4: #066896;
+  --color-link-3: #05577D;
+  --color-link-2: #044564;
+  --color-link-1: #03344B;
+
+  --color-gray-9: #9E9E9E;
+  --color-gray-8: #8D8D8D;
+  --color-gray-7: #7B7B7B;
+  --color-gray-6: #696969;
+  --color-gray-5: #585858;
+  --color-gray-4: #464646;
+  --color-gray-3: #282828;
+  --color-gray-2: #141414;
+  --color-gray-1: #121212;
+
+  --color-bg-9: #2B2B2B;
+  --color-bg-8: #464646;
+  --color-bg-7: #606060;
+  --color-bg-6: #7B7B7B;
+  --color-bg-5: #959595;
+  --color-bg-4: #B0B0B0;
+  --color-bg-3: #CACACA;
+  --color-bg-2: #E5E5E5;
+  --color-bg-1: #FFFFFF;
+
+  --color-text-9: #FFFFFF;
+  --color-text-8: #E5E5E5;
+  --color-text-7: #CACACA;
+  --color-text-6: #B0B0B0;
+  --color-text-5: #959595;
+  --color-text-4: #7B7B7B;
+  --color-text-3: #606060;
+  --color-text-2: #464646;
+  --color-text-1: #2B2B2B;
+}

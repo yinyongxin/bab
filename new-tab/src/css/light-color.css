@@ -1,0 +1,81 @@
+:root body[theme-mode=light] {
+  --color-primary-9: #7E57C2;
+  --color-primary-8: #8C69C9;
+  --color-primary-7: #9B7CD0;
+  --color-primary-6: #A98FD6;
+  --color-primary-5: #B7A1DD;
+  --color-primary-4: #C6B4E4;
+  --color-primary-3: #D4C7EB;
+  --color-primary-2: #E2DAF1;
+  --color-primary-1: #F1ECF8;
+
+  --color-error-9: #F44336;
+  --color-error-8: #F6584D;
+  --color-error-7: #F77066;
+  --color-error-6: #F88880;
+  --color-error-5: #FAA099;
+  --color-error-4: #FBB8B3;
+  --color-error-3: #FCCFCC;
+  --color-error-2: #FEE7E6;
+  --color-error-1: #FFFFFF;
+
+  --color-success-9: #66BB6A;
+  --color-success-8: #7AC47D;
+  --color-success-7: #8DCD90;
+  --color-success-6: #A0D5A2;
+  --color-success-5: #B3DEB5;
+  --color-success-4: #C6E6C7;
+  --color-success-3: #D9EEDA;
+  --color-success-2: #ECF7EC;
+  --color-success-1: #FFFFFF;
+
+  --color-warning-9: #FF9800;
+  --color-warning-8: #FFA620;
+  --color-warning-7: #FFB340;
+  --color-warning-6: #FFBF60;
+  --color-warning-5: #FFCC80;
+  --color-warning-4: #FFD99F;
+  --color-warning-3: #FFE6BF;
+  --color-warning-2: #FFF2DF;
+  --color-warning-1: #FFFFFF;
+
+  --color-link-9: #29B6F6;
+  --color-link-8: #3BBBF7;
+  --color-link-7: #4FC2F8;
+  --color-link-6: #62C9F8;
+  --color-link-5: #76D0F9;
+  --color-link-4: #89D6FA;
+  --color-link-3: #9DDDFB;
+  --color-link-2: #B1E4FC;
+  --color-link-1: #C4EBFD;
+
+  --color-gray-9: #9E9E9E;
+  --color-gray-8: #A9A9A9;
+  --color-gray-7: #B4B4B4;
+  --color-gray-6: #BEBEBE;
+  --color-gray-5: #C9C9C9;
+  --color-gray-4: #D4D4D4;
+  --color-gray-3: #DFDFDF;
+  --color-gray-2: #E9E9E9;
+  --color-gray-1: #F4F4F4;
+
+  --color-bg-9: #FFFFFF;
+  --color-bg-8: #E5E5E5;
+  --color-bg-7: #CACACA;
+  --color-bg-6: #B0B0B0;
+  --color-bg-5: #959595;
+  --color-bg-4: #7B7B7B;
+  --color-bg-3: #606060;
+  --color-bg-2: #464646;
+  --color-bg-1: #2B2B2B;
+
+  --color-text-9: #2B2B2B;
+  --color-text-8: #464646;
+  --color-text-7: #606060;
+  --color-text-6: #7B7B7B;
+  --color-text-5: #959595;
+  --color-text-4: #B0B0B0;
+  --color-text-3: #CACACA;
+  --color-text-2: #E5E5E5;
+  --color-text-1: #FFFFFF;
+}
