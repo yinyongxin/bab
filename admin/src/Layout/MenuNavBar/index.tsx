@@ -9,8 +9,7 @@ import {
 	menusControllerGetTreeData,
 	MenusControllerGetTreeDataResponse,
 } from "@/services";
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useMemo, useState } from "react";
 import MenuNavBarItem from "./MenuNavBarItem";
 
 const MenuNavBar = () => {
@@ -20,17 +19,20 @@ const MenuNavBar = () => {
 		const res = await menusControllerGetTreeData();
 		setMenuTree(res.data);
 	};
+
+	const menuMemo = useMemo(() => {
+		return menuTree?.map((item) => (
+			<MenuNavBarItem key={item._id} data={item} />
+		));
+	}, [menuTree]);
+
 	useEffect(() => {
 		getMenu();
 	}, []);
 	return (
 		<nav className="p-5 h-full">
 			<Card className="flex justify-between flex-col gap-2 p-4 h-full">
-				<div className="flex flex-col gap-2">
-					{menuTree?.map((item) => (
-						<MenuNavBarItem key={item._id} data={item} />
-					))}
-				</div>
+				<div className="flex flex-col gap-2">{menuMemo}</div>
 				<div>
 					<HoverCard openDelay={0} closeDelay={100}>
 						<HoverCardTrigger>
