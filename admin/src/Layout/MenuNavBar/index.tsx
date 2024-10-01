@@ -20,19 +20,9 @@ const MenuNavBar = () => {
 	};
 
 	const menuMemo = useMemo(() => {
-		return [
-			...(menuTree || []),
-			...(menuTree || []),
-			...(menuTree || []),
-			...(menuTree || []),
-			...(menuTree || []),
-			...(menuTree || []),
-			...(menuTree || []),
-			...(menuTree || []),
-			...(menuTree || []),
-			...(menuTree || []),
-			...(menuTree || []),
-		]?.map((item) => <MenuNavBarItem key={item._id} data={item} />);
+		return menuTree?.map((item) => (
+			<MenuNavBarItem key={item._id} data={item} />
+		));
 	}, [menuTree]);
 
 	useEffect(() => {
