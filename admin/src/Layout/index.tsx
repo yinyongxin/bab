@@ -1,9 +1,5 @@
 import { Outlet } from "react-router-dom";
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
+import MenuNavBar from "./MenuNavBar";
 
 const Layout = () => {
 	return (
@@ -11,13 +7,7 @@ const Layout = () => {
 			style={{ display: "grid", gridTemplateColumns: "auto 1fr" }}
 			className="h-screen"
 		>
-			<div>
-				<Popover >
-					<PopoverTrigger>Open</PopoverTrigger>
-					<PopoverContent align="end" side="right">Place content for the popover here.</PopoverContent>
-					
-				</Popover>
-			</div>
+			<MenuNavBar />
 			<main>
 				<Outlet />
 			</main>

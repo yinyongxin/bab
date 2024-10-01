@@ -2,9 +2,11 @@ import HomePage from "@/pages/home";
 import PersonalCenterPage from "@/pages/personalCenter";
 import Layout from "@/Layout";
 import { createBrowserRouter, RouteObject } from "react-router-dom";
-import NotFound from "@/pages/NotFound";
+import NotFound from "@/pages/notFound";
+import { Login } from "@/pages/login";
+import Setting from "@/pages/setting";
 
-const routes: RouteObject[] = [
+export const routes: RouteObject[] = [
 	{
 		path: "/",
 		element: <Layout />,
@@ -18,8 +20,14 @@ const routes: RouteObject[] = [
 				path: "personalCenter",
 				element: <PersonalCenterPage />,
 			},
+			{
+				path: "setting",
+				element: <Setting />,
+			},
 		],
 	},
+
+	{ path: "/login", element: <Login /> },
 	{ path: "*", element: <NotFound /> },
 ];
 
