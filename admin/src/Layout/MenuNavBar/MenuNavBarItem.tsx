@@ -77,7 +77,7 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 						<div key={data._id}>
 							<div
 								className={cn([
-									"p-2 rounded-md",
+									"p-2 rounded-md hover:bg-gray-100 cursor-pointer",
 									{ "bg-black": location.pathname === child.path },
 									{ "text-white": location.pathname === child.path },
 								])}
