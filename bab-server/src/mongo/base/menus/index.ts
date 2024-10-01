@@ -1,7 +1,7 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
-import { Mongoose, ObjectId, Types } from 'mongoose';
+import { Types } from 'mongoose';
 import { PageAuthorityEnum } from '../../../enums';
 
 @Schema()
