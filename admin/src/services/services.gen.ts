@@ -173,8 +173,8 @@ export const menusControllerGetTreeData = <ThrowOnError extends boolean = false>
 }); };
 
 /**
- * 获取树形结构
- * 获取树形结构
+ * 获取所有菜单
+ * 获取所有菜单
  */
 export const menusControllerGetAllMenus = <ThrowOnError extends boolean = false>(options?: Options<unknown, ThrowOnError>) => { return (options?.client ?? client).get<MenusControllerGetAllMenusResponse, MenusControllerGetAllMenusError, ThrowOnError>({
     ...options,

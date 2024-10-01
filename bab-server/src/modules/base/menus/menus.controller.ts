@@ -96,7 +96,7 @@ export class MenusController {
   @Get('getTreeData')
   @ApiOkResponse({
     description: '获取树形结构',
-    type: TreeMenuDataDto,
+    type: [TreeMenuDataDto],
   })
   @ApiOperation({
     description: '获取树形结构',
@@ -109,12 +109,12 @@ export class MenusController {
 
   @Get('getAll')
   @ApiOkResponse({
-    description: '获取树形结构',
-    type: TreeMenuDataDto,
+    description: '获取所有菜单',
+    type: [TreeMenuDataDto],
   })
   @ApiOperation({
-    description: '获取树形结构',
-    summary: '获取树形结构',
+    description: '获取所有菜单',
+    summary: '获取所有菜单',
   })
   async getAllMenus() {
     const res = await this.usersService.getAllMenus();

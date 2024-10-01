@@ -7,21 +7,31 @@ import {
 	HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from "@/components/ui/popover";
-import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+	menusControllerGetTreeData,
+	MenusControllerGetTreeDataResponse,
+} from "@/services";
 import { Settings, Home } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const MenuNavBar = () => {
 	let location = useLocation();
+
+	const [menuTree, setMenuTree] =
+		useState<MenusControllerGetTreeDataResponse>();
+	const getMenu = async () => {
+		const res = await menusControllerGetTreeData();
+		setMenuTree(res.data);
+	};
+	useEffect(() => {
+		getMenu();
+	}, []);
 	return (
 		<nav className="p-5 h-full">
 			<Card className="flex justify-between flex-col gap-2 p-4 h-full">
@@ -49,7 +59,7 @@ const MenuNavBar = () => {
 					</TooltipProvider>
 
 					<HoverCard openDelay={0} closeDelay={100}>
-						<HoverCardTrigger>
+						<HoverCardTrigger asChild>
 							<Button
 								className="h-10 w-10"
 								size="icon"
@@ -57,6 +67,7 @@ const MenuNavBar = () => {
 									location.pathname === "/setting" ? "default" : "secondary"
 								}
 								asChild
+								onClick={() => {}}
 							>
 								<Link to="/setting">
 									<Settings />

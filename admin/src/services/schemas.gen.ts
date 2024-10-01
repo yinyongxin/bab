@@ -24,13 +24,13 @@ export const ResultAdmintorDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727783971956
+            default: 1727786147553
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727783971956
+            default: 1727786147554
         },
         username: {
             type: 'string',
@@ -145,7 +145,7 @@ export const UpdateAdmintorDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727783971956
+            default: 1727786147554
         },
         username: {
             type: 'string',
@@ -220,13 +220,13 @@ export const QueryAdmintorDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727783971956
+            default: 1727786147553
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727783971956
+            default: 1727786147554
         },
         username: {
             type: 'string',
@@ -327,13 +327,13 @@ export const ResultRoleDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727783971956
+            default: 1727786147553
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727783971956
+            default: 1727786147554
         },
         name: {
             type: 'string',
@@ -365,7 +365,7 @@ export const UpdateRoleDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727783971956
+            default: 1727786147554
         },
         name: {
             type: 'string',
@@ -392,13 +392,13 @@ export const QueryRoleDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727783971956
+            default: 1727786147553
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727783971956
+            default: 1727786147554
         },
         name: {
             type: 'string',
@@ -503,13 +503,13 @@ export const ResultMenuDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727783971956
+            default: 1727786147553
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727783971956
+            default: 1727786147554
         },
         name: {
             type: 'string',
@@ -565,7 +565,7 @@ export const UpdateMenuDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727783971956
+            default: 1727786147554
         },
         name: {
             type: 'string',
@@ -619,13 +619,13 @@ export const TreeMenuDataDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727783971956
+            default: 1727786147553
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727783971956
+            default: 1727786147554
         },
         name: {
             type: 'string',

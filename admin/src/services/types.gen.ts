@@ -669,10 +669,10 @@ export type MenusControllerFindByIdResponse = (ResultMenuDto);
 
 export type MenusControllerFindByIdError = unknown;
 
-export type MenusControllerGetTreeDataResponse = (TreeMenuDataDto);
+export type MenusControllerGetTreeDataResponse = (Array<TreeMenuDataDto>);
 
 export type MenusControllerGetTreeDataError = unknown;
 
-export type MenusControllerGetAllMenusResponse = (TreeMenuDataDto);
+export type MenusControllerGetAllMenusResponse = (Array<TreeMenuDataDto>);
 
 export type MenusControllerGetAllMenusError = unknown;
