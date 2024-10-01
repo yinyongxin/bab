@@ -75,6 +75,7 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 						<div key={data._id}>
 							<Button
 								size="icon"
+								className="h-14 w-14"
 								variant="secondary"
 								onClick={() => {
 									navigate(child.path);

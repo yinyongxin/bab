@@ -1,16 +1,11 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
-import {
-	HoverCard,
-	HoverCardContent,
-	HoverCardTrigger,
-} from "@/components/ui/hover-card";
 import {
 	menusControllerGetTreeData,
 	MenusControllerGetTreeDataResponse,
 } from "@/services";
 import { useEffect, useMemo, useState } from "react";
 import MenuNavBarItem from "./MenuNavBarItem";
+import UserInfo from "./UserInfo";
 
 const MenuNavBar = () => {
 	const [menuTree, setMenuTree] =
@@ -34,17 +29,7 @@ const MenuNavBar = () => {
 			<Card className="flex justify-between flex-col gap-2 p-4 h-full">
 				<div className="flex flex-col gap-2">{menuMemo}</div>
 				<div>
-					<HoverCard openDelay={0} closeDelay={100}>
-						<HoverCardTrigger>
-							<Avatar>
-								<AvatarImage src="https://github.com/shadcn.png" />
-								<AvatarFallback>CN</AvatarFallback>
-							</Avatar>
-						</HoverCardTrigger>
-						<HoverCardContent side="right" align="end" className="ml-6 -mb-4">
-							The React Framework – created and maintained by @vercel.
-						</HoverCardContent>
-					</HoverCard>
+					<UserInfo />
 				</div>
 			</Card>
 		</nav>
