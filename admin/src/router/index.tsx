@@ -24,6 +24,7 @@ export const routes: RouteObject[] = [
 				path: "setting",
 				element: <Setting />,
 			},
+			{ path: "/*", element: <NotFound /> },
 		],
 	},
 

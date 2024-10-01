@@ -69,7 +69,13 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 				{data.children.map((child) => {
 					return (
 						<div key={data._id}>
-							<Button size="icon" variant="secondary">
+							<Button
+								size="icon"
+								variant="secondary"
+								onClick={() => {
+									navigate(child.path);
+								}}
+							>
 								<Icon name={child.icon as any} />
 							</Button>
 						</div>

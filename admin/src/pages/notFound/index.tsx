@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 export default function NotFound() {
@@ -21,12 +22,9 @@ export default function NotFound() {
 						Sorry, we couldn’t find the page you’re looking for.
 					</p>
 					<div className="mt-10 flex items-center justify-center gap-x-6">
-						<Link
-							to="/home"
-							className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-						>
-							Go back home
-						</Link>
+						<Button>
+							<Link to="/home">Go back home</Link>
+						</Button>
 						<a href="#" className="text-sm font-semibold text-gray-900">
 							Contact support <span aria-hidden="true">&rarr;</span>
 						</a>
