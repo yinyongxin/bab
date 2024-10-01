@@ -14,6 +14,7 @@ import { TreeMenuDataDto } from "@/services";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@/components";
 import { useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
 export type MenuNavBarItemProps = {
 	data: TreeMenuDataDto;
@@ -42,6 +43,7 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 						setOpen(false);
 					}, 200);
 				}}
+				asChild
 			>
 				<Button
 					className="h-10 w-10"
@@ -73,16 +75,18 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 				{data.children.map((child) => {
 					return (
 						<div key={data._id}>
-							<Button
-								size="icon"
-								className="h-14 w-14"
-								variant="secondary"
+							<div
+								className={cn([
+									"p-2 rounded-md",
+									{ "bg-black": location.pathname === child.path },
+									{ "text-white": location.pathname === child.path },
+								])}
 								onClick={() => {
 									navigate(child.path);
 								}}
 							>
 								<Icon name={child.icon as any} />
-							</Button>
+							</div>
 						</div>
 					);
 				})}
@@ -102,6 +106,7 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 					onMouseLeave={() => {
 						setOpen(false);
 					}}
+					asChild
 				>
 					<Button
 						className="h-10 w-10"
