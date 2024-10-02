@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-import "./index.css";
 import { client } from "./services";
+import "./index.css";
 
 // configure internal service client
 client.setConfig({
@@ -20,8 +20,4 @@ client.interceptors.response.use((response) => {
 	return response;
 });
 
-createRoot(document.getElementById("root")!).render(
-	// <StrictMode>
-	<App />
-	// </StrictMode>,
-);
+createRoot(document.getElementById("root")!).render(<App />);
