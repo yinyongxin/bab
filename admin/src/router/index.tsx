@@ -5,6 +5,7 @@ import { createBrowserRouter, RouteObject } from "react-router-dom";
 import NotFound from "@/pages/notFound";
 import { Login } from "@/pages/login";
 import Setting from "@/pages/setting";
+import Admintors from "@/pages/admintors";
 
 export const routes: RouteObject[] = [
 	{
@@ -24,6 +25,7 @@ export const routes: RouteObject[] = [
 				path: "setting",
 				element: <Setting />,
 			},
+			{ path: "admintors", element: <Admintors /> },
 			{ path: "/*", element: <NotFound /> },
 		],
 	},
