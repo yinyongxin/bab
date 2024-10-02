@@ -12,6 +12,7 @@ export type FlexProps = Pick<React.ComponentProps<"div">, "children"> & {
 	vertical?: boolean;
 	/** 是否水平和垂直居中 */
 	center?: boolean;
+	gap?: number;
 };
 
 /**
@@ -26,6 +27,7 @@ export const Flex = (props: FlexProps) => {
 		align = center ? "center" : "start", // 垂直对齐方式，默认为"start"，如果center为true则默认为"center"
 		vertical,
 		children,
+		gap,
 	} = props; // 解构出其他属性
 
 	return (
@@ -37,10 +39,11 @@ export const Flex = (props: FlexProps) => {
 				`items-${align}`,
 				{
 					"flex-col": vertical, // 如果vertical为true，则添加"flex-col"类名
+					[`gap-${gap}`]: !!gap,
 				},
 			])}
 		>
-			{children} // 渲染子元素
+			{children}
 		</div>
 	);
 };

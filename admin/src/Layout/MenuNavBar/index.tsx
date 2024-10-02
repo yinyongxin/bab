@@ -8,8 +8,6 @@ import MenuNavBarItem from "./MenuNavBarItem";
 import UserInfo from "./UserInfo";
 import { cn } from "@/lib/utils";
 import styles from "./index.module.less";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const MenuNavBar = () => {
 	const [menuTree, setMenuTree] =
@@ -31,7 +29,7 @@ const MenuNavBar = () => {
 	return (
 		<nav
 			// className="p-5 h-screen"
-			className={cn(["p-5 h-screen", styles.menu])}
+			className={cn(["py-5 pl-5 h-screen", styles.menu])}
 		>
 			<Card className="flex justify-between flex-col gap-2 p-4 h-full">
 				<div>
