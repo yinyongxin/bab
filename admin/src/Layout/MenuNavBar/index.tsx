@@ -8,6 +8,7 @@ import MenuNavBarItem from "./MenuNavBarItem";
 import UserInfo from "./UserInfo";
 import { cn } from "@/lib/utils";
 import styles from "./index.module.less";
+import { ModeToggle } from "@/components/mode-toggle";
 
 const MenuNavBar = () => {
 	const [menuTree, setMenuTree] =
@@ -45,6 +46,7 @@ const MenuNavBar = () => {
 					{menuMemo}
 				</div>
 				<div>
+					<ModeToggle />
 					<UserInfo />
 				</div>
 			</Card>

@@ -5,6 +5,7 @@ import {
 } from "@/components/ui/hover-card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useRef, useState } from "react";
+import { ModeToggle } from "@/components/mode-toggle";
 
 /**
  * UserInfo组件用于显示用户信息卡片，当鼠标悬停在用户头像上时，会显示详细信息
@@ -61,7 +62,7 @@ const UserInfo = () => {
 				align="end"
 				className="ml-6 -mb-4"
 			>
-				The React Framework – created and maintained by @vercel.
+				<ModeToggle />
 			</HoverCardContent>
 		</HoverCard>
 	);
