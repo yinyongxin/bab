@@ -1,8 +1,14 @@
+/* 引入Tailwind CSS的基础样式，包括字体、文字样式等 */
 @tailwind base;
+/* 引入Tailwind CSS的组件样式，如按钮、表格等 */
 @tailwind components;
+/* 引入Tailwind CSS的工具函数，用于快速构建页面布局和样式 */
 @tailwind utilities;
+
+/* 定义基础层样式，设置全局颜色变量 */
 @layer base {
   :root {
+    /* 定义背景色、前景色、卡片色等全局颜色变量 */
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -30,6 +36,7 @@
     --radius: 0.8rem
   }
   .dark {
+    /* 定义暗黑模式下的全局颜色变量 */
     --background: 240 10% 3.9%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
@@ -56,10 +63,13 @@
     --chart-5: 340 75% 55%
   }
 }
+
+/* 设置全局边框颜色 */
 @layer base {
   * {
     @apply border-border;
   }
+  /* 设置页面背景色和文字颜色 */
   body {
     @apply bg-background text-foreground;
   }
