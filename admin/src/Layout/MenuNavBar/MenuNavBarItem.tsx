@@ -72,7 +72,7 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 				align="start"
 				className="translate-x-6"
 			>
-				{data.children.map((child) => {
+				{data.children?.map((child) => {
 					return (
 						<div key={data._id}>
 							<div
