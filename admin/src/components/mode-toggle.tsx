@@ -7,10 +7,32 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useTheme } from "@/components/theme-provider";
+import { Theme, useTheme } from "@/components/theme-provider";
+import { Icon } from "./Icon";
 
-export function ModeToggle() {
-	const { setTheme } = useTheme();
+export type ModeToggleProps = {
+	single?: boolean;
+};
+export function ModeToggle(props: ModeToggleProps) {
+	const { single } = props;
+	const { theme, setTheme } = useTheme();
+	if (single) {
+		const themeIcons: Record<Theme, JSX.Element> = {
+			dark: <Icon name="Moon" />,
+			light: <Icon name="Sun" />,
+			system: <Icon name="MonitorCog" />,
+		};
+		return (
+			<Button
+				variant="ghost"
+				size="icon"
+				className="h-10 w-10"
+				onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+			>
+				{themeIcons[theme]}
+			</Button>
+		);
+	}
 
 	return (
 		<DropdownMenu>

@@ -9,6 +9,7 @@ import UserInfo from "./UserInfo";
 import { cn } from "@/lib/utils";
 import styles from "./index.module.less";
 import { ModeToggle } from "@/components/mode-toggle";
+import { Flex } from "@/components";
 
 const MenuNavBar = () => {
 	const [menuTree, setMenuTree] =
@@ -45,10 +46,10 @@ const MenuNavBar = () => {
 				<div className="flex flex-col h-full gap-2 overflow-y-auto scroll">
 					{menuMemo}
 				</div>
-				<div>
-					<ModeToggle />
+				<Flex vertical gap={2}>
+					<ModeToggle single />
 					<UserInfo />
-				</div>
+				</Flex>
 			</Card>
 		</nav>
 	);
