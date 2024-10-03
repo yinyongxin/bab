@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
 import { admintorsControllerUpdateOne, ResultAdmintorDto } from "@/services";
+import { getFormattedDate } from "@/utils";
 import { ColumnDef } from "@tanstack/react-table";
 
 export const getColumns = (
@@ -65,10 +66,16 @@ export const getColumns = (
 	{
 		accessorKey: "createdTime",
 		header: "创建时间",
+		accessorFn: (row) => {
+			return getFormattedDate(row.createdTime);
+		},
 	},
 	{
-		accessorKey: "updatedTime",
+		// accessorKey: "updatedTime",
 		header: "更新时间",
+		accessorFn: (row) => {
+			return getFormattedDate(row.updatedTime);
+		},
 	},
 	{
 		accessorKey: "id",
