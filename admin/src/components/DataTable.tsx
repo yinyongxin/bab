@@ -100,8 +100,14 @@ export const DataTable = <TData, TValue>(
 		getDataFn({ showLoading: showLoading });
 	}, [pagination.pageIndex, pagination.pageSize]);
 
+	/**
+	 * 生成并渲染分页组件
+	 * 此函数用于动态生成分页组件，根据当前表格的页数决定是否显示省略号
+	 */
 	const paginationRender = () => {
+		// 获取当前表格的页数
 		const pageCount = table.getPageCount();
+		// 当表格页数超过5页时，显示省略号
 		const showEllipsis = pageCount > 5;
 		return (
 			<div className="flex items-center justify-end pt-4">
@@ -113,7 +119,7 @@ export const DataTable = <TData, TValue>(
 								onClick={() => table.previousPage()}
 							/>
 						</PaginationItem>
-						<PaginationItem key={Math.random()}>
+						<PaginationItem>
 							<PaginationLink
 								onClick={() => table.setPageIndex(0)}
 								isActive={0 === pagination.pageIndex}
@@ -126,38 +132,22 @@ export const DataTable = <TData, TValue>(
 								<PaginationEllipsis />
 							</PaginationItem>
 						)}
-						{/* 遍历页码数组，为每一页生成相应的页码项 */}
-						{list(1, pageCount - 2).map((pageIndex) => {
-							// 如果显示省略号，则根据当前页码位置决定是否生成页码项
-							if (showEllipsis) {
-								// 如果当前页码远大于4，并且索引小于当前页码前两位，则跳过这些页码项
-								if (
-									pagination.pageIndex > 4 &&
-									pageIndex < pagination.pageIndex - 2
-								) {
-									return null;
-								}
-								// 如果当前页码远小于总页数减5，并且索引大于当前页码后两位，则跳过这些页码项
-								if (
-									pagination.pageIndex < pageCount - 5 &&
-									pageIndex > pagination.pageIndex + 2
-								) {
-									return null;
-								}
-							}
-							// 生成页码项，每个页码项都有一个随机的关键字，点击可以跳转到相应的页码
-							return (
-								<PaginationItem key={Math.random()}>
-									<PaginationLink
-										onClick={() => table.setPageIndex(pageIndex)}
-										isActive={pageIndex === pagination.pageIndex}
-									>
-										{pageIndex + 1}
-									</PaginationLink>
-								</PaginationItem>
-							);
-						})}
-						{showEllipsis && pagination.pageIndex < pageCount - 5 && (
+						{list(
+							pagination.pageIndex > 4 ? pagination.pageIndex - 2 : 1,
+							pagination.pageIndex < pageCount - 4
+								? pagination.pageIndex + 2
+								: pageCount - 2
+						).map((pageIndex) => (
+							<PaginationItem key={Math.random()}>
+								<PaginationLink
+									onClick={() => table.setPageIndex(pageIndex)}
+									isActive={pageIndex === pagination.pageIndex}
+								>
+									{pageIndex + 1}
+								</PaginationLink>
+							</PaginationItem>
+						))}
+						{showEllipsis && pagination.pageIndex < pageCount - 4 && (
 							<PaginationItem>
 								<PaginationEllipsis />
 							</PaginationItem>
