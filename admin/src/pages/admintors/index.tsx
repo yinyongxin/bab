@@ -23,7 +23,6 @@ const Admintors = () => {
 				border
 				columns={getColumns(actionRef)}
 				getData={async (pagination) => {
-					console.log("pagination", pagination);
 					const res = await admintorsControllerGetPageList({
 						query: {
 							pageNo: pagination.pageIndex + 1,
@@ -32,9 +31,8 @@ const Admintors = () => {
 						body: {},
 					});
 					return {
-						total: 160,
+						total: res.data?.total || 0,
 						list: res.data?.list || [],
-						...pagination,
 					};
 				}}
 			/>

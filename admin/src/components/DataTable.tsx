@@ -36,7 +36,7 @@ export type DataTableActionRef = {
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	getData?: (pagination: PaginationState) => Promise<
-		PaginationState & {
+		Partial<PaginationState> & {
 			total: number;
 			list: Array<TData>;
 		}
