@@ -27,6 +27,7 @@ import {
 } from "./ui/pagination";
 import { useEffect, useImperativeHandle, useState } from "react";
 import { Icon } from "./Icon";
+import { Card } from "./ui/card";
 
 export type DataTableActionRef = {
 	refresh: (options?: { showLoading?: boolean }) => void;
@@ -126,15 +127,7 @@ export const DataTable = <TData, TValue>(
 							</PaginationItem>
 						)}
 						{/* 遍历页码数组，为每一页生成相应的页码项 */}
-						{list(0, pageCount - 1).map((pageIndex) => {
-							// 判断是否为第一页
-							const isFirstPage = pageIndex === 0;
-							// 判断是否为最后一页
-							const isLastPage = pageIndex === pageCount - 1;
-							// 跳过第一页和最后一页，不生成页码项
-							if (isFirstPage || isLastPage) {
-								return null;
-							}
+						{list(1, pageCount - 2).map((pageIndex) => {
 							// 如果显示省略号，则根据当前页码位置决定是否生成页码项
 							if (showEllipsis) {
 								// 如果当前页码远大于4，并且索引小于当前页码前两位，则跳过这些页码项
@@ -204,10 +197,9 @@ export const DataTable = <TData, TValue>(
 
 	return (
 		<div>
-			<div
+			<Card
 				className={cn([
 					{
-						border: border,
 						"rounded-md": border,
 						"p-4": border,
 					},
@@ -270,7 +262,7 @@ export const DataTable = <TData, TValue>(
 						)}
 					</TableBody>
 				</Table>
-			</div>
+			</Card>
 			{paginationRender()}
 		</div>
 	);
