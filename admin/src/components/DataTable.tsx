@@ -6,7 +6,7 @@ import {
 	PaginationState,
 	useReactTable,
 } from "@tanstack/react-table";
-
+import { list } from "radash";
 import {
 	Table,
 	TableBody,
@@ -126,11 +126,11 @@ export const DataTable = <TData, TValue>(
 							</PaginationItem>
 						)}
 						{/* 遍历页码数组，为每一页生成相应的页码项 */}
-						{Array.from({ length: pageCount }).map((_, index) => {
+						{list(0, pageCount - 1).map((pageIndex) => {
 							// 判断是否为第一页
-							const isFirstPage = index === 0;
+							const isFirstPage = pageIndex === 0;
 							// 判断是否为最后一页
-							const isLastPage = index === pageCount - 1;
+							const isLastPage = pageIndex === pageCount - 1;
 							// 跳过第一页和最后一页，不生成页码项
 							if (isFirstPage || isLastPage) {
 								return null;
@@ -140,14 +140,14 @@ export const DataTable = <TData, TValue>(
 								// 如果当前页码远大于4，并且索引小于当前页码前两位，则跳过这些页码项
 								if (
 									pagination.pageIndex > 4 &&
-									index < pagination.pageIndex - 2
+									pageIndex < pagination.pageIndex - 2
 								) {
 									return null;
 								}
 								// 如果当前页码远小于总页数减5，并且索引大于当前页码后两位，则跳过这些页码项
 								if (
 									pagination.pageIndex < pageCount - 5 &&
-									index > pagination.pageIndex + 2
+									pageIndex > pagination.pageIndex + 2
 								) {
 									return null;
 								}
@@ -156,10 +156,10 @@ export const DataTable = <TData, TValue>(
 							return (
 								<PaginationItem key={Math.random()}>
 									<PaginationLink
-										onClick={() => table.setPageIndex(index)}
-										isActive={index === pagination.pageIndex}
+										onClick={() => table.setPageIndex(pageIndex)}
+										isActive={pageIndex === pagination.pageIndex}
 									>
-										{index + 1}
+										{pageIndex + 1}
 									</PaginationLink>
 								</PaginationItem>
 							);

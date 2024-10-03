@@ -32,7 +32,7 @@ const Admintors = () => {
 						body: {},
 					});
 					return {
-						total: res.data?.total || 0,
+						total: 160,
 						list: res.data?.list || [],
 						...pagination,
 					};
