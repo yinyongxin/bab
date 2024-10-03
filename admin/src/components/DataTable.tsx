@@ -25,12 +25,15 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "./ui/pagination";
-import { useEffect, useState } from "react";
+import { useEffect, useImperativeHandle, useState } from "react";
 import { Icon } from "./Icon";
+
+export type DataTableActionRef = {
+	refresh: () => void;
+};
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
-	// data: TData[];
 	getData?: (pagination: PaginationState) => Promise<
 		PaginationState & {
 			total: number;
@@ -38,6 +41,7 @@ interface DataTableProps<TData, TValue> {
 		}
 	>;
 	border?: boolean;
+	actionRef?: React.RefObject<DataTableActionRef>;
 }
 
 export const DataTable = <TData, TValue>(
@@ -82,11 +86,9 @@ export const DataTable = <TData, TValue>(
 		getDataFn();
 	}, [pagination.pageIndex, pagination.pageSize]);
 
-	const showEllipsis = table.getPageCount() > 5;
-
 	const paginationRender = () => {
-		if (showEllipsis) {
-		}
+		const pageCount = table.getPageCount();
+		const showEllipsis = pageCount > 5;
 		return (
 			<div className="flex items-center justify-end pt-4">
 				<Pagination>
@@ -110,26 +112,34 @@ export const DataTable = <TData, TValue>(
 								<PaginationEllipsis />
 							</PaginationItem>
 						)}
-						{Array.from({ length: table.getPageCount() }).map((_, index) => {
+						{/* 遍历页码数组，为每一页生成相应的页码项 */}
+						{Array.from({ length: pageCount }).map((_, index) => {
+							// 判断是否为第一页
 							const isFirstPage = index === 0;
-							const isLastPage = index === table.getPageCount() - 1;
+							// 判断是否为最后一页
+							const isLastPage = index === pageCount - 1;
+							// 跳过第一页和最后一页，不生成页码项
 							if (isFirstPage || isLastPage) {
 								return null;
 							}
+							// 如果显示省略号，则根据当前页码位置决定是否生成页码项
 							if (showEllipsis) {
+								// 如果当前页码远大于4，并且索引小于当前页码前两位，则跳过这些页码项
 								if (
 									pagination.pageIndex > 4 &&
 									index < pagination.pageIndex - 2
 								) {
 									return null;
 								}
+								// 如果当前页码远小于总页数减5，并且索引大于当前页码后两位，则跳过这些页码项
 								if (
-									pagination.pageIndex < table.getPageCount() - 5 &&
+									pagination.pageIndex < pageCount - 5 &&
 									index > pagination.pageIndex + 2
 								) {
 									return null;
 								}
 							}
+							// 生成页码项，每个页码项都有一个随机的关键字，点击可以跳转到相应的页码
 							return (
 								<PaginationItem key={Math.random()}>
 									<PaginationLink
@@ -141,19 +151,18 @@ export const DataTable = <TData, TValue>(
 								</PaginationItem>
 							);
 						})}
-						{showEllipsis &&
-							pagination.pageIndex < table.getPageCount() - 5 && (
-								<PaginationItem>
-									<PaginationEllipsis />
-								</PaginationItem>
-							)}
-						{table.getPageCount() > 1 && (
+						{showEllipsis && pagination.pageIndex < pageCount - 5 && (
+							<PaginationItem>
+								<PaginationEllipsis />
+							</PaginationItem>
+						)}
+						{pageCount > 1 && (
 							<PaginationItem key={Math.random()}>
 								<PaginationLink
-									onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-									isActive={table.getPageCount() - 1 === pagination.pageIndex}
+									onClick={() => table.setPageIndex(pageCount - 1)}
+									isActive={pageCount - 1 === pagination.pageIndex}
 								>
-									{table.getPageCount()}
+									{pageCount}
 								</PaginationLink>
 							</PaginationItem>
 						)}
@@ -168,6 +177,12 @@ export const DataTable = <TData, TValue>(
 			</div>
 		);
 	};
+
+	useImperativeHandle(props.actionRef, () => ({
+		refresh: () => {
+			getDataFn();
+		},
+	}));
 
 	return (
 		<div>
