@@ -13,7 +13,7 @@ const textVariants = cva("", {
 		type: {
 			default: "text-primary",
 			muted: "text-muted-foreground",
-			error: "text-red-500",
+			danger: "text-red-500",
 			warning: "text-orange-500",
 			success: "text-green-500",
 		},

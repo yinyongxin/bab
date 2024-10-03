@@ -84,8 +84,20 @@ export const getColumns = (
 							</Button>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
-							<DropdownMenuItem>编辑</DropdownMenuItem>
-							<DropdownMenuItem>删除</DropdownMenuItem>
+							<DropdownMenuItem>
+								<Flex gap={2} align="center">
+									<Icon name="Pencil" size={14} />
+									<Text size="small">编辑</Text>
+								</Flex>
+							</DropdownMenuItem>
+							<DropdownMenuItem>
+								<Text type="danger" size="small">
+									<Flex gap={2} align="center">
+										<Icon name="Trash" size={14} />
+										删除
+									</Flex>
+								</Text>
+							</DropdownMenuItem>
 						</DropdownMenuContent>
 					</DropdownMenu>
 				</Flex>
