@@ -18,6 +18,7 @@ export const getColumns = (
 	{
 		accessorKey: "username",
 		header: "管理员",
+		minSize: 250,
 		cell: ({ row }) => {
 			return (
 				<Flex gap={2} align="center">
@@ -35,6 +36,7 @@ export const getColumns = (
 	{
 		accessorKey: "status",
 		header: "状态",
+		size: 100,
 		cell: ({ row }) => {
 			return (
 				<Flex align="center">
@@ -66,6 +68,7 @@ export const getColumns = (
 	{
 		accessorKey: "createdTime",
 		header: "创建时间",
+
 		accessorFn: (row) => {
 			return getFormattedDate(row.createdTime);
 		},
@@ -80,6 +83,7 @@ export const getColumns = (
 	{
 		accessorKey: "id",
 		header: () => <Flex justify="center">操作</Flex>,
+		size: 50,
 		cell: ({ row }) => {
 			return (
 				<Flex justify="center">
