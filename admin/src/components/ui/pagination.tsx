@@ -65,18 +65,14 @@ const PaginationNext = ({ className, ...props }: ButtonProps) => (
 );
 PaginationNext.displayName = "PaginationNext";
 
-const PaginationEllipsis = ({
-	className,
-	...props
-}: React.ComponentProps<"span">) => (
-	<span
-		aria-hidden
-		className={cn("flex h-9 w-9 items-center justify-center", className)}
+const PaginationEllipsis = ({ className, ...props }: ButtonProps) => (
+	<Button
+		variant={"ghost"}
+		className={cn(["p-0 h-9 w-9", className])}
 		{...props}
 	>
 		<Icon name="Ellipsis" size={14}></Icon>
-		<span className="sr-only">More pages</span>
-	</span>
+	</Button>
 );
 PaginationEllipsis.displayName = "PaginationEllipsis";
 

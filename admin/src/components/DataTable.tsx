@@ -25,38 +25,38 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "./ui/pagination";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Icon } from "./Icon";
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
-	data: TData[];
-	getData?: (pagination?: PaginationState) => void;
-	pagination?: PaginationState & {
-		total: number;
-	};
+	// data: TData[];
+	getData?: (pagination: PaginationState) => Promise<
+		PaginationState & {
+			total: number;
+			list: Array<TData>;
+		}
+	>;
 	border?: boolean;
 }
 
 export const DataTable = <TData, TValue>(
 	props: DataTableProps<TData, TValue>
 ) => {
-	const {
-		columns,
-		data,
-		border = false,
-		pagination: paginationProps,
-		getData,
-	} = props;
+	const { columns, border = false, getData } = props;
+	const [loading, setLoading] = useState(true);
 	const [pagination, setPagination] = useState({
-		pageIndex: paginationProps?.pageIndex ? paginationProps?.pageIndex - 1 : 0, //initial page index
+		pageIndex: 0, //initial page index
 		pageSize: 10, //default page size
 	});
+	const [rowCount, setRowCount] = useState(0);
+	const [data, setData] = useState<TData[]>([]);
 	const table = useReactTable({
 		data,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		manualPagination: true,
-		rowCount: paginationProps?.total || 0,
+		rowCount,
 		state: {
 			pagination,
 		},
@@ -64,8 +64,22 @@ export const DataTable = <TData, TValue>(
 		getPaginationRowModel: getPaginationRowModel(),
 	});
 
+	const getDataFn = async () => {
+		try {
+			setLoading(true);
+			const res = await getData?.(pagination);
+			setData(res?.list || []);
+			setRowCount(res?.total || 0);
+		} catch {
+			setData([]);
+			setRowCount(0);
+		} finally {
+			setLoading(false);
+		}
+	};
+
 	useEffect(() => {
-		getData?.(pagination);
+		getDataFn();
 	}, [pagination.pageIndex, pagination.pageSize]);
 
 	return (
@@ -98,7 +112,7 @@ export const DataTable = <TData, TValue>(
 							</TableRow>
 						))}
 					</TableHeader>
-					<TableBody>
+					<TableBody className="relative">
 						{table.getRowModel().rows?.length ? (
 							table.getRowModel().rows.map((row) => (
 								<TableRow
@@ -125,10 +139,16 @@ export const DataTable = <TData, TValue>(
 								</TableCell>
 							</TableRow>
 						)}
+						{loading && (
+							<TableRow className="flex items-center justify-center h-full absolute top-0 left-0 right-0 bottom-0 bg-secondary/90 hover:bg-secondary/90">
+								<TableCell className="animate-spin">
+									<Icon name="Loader" />
+								</TableCell>
+							</TableRow>
+						)}
 					</TableBody>
 				</Table>
 			</div>
-			<div>{table.getState().pagination.pageIndex}</div>
 			{pagination && (
 				<div className="flex items-center justify-end pt-4">
 					<Pagination>
@@ -139,20 +159,58 @@ export const DataTable = <TData, TValue>(
 									onClick={() => table.previousPage()}
 								/>
 							</PaginationItem>
+							<PaginationItem key={Math.random()}>
+								<PaginationLink
+									onClick={() => table.setPageIndex(0)}
+									isActive={0 === pagination.pageIndex}
+								>
+									{1}
+								</PaginationLink>
+							</PaginationItem>
+							{pagination.pageIndex > 3 && (
+								<PaginationItem>
+									<PaginationEllipsis />
+								</PaginationItem>
+							)}
 							{Array.from({ length: table.getPageCount() }).map((_, index) => {
+								if (index === 0 || index === table.getPageCount() - 1) {
+									return null;
+								}
+								if (
+									pagination.pageIndex > 3 &&
+									index < pagination.pageIndex - 2
+								) {
+									return null;
+								}
+								if (
+									pagination.pageIndex < table.getPageCount() - 5 &&
+									index > pagination.pageIndex + 2
+								) {
+									return null;
+								}
 								return (
 									<PaginationItem key={Math.random()}>
 										<PaginationLink
 											onClick={() => table.setPageIndex(index)}
-											isActive={index === table.getState().pagination.pageIndex}
+											isActive={index === pagination.pageIndex}
 										>
 											{index + 1}
 										</PaginationLink>
 									</PaginationItem>
 								);
 							})}
-							<PaginationItem>
-								<PaginationEllipsis />
+							{pagination.pageIndex < table.getPageCount() - 5 && (
+								<PaginationItem>
+									<PaginationEllipsis />
+								</PaginationItem>
+							)}
+							<PaginationItem key={Math.random()}>
+								<PaginationLink
+									onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+									isActive={table.getPageCount() - 1 === pagination.pageIndex}
+								>
+									{table.getPageCount()}
+								</PaginationLink>
 							</PaginationItem>
 							<PaginationItem>
 								<PaginationNext

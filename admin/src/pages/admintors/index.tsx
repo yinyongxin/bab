@@ -1,25 +1,10 @@
-import { useEffect, useState } from "react";
 import { DataTable } from "@/components/DataTable";
-import { admintorsControllerGetPageList, ResultAdmintorDto } from "@/services";
+import { admintorsControllerGetPageList } from "@/services";
 import { Title, Flex, Icon } from "@/components";
 import { columns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 const Admintors = () => {
-	const [data, setData] = useState<ResultAdmintorDto[]>([]);
-	const getData = async () => {
-		const res = await admintorsControllerGetPageList({
-			query: {
-				pageNo: 1,
-				pageSize: 10,
-			},
-			body: {},
-		});
-		setData(res.data?.list || []);
-	};
-	useEffect(() => {
-		getData();
-	}, []);
 	return (
 		<div className="p-5 flex flex-col gap-4">
 			<Title level="h4">管理人员</Title>
@@ -34,14 +19,20 @@ const Admintors = () => {
 			<DataTable
 				border
 				columns={columns}
-				data={data}
-				getData={(pagination) => {
+				getData={async (pagination) => {
 					console.log("pagination", pagination);
-				}}
-				pagination={{
-					pageIndex: 1,
-					pageSize: 10,
-					total: 30,
+					const res = await admintorsControllerGetPageList({
+						query: {
+							pageNo: pagination.pageIndex + 1,
+							pageSize: pagination.pageSize,
+						},
+						body: {},
+					});
+					return {
+						total: 200,
+						list: res.data?.list || [],
+						...pagination,
+					};
 				}}
 			/>
 		</div>
