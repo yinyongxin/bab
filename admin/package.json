@@ -30,6 +30,7 @@
     "@tanstack/react-table": "^8.20.5",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.13",
     "less": "^4.2.0",
     "lucide-react": "^0.446.0",
     "radash": "^12.1.0",

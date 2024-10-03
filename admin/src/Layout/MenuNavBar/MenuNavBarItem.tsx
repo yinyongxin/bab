@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/tooltip";
 import { TreeMenuDataDto } from "@/services";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Icon } from "@/components";
+import { Flex, Icon, Title, Text } from "@/components";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -72,20 +72,35 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 				align="start"
 				className="translate-x-6"
 			>
+				<Title className="mb-2">{data.name}</Title>
 				{data.children?.map((child) => {
 					return (
 						<div key={data._id}>
 							<div
 								className={cn([
-									"p-2 rounded-md hover:bg-muted cursor-pointer transition-colors duration-200",
-									{ "bg-secondary": location.pathname === child.path },
-									{ "text-foreground": location.pathname === child.path },
+									"bg-secondary hover:bg-primary",
+									"text-secondary-foreground hover:text-primary-foreground",
+									"p-2 rounded-md cursor-pointer transition-colors duration-200",
+									{
+										"bg-primary text-primary-foreground":
+											location.pathname === child.path,
+									},
 								])}
 								onClick={() => {
 									navigate(child.path);
 								}}
 							>
-								<Icon name={child.icon as any} />
+								<Flex gap={2}>
+									<Flex center className={cn(["h-12 w-12 border rounded-md"])}>
+										<Icon name={child.icon as any} />
+									</Flex>
+									<Flex vertical justify="between">
+										<Text size="sm">{child.name}</Text>
+										<Text size="sm" type="muted">
+											{child.description}
+										</Text>
+									</Flex>
+								</Flex>
 							</div>
 						</div>
 					);

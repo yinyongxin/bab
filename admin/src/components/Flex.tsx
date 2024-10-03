@@ -3,7 +3,10 @@ import { cn } from "@/lib/utils";
 /**
  * Flex组件的属性类型，基于HTML div元素的属性，并添加了一些自定义属性
  */
-export type FlexProps = Pick<React.ComponentProps<"div">, "children"> & {
+export type FlexProps = Pick<
+	React.ComponentProps<"div">,
+	"children" | "className"
+> & {
 	/** 水平对齐方式 */
 	justify?: "start" | "center" | "end" | "between" | "around" | "normal"; //
 	/** 垂直对齐方式 */
@@ -28,6 +31,7 @@ export const Flex = (props: FlexProps) => {
 		vertical,
 		children,
 		gap,
+		className,
 	} = props; // 解构出其他属性
 
 	return (
@@ -41,6 +45,7 @@ export const Flex = (props: FlexProps) => {
 					"flex-col": vertical, // 如果vertical为true，则添加"flex-col"类名
 					[`gap-${gap}`]: !!gap,
 				},
+				className,
 			])}
 		>
 			{children}

@@ -3,15 +3,10 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
-const textVariants = cva("", {
+export const textVariants = cva("", {
 	variants: {
-		size: {
-			small: "text-sm",
-			default: "text-base",
-			large: "text-lg",
-		},
 		type: {
-			default: "text-primary",
+			default: "",
 			muted: "text-muted-foreground",
 			danger: "text-red-500",
 			warning: "text-orange-500",
@@ -19,7 +14,6 @@ const textVariants = cva("", {
 		},
 	},
 	defaultVariants: {
-		size: "default",
 		type: "default",
 	},
 });
@@ -29,16 +23,21 @@ export interface TextProps
 		VariantProps<typeof textVariants> {
 	asChild?: boolean;
 	bold?: boolean;
+	size?: "xs" | "sm" | "base" | "lg" | "xl";
 }
 
-const Text = React.forwardRef<HTMLSpanElement, TextProps>(
-	({ className, size, bold, type, asChild = false, ...props }, ref) => {
+export const Text = React.forwardRef<HTMLSpanElement, TextProps>(
+	(
+		{ className, size = "base", bold, type, asChild = false, ...props },
+		ref
+	) => {
 		const Comp = asChild ? Slot : "span";
 		return (
 			<Comp
 				className={cn([
-					textVariants({ size, type, className }),
+					textVariants({ type, className }),
 					bold && "font-bold",
+					`text-${size}`,
 				])}
 				ref={ref}
 				{...props}
@@ -47,5 +46,3 @@ const Text = React.forwardRef<HTMLSpanElement, TextProps>(
 	}
 );
 Text.displayName = "Text";
-
-export { Text, textVariants };

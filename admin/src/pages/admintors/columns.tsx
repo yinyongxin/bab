@@ -10,14 +10,13 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { admintorsControllerUpdateOne, ResultAdmintorDto } from "@/services";
 import { ColumnDef } from "@tanstack/react-table";
-import { RefObject } from "react";
 
 export const getColumns = (
 	actionRef: React.RefObject<DataTableActionRef>
 ): ColumnDef<ResultAdmintorDto>[] => [
 	{
 		accessorKey: "username",
-		header: "姓名",
+		header: "管理员",
 		cell: ({ row }) => {
 			return (
 				<Flex gap={2} align="center">
@@ -87,11 +86,11 @@ export const getColumns = (
 							<DropdownMenuItem>
 								<Flex gap={2} align="center">
 									<Icon name="Pencil" size={14} />
-									<Text size="small">编辑</Text>
+									<Text size="sm">编辑</Text>
 								</Flex>
 							</DropdownMenuItem>
 							<DropdownMenuItem>
-								<Text type="danger" size="small">
+								<Text type="danger" size="sm">
 									<Flex gap={2} align="center">
 										<Icon name="Trash" size={14} />
 										删除
