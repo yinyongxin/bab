@@ -9,7 +9,7 @@ export const textVariants = cva("", {
 			default: "",
 			muted: "text-muted-foreground",
 			danger: "text-red-500",
-			warning: "text-orange-500",
+			warning: "text-warning",
 			success: "text-green-500",
 		},
 	},
