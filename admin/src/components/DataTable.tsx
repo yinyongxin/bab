@@ -29,7 +29,7 @@ import { useEffect, useImperativeHandle, useState } from "react";
 import { Icon } from "./Icon";
 
 export type DataTableActionRef = {
-	refresh: () => void;
+	refresh: (options?: { showLoading?: boolean }) => void;
 };
 
 interface DataTableProps<TData, TValue> {
@@ -41,13 +41,14 @@ interface DataTableProps<TData, TValue> {
 		}
 	>;
 	border?: boolean;
+	showLoading?: boolean;
 	actionRef?: React.RefObject<DataTableActionRef>;
 }
 
 export const DataTable = <TData, TValue>(
 	props: DataTableProps<TData, TValue>
 ) => {
-	const { columns, border = false, getData } = props;
+	const { columns, border = false, showLoading = true, getData } = props;
 	const [loading, setLoading] = useState(true);
 	const [pagination, setPagination] = useState({
 		pageIndex: 0, //initial page index
@@ -68,22 +69,36 @@ export const DataTable = <TData, TValue>(
 		getPaginationRowModel: getPaginationRowModel(),
 	});
 
-	const getDataFn = async () => {
+	const getDataFn = async (options: { showLoading: boolean }) => {
 		try {
-			setLoading(true);
+			if (options.showLoading) {
+				setLoading(true);
+			}
 			const res = await getData?.(pagination);
-			setData(res?.list || []);
+			setData(
+				res?.list?.map((item) => {
+					return {
+						// @ts-ignore
+						id: item?._id,
+						...item,
+					};
+				}) || []
+			);
 			setRowCount(res?.total || 0);
 		} catch {
 			setData([]);
 			setRowCount(0);
 		} finally {
-			setLoading(false);
+			if (showLoading) {
+				setTimeout(() => {
+					setLoading(false);
+				}, 3000);
+			}
 		}
 	};
 
 	useEffect(() => {
-		getDataFn();
+		getDataFn({ showLoading: showLoading });
 	}, [pagination.pageIndex, pagination.pageSize]);
 
 	const paginationRender = () => {
@@ -179,8 +194,13 @@ export const DataTable = <TData, TValue>(
 	};
 
 	useImperativeHandle(props.actionRef, () => ({
-		refresh: () => {
-			getDataFn();
+		refresh: (options?: { showLoading?: boolean }) => {
+			getDataFn({
+				showLoading:
+					options?.showLoading !== undefined
+						? options?.showLoading
+						: showLoading,
+			});
 		},
 	}));
 
@@ -216,21 +236,23 @@ export const DataTable = <TData, TValue>(
 					</TableHeader>
 					<TableBody className="relative">
 						{table.getRowModel().rows?.length ? (
-							table.getRowModel().rows.map((row) => (
-								<TableRow
-									key={row.id}
-									data-state={row.getIsSelected() && "selected"}
-								>
-									{row.getVisibleCells().map((cell) => (
-										<TableCell key={cell.id}>
-											{flexRender(
-												cell.column.columnDef.cell,
-												cell.getContext()
-											)}
-										</TableCell>
-									))}
-								</TableRow>
-							))
+							table.getRowModel().rows.map((row) => {
+								return (
+									<TableRow
+										key={row.id}
+										data-state={row.getIsSelected() && "selected"}
+									>
+										{row.getVisibleCells().map((cell) => (
+											<TableCell key={cell.id}>
+												{flexRender(
+													cell.column.columnDef.cell,
+													cell.getContext()
+												)}
+											</TableCell>
+										))}
+									</TableRow>
+								);
+							})
 						) : (
 							<TableRow>
 								<TableCell
@@ -242,8 +264,8 @@ export const DataTable = <TData, TValue>(
 							</TableRow>
 						)}
 						{loading && (
-							<TableRow className="flex items-center justify-center h-full absolute top-0 left-0 right-0 bottom-0 bg-secondary/90 hover:bg-secondary/90">
-								<TableCell className="animate-spin">
+							<TableRow className="flex items-center justify-center h-full absolute top-0 left-0 right-0 bottom-0 bg-secondary/90 hover:bg-secondary/90 transition-all duration-300">
+								<TableCell colSpan={columns.length} className="animate-spin">
 									<Icon name="Loader" />
 								</TableCell>
 							</TableRow>

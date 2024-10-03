@@ -22,7 +22,7 @@ export const getColumns = (
 			return (
 				<Flex gap={2} align="center">
 					<Avatar>
-						<AvatarImage src={row.getValue("avatar")} />
+						<AvatarImage src={""} />
 						<AvatarFallback />
 					</Avatar>
 					<Text>
@@ -51,7 +51,9 @@ export const getColumns = (
 											row.getValue("status") === "Open" ? "Close" : "Open",
 									},
 								});
-								// actionRef.current?.refresh();
+								actionRef.current?.refresh({
+									showLoading: false,
+								});
 							} catch (error) {
 								console.log(error);
 							}
@@ -72,12 +74,11 @@ export const getColumns = (
 	{
 		accessorKey: "id",
 		header: () => <Flex justify="center">操作</Flex>,
-
 		cell: ({ row }) => {
 			return (
 				<Flex justify="center">
 					<DropdownMenu>
-						<DropdownMenuTrigger>
+						<DropdownMenuTrigger asChild>
 							<Button size="icon" variant="ghost">
 								<Icon name="Ellipsis" size={16} />
 							</Button>

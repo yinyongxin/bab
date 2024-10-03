@@ -34,7 +34,7 @@ export class Admintors extends BaseDocument {
    * 头像
    */
   @Prop({
-    default: null,
+    default: undefined,
   })
   // swagger
   @ApiProperty({ required: false, description: '头像', example: '' })
@@ -44,7 +44,7 @@ export class Admintors extends BaseDocument {
    * 姓名
    */
   @Prop({
-    default: null,
+    default: undefined,
   })
   // swagger
   @ApiProperty({ required: false, description: '姓名', example: '' })
@@ -65,7 +65,7 @@ export class Admintors extends BaseDocument {
    * 电话号码
    */
   @Prop({
-    default: null,
+    default: undefined,
   })
   // swagger
   @ApiProperty({ required: false, description: '电话号码', example: '' })
@@ -75,7 +75,7 @@ export class Admintors extends BaseDocument {
    * 邮箱
    */
   @Prop({
-    default: null,
+    default: undefined,
   })
   // swagger
   @ApiProperty({ required: false, description: '邮箱', example: '' })

@@ -33,12 +33,7 @@ const Admintors = () => {
 					});
 					return {
 						total: res.data?.total || 0,
-						list: res.data?.list?.map((item) => {
-							return {
-								id: item._id,
-								...item
-							}
-						}) || [],
+						list: res.data?.list || [],
 						...pagination,
 					};
 				}}
