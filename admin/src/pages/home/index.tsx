@@ -15,6 +15,10 @@ const Home = () => {
 				<div className="text-warning bg-warning-foreground">
 					text-foreground
 				</div>
+				<div className="text-primary-foreground bg-primary">text-primary</div>
+				<div className="text-primary bg-primary-foreground">
+					text-foreground
+				</div>
 			</Flex>
 			<Button onClick={() => setCount(count + 1)}>
 				<span className="text-2xl">{count}</span>
