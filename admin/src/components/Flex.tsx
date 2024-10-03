@@ -15,6 +15,7 @@ export type FlexProps = Pick<
 	vertical?: boolean;
 	/** 是否水平和垂直居中 */
 	center?: boolean;
+	wrap?: boolean;
 	gap?: number;
 };
 
@@ -32,6 +33,7 @@ export const Flex = (props: FlexProps) => {
 		children,
 		gap,
 		className,
+		wrap,
 	} = props; // 解构出其他属性
 
 	return (
@@ -41,9 +43,11 @@ export const Flex = (props: FlexProps) => {
 				"flex",
 				`justify-${justify}`,
 				`items-${align}`,
+
 				{
 					"flex-col": vertical, // 如果vertical为true，则添加"flex-col"类名
 					[`gap-${gap}`]: !!gap,
+					[`flex-wrap`]: wrap,
 				},
 				className,
 			])}

@@ -1,15 +1,27 @@
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { icons } from "lucide-react";
-import { Flex } from "@/components";
+import { Flex, Icon } from "@/components";
 
 const Home = () => {
 	const [count, setCount] = useState(0);
 	useEffect(() => {
 		console.log("aasfasf", Object.keys(icons));
 	}, []);
+	const iconsMemo = useMemo(() => {
+		return (
+			<Flex gap={2} wrap>
+				{Object.keys(icons).map((name) => {
+					return <Icon name={name as any} />;
+				})}
+			</Flex>
+		);
+	}, []);
 	return (
-		<div className="flex flex-col items-center justify-center h-screen">
+		<div className="flex flex-col h-screen overflow-auto">
+			<Button onClick={() => setCount(count + 1)}>
+				<span className="text-2xl">{count}</span>
+			</Button>
 			<Flex vertical gap={2}>
 				<div className="text-warning-foreground bg-warning">text-warning</div>
 				<div className="text-warning bg-warning-foreground">
@@ -20,9 +32,7 @@ const Home = () => {
 					text-foreground
 				</div>
 			</Flex>
-			<Button onClick={() => setCount(count + 1)}>
-				<span className="text-2xl">{count}</span>
-			</Button>
+			{iconsMemo}
 		</div>
 	);
 };
