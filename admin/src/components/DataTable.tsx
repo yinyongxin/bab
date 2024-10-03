@@ -82,6 +82,93 @@ export const DataTable = <TData, TValue>(
 		getDataFn();
 	}, [pagination.pageIndex, pagination.pageSize]);
 
+	const showEllipsis = table.getPageCount() > 5;
+
+	const paginationRender = () => {
+		if (showEllipsis) {
+		}
+		return (
+			<div className="flex items-center justify-end pt-4">
+				<Pagination>
+					<PaginationContent>
+						<PaginationItem>
+							<PaginationPrevious
+								disabled={!table.getCanPreviousPage()}
+								onClick={() => table.previousPage()}
+							/>
+						</PaginationItem>
+						<PaginationItem key={Math.random()}>
+							<PaginationLink
+								onClick={() => table.setPageIndex(0)}
+								isActive={0 === pagination.pageIndex}
+							>
+								{1}
+							</PaginationLink>
+						</PaginationItem>
+						{showEllipsis && pagination.pageIndex > 4 && (
+							<PaginationItem>
+								<PaginationEllipsis />
+							</PaginationItem>
+						)}
+						{Array.from({ length: table.getPageCount() }).map((_, index) => {
+							const isFirstPage = index === 0;
+							const isLastPage = index === table.getPageCount() - 1;
+							if (isFirstPage || isLastPage) {
+								return null;
+							}
+							if (showEllipsis) {
+								if (
+									pagination.pageIndex > 4 &&
+									index < pagination.pageIndex - 2
+								) {
+									return null;
+								}
+								if (
+									pagination.pageIndex < table.getPageCount() - 5 &&
+									index > pagination.pageIndex + 2
+								) {
+									return null;
+								}
+							}
+							return (
+								<PaginationItem key={Math.random()}>
+									<PaginationLink
+										onClick={() => table.setPageIndex(index)}
+										isActive={index === pagination.pageIndex}
+									>
+										{index + 1}
+									</PaginationLink>
+								</PaginationItem>
+							);
+						})}
+						{showEllipsis &&
+							pagination.pageIndex < table.getPageCount() - 5 && (
+								<PaginationItem>
+									<PaginationEllipsis />
+								</PaginationItem>
+							)}
+						{table.getPageCount() > 1 && (
+							<PaginationItem key={Math.random()}>
+								<PaginationLink
+									onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+									isActive={table.getPageCount() - 1 === pagination.pageIndex}
+								>
+									{table.getPageCount()}
+								</PaginationLink>
+							</PaginationItem>
+						)}
+						<PaginationItem>
+							<PaginationNext
+								onClick={() => table.nextPage()}
+								disabled={!table.getCanNextPage()}
+							/>
+						</PaginationItem>
+					</PaginationContent>
+				</Pagination>
+			</div>
+		);
+	};
+
 	return (
 		<div>
 			<div
@@ -149,79 +236,7 @@ export const DataTable = <TData, TValue>(
 					</TableBody>
 				</Table>
 			</div>
-			{pagination && (
-				<div className="flex items-center justify-end pt-4">
-					<Pagination>
-						<PaginationContent>
-							<PaginationItem>
-								<PaginationPrevious
-									disabled={!table.getCanPreviousPage()}
-									onClick={() => table.previousPage()}
-								/>
-							</PaginationItem>
-							<PaginationItem key={Math.random()}>
-								<PaginationLink
-									onClick={() => table.setPageIndex(0)}
-									isActive={0 === pagination.pageIndex}
-								>
-									{1}
-								</PaginationLink>
-							</PaginationItem>
-							{pagination.pageIndex > 3 && (
-								<PaginationItem>
-									<PaginationEllipsis />
-								</PaginationItem>
-							)}
-							{Array.from({ length: table.getPageCount() }).map((_, index) => {
-								if (index === 0 || index === table.getPageCount() - 1) {
-									return null;
-								}
-								if (
-									pagination.pageIndex > 3 &&
-									index < pagination.pageIndex - 2
-								) {
-									return null;
-								}
-								if (
-									pagination.pageIndex < table.getPageCount() - 5 &&
-									index > pagination.pageIndex + 2
-								) {
-									return null;
-								}
-								return (
-									<PaginationItem key={Math.random()}>
-										<PaginationLink
-											onClick={() => table.setPageIndex(index)}
-											isActive={index === pagination.pageIndex}
-										>
-											{index + 1}
-										</PaginationLink>
-									</PaginationItem>
-								);
-							})}
-							{pagination.pageIndex < table.getPageCount() - 5 && (
-								<PaginationItem>
-									<PaginationEllipsis />
-								</PaginationItem>
-							)}
-							<PaginationItem key={Math.random()}>
-								<PaginationLink
-									onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-									isActive={table.getPageCount() - 1 === pagination.pageIndex}
-								>
-									{table.getPageCount()}
-								</PaginationLink>
-							</PaginationItem>
-							<PaginationItem>
-								<PaginationNext
-									onClick={() => table.nextPage()}
-									disabled={!table.getCanNextPage()}
-								/>
-							</PaginationItem>
-						</PaginationContent>
-					</Pagination>
-				</div>
-			)}
+			{paginationRender()}
 		</div>
 	);
 };
