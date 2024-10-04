@@ -4,7 +4,7 @@ import { Title, Flex, Icon } from "@/components";
 import { getColumns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppState } from "@/hooks";
 import { AddAdmintorDalog } from "./AddAdmintorDalog";
@@ -17,18 +17,15 @@ const Admintors = () => {
 			actionRef.current?.refresh();
 		}
 	);
-	const debouncedSearchTerm = useDebounce(() => {
+
+	const [queryUsername, queryUsernameAsync, setQueryUsername] = useAppState("");
+	const debouncedSearchTerm = useDebounce(queryUsername, 300);
+
+	useEffect(() => {
 		actionRef.current?.refresh({
 			showLoading: false,
 		});
-	}, 300);
-
-	const [queryUsername, queryUsernameAsync, setQueryUsername] = useAppState(
-		"",
-		() => {
-			debouncedSearchTerm();
-		}
-	);
+	}, [debouncedSearchTerm]);
 
 	return (
 		<div className="p-5 flex flex-col gap-4">
