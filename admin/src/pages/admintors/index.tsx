@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useRef } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppState } from "@/hooks";
+import { AddAdmintorDalog } from "./AddAdmintorDalog";
 const Admintors = () => {
 	const actionRef = useRef<DataTableActionRef>(null);
 	const [tabValue, tabValueAsync, setTabValue] = useAppState<status | "">(
@@ -34,10 +35,16 @@ const Admintors = () => {
 					</Tabs>
 					<Input className="w-1/3" placeholder="搜索" />
 				</Flex>
-				<Button>
-					<Icon name="Plus" className="mr-2 h-4 w-4" />
-					新增
-				</Button>
+				<AddAdmintorDalog
+					success={() => {
+						actionRef.current?.refresh();
+					}}
+				>
+					<Button>
+						<Icon name="Plus" className="mr-2 h-4 w-4" />
+						新增
+					</Button>
+				</AddAdmintorDalog>
 			</Flex>
 
 			<DataTable

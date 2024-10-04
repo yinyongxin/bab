@@ -8,7 +8,12 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
-import { admintorsControllerUpdateOne, ResultAdmintorDto } from "@/services";
+import { toast } from "@/hooks/use-toast";
+import {
+	admintorsControllerDeleteByIds,
+	admintorsControllerUpdateOne,
+	ResultAdmintorDto,
+} from "@/services";
 import { getFormattedDate } from "@/utils";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -53,9 +58,14 @@ export const getColumns = (
 											row.getValue("status") === "Open" ? "Close" : "Open",
 									},
 								});
+								toast({
+									title: "通知",
+									description: "更新成功",
+								})
 								actionRef.current?.refresh({
 									showLoading: false,
 								});
+								
 							} catch (error) {
 								console.log(error);
 							}
@@ -100,7 +110,18 @@ export const getColumns = (
 									<Text size="sm">编辑</Text>
 								</Flex>
 							</DropdownMenuItem>
-							<DropdownMenuItem>
+							<DropdownMenuItem
+								onClick={async () => {
+									await admintorsControllerDeleteByIds({
+										body: {
+											ids: [row.getValue("id")],
+										},
+									});
+									actionRef.current?.refresh({
+										showLoading: false,
+									});
+								}}
+							>
 								<Text type="danger" size="sm">
 									<Flex gap={2} items="center">
 										<Icon name="Trash" size={14} />
