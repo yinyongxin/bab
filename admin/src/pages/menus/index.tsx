@@ -42,6 +42,7 @@ const Menus = () => {
 					{menuTree?.map((menu) => {
 						return (
 							<Button
+								key={menu._id}
 								className="h-auto"
 								variant={firstMenuCheck === menu._id ? "default" : "outline"}
 								onClick={() => {
