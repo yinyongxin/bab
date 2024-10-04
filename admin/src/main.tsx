@@ -21,7 +21,6 @@ client.interceptors.response.use((response) => {
 		console.error(
 			`request to ${response.url} failed with status ${response.status}`
 		);
-		console.log(response);
 		toast({
 			title: "请求失败: " + response.status,
 			description: response.statusText,

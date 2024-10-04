@@ -46,7 +46,7 @@ export const AddAdmintorDalog = (props: AddAdmintorDalogProps) => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			username: "",
-			password: "",
+			password: "123456",
 		},
 	});
 
@@ -60,6 +60,10 @@ export const AddAdmintorDalog = (props: AddAdmintorDalogProps) => {
 		});
 		props.success?.();
 		setOpen(false);
+		form.reset({
+			username: "",
+			password: "123456",
+		});
 	};
 
 	return (
