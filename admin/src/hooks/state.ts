@@ -16,14 +16,14 @@ export const useAppState = <V>(initValue: V, after?: () => void) => {
 	const [value, setValue] = useState<V>(initValue);
 
 	// 通过 useRef 来保存异步操作的状态，这样可以在异步操作完成后更新状态
-	const asyncValue = useRef<{ value: V }>({ value: initValue });
+	const asyncValue = useRef<V >(initValue);
 	const updateValue = (val: V | ((oldValue: V) => V)) => {
 		if (isFunction(val)) {
 			const newValue = val(value);
-			asyncValue.current.value = newValue;
+			asyncValue.current = newValue;
 			setValue(newValue);
 		} else {
-			asyncValue.current.value = val;
+			asyncValue.current = val;
 			setValue(val);
 		}
 	};
@@ -34,5 +34,5 @@ export const useAppState = <V>(initValue: V, after?: () => void) => {
 
 	// 返回一个数组，包含当前状态值、异步状态值和更新状态的函数
 	// 这样可以在组件中直接使用这些值来控制组件的行为
-	return [value, asyncValue.current.value, updateValue] as const;
+	return [value, asyncValue.current, updateValue] as const;
 };

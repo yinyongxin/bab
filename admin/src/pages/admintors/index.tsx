@@ -8,6 +8,7 @@ import { useRef } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppState } from "@/hooks";
 import { AddAdmintorDalog } from "./AddAdmintorDalog";
+import { useDebounce } from "@uidotdev/usehooks";
 const Admintors = () => {
 	const actionRef = useRef<DataTableActionRef>(null);
 	const [tabValue, tabValueAsync, setTabValue] = useAppState<status | "">(
@@ -16,6 +17,19 @@ const Admintors = () => {
 			actionRef.current?.refresh();
 		}
 	);
+	const debouncedSearchTerm = useDebounce(() => {
+		actionRef.current?.refresh({
+			showLoading: false,
+		});
+	}, 300);
+
+	const [queryUsername, queryUsernameAsync, setQueryUsername] = useAppState(
+		"",
+		() => {
+			debouncedSearchTerm();
+		}
+	);
+
 	return (
 		<div className="p-5 flex flex-col gap-4">
 			<Title level="h4">管理人员</Title>
@@ -33,7 +47,20 @@ const Admintors = () => {
 							<TabsTrigger value="Close">关闭</TabsTrigger>
 						</TabsList>
 					</Tabs>
-					<Input className="w-1/3" placeholder="搜索" />
+					<Input
+						className="w-1/3"
+						placeholder="搜索"
+						value={queryUsername}
+						onChange={(e) => setQueryUsername(e.target.value)}
+					/>
+					<Button
+						onClick={() => {
+							actionRef.current?.refresh();
+						}}
+					>
+						<Icon name="Search" className="mr-2 h-4 w-4" />
+						搜索
+					</Button>
 				</Flex>
 				<AddAdmintorDalog
 					success={() => {
@@ -59,6 +86,7 @@ const Admintors = () => {
 						},
 						body: {
 							status: tabValueAsync ? tabValueAsync : undefined,
+							username: queryUsernameAsync,
 						},
 					});
 					return {
