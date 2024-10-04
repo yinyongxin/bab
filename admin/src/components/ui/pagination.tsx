@@ -39,40 +39,45 @@ type PaginationLinkProps = {
 } & ButtonProps;
 
 const PaginationLink = ({ isActive, ...props }: PaginationLinkProps) => (
-	<Button variant={isActive ? "default" : "ghost"} size="icon" {...props} />
+	<Button
+		variant={isActive ? "default" : "ghost"}
+		size="icon"
+		className="h-8 w-8"
+		{...props}
+	/>
 );
 PaginationLink.displayName = "PaginationLink";
 
 const PaginationPrevious = ({ className, ...props }: ButtonProps) => (
-	<Button
+	<PaginationLink
 		variant={"ghost"}
-		className={cn(["p-0 h-9 w-9 ", className])}
+		className={cn(["p-0 ", className])}
 		{...props}
 	>
 		<Icon name="ChevronLeft" className="text-xl"></Icon>
-	</Button>
+	</PaginationLink>
 );
 PaginationPrevious.displayName = "PaginationPrevious";
 
 const PaginationNext = ({ className, ...props }: ButtonProps) => (
-	<Button
+	<PaginationLink
 		variant={"ghost"}
-		className={cn(["p-0 h-9 w-9", className])}
+		className={cn(["p-0", className])}
 		{...props}
 	>
 		<Icon name="ChevronRight" className="text-xl"></Icon>
-	</Button>
+	</PaginationLink>
 );
 PaginationNext.displayName = "PaginationNext";
 
 const PaginationEllipsis = ({ className, ...props }: ButtonProps) => (
-	<Button
+	<PaginationLink
 		variant={"ghost"}
-		className={cn(["p-0 h-9 w-9", className])}
+		className={cn(["p-0", className])}
 		{...props}
 	>
 		<Icon name="Ellipsis" size={14}></Icon>
-	</Button>
+	</PaginationLink>
 );
 PaginationEllipsis.displayName = "PaginationEllipsis";
 
