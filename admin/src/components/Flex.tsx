@@ -10,7 +10,7 @@ export type FlexProps = Pick<
 	/** 水平对齐方式 */
 	justify?: "start" | "center" | "end" | "between" | "around" | "normal"; //
 	/** 垂直对齐方式 */
-	align?: "start" | "center" | "end";
+	items?: "start" | "center" | "end";
 	/** 是否垂直排列 */
 	vertical?: boolean;
 	/** 是否水平和垂直居中 */
@@ -28,7 +28,7 @@ export const Flex = (props: FlexProps) => {
 	const { center = false } = props; // 是否水平和垂直居中，默认为false
 	const {
 		justify = center ? "center" : "normal", // 水平对齐方式，默认为"normal"，如果center为true则默认为"center"
-		align = center ? "center" : "start", // 垂直对齐方式，默认为"start"，如果center为true则默认为"center"
+		items = center ? "center" : "start", // 垂直对齐方式，默认为"start"，如果center为true则默认为"center"
 		vertical,
 		children,
 		gap,
@@ -42,7 +42,7 @@ export const Flex = (props: FlexProps) => {
 				// 动态构建class字符串
 				"flex",
 				`justify-${justify}`,
-				`items-${align}`,
+				`items-${items}`,
 
 				{
 					"flex-col": vertical, // 如果vertical为true，则添加"flex-col"类名

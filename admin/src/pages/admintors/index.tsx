@@ -10,7 +10,7 @@ const Admintors = () => {
 	return (
 		<div className="p-5 flex flex-col gap-4">
 			<Title level="h4">管理人员</Title>
-			<Flex justify="between" align="center">
+			<Flex justify="between" items="center">
 				<Input className="w-1/3" placeholder="搜索" />
 				<Button>
 					<Icon name="Plus" className="mr-2 h-4 w-4" />

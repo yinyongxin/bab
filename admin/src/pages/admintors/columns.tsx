@@ -21,7 +21,7 @@ export const getColumns = (
 		minSize: 250,
 		cell: ({ row }) => {
 			return (
-				<Flex gap={2} align="center">
+				<Flex gap={2} items="center">
 					<Avatar>
 						<AvatarImage src={""} />
 						<AvatarFallback />
@@ -39,7 +39,7 @@ export const getColumns = (
 		size: 100,
 		cell: ({ row }) => {
 			return (
-				<Flex align="center">
+				<Flex items="center">
 					<Switch
 						checked={row.getValue("status") === "Open"}
 						onClick={async () => {
@@ -95,14 +95,14 @@ export const getColumns = (
 						</DropdownMenuTrigger>
 						<DropdownMenuContent align="end">
 							<DropdownMenuItem>
-								<Flex gap={2} align="center">
+								<Flex gap={2} items="center">
 									<Icon name="Pencil" size={14} />
 									<Text size="sm">编辑</Text>
 								</Flex>
 							</DropdownMenuItem>
 							<DropdownMenuItem>
 								<Text type="danger" size="sm">
-									<Flex gap={2} align="center">
+									<Flex gap={2} items="center">
 										<Icon name="Trash" size={14} />
 										删除
 									</Flex>
