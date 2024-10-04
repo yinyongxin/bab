@@ -6,6 +6,7 @@ import NotFound from "@/pages/notFound";
 import { Login } from "@/pages/login";
 import Setting from "@/pages/setting";
 import Admintors from "@/pages/admintors";
+import Menus from "@/pages/menus";
 
 export const routes: RouteObject[] = [
 	{
@@ -26,6 +27,7 @@ export const routes: RouteObject[] = [
 				element: <Setting />,
 			},
 			{ path: "admintors", element: <Admintors /> },
+			{ path: "menus", element: <Menus /> },
 			{ path: "/*", element: <NotFound /> },
 		],
 	},

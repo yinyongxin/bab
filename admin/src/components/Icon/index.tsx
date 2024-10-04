@@ -1,4 +1,5 @@
 // 从 lucide-react 包中导入图标和 LucideProps 类型
+import { cn } from "@/lib/utils";
 import { icons, LucideProps } from "lucide-react";
 
 /**
@@ -14,15 +15,15 @@ export type IconProps = LucideProps & {
  * @param {IconProps} props - 组件的属性对象，包含要渲染图标的名称和其他 LucideProps 属性
  * @returns {JSX.Element} - 渲染指定名称的图标，并传入其他属性
  */
-export const Icon = ({ name, ...rest }: IconProps) => {
+export const Icon = ({ name, className, ...rest }: IconProps) => {
 	// 确保 name 是一个有效的键
 	if (!(name in icons)) {
-		return <icons.Ban />;
+		return <icons.Ban className={cn(["inline-block", className])} />;
 	}
 
 	// 根据 name 属性获取对应的 LucideIcon 组件
 	const LucideIcon = icons[name];
 
 	// 渲染 LucideIcon 组件，并传入其他属性
-	return <LucideIcon {...rest} />;
+	return <LucideIcon className={cn(["inline-block", className])} {...rest} />;
 };
