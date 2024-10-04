@@ -17,6 +17,7 @@ export type FlexProps = Pick<
 	center?: boolean;
 	wrap?: boolean;
 	gap?: number;
+	flex?: string;
 };
 
 /**
@@ -34,6 +35,7 @@ export const Flex = (props: FlexProps) => {
 		gap,
 		className,
 		wrap,
+		flex,
 	} = props; // 解构出其他属性
 
 	return (
@@ -48,6 +50,7 @@ export const Flex = (props: FlexProps) => {
 					"flex-col": vertical, // 如果vertical为true，则添加"flex-col"类名
 					[`gap-${gap}`]: !!gap,
 					[`flex-wrap`]: wrap,
+					[`flex-${flex}`]: flex,
 				},
 				className,
 			])}

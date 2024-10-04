@@ -255,8 +255,8 @@ export const DataTable = <TData, TValue>(
 						)}
 					</TableBody>
 				</Table>
+				{paginationRender()}
 			</Card>
-			{paginationRender()}
 		</div>
 	);
 };

@@ -18,7 +18,7 @@ const Home = () => {
 		);
 	}, []);
 	return (
-		<div className="flex flex-col items-center h-screen overflow-auto">
+		<div className="flex flex-col justify-center items-center h-screen overflow-auto">
 			<Button onClick={() => setCount(count + 1)}>
 				<span className="text-2xl">{count}</span>
 			</Button>
