@@ -17,22 +17,23 @@ import {
 } from "react-beautiful-dnd";
 
 const Menus = () => {
-	const [secondMenus, setSecondMenus] = useState<TreeMenuDataDto[]>([]);
-
-	const [firstMenuCheck, setFirstMenuCheck] = useState<string>();
+	const [menuCheck, setMenuChecks] = useState<[string, string]>();
 
 	const [menuTree, setMenuTree] =
 		useState<MenusControllerGetTreeDataResponse>();
 	const getMenu = async () => {
 		const res = await menusControllerGetTreeData();
-		setFirstMenuCheck(res.data?.[0]._id);
+
 		setItems(
 			res.data?.map((item) => ({
 				id: item._id,
 				...item,
 			})) || []
 		);
-		setSecondMenus(res.data?.[0].children || []);
+		setMenuChecks([
+			res.data?.[0]?._id || "",
+			res.data?.[0].children?.[0]?._id || "",
+		]);
 		setMenuTree(res.data);
 	};
 
@@ -105,12 +106,20 @@ const Menus = () => {
 												{...draggableProvided.draggableProps}
 												{...draggableProvided.dragHandleProps}
 												style={draggableProvided.draggableProps.style}
+												onClick={() => {
+													setMenuChecks([
+														item._id,
+														item.children?.[0]?._id || "",
+													]);
+												}}
 												className={cn([
 													"select-none rounded-md p-3 mb-2 border bg-background shadow-sm hover:bg-accent ",
 													{
 														// "bg-primary text-primary-foreground shadow hover:bg-primary/90 border border-dotted":
 														// 	snapshot.isDragging,
-														"bg-accent ": snapshot.isDragging,
+														"bg-accent": snapshot.isDragging,
+														"bg-primary text-primary-foreground shadow hover:bg-primary/90 border":
+															menuCheck?.[0] === item._id,
 													},
 												])}
 											>
