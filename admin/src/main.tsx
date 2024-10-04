@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import { client } from "./services";
 import "./index.css";
+import { toast } from "./hooks/use-toast.ts";
 
 // configure internal service client
 client.setConfig({
@@ -16,6 +17,17 @@ client.setConfig({
 client.interceptors.response.use((response) => {
 	if (response.status === 200) {
 		console.log(`request to ${response.url} was successful`);
+	} else if (response.status >= 400) {
+		console.error(
+			`request to ${response.url} failed with status ${response.status}`
+		);
+		console.log(response);
+		toast({
+			title: "请求失败: " + response.status,
+			description: response.statusText,
+			variant: "destructive",
+		});
+		throw new Error("Request failed");
 	}
 	return response;
 });
