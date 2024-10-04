@@ -75,7 +75,7 @@ export const AddAdmintorDalog = (props: AddAdmintorDalogProps) => {
 				<DialogHeader>
 					<DialogTitle>添加管理员</DialogTitle>
 					<DialogDescription>
-						输入管理员信息，点击确定完成创建。
+						输入管理员信息，默认密码是123456，点击确定完成创建。
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
