@@ -83,9 +83,8 @@ const Menus = () => {
 					</CardTitle>
 				</CardHeader>
 				<DragDropContext onDragEnd={onDragEnd}>
-					<Droppable
-						droppableId="droppable"
-						children={(droppableProvided) => (
+					<Droppable droppableId="droppable">
+						{(droppableProvided) => (
 							<div
 								{...droppableProvided.droppableProps}
 								ref={droppableProvided.innerRef}
@@ -95,7 +94,8 @@ const Menus = () => {
 										key={item._id}
 										draggableId={item._id}
 										index={index}
-										children={(draggableProvided, snapshot) => (
+									>
+										{(draggableProvided, snapshot) => (
 											<div
 												ref={draggableProvided.innerRef}
 												{...draggableProvided.draggableProps}
@@ -133,12 +133,12 @@ const Menus = () => {
 												</Flex>
 											</div>
 										)}
-									/>
+									</Draggable>
 								))}
 								{droppableProvided.placeholder}
 							</div>
 						)}
-					/>
+					</Droppable>
 				</DragDropContext>
 			</Card>
 			<div></div>
