@@ -7,7 +7,7 @@ export const textVariants = cva("", {
 	variants: {
 		type: {
 			default: "",
-			secondary: "text-secondary",
+			muted: "text-muted-foreground",
 			danger: "text-red-500",
 			warning: "text-warning",
 			success: "text-green-500",
