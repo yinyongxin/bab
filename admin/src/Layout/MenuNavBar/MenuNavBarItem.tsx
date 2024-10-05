@@ -134,7 +134,7 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 						<Icon name={data.icon as any} />
 					</Button>
 				</TooltipTrigger>
-				<TooltipContent side="right" className="ml-6 p-2">
+				<TooltipContent side="right" className="ml-6 p-3">
 					<Flex vertical gap={2}>
 						<Text bold>{data.name}</Text>
 						<Text size="sm" className="truncate">
