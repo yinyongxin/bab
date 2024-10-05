@@ -151,7 +151,7 @@ export const AddMenuDalog = (props: AddMenuDalogProps) => {
 										<Input placeholder="请输入" {...field} />
 									</FormControl>
 									<FormDescription>
-										<Button variant="link">https://lucide.dev/icons/</Button>
+										<Button type="button" variant="link">https://lucide.dev/icons/</Button>
 									</FormDescription>
 									<FormMessage />
 								</FormItem>
