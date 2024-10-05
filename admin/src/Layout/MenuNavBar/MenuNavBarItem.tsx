@@ -95,7 +95,7 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 										<Icon name={child.icon as any} />
 									</Flex>
 									<Flex vertical justify="between" className="overflow-hidden">
-										<Text size="sm">{child.name}</Text>
+										<Text bold>{child.name}</Text>
 										<Text size="sm" type="muted" className="truncate">
 											{child.description}
 										</Text>
