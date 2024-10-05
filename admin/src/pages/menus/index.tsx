@@ -55,7 +55,7 @@ const Menus = () => {
 									{data.name}
 								</Flex>
 							</Text>
-							<Text type="muted" className="text-left">
+							<Text type="secondary" className="text-left">
 								{data.description}
 							</Text>
 						</Flex>
