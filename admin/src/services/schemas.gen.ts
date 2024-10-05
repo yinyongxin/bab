@@ -24,13 +24,13 @@ export const ResultAdmintorDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         username: {
             type: 'string',
@@ -145,7 +145,7 @@ export const UpdateAdmintorDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         username: {
             type: 'string',
@@ -220,13 +220,13 @@ export const QueryAdmintorDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         username: {
             type: 'string',
@@ -327,13 +327,13 @@ export const ResultRoleDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         name: {
             type: 'string',
@@ -365,7 +365,7 @@ export const UpdateRoleDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         name: {
             type: 'string',
@@ -392,13 +392,13 @@ export const QueryRoleDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         name: {
             type: 'string',
@@ -465,7 +465,12 @@ export const CreateMenuBodyDtoSchema = {
         path: {
             type: 'string',
             description: '菜单路径',
-            example: null
+            example: ''
+        },
+        sort: {
+            type: 'number',
+            description: '用作菜单排序',
+            example: 0
         },
         pageAuthority: {
             type: 'string',
@@ -484,7 +489,7 @@ export const CreateMenuBodyDtoSchema = {
             example: null
         }
     },
-    required: ['name', 'path']
+    required: ['name', 'path', 'sort']
 } as const;
 
 export const ResultMenuDtoSchema = {
@@ -494,13 +499,13 @@ export const ResultMenuDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         name: {
             type: 'string',
@@ -515,7 +520,12 @@ export const ResultMenuDtoSchema = {
         path: {
             type: 'string',
             description: '菜单路径',
-            example: null
+            example: ''
+        },
+        sort: {
+            type: 'number',
+            description: '用作菜单排序',
+            example: 0
         },
         pageAuthority: {
             type: 'string',
@@ -538,7 +548,7 @@ export const ResultMenuDtoSchema = {
             description: '唯一值'
         }
     },
-    required: ['createdTime', 'updatedTime', 'name', 'path', '_id']
+    required: ['createdTime', 'updatedTime', 'name', 'path', 'sort', '_id']
 } as const;
 
 export const UpdateMenuDtoSchema = {
@@ -548,7 +558,7 @@ export const UpdateMenuDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         name: {
             type: 'string',
@@ -563,7 +573,12 @@ export const UpdateMenuDtoSchema = {
         path: {
             type: 'string',
             description: '菜单路径',
-            example: null
+            example: ''
+        },
+        sort: {
+            type: 'number',
+            description: '用作菜单排序',
+            example: 0
         },
         pageAuthority: {
             type: 'string',
@@ -598,13 +613,13 @@ export const TreeMenuDataDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1727793859301
+            default: 1728113106046
         },
         name: {
             type: 'string',
@@ -619,7 +634,12 @@ export const TreeMenuDataDtoSchema = {
         path: {
             type: 'string',
             description: '菜单路径',
-            example: null
+            example: ''
+        },
+        sort: {
+            type: 'number',
+            description: '用作菜单排序',
+            example: 0
         },
         pageAuthority: {
             type: 'string',
@@ -650,5 +670,5 @@ export const TreeMenuDataDtoSchema = {
             }
         }
     },
-    required: ['createdTime', 'updatedTime', 'name', 'path', '_id', 'children']
+    required: ['createdTime', 'updatedTime', 'name', 'path', 'sort', '_id', 'children']
 } as const;

@@ -11,6 +11,7 @@ import {
 import {
 	Form,
 	FormControl,
+	FormDescription,
 	FormField,
 	FormItem,
 	FormLabel,
@@ -23,15 +24,18 @@ import { useForm } from "react-hook-form";
 import { menusControllerAddOne } from "@/services";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
+import { SelectIcon } from "@/components/form/SelectIcon";
 
 export type AddMenuDalogProps = {
 	success?: () => void;
 	children?: React.ReactNode;
 	parentId?: string;
+	sort: number;
 };
 
 export const AddMenuDalog = (props: AddMenuDalogProps) => {
-	const { parentId = "" } = props;
+	const { parentId = "", sort } = props;
 
 	const [open, setOpen] = useState(false);
 
@@ -43,11 +47,17 @@ export const AddMenuDalog = (props: AddMenuDalogProps) => {
 			message: "描述至少需要6个字符。",
 		}),
 		path: z.string().min(parentId ? 1 : 0, {
-			message: "描述至少需要1个字符。",
+			message: "地址至少需要1个字符。",
+		}),
+		icon: z.string().min(1, {
+			message: "图标名称至少需要1个字符。",
+		}),
+		parent: z.string().min(parentId ? 1 : 0, {
+			message: "图标名称至少需要1个字符。",
 		}),
 	});
 
-	const defaultValues = {
+	const defaultValues: z.infer<typeof formSchema> = {
 		name: "",
 		description: "",
 		path: "",
@@ -56,14 +66,14 @@ export const AddMenuDalog = (props: AddMenuDalogProps) => {
 	};
 
 	// 1. Define your form.
-	const form = useForm<typeof defaultValues>({
+	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues,
 	});
 
 	// 2. Define a submit handler.
-	const onSubmit = async (values: typeof defaultValues) => {
-		const res = await menusControllerAddOne({ body: values });
+	const onSubmit = async (values: z.infer<typeof formSchema>) => {
+		const res = await menusControllerAddOne({ body: { ...values, sort } });
 		console.log(res);
 		toast({
 			title: "通知",
@@ -113,7 +123,7 @@ export const AddMenuDalog = (props: AddMenuDalogProps) => {
 								<FormItem>
 									<FormLabel>描述</FormLabel>
 									<FormControl>
-										<Input placeholder="请输入" {...field} />
+										<Textarea placeholder="请输入" {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
@@ -128,6 +138,22 @@ export const AddMenuDalog = (props: AddMenuDalogProps) => {
 									<FormControl>
 										<Input placeholder="请输入" {...field} />
 									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
+							name="icon"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>图标名称</FormLabel>
+									<FormControl>
+										<Input placeholder="请输入" {...field} />
+									</FormControl>
+									<FormDescription>
+										<Button variant="link">https://lucide.dev/icons/</Button>
+									</FormDescription>
 									<FormMessage />
 								</FormItem>
 							)}

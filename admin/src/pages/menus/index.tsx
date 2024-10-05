@@ -61,11 +61,16 @@ const Menus = () => {
 		};
 
 	return (
-		<div className="grid grid-cols-3 gap-4 p-4 h-full">
+		<div className="grid grid-cols-3 gap-4 p-5 h-full">
 			<Card className="p-4 pt-0">
 				<CardHeader className="px-0 py-2">
 					<CardTitle className="w-full">
-						<AddMenuDalog>
+						<AddMenuDalog
+							sort={menuTree.length}
+							success={() => {
+								getMenu();
+							}}
+						>
 							<Button variant="ghost" className="w-full" size="lg">
 								<Flex items="center" gap={2}>
 									<Icon name="Plus" size={18}></Icon>

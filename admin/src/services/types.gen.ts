@@ -337,6 +337,10 @@ export type CreateMenuBodyDto = {
      */
     path: string;
     /**
+     * 用作菜单排序
+     */
+    sort: number;
+    /**
      * 页面权限
      */
     pageAuthority?: 'Open' | 'Delete' | 'Update' | 'Query';
@@ -377,6 +381,10 @@ export type ResultMenuDto = {
      */
     path: string;
     /**
+     * 用作菜单排序
+     */
+    sort: number;
+    /**
      * 页面权限
      */
     pageAuthority?: 'Open' | 'Delete' | 'Update' | 'Query';
@@ -411,6 +419,10 @@ export type UpdateMenuDto = {
      * 菜单路径
      */
     path?: string;
+    /**
+     * 用作菜单排序
+     */
+    sort?: number;
     /**
      * 页面权限
      */
@@ -450,6 +462,10 @@ export type TreeMenuDataDto = {
      * 菜单路径
      */
     path: string;
+    /**
+     * 用作菜单排序
+     */
+    sort: number;
     /**
      * 页面权限
      */
