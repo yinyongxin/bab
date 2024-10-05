@@ -25,7 +25,6 @@ import { menusControllerAddOne } from "@/services";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { SelectIcon } from "@/components/form/SelectIcon";
 
 export type AddMenuDalogProps = {
 	success?: () => void;
