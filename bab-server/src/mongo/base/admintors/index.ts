@@ -81,16 +81,6 @@ export class Admintors extends BaseDocument {
   @ApiProperty({ required: false, description: '邮箱', example: '' })
   email: string;
 
-  /**
-   * 排序
-   */
-  @Prop({
-    default: 0,
-  })
-  // swagger
-  @ApiProperty({ required: true, description: '用作菜单排序', example: 0 })
-  sort: number;
-
   @Prop({
     default: AdmintorStatusEnum.Open,
     required: true,

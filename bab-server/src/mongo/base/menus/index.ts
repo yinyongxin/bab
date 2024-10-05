@@ -24,7 +24,7 @@ export class Menus extends BaseDocument {
    */
   @Prop({
     required: false,
-    default: null,
+    default: '',
     maxlength: 10000,
   })
   // swagger
@@ -40,15 +40,25 @@ export class Menus extends BaseDocument {
    */
   @Prop({
     required: false,
-    default: null,
+    default: '',
   })
   // swagger
   @ApiProperty({
     required: true,
     description: '菜单路径',
-    example: null,
+    example: '',
   })
   path: string;
+
+  /**
+   * 排序
+   */
+  @Prop({
+    default: 0,
+  })
+  // swagger
+  @ApiProperty({ required: true, description: '用作菜单排序', example: 0 })
+  sort: number;
 
   /**
    * 页面权限
