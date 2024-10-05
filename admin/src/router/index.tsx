@@ -1,4 +1,3 @@
-import HomePage from "@/pages/home";
 import PersonalCenterPage from "@/pages/personalCenter";
 import Layout from "@/Layout";
 import { createBrowserRouter, RouteObject } from "react-router-dom";
@@ -7,7 +6,8 @@ import NotFound from "@/pages/notFound";
 import Setting from "@/pages/setting";
 import Admintors from "@/pages/admintors";
 import Menus from "@/pages/menus";
-
+import { lazy } from "react";
+const Home = lazy(() => import("@/pages/home"));
 export const routes: RouteObject[] = [
 	{
 		path: "/",
@@ -16,7 +16,7 @@ export const routes: RouteObject[] = [
 		children: [
 			{
 				path: "home",
-				element: <HomePage />,
+				element: <Home />,
 			},
 			{
 				path: "personalCenter",
