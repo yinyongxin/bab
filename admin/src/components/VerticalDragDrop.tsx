@@ -16,6 +16,9 @@ export type VarticalDragDropProps<D> = {
 	uniqueKey: keyof D;
 	onDragEnd: (list: D[]) => void;
 };
+/**
+ * https://github.com/hello-pangea/dnd
+ */
 function VarticalDragDrop<D>(props: VarticalDragDropProps<D>) {
 	const { draggableItem, list, uniqueKey, onDragEnd: onDragEndProps } = props;
 	const reorder = (list: any[], startIndex: number, endIndex: number) => {

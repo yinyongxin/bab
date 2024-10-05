@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import VarticalDragDrop, {
 	VarticalDragDropProps,
 } from "@/components/VerticalDragDrop";
+import { AddMenuDalog } from "./AddMenuDalog";
 
 const Menus = () => {
 	const [menuCheck, setMenuChecks] = useState<[string, string]>();
@@ -64,12 +65,14 @@ const Menus = () => {
 			<Card className="p-4 pt-0">
 				<CardHeader className="px-0 py-2">
 					<CardTitle className="w-full">
-						<Button variant="ghost" className="w-full" size="lg">
-							<Flex items="center" gap={2}>
-								<Icon name="Plus" size={18}></Icon>
-								添加一级菜单
-							</Flex>
-						</Button>
+						<AddMenuDalog>
+							<Button variant="ghost" className="w-full" size="lg">
+								<Flex items="center" gap={2}>
+									<Icon name="Plus" size={18}></Icon>
+									添加一级菜单
+								</Flex>
+							</Button>
+						</AddMenuDalog>
 					</CardTitle>
 				</CardHeader>
 				<VarticalDragDrop
