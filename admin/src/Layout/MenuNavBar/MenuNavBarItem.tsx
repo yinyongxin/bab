@@ -91,12 +91,12 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 								}}
 							>
 								<Flex gap={2}>
-									<Flex center className={cn(["h-12 w-12 border rounded-md"])}>
+									<Flex center className={cn(["h-12 w-12"])}>
 										<Icon name={child.icon as any} />
 									</Flex>
-									<Flex vertical justify="between">
+									<Flex vertical justify="between" className="overflow-hidden">
 										<Text size="sm">{child.name}</Text>
-										<Text size="sm" type="muted">
+										<Text size="sm" type="muted" className="truncate">
 											{child.description}
 										</Text>
 									</Flex>
