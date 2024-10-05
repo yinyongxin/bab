@@ -1,4 +1,3 @@
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -7,7 +6,7 @@ import { Link } from "react-router-dom";
 export const description =
 	"一个带有两列的登录页面。第一列包含电子邮件和密码的登录表单。有一个忘记密码的链接和一个注册链接（如果您还没有账户）。第二列有一张封面图片。";
 
-export function Login() {
+export default function Login() {
 	return (
 		<div className="w-full h-screen lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
 			<div className="flex items-center justify-center py-12">

@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { FC, forwardRef, useEffect, useMemo, useState } from "react";
+import { FC, forwardRef, useEffect, useState } from "react";
 import { icons } from "lucide-react";
 import { Flex, Icon } from "@/components";
-import { GridComponents, Virtuoso, VirtuosoGrid } from "react-virtuoso";
+import { VirtuosoGrid } from "react-virtuoso";
 
 // The callback is executed often - don't inline complex components in here.
 const ItemWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = ({
