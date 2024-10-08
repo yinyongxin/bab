@@ -39,7 +39,7 @@ const formSchema = z.object({
 		.min(2, {
 			message: "名字至少需要2个字符。",
 		})
-		.optional(),
+		.or(z.string()),
 	phone: z
 		.string()
 		.min(1, {
@@ -48,8 +48,8 @@ const formSchema = z.object({
 		.max(11, {
 			message: "手机号最多11位。",
 		})
-		.optional(),
-	email: z.optional(z.string().email()),
+		.or(z.string()),
+	email: z.optional(z.string().email("邮箱格式不正确")).or(z.string()),
 });
 
 export type EditAdmintorDalogProps = {
