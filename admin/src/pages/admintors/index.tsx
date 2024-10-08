@@ -4,11 +4,12 @@ import { Title, Flex, Icon } from "@/components";
 import { getColumns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppState } from "@/hooks";
 import { AddAdmintorDalog } from "./AddAdmintorDalog";
 import { useDebounce } from "@uidotdev/usehooks";
+import { EditAdmintorDalog } from "./EditAdmintorDalog";
 const Admintors = () => {
 	const actionRef = useRef<DataTableActionRef>(null);
 	const [tabValue, tabValueAsync, setTabValue] = useAppState<status | "">(
@@ -17,6 +18,7 @@ const Admintors = () => {
 			actionRef.current?.refresh();
 		}
 	);
+	const [editId, setEditId] = useState();
 
 	const [queryUsername, queryUsernameAsync, setQueryUsername] = useAppState("");
 	const debouncedSearchTerm = useDebounce(queryUsername, 300);
@@ -74,7 +76,7 @@ const Admintors = () => {
 			<DataTable
 				actionRef={actionRef}
 				border
-				columns={getColumns(actionRef)}
+				columns={getColumns({ actionRef, setEditId })}
 				getData={async (pagination) => {
 					const res = await admintorsControllerGetPageList({
 						query: {
@@ -90,6 +92,12 @@ const Admintors = () => {
 						total: res.data?.total || 0,
 						list: res.data?.list || [],
 					};
+				}}
+			/>
+			<EditAdmintorDalog
+				id={editId}
+				onClose={() => {
+					setEditId(undefined);
 				}}
 			/>
 		</div>

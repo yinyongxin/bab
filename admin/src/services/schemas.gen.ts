@@ -24,13 +24,13 @@ export const ResultAdmintorDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1728113106046
+            default: 1728398127347
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1728113106046
+            default: 1728398127348
         },
         username: {
             type: 'string',
@@ -47,10 +47,11 @@ export const ResultAdmintorDtoSchema = {
             description: '姓名',
             example: ''
         },
-        age: {
-            type: 'number',
+        sex: {
+            type: 'string',
             description: '年龄',
-            example: '0'
+            example: 'Male',
+            enum: ['Male', 'Female']
         },
         phone: {
             type: 'string',
@@ -145,7 +146,7 @@ export const UpdateAdmintorDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1728113106046
+            default: 1728398127348
         },
         username: {
             type: 'string',
@@ -162,10 +163,11 @@ export const UpdateAdmintorDtoSchema = {
             description: '姓名',
             example: ''
         },
-        age: {
-            type: 'number',
+        sex: {
+            type: 'string',
             description: '年龄',
-            example: '0'
+            example: 'Male',
+            enum: ['Male', 'Female']
         },
         phone: {
             type: 'string',
@@ -220,13 +222,13 @@ export const QueryAdmintorDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1728113106046
+            default: 1728398127347
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1728113106046
+            default: 1728398127348
         },
         username: {
             type: 'string',
@@ -243,10 +245,11 @@ export const QueryAdmintorDtoSchema = {
             description: '姓名',
             example: ''
         },
-        age: {
-            type: 'number',
+        sex: {
+            type: 'string',
             description: '年龄',
-            example: '0'
+            example: 'Male',
+            enum: ['Male', 'Female']
         },
         phone: {
             type: 'string',
@@ -327,13 +330,13 @@ export const ResultRoleDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1728113106046
+            default: 1728398127347
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1728113106046
+            default: 1728398127348
         },
         name: {
             type: 'string',
@@ -365,7 +368,7 @@ export const UpdateRoleDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1728113106046
+            default: 1728398127348
         },
         name: {
             type: 'string',
@@ -392,13 +395,13 @@ export const QueryRoleDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1728113106046
+            default: 1728398127347
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1728113106046
+            default: 1728398127348
         },
         name: {
             type: 'string',
@@ -499,13 +502,13 @@ export const ResultMenuDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1728113106046
+            default: 1728398127347
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1728113106046
+            default: 1728398127348
         },
         name: {
             type: 'string',
@@ -558,7 +561,7 @@ export const UpdateMenuDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1728113106046
+            default: 1728398127348
         },
         name: {
             type: 'string',
@@ -613,13 +616,13 @@ export const TreeMenuDataDtoSchema = {
             format: 'date-time',
             type: 'string',
             description: '创建日期',
-            default: 1728113106046
+            default: 1728398127347
         },
         updatedTime: {
             format: 'date-time',
             type: 'string',
             description: '更新日期',
-            default: 1728113106046
+            default: 1728398127348
         },
         name: {
             type: 'string',

@@ -60,14 +60,18 @@ export const AddAdmintorDalog = (props: AddAdmintorDalogProps) => {
 		});
 		props.success?.();
 		setOpen(false);
-		form.reset({
-			username: "",
-			password: "123456",
-		});
 	};
 
 	return (
-		<Dialog open={open} onOpenChange={setOpen}>
+		<Dialog
+			open={open}
+			onOpenChange={(val) => {
+				if (!val) {
+					form.reset();
+				}
+				setOpen(val);
+			}}
+		>
 			<DialogTrigger asChild onClick={() => setOpen(true)}>
 				{props.children}
 			</DialogTrigger>

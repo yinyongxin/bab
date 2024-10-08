@@ -1,7 +1,7 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
-import { AdmintorStatusEnum } from '../../../enums';
+import { AdmintorStatusEnum, SexEnum } from '../../../enums';
 
 @Schema()
 export class Admintors extends BaseDocument {
@@ -34,7 +34,7 @@ export class Admintors extends BaseDocument {
    * 头像
    */
   @Prop({
-    default: undefined,
+    default: '',
   })
   // swagger
   @ApiProperty({ required: false, description: '头像', example: '' })
@@ -44,7 +44,7 @@ export class Admintors extends BaseDocument {
    * 姓名
    */
   @Prop({
-    default: undefined,
+    default: '',
   })
   // swagger
   @ApiProperty({ required: false, description: '姓名', example: '' })
@@ -54,18 +54,23 @@ export class Admintors extends BaseDocument {
    * 年龄
    */
   @Prop({
-    min: 0,
-    default: 0,
+    default: SexEnum.Male,
+    enum: SexEnum,
   })
   // swagger
-  @ApiProperty({ required: false, description: '年龄', example: '0' })
-  age: number;
+  @ApiProperty({
+    required: false,
+    description: '年龄',
+    example: SexEnum.Male,
+    enum: SexEnum,
+  })
+  sex: SexEnum;
 
   /**
    * 电话号码
    */
   @Prop({
-    default: undefined,
+    default: '',
   })
   // swagger
   @ApiProperty({ required: false, description: '电话号码', example: '' })
@@ -75,7 +80,7 @@ export class Admintors extends BaseDocument {
    * 邮箱
    */
   @Prop({
-    default: undefined,
+    default: '',
   })
   // swagger
   @ApiProperty({ required: false, description: '邮箱', example: '' })
@@ -90,7 +95,6 @@ export class Admintors extends BaseDocument {
     description: '状态',
     example: AdmintorStatusEnum.Open,
     enum: AdmintorStatusEnum,
-    // enumName: 'AdmintorStatus',
   })
   status: string;
 }

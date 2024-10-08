@@ -5,6 +5,7 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuPortal,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Switch } from "@/components/ui/switch";
@@ -16,10 +17,12 @@ import {
 } from "@/services";
 import { getFormattedDate } from "@/utils";
 import { ColumnDef } from "@tanstack/react-table";
+import { EditAdmintorDalog } from "./EditAdmintorDalog";
 
-export const getColumns = (
-	actionRef: React.RefObject<DataTableActionRef>
-): ColumnDef<ResultAdmintorDto>[] => [
+export const getColumns = (options: {
+	actionRef: React.RefObject<DataTableActionRef>;
+	setEditId: React.Dispatch<React.SetStateAction<undefined>>;
+}): ColumnDef<ResultAdmintorDto>[] => [
 	{
 		accessorKey: "username",
 		header: "管理员",
@@ -61,11 +64,10 @@ export const getColumns = (
 								toast({
 									title: "通知",
 									description: "更新成功",
-								})
-								actionRef.current?.refresh({
+								});
+								options.actionRef.current?.refresh({
 									showLoading: false,
 								});
-								
 							} catch (error) {
 								console.log(error);
 							}
@@ -103,33 +105,41 @@ export const getColumns = (
 								<Icon name="Ellipsis" size={16} />
 							</Button>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent align="end">
-							<DropdownMenuItem>
-								<Flex gap={2} items="center">
-									<Icon name="Pencil" size={14} />
-									<Text size="sm">编辑</Text>
-								</Flex>
-							</DropdownMenuItem>
-							<DropdownMenuItem
-								onClick={async () => {
-									await admintorsControllerDeleteByIds({
-										body: {
-											ids: [row.getValue("id")],
-										},
-									});
-									actionRef.current?.refresh({
-										showLoading: false,
-									});
-								}}
-							>
-								<Text type="danger" size="sm">
+
+						<DropdownMenuPortal>
+							<DropdownMenuContent side="left" align="center">
+								<DropdownMenuItem
+									onClick={() => {
+										options.setEditId(row.getValue("id"));
+									}}
+								>
 									<Flex gap={2} items="center">
-										<Icon name="Trash" size={14} />
-										删除
+										<Icon name="Pencil" size={14} />
+										<Text size="sm">编辑</Text>
 									</Flex>
-								</Text>
-							</DropdownMenuItem>
-						</DropdownMenuContent>
+								</DropdownMenuItem>
+
+								<DropdownMenuItem
+									onClick={async () => {
+										await admintorsControllerDeleteByIds({
+											body: {
+												ids: [row.getValue("id")],
+											},
+										});
+										options.actionRef.current?.refresh({
+											showLoading: false,
+										});
+									}}
+								>
+									<Text type="danger" size="sm">
+										<Flex gap={2} items="center">
+											<Icon name="Trash" size={14} />
+											删除
+										</Flex>
+									</Text>
+								</DropdownMenuItem>
+							</DropdownMenuContent>
+						</DropdownMenuPortal>
 					</DropdownMenu>
 				</Flex>
 			);

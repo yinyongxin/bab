@@ -35,7 +35,7 @@ export type ResultAdmintorDto = {
     /**
      * 年龄
      */
-    age?: number;
+    sex?: 'Male' | 'Female';
     /**
      * 电话号码
      */
@@ -53,6 +53,11 @@ export type ResultAdmintorDto = {
      */
     _id: string;
 };
+
+/**
+ * 年龄
+ */
+export type sex = 'Male' | 'Female';
 
 /**
  * 状态
@@ -124,7 +129,7 @@ export type UpdateAdmintorDto = {
     /**
      * 年龄
      */
-    age?: number;
+    sex?: 'Male' | 'Female';
     /**
      * 电话号码
      */
@@ -186,7 +191,7 @@ export type QueryAdmintorDto = {
     /**
      * 年龄
      */
-    age?: number;
+    sex?: 'Male' | 'Female';
     /**
      * 电话号码
      */
