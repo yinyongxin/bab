@@ -6,7 +6,7 @@ import { useState } from "react"
 import { Icon } from "./Icon"
 
 const imageVariants = cva(
-  "",
+  "h-full w-full",
   {
     variants: {},
     defaultVariants: {},
