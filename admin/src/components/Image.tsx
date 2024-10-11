@@ -6,7 +6,11 @@ import { useState } from "react"
 import { Icon } from "./Icon"
 
 const imageVariants = cva(
-  ""
+  "",
+  {
+    variants: {},
+    defaultVariants: {},
+  }
 )
 
 const Image = React.forwardRef<
@@ -15,23 +19,23 @@ const Image = React.forwardRef<
   VariantProps<typeof imageVariants>
 >(({ className, onError, ...props }, ref) => {
   const [loadError, setLoadError] = useState(false);
-  if (loadError) {
-    return (
-      <div className="h-full w-full flex flex-col justify-center items-center">
+  return (
+    <>
+      <img
+        ref={ref}
+        onError={(e) => {
+          onError?.(e)
+          setLoadError(true)
+        }}
+        className={cn(imageVariants(), className, {
+          "hidden": loadError
+        })}
+        {...props}
+      />
+      <div className={cn("h-full w-full flex flex-col justify-center items-center", { "hidden": !loadError })}>
         <Icon name="Image" />
       </div>
-    )
-  }
-  return (
-    <img
-      ref={ref}
-      onError={(e) => {
-        onError?.(e)
-        setLoadError(true)
-      }}
-      className={cn(imageVariants(), className)}
-      {...props}
-    />
+    </>
   )
 })
 Image.displayName = 'Image'
