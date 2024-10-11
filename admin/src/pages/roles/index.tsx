@@ -1,27 +1,21 @@
-import { DataTable, DataTableActionRef } from "@/components/DataTable";
-import { admintorsControllerGetPageList, type status } from "@/services";
+import { DataTableActionRef } from "@/components/DataTable";
+import { rolesControllerGetPageList } from "@/services";
 import { Title, Flex, Icon } from "@/components";
-import { getColumns } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppState } from "@/hooks";
-import { AddAdmintorDalog } from "./AddAdmintorDalog";
+import { AddAdmintorDialog } from "./AddAdmintorDialog";
 import { useDebounce } from "@uidotdev/usehooks";
-import { EditAdmintorDalog } from "./EditAdmintorDalog";
+import { EditAdmintorDialog } from "./EditAdmintorDialog";
+import { PaginationData } from "@/components/PaginationData";
+import { Card } from "@/components/ui/card";
 const Roles = () => {
 	const actionRef = useRef<DataTableActionRef>(null);
-	const [tabValue, tabValueAsync, setTabValue] = useAppState<status | "">(
-		"",
-		() => {
-			actionRef.current?.refresh();
-		}
-	);
 	const [editId, setEditId] = useState();
 
-	const [queryUsername, queryUsernameAsync, setQueryUsername] = useAppState("");
-	const debouncedSearchTerm = useDebounce(queryUsername, 300);
+	const [queryName, queryNameAsync, setQueryName] = useAppState("");
+	const debouncedSearchTerm = useDebounce(queryName, 300);
 
 	useEffect(() => {
 		actionRef.current?.refresh({
@@ -34,23 +28,11 @@ const Roles = () => {
 			<Title level="h4">人员角色</Title>
 			<Flex justify="between" items="center">
 				<Flex gap={2} flex="1">
-					<Tabs
-						value={tabValue}
-						onValueChange={(value) => {
-							setTabValue(value as status);
-						}}
-					>
-						<TabsList>
-							<TabsTrigger value={""}>全部</TabsTrigger>
-							<TabsTrigger value="Open">开启</TabsTrigger>
-							<TabsTrigger value="Close">关闭</TabsTrigger>
-						</TabsList>
-					</Tabs>
 					<Input
 						className="w-1/3"
 						placeholder="搜索"
-						value={queryUsername}
-						onChange={(e) => setQueryUsername(e.target.value)}
+						value={queryName}
+						onChange={(e) => setQueryName(e.target.value)}
 					/>
 					<Button
 						onClick={() => {
@@ -61,7 +43,7 @@ const Roles = () => {
 						搜索
 					</Button>
 				</Flex>
-				<AddAdmintorDalog
+				<AddAdmintorDialog
 					success={() => {
 						actionRef.current?.refresh();
 					}}
@@ -70,31 +52,58 @@ const Roles = () => {
 						<Icon name="Plus" className="mr-2 h-4 w-4" />
 						新增
 					</Button>
-				</AddAdmintorDalog>
+				</AddAdmintorDialog>
 			</Flex>
 
-			<DataTable
+			<PaginationData
 				actionRef={actionRef}
-				border
-				columns={getColumns({ actionRef, setEditId })}
 				getData={async (pagination) => {
-					const res = await admintorsControllerGetPageList({
-						query: {
-							pageNo: pagination.pageIndex + 1,
-							pageSize: pagination.pageSize,
-						},
-						body: {
-							status: tabValueAsync ? tabValueAsync : undefined,
-							username: queryUsernameAsync,
-						},
-					});
-					return {
-						total: res.data?.total || 0,
-						list: res.data?.list || [],
-					};
+					try {
+						const res = await rolesControllerGetPageList({
+							query: {
+								pageNo: pagination.pageIndex + 1,
+								pageSize: pagination.pageSize,
+							},
+							body: {
+								name: queryNameAsync,
+							},
+						});
+						return {
+							total: res.data?.total || 0,
+							list: res.data?.list || [],
+						};
+					} catch (error) {
+						return {
+							total: 100,
+							list: [{ name: "error", _id: "error", icon: 'error', createdTime: 'error', updatedTime: 'error', description: 'error' }],
+						};
+					}
 				}}
+				dataItemRender={(dataItem) => {
+					return (
+						<Card>
+							<div>
+								{dataItem.name}
+							</div>
+							<div>
+								{dataItem.name}
+							</div>
+							<div>
+								{dataItem.name}
+							</div>
+							<div>
+								{dataItem.name}
+							</div>
+							<div>
+								{dataItem.name}
+							</div>
+						</Card>
+					)
+				}}
+				cols={6}
+				gap={2}
 			/>
-			<EditAdmintorDalog
+			<EditAdmintorDialog
 				id={editId}
 				onClose={() => {
 					setEditId(undefined);

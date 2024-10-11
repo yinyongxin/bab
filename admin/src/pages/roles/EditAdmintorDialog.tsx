@@ -59,7 +59,7 @@ export type EditAdmintorDalogProps = {
 	id?: string;
 };
 
-export const EditAdmintorDalog = (props: EditAdmintorDalogProps) => {
+export const EditAdmintorDialog = (props: EditAdmintorDalogProps) => {
 	const [open, setOpen] = useState(false);
 
 	// 1. Define your form.

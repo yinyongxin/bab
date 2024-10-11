@@ -33,12 +33,12 @@ const formSchema = z.object({
 	}),
 });
 
-export type AddAdmintorDalogProps = {
+export type AddAdmintorDialogProps = {
 	success?: () => void;
 	children?: React.ReactNode;
 };
 
-export const AddAdmintorDalog = (props: AddAdmintorDalogProps) => {
+export const AddAdmintorDialog = (props: AddAdmintorDialogProps) => {
 	const [open, setOpen] = useState(false);
 
 	// 1. Define your form.
