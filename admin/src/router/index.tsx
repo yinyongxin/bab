@@ -2,7 +2,7 @@ import PersonalCenterPage from "@/pages/personalCenter";
 import Layout from "@/Layout";
 import { createBrowserRouter, RouteObject } from "react-router-dom";
 import Login from "@/pages/login";
-import NotFound from "@/pages/notFound";
+import NotFound from "@/pages/not-found";
 import Setting from "@/pages/setting";
 import Admintors from "@/pages/admintors";
 import Menus from "@/pages/menus";
