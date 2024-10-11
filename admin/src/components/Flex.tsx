@@ -45,7 +45,6 @@ export const Flex = (props: FlexProps) => {
 				"flex",
 				`justify-${justify}`,
 				`items-${items}`,
-
 				{
 					"flex-col": vertical, // 如果vertical为true，则添加"flex-col"类名
 					[`gap-${gap}`]: !!gap,

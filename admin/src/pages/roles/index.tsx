@@ -1,6 +1,6 @@
 import { DataTableActionRef } from "@/components/DataTable";
 import { rolesControllerGetPageList } from "@/services";
-import { Title, Flex, Icon } from "@/components";
+import { Title, Flex, Icon, Image } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
@@ -10,6 +10,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { EditAdmintorDialog } from "./EditAdmintorDialog";
 import { PaginationData } from "@/components/PaginationData";
 import { Card } from "@/components/ui/card";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 const Roles = () => {
 	const actionRef = useRef<DataTableActionRef>(null);
 	const [editId, setEditId] = useState();
@@ -83,9 +84,9 @@ const Roles = () => {
 				dataItemRender={(dataItem) => {
 					return (
 						<Card>
-							<div>
-								{dataItem.name}
-							</div>
+							<AspectRatio ratio={16 / 9}>
+								<Image src="/images/logo.png" alt="logo" />
+							</AspectRatio>
 							<div>
 								{dataItem.name}
 							</div>
