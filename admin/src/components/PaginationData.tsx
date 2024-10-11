@@ -12,7 +12,7 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "./ui/pagination";
-import { useEffect, useImperativeHandle, useState } from "react";
+import { Key, useEffect, useImperativeHandle, useState } from "react";
 import { Card } from "./ui/card";
 import { Spin } from "./Spin";
 
@@ -33,12 +33,13 @@ interface PaginationDataProps<TData> {
 	border?: boolean;
 	showLoading?: boolean;
 	actionRef?: React.RefObject<PaginationDataActionRef>;
+	itemKey: keyof TData;
 }
 
 export function PaginationData<TData>(
 	props: PaginationDataProps<TData>
 ) {
-	const { dataItemRender, border = false, showLoading = true, getData, cols = 1, gap = 4 } = props;
+	const { dataItemRender, border = false, showLoading = true, getData, cols = 1, gap = 4, itemKey } = props;
 	const [loading, setLoading] = useState(true);
 	const [pagination, setPagination] = useState({
 		pageIndex: 0, //initial page index
@@ -194,7 +195,11 @@ export function PaginationData<TData>(
 					}}
 				>
 
-					{data.map(dataItem => dataItemRender(dataItem))}
+					{data.map(dataItem => (
+						<div key={dataItem[itemKey] as Key}>
+							{dataItemRender(dataItem)}
+						</div>
+					))}
 				</div>
 			</Spin>
 			{paginationRender()}

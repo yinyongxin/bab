@@ -79,6 +79,7 @@ const Roles = () => {
 						};
 					}
 				}}
+				itemKey="_id"
 				dataItemRender={(dataItem) => {
 					return (
 						<Card>
