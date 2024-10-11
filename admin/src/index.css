@@ -13,7 +13,7 @@
       hsl( 0 0% 100%)
     */
     --background: 0 0% 100%;
-    /** 
+    /**
       定义主要色、前景色等全局颜色变量
       hsl(240 10% 3.9%)
      */
@@ -31,7 +31,7 @@
       hsl(240, 5.9%, 90%)
     */
     --secondary: 240 4.8% 95.9%;
-    /** 
+    /**
       定义次要色、前景色等全局颜色变量
       hsl(240, 5.9%, 10%)
      */
@@ -95,8 +95,13 @@
     @apply border-border;
   }
 
+  html {
+    font-size: 16px;
+  }
+
   /* 设置页面背景色和文字颜色 */
   body {
     @apply bg-background text-foreground;
+
   }
 }

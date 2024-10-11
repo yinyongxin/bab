@@ -13,10 +13,32 @@ import { Flex } from "@/components";
 
 const MenuNavBar = () => {
 	const [menuTree, setMenuTree] =
-		useState<MenusControllerGetTreeDataResponse>();
+		useState<MenusControllerGetTreeDataResponse>([
+			{
+				_id: "1",
+				name: "角色",
+				children: [],
+				icon: "User",
+				createdTime: "",
+				updatedTime: "",
+				description: "",
+				path: "/roles",
+				sort: 0
+			},
+			{
+				_id: "2",
+				name: "管理员",
+				children: [],
+				icon: "User",
+				createdTime: "",
+				updatedTime: "",
+				path: "/admintors",
+				sort: 1
+			}
+		]);
 	const getMenu = async () => {
 		const res = await menusControllerGetTreeData();
-		setMenuTree(res.data);
+		setMenuTree(res.data || []);
 	};
 
 	const menuMemo = useMemo(() => {
@@ -30,7 +52,6 @@ const MenuNavBar = () => {
 	}, []);
 	return (
 		<nav
-			// className="p-5 h-screen"
 			className={cn(["py-5 pl-5 h-screen", styles.menu])}
 		>
 			<Card className="flex justify-between flex-col gap-2 p-4 h-full">

@@ -26,14 +26,14 @@ import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 
-export type AddMenuDalogProps = {
+export type AddMenuDialogProps = {
 	success?: () => void;
 	children?: React.ReactNode;
 	parentId?: string;
 	sort: number;
 };
 
-export const AddMenuDalog = (props: AddMenuDalogProps) => {
+export const AddMenuDialog = (props: AddMenuDialogProps) => {
 	const { parentId = "", sort } = props;
 
 	const [open, setOpen] = useState(false);

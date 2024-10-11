@@ -4,10 +4,10 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { TreeMenuDataDto, menusControllerGetTreeData } from "@/services";
 import { useState, useEffect } from "react";
-import VarticalDragDrop, {
-	VarticalDragDropProps,
+import VerticalDragDrop, {
+	VerticalDragDropProps,
 } from "@/components/VerticalDragDrop";
-import { AddMenuDalog } from "./AddMenuDalog";
+import { AddMenuDialog } from "./AddMenuDialog";
 
 const Menus = () => {
 	const [menuCheck, setMenuChecks] = useState<[string, string]>();
@@ -28,7 +28,7 @@ const Menus = () => {
 		getMenu();
 	}, []);
 
-	const draggableChild: VarticalDragDropProps<TreeMenuDataDto>["draggableItem"] =
+	const draggableChild: VerticalDragDropProps<TreeMenuDataDto>["draggableItem"] =
 		({ data, draggableStateSnapshot }) => {
 			return (
 				<div
@@ -69,7 +69,7 @@ const Menus = () => {
 			<Card className="p-4 pt-0">
 				<CardHeader className="px-0 py-2">
 					<CardTitle className="w-full">
-						<AddMenuDalog
+						<AddMenuDialog
 							sort={menuTree.length}
 							success={() => {
 								getMenu();
@@ -81,10 +81,10 @@ const Menus = () => {
 									添加一级菜单
 								</Flex>
 							</Button>
-						</AddMenuDalog>
+						</AddMenuDialog>
 					</CardTitle>
 				</CardHeader>
-				<VarticalDragDrop
+				<VerticalDragDrop
 					draggableItem={draggableChild}
 					list={menuTree}
 					uniqueKey="_id"
@@ -96,7 +96,7 @@ const Menus = () => {
 			<Card className="p-4 pt-0">
 				<CardHeader className="px-0 py-2">
 					<CardTitle className="w-full">
-						<AddMenuDalog
+						<AddMenuDialog
 							sort={menuTree.length}
 							parentId={menuCheck?.[0]}
 							success={() => {
@@ -109,10 +109,10 @@ const Menus = () => {
 									添加二级菜单
 								</Flex>
 							</Button>
-						</AddMenuDalog>
+						</AddMenuDialog>
 					</CardTitle>
 				</CardHeader>
-				<VarticalDragDrop
+				<VerticalDragDrop
 					draggableItem={draggableChild}
 					list={children}
 					uniqueKey="_id"

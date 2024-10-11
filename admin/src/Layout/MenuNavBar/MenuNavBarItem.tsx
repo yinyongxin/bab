@@ -96,9 +96,11 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 									</Flex>
 									<Flex vertical justify="between" className="overflow-hidden">
 										<Text bold>{child.name}</Text>
-										<Text size="sm" className="truncate">
-											{child.description}
-										</Text>
+										{child.description && (
+											<Text size="sm" className="truncate">
+												{child.description}
+											</Text>
+										)}
 									</Flex>
 								</Flex>
 							</div>
@@ -137,9 +139,11 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 				<TooltipContent side="right" className="ml-6 p-3">
 					<Flex vertical gap={2}>
 						<Text bold>{data.name}</Text>
-						<Text size="sm" className="truncate">
-							{data.description}
-						</Text>
+						{data.description && (
+							<Text size="sm" className="truncate">
+								{data.description}
+							</Text>
+						)}
 					</Flex>
 				</TooltipContent>
 			</Tooltip>

@@ -8,6 +8,7 @@ import Admintors from "@/pages/admintors";
 import Menus from "@/pages/menus";
 import { lazy } from "react";
 const Home = lazy(() => import("@/pages/home"));
+const Roles = lazy(() => import("@/pages/roles"));
 export const routes: RouteObject[] = [
 	{
 		path: "/",
@@ -17,6 +18,10 @@ export const routes: RouteObject[] = [
 			{
 				path: "home",
 				element: <Home />,
+			},
+			{
+				path: "roles",
+				element: <Roles />,
 			},
 			{
 				path: "personalCenter",
