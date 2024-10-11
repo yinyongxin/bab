@@ -29,7 +29,7 @@ const MenuNavBar = () => {
 				_id: "2",
 				name: "管理员",
 				children: [],
-				icon: "User",
+				icon: "Users",
 				createdTime: "",
 				updatedTime: "",
 				path: "/admintors",
@@ -64,10 +64,10 @@ const MenuNavBar = () => {
 						/>
 					</div>
 				</div>
-				<div className="flex flex-col h-full gap-2 overflow-y-auto scroll">
+				<div className="flex flex-col justify-center h-full gap-2 overflow-y-auto scroll">
 					{menuMemo}
 				</div>
-				<Flex vertical gap={2}>
+				<Flex vertical gap={2}>　
 					<ModeToggle single />
 					<UserInfo />
 				</Flex>
