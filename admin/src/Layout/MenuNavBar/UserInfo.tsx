@@ -6,6 +6,7 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Text } from "@/components";
 import { Flex, Icon } from "@/components";
 
 /**
@@ -64,14 +65,17 @@ const UserInfo = () => {
 				className="ml-6 -mb-4"
 			>
 				<Flex vertical gap={2} items="center">
-					<div>
+					<Flex gap={2} className="w-full">
 						<Avatar className="w-14 h-14">
 							<AvatarImage src="https://github.com/shadcn.png" />
 							<AvatarFallback><Icon name="Image" /></AvatarFallback>
 						</Avatar>
-					</div>
-					<div className="text-l">用户名</div>
-					<div className="border-b border-dashed w-full"></div>
+						<Flex vertical flex="1" justify="between">
+							<div className="text-base font-semibold bold cursor-pointer">用户名</div>
+							<Text className="truncate" type="muted" size="sm">描述</Text>
+						</Flex>
+					</Flex>
+					<div className="border-b border-dashed w-full my-2"></div>
 					<Flex gap={2} className="w-full text-muted-foreground" justify="between" items="center">
 						<Icon name="Mail" className="w-4 h-4" />
 						<div>17637810750</div>
@@ -80,8 +84,9 @@ const UserInfo = () => {
 						<Icon name="Smartphone" className="w-4 h-4"/>
 						<div>1101278643@qq.com</div>
 					</Flex>
+
 					<Button block>
-						<span className="leading-none">退出登陆</span>
+						退出登陆
 					</Button>
 				</Flex>
 			</HoverCardContent>
