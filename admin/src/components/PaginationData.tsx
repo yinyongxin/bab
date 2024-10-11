@@ -12,7 +12,7 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "./ui/pagination";
-import { Key, useEffect, useImperativeHandle, useState } from "react";
+import { Fragment, Key, useEffect, useImperativeHandle, useState } from "react";
 import { Card } from "./ui/card";
 import { Spin } from "./Spin";
 
@@ -180,12 +180,11 @@ export function PaginationData<TData>(
 
 	return (
 		<Comp
-			className={cn([
+			className={cn(
 				{
-					"rounded-md": border,
-					"p-4": border,
+					'p-4': border,
 				},
-			])}
+			)}
 		>
 			<Spin spinning={loading}>
 				<div
@@ -194,11 +193,10 @@ export function PaginationData<TData>(
 						gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`
 					}}
 				>
-
 					{data.map(dataItem => (
-						<div key={dataItem[itemKey] as Key}>
+						<Fragment key={dataItem[itemKey] as Key}>
 							{dataItemRender(dataItem)}
-						</div>
+						</Fragment>
 					))}
 				</div>
 			</Spin>

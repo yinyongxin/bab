@@ -12,7 +12,7 @@ export const Spin = (props: SpinProps) => {
 		<>
 			{children}
 			{spinning && (
-				<div className="flex items-center justify-center h-full absolute top-0 left-0 right-0 bottom-0 bg-secondary/80">
+				<div className="flex items-center justify-center h-full absolute top-0 left-0 right-0 bottom-0 bg-secondary/80 rounded-md">
 					<Icon name="Loader" className="animate-spin" />
 				</div>
 			)}
@@ -21,7 +21,7 @@ export const Spin = (props: SpinProps) => {
 		<div className="relative">
 			{children}
 			{spinning && (
-				<div className="flex items-center justify-center h-full absolute top-0 left-0 right-0 bottom-0 bg-secondary/80">
+				<div className="flex items-center justify-center h-full absolute top-0 left-0 right-0 bottom-0 bg-secondary/80 rounded-md">
 					<Icon name="Loader" className="animate-spin" />
 				</div>
 			)}

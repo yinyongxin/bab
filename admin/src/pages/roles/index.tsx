@@ -57,6 +57,7 @@ const Roles = () => {
 			</Flex>
 
 			<PaginationData
+			border
 				actionRef={actionRef}
 				getData={async (pagination) => {
 					try {
