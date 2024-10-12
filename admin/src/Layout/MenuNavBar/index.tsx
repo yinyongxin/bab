@@ -57,7 +57,7 @@ const MenuNavBar = () => {
 			<Card className="flex justify-between flex-col gap-2 p-4 h-full">
 				<div>
 					<div className="w-10 h-10">
-						<Image src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" className="rounded-t-md" alt="logo" />
+						<Image src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" className="rounded-md" alt="logo" />
 					</div>
 				</div>
 				<div className="flex flex-col justify-center h-full gap-2 overflow-y-auto scroll">

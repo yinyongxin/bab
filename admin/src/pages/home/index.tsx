@@ -25,10 +25,6 @@ const ItemWrapper: FC<React.HTMLAttributes<HTMLDivElement>> = ({
 );
 const Home = () => {
 	const [count, setCount] = useState(0);
-	useEffect(() => {
-		console.log("aasfasf", Object.keys(icons));
-	}, []);
-
 	return (
 		<div className="flex flex-col justify-center items-center h-screen overflow-auto">
 			<Button onClick={() => setCount(count + 1)}>
