@@ -91,7 +91,9 @@ export const DataTable = <TData, TValue>(
 			setRowCount(0);
 		} finally {
 			if (showLoading) {
-				setLoading(false);
+				setTimeout(() => {
+					setLoading(false);
+				}, 2000)
 			}
 		}
 	};

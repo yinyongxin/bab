@@ -62,7 +62,7 @@ export function PaginationData<TData>(
 			if (showLoading) {
 				setTimeout(() => {
 					setLoading(false);
-				}, 5000)
+				}, 2000)
 			}
 		}
 	};

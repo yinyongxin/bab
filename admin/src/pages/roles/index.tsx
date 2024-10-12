@@ -100,11 +100,11 @@ const Roles = () => {
 							<Separator />
 							<CardFooter className="px-3 py-4">
 								<div className="w-full flex justify-around h-5 items-center gap-1 text-sm">
-									<Icon name={"View"} className="h-5 w-5 cursor-pointer duration-100 hover:scale-105  active:scale-100" />
+									<Icon name={"View"} className="h-5 w-5" canClick />
 									<Separator orientation="vertical" />
-									<Icon name={"Pencil"} className="h-5 w-5 cursor-pointer duration-100 hover:scale-105  active:scale-100" />
+									<Icon name={"Pencil"} className="h-5 w-5" canClick />
 									<Separator orientation="vertical" />
-									<Icon name={"Trash"} className="h-5 w-5 cursor-pointer duration-100 hover:scale-105  active:scale-100" />
+									<Icon name={"Trash"} className="h-5 w-5" canClick />
 								</div>
 							</CardFooter>
 						</Card>
