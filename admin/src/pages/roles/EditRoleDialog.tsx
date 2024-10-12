@@ -52,14 +52,14 @@ const formSchema = z.object({
 	email: z.optional(z.string().email("邮箱格式不正确")).or(z.string()),
 });
 
-export type EditAdmintorDalogProps = {
+export type EditRoleDialogProps = {
 	success?: () => void;
 	children?: React.ReactNode;
 	onClose: () => void;
 	id?: string;
 };
 
-export const EditAdmintorDialog = (props: EditAdmintorDalogProps) => {
+export const EditRoleDialog = (props: EditRoleDialogProps) => {
 	const [open, setOpen] = useState(false);
 
 	// 1. Define your form.

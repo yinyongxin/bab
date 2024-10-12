@@ -5,9 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import { useAppState } from "@/hooks";
-import { AddAdmintorDialog } from "./AddAdmintorDialog";
+import { AddRoleDialog } from "./AddRoleDialog";
 import { useDebounce } from "@uidotdev/usehooks";
-import { EditAdmintorDialog } from "./EditAdmintorDialog";
+import { EditRoleDialog } from "./EditRoleDialog";
 import { PaginationData } from "@/components/PaginationData";
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -45,7 +45,7 @@ const Roles = () => {
 						搜索
 					</Button>
 				</Flex>
-				<AddAdmintorDialog
+				<AddRoleDialog
 					success={() => {
 						actionRef.current?.refresh();
 					}}
@@ -54,7 +54,7 @@ const Roles = () => {
 						<Icon name="Plus" className="mr-2 h-4 w-4" />
 						新增
 					</Button>
-				</AddAdmintorDialog>
+				</AddRoleDialog>
 			</Flex>
 
 			<PaginationData
@@ -114,7 +114,7 @@ const Roles = () => {
 				gap={2}
 			/>
 			<Separator orientation="vertical" className="h-full w-1" />
-			<EditAdmintorDialog
+			<EditRoleDialog
 				id={editId}
 				onClose={() => {
 					setEditId(undefined);

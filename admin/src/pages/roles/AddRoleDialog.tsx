@@ -20,12 +20,12 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { admintorsControllerAddOne } from "@/services";
+import { rolesControllerAddOne } from "@/services";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
 
 const formSchema = z.object({
-	username: z.string().min(2, {
+	name: z.string().min(2, {
 		message: "用户名至少需要2个字符。",
 	}),
 	password: z.string().min(6, {
@@ -33,26 +33,26 @@ const formSchema = z.object({
 	}),
 });
 
-export type AddAdmintorDialogProps = {
+export type AddRoleDialogProps = {
 	success?: () => void;
 	children?: React.ReactNode;
 };
 
-export const AddAdmintorDialog = (props: AddAdmintorDialogProps) => {
+export const AddRoleDialog = (props: AddRoleDialogProps) => {
 	const [open, setOpen] = useState(false);
 
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			username: "",
+			name: "",
 			password: "123456",
 		},
 	});
 
 	// 2. Define a submit handler.
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
-		const res = await admintorsControllerAddOne({ body: values });
+		const res = await rolesControllerAddOne({ body: values });
 		console.log(res);
 		toast({
 			title: "通知",
@@ -86,7 +86,7 @@ export const AddAdmintorDialog = (props: AddAdmintorDialogProps) => {
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 						<FormField
 							control={form.control}
-							name="username"
+							name="name"
 							render={({ field }) => (
 								<FormItem>
 									<FormLabel>用户名</FormLabel>
