@@ -93,7 +93,7 @@ export const DataTable = <TData, TValue>(
 			if (showLoading) {
 				setTimeout(() => {
 					setLoading(false);
-				}, 2000)
+				}, 1000);
 			}
 		}
 	};
