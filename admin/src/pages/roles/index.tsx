@@ -9,8 +9,9 @@ import { AddAdmintorDialog } from "./AddAdmintorDialog";
 import { useDebounce } from "@uidotdev/usehooks";
 import { EditAdmintorDialog } from "./EditAdmintorDialog";
 import { PaginationData } from "@/components/PaginationData";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Separator } from "@/components/ui/separator";
 const Roles = () => {
 	const actionRef = useRef<DataTableActionRef>(null);
 	const [editId, setEditId] = useState();
@@ -76,7 +77,7 @@ const Roles = () => {
 					} catch (error) {
 						return {
 							total: 100,
-							list: [{ name: "error", _id: "error", icon: 'error', createdTime: 'error', updatedTime: 'error', description: 'error' }],
+							list: [{ name: "name", _id: "_id", icon: 'icon', createdTime: 'createdTime', updatedTime: 'updatedTime', description: 'description' }],
 						};
 					}
 				}}
@@ -87,24 +88,32 @@ const Roles = () => {
 							<AspectRatio ratio={16 / 9} >
 								<Image src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" className="rounded-t-md" alt="logo" />
 							</AspectRatio>
-							<div>
-								{dataItem.name}
-							</div>
-							<div>
-								{dataItem.name}
-							</div>
-							<div>
-								{dataItem.name}
-							</div>
-							<div>
-								{dataItem.name}
-							</div>
+							<CardContent className="px-3 pb-3">
+
+								<CardTitle>
+									{dataItem.name}
+								</CardTitle>
+								<CardDescription className="mt-3">
+									{dataItem.description}
+								</CardDescription>
+							</CardContent>
+								<Separator />
+							<CardFooter className="p-3">
+								<div className="w-full flex justify-around h-5 items-center gap-1 text-sm">
+									<Icon name={"View"} className="h-5 w-5 cursor-pointer" />
+									<Separator orientation="vertical" />
+									<Icon name={"Pencil"} className="h-5 w-5 cursor-pointer" />
+									<Separator orientation="vertical" />
+									<Icon name={"Trash"} className="h-5 w-5 cursor-pointer" />
+								</div>
+							</CardFooter>
 						</Card>
 					)
 				}}
 				cols={6}
 				gap={2}
 			/>
+			<Separator orientation="vertical" className="h-full w-1" />
 			<EditAdmintorDialog
 				id={editId}
 				onClose={() => {

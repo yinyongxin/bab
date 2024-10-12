@@ -15,6 +15,7 @@ export type IconProps = LucideProps & {
  * @param {IconProps} props - 组件的属性对象，包含要渲染图标的名称和其他 LucideProps 属性
  * @returns {JSX.Element} - 渲染指定名称的图标，并传入其他属性
  */
+
 export const Icon = ({ name, className, ...rest }: IconProps) => {
 	// 确保 name 是一个有效的键
 	if (!(name in icons)) {
