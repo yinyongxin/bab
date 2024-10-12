@@ -97,14 +97,14 @@ const Roles = () => {
 									{dataItem.description}
 								</CardDescription>
 							</CardContent>
-								<Separator />
+							<Separator />
 							<CardFooter className="p-3">
 								<div className="w-full flex justify-around h-5 items-center gap-1 text-sm">
-									<Icon name={"View"} className="h-5 w-5 cursor-pointer" />
+									<Icon name={"View"} className="h-5 w-5 cursor-pointer duration-100 hover:scale-105  active:scale-100" />
 									<Separator orientation="vertical" />
-									<Icon name={"Pencil"} className="h-5 w-5 cursor-pointer" />
+									<Icon name={"Pencil"} className="h-5 w-5 cursor-pointer duration-100 hover:scale-105  active:scale-100" />
 									<Separator orientation="vertical" />
-									<Icon name={"Trash"} className="h-5 w-5 cursor-pointer" />
+									<Icon name={"Trash"} className="h-5 w-5 cursor-pointer duration-100 hover:scale-105  active:scale-100" />
 								</div>
 							</CardFooter>
 						</Card>
