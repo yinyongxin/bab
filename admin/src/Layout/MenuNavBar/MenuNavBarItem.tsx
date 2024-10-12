@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/tooltip";
 import { TreeMenuDataDto } from "@/services";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Icon } from "@/components";
+import { Flex, Icon, Title, Text } from "@/components";
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -72,20 +72,37 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 				align="start"
 				className="translate-x-6"
 			>
-				{data.children.map((child) => {
+				<Title className="mb-2">{data.name}</Title>
+				{data.children?.map((child) => {
 					return (
 						<div key={data._id}>
 							<div
 								className={cn([
-									"p-2 rounded-md hover:bg-gray-100 cursor-pointer transition-colors duration-200",
-									{ "bg-black": location.pathname === child.path },
-									{ "text-white": location.pathname === child.path },
+									"bg-secondary hover:bg-primary",
+									"text-secondary-foreground hover:text-primary-foreground",
+									"p-2 rounded-md cursor-pointer transition-colors duration-200",
+									{
+										"bg-primary text-primary-foreground":
+											location.pathname === child.path,
+									},
 								])}
 								onClick={() => {
 									navigate(child.path);
 								}}
 							>
-								<Icon name={child.icon as any} />
+								<Flex gap={2}>
+									<Flex center className={cn(["h-12 w-12"])}>
+										<Icon name={child.icon as any} />
+									</Flex>
+									<Flex vertical justify="between" className="overflow-hidden">
+										<Text bold>{child.name}</Text>
+										{child.description && (
+											<Text size="sm" className="truncate">
+												{child.description}
+											</Text>
+										)}
+									</Flex>
+								</Flex>
 							</div>
 						</div>
 					);
@@ -119,8 +136,15 @@ const MenuNavBarItem = (props: MenuNavBarItemProps) => {
 						<Icon name={data.icon as any} />
 					</Button>
 				</TooltipTrigger>
-				<TooltipContent side="right" className="ml-6">
-					{data.name}
+				<TooltipContent side="right" className="ml-6 p-3">
+					<Flex vertical gap={2}>
+						<Text bold>{data.name}</Text>
+						{data.description && (
+							<Text size="sm" className="truncate">
+								{data.description}
+							</Text>
+						)}
+					</Flex>
 				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>

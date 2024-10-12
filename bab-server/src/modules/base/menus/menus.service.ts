@@ -53,7 +53,7 @@ export class MenusService {
         return { children: getTree(listItem.id), ...listItem.toJSON() };
       });
     };
-    return getTree(null) as TreeData<
+    return getTree('') as TreeData<
       Menus & {
         _id: string;
       }

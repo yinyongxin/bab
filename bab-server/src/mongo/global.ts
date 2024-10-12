@@ -6,14 +6,13 @@ import { FORMAT } from '../config';
 export class BaseTimeDocument {
   @Prop({
     type: Date,
-    default: null,
+    default: '',
     get: (time) => (time ? dayjs(time).format(FORMAT) : time),
   })
   @ApiProperty({
     type: Date,
     description: '删除时间',
-    default: null,
-    readOnly: true,
+    default: '',
     required: false,
   })
   /** 时间删除 */

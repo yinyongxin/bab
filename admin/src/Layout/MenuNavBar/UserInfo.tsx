@@ -5,6 +5,9 @@ import {
 } from "@/components/ui/hover-card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Text } from "@/components";
+import { Flex, Icon } from "@/components";
 
 /**
  * UserInfo组件用于显示用户信息卡片，当鼠标悬停在用户头像上时，会显示详细信息
@@ -41,7 +44,7 @@ const UserInfo = () => {
 			>
 				<Avatar>
 					<AvatarImage src="https://github.com/shadcn.png" />
-					<AvatarFallback>CN</AvatarFallback>
+					<AvatarFallback><Icon name="Image" /></AvatarFallback>
 				</Avatar>
 			</HoverCardTrigger>
 			<HoverCardContent
@@ -61,7 +64,31 @@ const UserInfo = () => {
 				align="end"
 				className="ml-6 -mb-4"
 			>
-				The React Framework – created and maintained by @vercel.
+				<Flex vertical gap={2} items="center">
+					<Flex gap={2} className="w-full">
+						<Avatar className="w-14 h-14">
+							<AvatarImage src="https://github.com/shadcn.png" />
+							<AvatarFallback><Icon name="Image" /></AvatarFallback>
+						</Avatar>
+						<Flex vertical flex="1" justify="between">
+							<div className="text-base font-semibold bold cursor-pointer">用户名</div>
+							<Text className="truncate" type="muted" size="sm">描述</Text>
+						</Flex>
+					</Flex>
+					<div className="border-b border-dashed w-full my-2"></div>
+					<Flex gap={2} className="w-full text-muted-foreground" justify="between" items="center">
+						<Icon name="Mail" className="w-4 h-4" />
+						<div>17637810750</div>
+					</Flex>
+					<Flex gap={2} className="w-full text-muted-foreground" justify="between" items="center">
+						<Icon name="Smartphone" className="w-4 h-4"/>
+						<div>1101278643@qq.com</div>
+					</Flex>
+
+					<Button block>
+						退出登陆
+					</Button>
+				</Flex>
 			</HoverCardContent>
 		</HoverCard>
 	);

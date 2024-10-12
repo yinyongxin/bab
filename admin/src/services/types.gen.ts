@@ -35,7 +35,7 @@ export type ResultAdmintorDto = {
     /**
      * 年龄
      */
-    age?: number;
+    sex?: 'Male' | 'Female';
     /**
      * 电话号码
      */
@@ -53,6 +53,11 @@ export type ResultAdmintorDto = {
      */
     _id: string;
 };
+
+/**
+ * 年龄
+ */
+export type sex = 'Male' | 'Female';
 
 /**
  * 状态
@@ -124,7 +129,7 @@ export type UpdateAdmintorDto = {
     /**
      * 年龄
      */
-    age?: number;
+    sex?: 'Male' | 'Female';
     /**
      * 电话号码
      */
@@ -186,7 +191,7 @@ export type QueryAdmintorDto = {
     /**
      * 年龄
      */
-    age?: number;
+    sex?: 'Male' | 'Female';
     /**
      * 电话号码
      */
@@ -337,6 +342,10 @@ export type CreateMenuBodyDto = {
      */
     path: string;
     /**
+     * 用作菜单排序
+     */
+    sort: number;
+    /**
      * 页面权限
      */
     pageAuthority?: 'Open' | 'Delete' | 'Update' | 'Query';
@@ -377,6 +386,10 @@ export type ResultMenuDto = {
      */
     path: string;
     /**
+     * 用作菜单排序
+     */
+    sort: number;
+    /**
      * 页面权限
      */
     pageAuthority?: 'Open' | 'Delete' | 'Update' | 'Query';
@@ -411,6 +424,10 @@ export type UpdateMenuDto = {
      * 菜单路径
      */
     path?: string;
+    /**
+     * 用作菜单排序
+     */
+    sort?: number;
     /**
      * 页面权限
      */
@@ -450,6 +467,10 @@ export type TreeMenuDataDto = {
      * 菜单路径
      */
     path: string;
+    /**
+     * 用作菜单排序
+     */
+    sort: number;
     /**
      * 页面权限
      */

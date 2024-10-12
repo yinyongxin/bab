@@ -1,11 +1,14 @@
-import HomePage from "@/pages/home";
 import PersonalCenterPage from "@/pages/personalCenter";
 import Layout from "@/Layout";
 import { createBrowserRouter, RouteObject } from "react-router-dom";
-import NotFound from "@/pages/notFound";
-import { Login } from "@/pages/login";
+import Login from "@/pages/login";
+import NotFound from "@/pages/not-found";
 import Setting from "@/pages/setting";
-
+import Admintors from "@/pages/admintors";
+import Menus from "@/pages/menus";
+import { lazy } from "react";
+const Home = lazy(() => import("@/pages/home"));
+const Roles = lazy(() => import("@/pages/roles"));
 export const routes: RouteObject[] = [
 	{
 		path: "/",
@@ -14,7 +17,11 @@ export const routes: RouteObject[] = [
 		children: [
 			{
 				path: "home",
-				element: <HomePage />,
+				element: <Home />,
+			},
+			{
+				path: "roles",
+				element: <Roles />,
 			},
 			{
 				path: "personalCenter",
@@ -24,6 +31,8 @@ export const routes: RouteObject[] = [
 				path: "setting",
 				element: <Setting />,
 			},
+			{ path: "admintors", element: <Admintors /> },
+			{ path: "menus", element: <Menus /> },
 			{ path: "/*", element: <NotFound /> },
 		],
 	},

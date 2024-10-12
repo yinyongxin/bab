@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { CreateAdmintorBodyDto, QueryAdmintorDto, UpdateAdmintorDto } from './dto';
+import {
+  CreateAdmintorBodyDto,
+  QueryAdmintorDto,
+  UpdateAdmintorDto,
+} from './dto';
 import { Admintors } from '../../../mongo/base';
 import { toFuzzyParams } from '../../../mongo/tools';
 import { PaginationDto } from '../../../dtos';
@@ -11,7 +15,9 @@ import { deleteByIds } from '../../../mongo/tools';
 
 @Injectable()
 export class AdmintorsService {
-  constructor(@InjectModel(Admintors.name) private userModel: Model<Admintors>) {}
+  constructor(
+    @InjectModel(Admintors.name) private userModel: Model<Admintors>,
+  ) {}
 
   async addOne(data: CreateAdmintorBodyDto) {
     const session = await this.userModel.startSession();
@@ -39,7 +45,7 @@ export class AdmintorsService {
   }
 
   async findOneByAdmintorname(username: string) {
-    return this.userModel.findOne({username});
+    return this.userModel.findOne({ username });
   }
 
   async deleteByIds(idsToUpdate: ObjectId[]) {
@@ -63,7 +69,7 @@ export class AdmintorsService {
           // 更新updatedTime为当前时间
           $currentDate: {
             updatedTime: true,
-          }
+          },
         },
       )
       .exec();

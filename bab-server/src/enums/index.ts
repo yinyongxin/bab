@@ -9,3 +9,8 @@ export enum PageAuthorityEnum {
   Update = 'Update',
   Query = 'Query',
 }
+
+export enum SexEnum {
+  Male = 'Male',
+  Female = 'Female',
+}

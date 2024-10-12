@@ -22,7 +22,7 @@ export class Roles extends BaseDocument {
    */
   @Prop({
     required: false,
-    default: null,
+    default: '',
     maxlength: 100000,
   })
   // swagger
@@ -34,11 +34,11 @@ export class Roles extends BaseDocument {
   description: string;
 
   /**
-   * 角色名称
+   * 图标
    */
   @Prop({
     required: false,
-    default: null,
+    default: '',
   })
   // swagger
   @ApiProperty({
