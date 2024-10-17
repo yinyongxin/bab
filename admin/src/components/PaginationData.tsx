@@ -1,6 +1,4 @@
-import {
-	PaginationState,
-} from "@tanstack/react-table";
+import { PaginationState } from "@tanstack/react-table";
 import { list } from "radash";
 import { cn } from "@/lib/utils";
 import {
@@ -36,10 +34,16 @@ interface PaginationDataProps<TData> {
 	itemKey: keyof TData;
 }
 
-export function PaginationData<TData>(
-	props: PaginationDataProps<TData>
-) {
-	const { dataItemRender, border = false, showLoading = true, getData, cols = 1, gap = 4, itemKey } = props;
+export function PaginationData<TData>(props: PaginationDataProps<TData>) {
+	const {
+		dataItemRender,
+		border = false,
+		showLoading = true,
+		getData,
+		cols = 1,
+		gap = 4,
+		itemKey,
+	} = props;
 	const [loading, setLoading] = useState(true);
 	const [pagination, setPagination] = useState({
 		pageIndex: 0, //initial page index
@@ -62,7 +66,7 @@ export function PaginationData<TData>(
 			if (showLoading) {
 				setTimeout(() => {
 					setLoading(false);
-				}, 2000)
+				}, 1000);
 			}
 		}
 	};
@@ -74,21 +78,21 @@ export function PaginationData<TData>(
 	const nextPage = () => {
 		setPagination({
 			...pagination,
-			pageIndex: pagination.pageIndex + 1
-		})
-	}
+			pageIndex: pagination.pageIndex + 1,
+		});
+	};
 	const previousPage = () => {
 		setPagination({
 			...pagination,
-			pageIndex: pagination.pageIndex - 1
-		})
-	}
+			pageIndex: pagination.pageIndex - 1,
+		});
+	};
 	const setPageIndex = (pageIndex: number) => {
 		setPagination({
 			...pagination,
-			pageIndex
-		})
-	}
+			pageIndex,
+		});
+	};
 
 	/**
 	 * 生成并渲染分页组件
@@ -155,10 +159,7 @@ export function PaginationData<TData>(
 							</PaginationItem>
 						)}
 						<PaginationItem>
-							<PaginationNext
-								onClick={() => nextPage()}
-								disabled={!canNext}
-							/>
+							<PaginationNext onClick={() => nextPage()} disabled={!canNext} />
 						</PaginationItem>
 					</PaginationContent>
 				</Pagination>
@@ -180,20 +181,18 @@ export function PaginationData<TData>(
 
 	return (
 		<Comp
-			className={cn(
-				{
-					'p-4': border,
-				},
-			)}
+			className={cn({
+				"p-4": border,
+			})}
 		>
 			<Spin spinning={loading}>
 				<div
 					className={cn([`grid gap-${gap}`])}
 					style={{
-						gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`
+						gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`,
 					}}
 				>
-					{data.map(dataItem => (
+					{data.map((dataItem) => (
 						<Fragment key={dataItem[itemKey] as Key}>
 							{dataItemRender(dataItem)}
 						</Fragment>
@@ -202,5 +201,5 @@ export function PaginationData<TData>(
 			</Spin>
 			{paginationRender()}
 		</Comp>
-	)
-};
+	);
+}

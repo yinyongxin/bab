@@ -8,8 +8,8 @@ import { Model, ObjectId } from 'mongoose';
  * @param isFake 是否为虚假删除  默认为否
  * @returns 返回删除结果
  */
-export const deleteByIds = async <M>(
-  model: Model<M>,
+export const deleteByIds = async <M extends Model<any>>(
+  model: M,
   ids: ObjectId[],
   isFake = false,
 ) => {
