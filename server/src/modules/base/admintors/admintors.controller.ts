@@ -76,8 +76,8 @@ export class AdmintorsController {
     summary: '更新单条数据',
   })
   async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateAdmintorDto) {
-    console.log(query, 'query')
-    console.log(body, 'body')
+    console.log(query, 'query');
+    console.log(body, 'body');
     const res = await this.usersService.updateOne(query.id, body);
     return res;
   }
