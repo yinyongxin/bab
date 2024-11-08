@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const nodeExternals = require('webpack-node-externals');
 const { RunScriptWebpackPlugin } = require('run-script-webpack-plugin');
 
@@ -16,7 +17,10 @@ module.exports = function (options, webpack) {
       new webpack.WatchIgnorePlugin({
         paths: [/\.js$/, /\.d\.ts$/],
       }),
-      new RunScriptWebpackPlugin({ name: options.output.filename, autoRestart: false }),
+      new RunScriptWebpackPlugin({
+        name: options.output.filename,
+        autoRestart: false,
+      }),
     ],
   };
 };
