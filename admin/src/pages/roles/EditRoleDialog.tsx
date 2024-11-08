@@ -74,6 +74,7 @@ export const EditRoleDialog = (props: EditRoleDialogProps) => {
 		},
 	});
 
+
 	const getData = async (id: string) => {
 		const res = await admintorsControllerFindById({
 			query: { id },

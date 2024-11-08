@@ -23,13 +23,17 @@ import { useForm } from "react-hook-form";
 import { rolesControllerAddOne } from "@/services";
 import { toast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
-	name: z.string().min(2, {
-		message: "用户名至少需要2个字符。",
+	name: z.string().min(1, {
+		message: "用户名至少需要1个字符。",
 	}),
-	password: z.string().min(6, {
-		message: "密码至少需要6个字符。",
+	description: z.string().min(1, {
+		message: "描述至少需要1个字符。",
+	}),
+	icon: z.string().min(1, {
+		message: "图标至少需要1个字符。",
 	}),
 });
 
@@ -46,9 +50,14 @@ export const AddRoleDialog = (props: AddRoleDialogProps) => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			name: "",
-			password: "123456",
+			icon: "",
+			description: "",
 		},
 	});
+
+	form.watch((val) => {
+		console.log('yyxLog-val', val);
+	})
 
 	// 2. Define a submit handler.
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -77,19 +86,32 @@ export const AddRoleDialog = (props: AddRoleDialogProps) => {
 			</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
-					<DialogTitle>添加管理员</DialogTitle>
+					<DialogTitle>添加角色</DialogTitle>
 					<DialogDescription>
-						输入管理员信息，默认密码是123456，点击确定完成创建。
+						输入角色信息，点击保存完成创建。
 					</DialogDescription>
 				</DialogHeader>
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
 						<FormField
 							control={form.control}
+							name="icon"
+							render={({ field }) => (
+								<FormItem>
+									<FormLabel>角色名称</FormLabel>
+									<FormControl>
+										<Input type="file" {...field} />
+									</FormControl>
+									<FormMessage />
+								</FormItem>
+							)}
+						/>
+						<FormField
+							control={form.control}
 							name="name"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>用户名</FormLabel>
+									<FormLabel>角色名称</FormLabel>
 									<FormControl>
 										<Input placeholder="请输入" {...field} />
 									</FormControl>
@@ -99,12 +121,12 @@ export const AddRoleDialog = (props: AddRoleDialogProps) => {
 						/>
 						<FormField
 							control={form.control}
-							name="password"
+							name="description"
 							render={({ field }) => (
 								<FormItem>
-									<FormLabel>密码</FormLabel>
+									<FormLabel>描述</FormLabel>
 									<FormControl>
-										<Input type="password" placeholder="请输入" {...field} />
+										<Textarea placeholder="请输入" {...field} />
 									</FormControl>
 									<FormMessage />
 								</FormItem>
