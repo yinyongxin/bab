@@ -74,7 +74,7 @@ const Roles = () => {
 							total: res.data?.total || 0,
 							list: res.data?.list || [],
 						};
-					} catch (error) {
+					} catch {
 						return {
 							total: 100,
 							list: [{ name: "name", _id: "_id", icon: 'icon', createdTime: 'createdTime', updatedTime: 'updatedTime', description: 'description' }],

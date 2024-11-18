@@ -51,7 +51,7 @@ export class Admintors extends BaseDocument {
   name: string;
 
   /**
-   * 年龄
+   * 性别
    */
   @Prop({
     default: SexEnum.Male,
@@ -60,7 +60,7 @@ export class Admintors extends BaseDocument {
   // swagger
   @ApiProperty({
     required: false,
-    description: '年龄',
+    description: '性别',
     example: SexEnum.Male,
     enum: SexEnum,
   })
