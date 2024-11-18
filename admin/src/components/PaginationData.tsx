@@ -9,14 +9,18 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "./ui/pagination";
-import { Fragment, Key, useEffect, useImperativeHandle, useState } from "react";
+import {
+	Fragment,
+	Key,
+	useEffect,
+	useImperativeHandle,
+	useMemo,
+	useState,
+} from "react";
 import { Card } from "./ui/card";
 import { Spin } from "./Spin";
-import { range } from "lodash";
+import { clamp, isNumber, range } from "lodash";
 
-function list(start: number, end: number): number[] {
-	return range(start, end + 1);
-}
 export type PaginationDataActionRef = {
 	refresh: (options?: { showLoading?: boolean }) => void;
 };
@@ -78,6 +82,30 @@ export function PaginationData<TData>(props: PaginationDataProps<TData>) {
 		getDataFn({ showLoading: showLoading });
 	}, [pagination.pageIndex, pagination.pageSize]);
 
+	// 获取当前表格的页数
+	const pageCount = Math.ceil(rowCount / pagination.pageSize);
+
+	const [startPage, endPage] = useMemo(() => {
+		if (!isNumber(pagination.pageIndex) || !isNumber(pageCount)) {
+			console.error("Invalid pagination values");
+			return [1, 1]; // 默认值
+		}
+
+		const start = clamp(
+			pagination.pageIndex > 4 ? pagination.pageIndex - 2 : 1,
+			1,
+			pageCount - 1
+		);
+		const end = clamp(
+			pagination.pageIndex < pageCount - 4
+				? pagination.pageIndex + 2
+				: pageCount - 2,
+			1,
+			pageCount - 1
+		);
+		return [start, end];
+	}, [pagination.pageIndex, pageCount]);
+
 	const nextPage = () => {
 		setPagination({
 			...pagination,
@@ -102,8 +130,6 @@ export function PaginationData<TData>(props: PaginationDataProps<TData>) {
 	 * 此函数用于动态生成分页组件，根据当前表格的页数决定是否显示省略号
 	 */
 	const paginationRender = () => {
-		// 获取当前表格的页数
-		const pageCount = Math.ceil(rowCount / pagination.pageSize);
 		// 当表格页数超过5页时，显示省略号
 		const showEllipsis = pageCount > 5;
 		const canPrevious = pagination.pageIndex > 0;
@@ -131,12 +157,7 @@ export function PaginationData<TData>(props: PaginationDataProps<TData>) {
 								<PaginationEllipsis />
 							</PaginationItem>
 						)}
-						{list(
-							pagination.pageIndex > 4 ? pagination.pageIndex - 2 : 1,
-							pagination.pageIndex < pageCount - 4
-								? pagination.pageIndex + 2
-								: pageCount - 2
-						).map((pageIndex) => (
+						{range(startPage, endPage).map((pageIndex) => (
 							<PaginationItem key={Math.random()}>
 								<PaginationLink
 									onClick={() => setPageIndex(pageIndex)}

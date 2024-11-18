@@ -6,7 +6,7 @@ import {
 	PaginationState,
 	useReactTable,
 } from "@tanstack/react-table";
-import { range } from "lodash";
+import { clamp, isNumber, range } from "lodash";
 import {
 	Table,
 	TableBody,
@@ -25,13 +25,9 @@ import {
 	PaginationNext,
 	PaginationPrevious,
 } from "./ui/pagination";
-import { useEffect, useImperativeHandle, useState } from "react";
+import { useEffect, useImperativeHandle, useMemo, useState } from "react";
 import { Icon } from "./Icon";
 import { Card } from "./ui/card";
-
-function list(start: number, end: number): number[] {
-	return range(start, end + 1);
-}
 
 export type DataTableActionRef = {
 	refresh: (options?: { showLoading?: boolean }) => void;
@@ -105,17 +101,40 @@ export const DataTable = <TData, TValue>(
 		}
 	};
 
+	const pageCount = table.getPageCount();
+
 	useEffect(() => {
 		getDataFn({ showLoading: showLoading });
 	}, [pagination.pageIndex, pagination.pageSize]);
+
+	const [startPage, endPage] = useMemo(() => {
+		if (!isNumber(pagination.pageIndex) || !isNumber(pageCount)) {
+			console.error("Invalid pagination values");
+			return [1, 1]; // 默认值
+		}
+
+		const start = clamp(
+			pagination.pageIndex > 4 ? pagination.pageIndex - 2 : 1,
+			1,
+			pageCount - 1
+		);
+		const end = clamp(
+			pagination.pageIndex < pageCount - 4
+				? pagination.pageIndex + 2
+				: pageCount - 2,
+			1,
+			pageCount - 1
+		);
+		return [start, end];
+	}, [pagination.pageIndex, pageCount]);
 
 	/**
 	 * 生成并渲染分页组件
 	 * 此函数用于动态生成分页组件，根据当前表格的页数决定是否显示省略号
 	 */
 	const paginationRender = () => {
-		// 获取当前表格的页数
-		const pageCount = table.getPageCount();
+		// // 获取当前表格的页数
+		// const pageCount = table.getPageCount();
 		// 当表格页数超过5页时，显示省略号
 		const showEllipsis = pageCount > 5;
 		return (
@@ -141,13 +160,8 @@ export const DataTable = <TData, TValue>(
 								<PaginationEllipsis />
 							</PaginationItem>
 						)}
-						{list(
-							pagination.pageIndex > 4 ? pagination.pageIndex - 2 : 1,
-							pagination.pageIndex < pageCount - 4
-								? pagination.pageIndex + 2
-								: pageCount - 2
-						).map((pageIndex) => (
-							<PaginationItem key={Math.random()}>
+						{range(startPage, endPage).map((pageIndex) => (
+							<PaginationItem key={pageIndex}>
 								<PaginationLink
 									onClick={() => table.setPageIndex(pageIndex)}
 									isActive={pageIndex === pagination.pageIndex}
