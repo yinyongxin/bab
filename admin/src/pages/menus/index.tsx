@@ -1,4 +1,4 @@
-import { Flex, Icon, Text } from "@/components";
+import { Flex, Icon, IconProps, Text } from "@/components";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -51,7 +51,7 @@ const Menus = () => {
 						<Flex vertical flex="1" items="start">
 							<Text className="text-left" bold>
 								<Flex items="center" gap={2}>
-									<Icon name={data.icon as any} size={20} />
+									<Icon name={data.icon as IconProps["name"]} size={20} />
 									{data.name}
 								</Flex>
 							</Text>
