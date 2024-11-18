@@ -1,5 +1,4 @@
 import { PaginationState } from "@tanstack/react-table";
-import { list } from "radash";
 import { cn } from "@/lib/utils";
 import {
 	Pagination,
@@ -13,7 +12,11 @@ import {
 import { Fragment, Key, useEffect, useImperativeHandle, useState } from "react";
 import { Card } from "./ui/card";
 import { Spin } from "./Spin";
+import { range } from "lodash";
 
+function list(start: number, end: number): number[] {
+	return range(start, end + 1);
+}
 export type PaginationDataActionRef = {
 	refresh: (options?: { showLoading?: boolean }) => void;
 };

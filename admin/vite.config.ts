@@ -18,7 +18,7 @@ export default defineConfig({
 				manualChunks: {
 					react: ["react", "react-dom"],
 					"react-router-dom": ["react-router-dom"],
-					radash: ["radash"],
+					lodash: ["lodash"],
 					dayjs: ["dayjs"],
 					"lucide-react": ["lucide-react"],
 					"@hello-pangea/dnd": ["@hello-pangea/dnd"],

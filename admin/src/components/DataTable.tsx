@@ -6,7 +6,7 @@ import {
 	PaginationState,
 	useReactTable,
 } from "@tanstack/react-table";
-import { list } from "radash";
+import { range } from "lodash";
 import {
 	Table,
 	TableBody,
@@ -29,6 +29,10 @@ import { useEffect, useImperativeHandle, useState } from "react";
 import { Icon } from "./Icon";
 import { Card } from "./ui/card";
 
+function list(start: number, end: number): number[] {
+	return range(start, end + 1);
+}
+
 export type DataTableActionRef = {
 	refresh: (options?: { showLoading?: boolean }) => void;
 };
@@ -38,7 +42,11 @@ interface DataTableProps<TData, TValue> {
 	getData?: (pagination: PaginationState) => Promise<
 		Partial<PaginationState> & {
 			total: number;
-			list: Array<TData>;
+			list: Array<
+				TData & {
+					_id: string;
+				}
+			>;
 		}
 	>;
 	border?: boolean;
@@ -79,7 +87,6 @@ export const DataTable = <TData, TValue>(
 			setData(
 				res?.list?.map((item) => {
 					return {
-						// @ts-ignore
 						id: item?._id,
 						...item,
 					};

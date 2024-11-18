@@ -1,4 +1,4 @@
-import { isFunction } from "radash";
+import { isFunction } from "lodash";
 import { useEffect, useRef, useState } from "react";
 
 /**
