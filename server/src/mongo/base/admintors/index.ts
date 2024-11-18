@@ -64,7 +64,7 @@ export class Admintors extends BaseDocument {
     example: SexEnum.Male,
     enum: SexEnum,
   })
-  sex: SexEnum;
+  sex: string;
 
   /**
    * 电话号码
