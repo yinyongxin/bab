@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { ObjectId, Types } from 'mongoose';
+
 export class QueryIdDto {
   @ApiProperty({
     required: true,
