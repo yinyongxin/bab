@@ -20,7 +20,7 @@ export type MenuNavBarItemProps = {
 	data: TreeMenuDataDto;
 };
 const MenuNavBarItem = (props: MenuNavBarItemProps) => {
-	let location = useLocation();
+	const location = useLocation();
 	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 	const { data } = props;

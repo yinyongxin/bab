@@ -1,4 +1,4 @@
-import { ApiProperty, PickType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { ObjectId, Types } from 'mongoose';
 export class QueryIdDto {
   @ApiProperty({
