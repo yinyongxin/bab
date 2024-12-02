@@ -1,4 +1,4 @@
-import { DataTableActionRef } from "@/components/DataTable";
+import { DataTableActionRef } from "@/components/data-table";
 import { rolesControllerGetPageList } from "@/services";
 import { Title, Flex, Icon, Image } from "@/components";
 import { Button } from "@/components/ui/button";

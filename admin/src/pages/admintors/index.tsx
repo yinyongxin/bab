@@ -1,4 +1,4 @@
-import { DataTable, DataTableActionRef } from "@/components/DataTable";
+import { DataTable, DataTableActionRef } from "@/components/data-table";
 import { admintorsControllerGetPageList, type status } from "@/services";
 import { Title, Flex, Icon } from "@/components";
 import { getColumns } from "./columns";
