@@ -17,7 +17,12 @@ export type IconProps = LucideProps & {
  * @returns {JSX.Element} - 渲染指定名称的图标，并传入其他属性
  */
 
-export const Icon = ({ name, className, canClick = false, ...rest }: IconProps) => {
+export const Icon = ({
+	name,
+	className,
+	canClick = false,
+	...rest
+}: IconProps) => {
 	// 确保 name 是一个有效的键
 	if (!(name in icons)) {
 		return <icons.Ban className={cn(["inline-block", className])} />;
@@ -27,7 +32,12 @@ export const Icon = ({ name, className, canClick = false, ...rest }: IconProps) 
 	const LucideIcon = icons[name];
 
 	// 渲染 LucideIcon 组件，并传入其他属性
-	return <LucideIcon className={cn("inline-block", className, {
-		'cursor-pointer duration-100 hover:scale-105  active:scale-100': canClick
-	})} {...rest} />;
+	return (
+		<LucideIcon
+			className={cn("inline-block", className, {
+				"cursor-pointer active:scale-95 hover:opacity-70": canClick,
+			})}
+			{...rest}
+		/>
+	);
 };
