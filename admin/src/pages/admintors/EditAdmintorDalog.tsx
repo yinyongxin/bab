@@ -48,7 +48,7 @@ const formSchema = z.object({
 			message: "手机号最多11位。",
 		})
 		.or(z.string()),
-	email: z.optional(z.string().email("邮箱格式不正确")).or(z.string()),
+	email: z.string().email("邮箱格式不正确"),
 });
 
 export type EditAdmintorDalogProps = {

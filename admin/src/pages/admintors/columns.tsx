@@ -17,7 +17,6 @@ import {
 } from "@/services";
 import { getFormattedDate } from "@/utils";
 import { ColumnDef } from "@tanstack/react-table";
-import { EditAdmintorDalog } from "./EditAdmintorDalog";
 
 export const getColumns = (options: {
 	actionRef: React.RefObject<DataTableActionRef>;
