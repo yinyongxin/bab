@@ -7,9 +7,9 @@ import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppState } from "@/hooks";
-import { AddAdmintorDalog } from "./AddAdmintorDalog";
+import { AddAdmintorDalog } from "./add-admintor-dalog";
 import { useDebounce } from "@uidotdev/usehooks";
-import { EditAdmintorDalog } from "./EditAdmintorDalog";
+import { EditAdmintorDalog } from "./edit-admintor-dalog";
 const Admintors = () => {
 	const actionRef = useRef<DataTableActionRef>(null);
 	const [tabValue, tabValueAsync, setTabValue] = useAppState<status | "">(

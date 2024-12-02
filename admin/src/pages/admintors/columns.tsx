@@ -57,7 +57,7 @@ export const getColumns = (options: {
 									},
 									body: {
 										status:
-											row.getValue("status") === "Open" ? "Close" : "Open",
+											row.getValue<ResultAdmintorDto['status']>("status") === "Open" ? "Close" : "Open",
 									},
 								});
 								toast({
