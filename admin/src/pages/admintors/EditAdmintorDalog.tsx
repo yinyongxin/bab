@@ -32,7 +32,7 @@ const formSchema = z.object({
 	username: z.string().min(2, {
 		message: "用户名至少需要2个字符。",
 	}),
-	sex: z.enum(ResultAdmintorDtoSchema.properties.sex.enum),
+	sex: z.enum(ResultAdmintorDtoSchema.properties.sex.enum).optional(),
 	name: z
 		.string()
 		.min(2, {
@@ -64,32 +64,27 @@ export const EditAdmintorDalog = (props: EditAdmintorDalogProps) => {
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
-		defaultValues: {
-			username: "",
-			sex: "Male",
-			name: "",
-			phone: "",
-			email: "",
-		},
 	});
 
 	const getData = async (id: string) => {
 		const res = await admintorsControllerFindById({
 			query: { id },
 		});
+		console.log(res.data);
 		if (res.data) {
 			form.reset({
 				username: res.data.username,
-				sex: res.data.sex || "Male",
-				name: res.data.name || "",
-				phone: res.data.phone || "",
-				email: res.data.email || "",
+				sex: res.data.sex,
+				name: res.data.name,
+				phone: res.data.phone,
+				email: res.data.email,
 			});
 		}
 	};
 
 	useEffect(() => {
 		if (props.id) {
+			console.log(props.id);
 			setOpen(true);
 			getData(props.id);
 		}
@@ -190,8 +185,8 @@ export const EditAdmintorDalog = (props: EditAdmintorDalogProps) => {
 									<FormControl>
 										<RadioGroup
 											onValueChange={field.onChange}
-											defaultValue={field.value}
-											className="flex flex-col space-y-1"
+											value={field.value}
+											className="flex space-x-1"
 										>
 											<FormItem className="flex items-center space-x-3 space-y-0">
 												<FormControl>
