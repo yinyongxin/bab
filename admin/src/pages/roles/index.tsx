@@ -5,11 +5,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useEffect, useRef, useState } from "react";
 import { useAppState } from "@/hooks";
-import { AddRoleDialog } from "./AddRoleDialog";
+import { AddRoleDialog } from "./add-role-dialog";
 import { useDebounce } from "@uidotdev/usehooks";
-import { EditRoleDialog } from "./EditRoleDialog";
-import { PaginationData } from "@/components/PaginationData";
-import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
+import { EditRoleDialog } from "./edit-role-dialog";
+import { PaginationData } from "@/components/pagination-data";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardFooter,
+	CardTitle,
+} from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Separator } from "@/components/ui/separator";
 const Roles = () => {
@@ -77,7 +83,7 @@ const Roles = () => {
 					} catch {
 						return {
 							total: 100,
-							list: [{ name: "name", _id: "_id", icon: 'icon', createdTime: 'createdTime', updatedTime: 'updatedTime', description: 'description' }],
+							list: [],
 						};
 					}
 				}}
@@ -85,13 +91,15 @@ const Roles = () => {
 				dataItemRender={(dataItem) => {
 					return (
 						<Card>
-							<AspectRatio ratio={16 / 9} >
-								<Image src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80" className="rounded-t-md" alt="logo" />
+							<AspectRatio ratio={16 / 9}>
+								<Image
+									src="https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80"
+									className="rounded-t-md"
+									alt="logo"
+								/>
 							</AspectRatio>
 							<CardContent className="p-3">
-								<CardTitle>
-									{dataItem.name}
-								</CardTitle>
+								<CardTitle>{dataItem.name}</CardTitle>
 								<CardDescription className="mt-3">
 									{dataItem.description}
 								</CardDescription>
@@ -107,7 +115,7 @@ const Roles = () => {
 								</div>
 							</CardFooter>
 						</Card>
-					)
+					);
 				}}
 				cols={6}
 				gap={2}

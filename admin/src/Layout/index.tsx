@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import MenuNavBar from "./MenuNavBar";
+import MenuNavBar from "./menu-nav-bar";
 import { StrictMode } from "react";
 
 const Layout = () => {
