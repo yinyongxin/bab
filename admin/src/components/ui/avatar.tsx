@@ -2,7 +2,7 @@ import * as React from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
 import { cn } from "@/lib/utils";
-import { Icon } from "../Icon";
+import { Icon } from "../icon";
 
 export type AvatarProps = React.ComponentPropsWithoutRef<
 	typeof AvatarPrimitive.Root

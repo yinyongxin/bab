@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 import { useState } from "react"
-import { Icon } from "./Icon"
+import { Icon } from "./icon"
 
 const imageVariants = cva(
   "h-full w-full",

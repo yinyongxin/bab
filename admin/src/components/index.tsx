@@ -1,4 +1,4 @@
-export * from "./Icon";
+export * from "./icon";
 export * from "./Flex";
 export * from "./data-table";
 export * from "./Typography";

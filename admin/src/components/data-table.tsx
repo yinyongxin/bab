@@ -26,7 +26,7 @@ import {
 	PaginationPrevious,
 } from "./ui/pagination";
 import { useEffect, useImperativeHandle, useMemo, useState } from "react";
-import { Icon } from "./Icon";
+import { Icon } from "./icon";
 import { Card } from "./ui/card";
 
 export type DataTableActionRef = {

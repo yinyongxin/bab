@@ -1,4 +1,4 @@
-import { Icon } from "./Icon";
+import { Icon } from "./icon";
 
 export type SpinProps = {
 	spinning?: boolean;

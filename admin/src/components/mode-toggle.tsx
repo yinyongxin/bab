@@ -8,7 +8,7 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Theme, useTheme } from "@/components/theme-provider";
-import { Icon } from "./Icon";
+import { Icon } from "./icon";
 
 export type ModeToggleProps = {
 	single?: boolean;
