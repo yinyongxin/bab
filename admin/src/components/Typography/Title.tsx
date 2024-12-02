@@ -3,7 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
-export const titleVariants = cva("", {
+const titleVariants = cva("", {
 	variants: {
 		level: {
 			h1: "scroll-m-20 text-4xl font-semibold",

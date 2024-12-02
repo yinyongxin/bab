@@ -33,7 +33,7 @@ export type DataTableActionRef = {
 	refresh: (options?: { showLoading?: boolean }) => void;
 };
 
-interface DataTableProps<TData, TValue> {
+export interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[];
 	getData?: (pagination: PaginationState) => Promise<
 		Partial<PaginationState> & {

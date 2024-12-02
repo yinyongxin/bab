@@ -3,7 +3,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
-export const textVariants = cva("", {
+const textVariants = cva("", {
 	variants: {
 		type: {
 			default: "",
