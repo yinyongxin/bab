@@ -1,4 +1,4 @@
-import PersonalCenterPage from "@/pages/personalCenter";
+import PersonalCenterPage from "@/pages/personal-center";
 import Layout from "@/Layout";
 import { createBrowserRouter, RouteObject } from "react-router-dom";
 import Login from "@/pages/login";
@@ -7,8 +7,11 @@ import Setting from "@/pages/setting";
 import Admintors from "@/pages/admintors";
 import Menus from "@/pages/menus";
 import { lazy } from "react";
+
 const Home = lazy(() => import("@/pages/home"));
+
 const Roles = lazy(() => import("@/pages/roles"));
+
 export const routes: RouteObject[] = [
 	{
 		path: "/",
