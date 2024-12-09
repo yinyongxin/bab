@@ -32,7 +32,13 @@
           command = ["npm" "run" "dev" "--" "--port" "$PORT" "--host" "0.0.0.0"];
           manager = "web";
         };
+        api = {
+          cwd = "server";  # Working directory for the server
+          command = ["npm" "run" "start:dev"];  # Startup command
+          manager = "web";  # Use web manager to expose a preview URL
+        };
       };
     };
+    
   };
 }
