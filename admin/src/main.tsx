@@ -7,7 +7,8 @@ import { toast } from "./hooks/use-toast.ts";
 // configure internal service client
 client.setConfig({
 	// set default base url for requests
-	baseUrl: "http://localhost:3000",
+	// baseUrl: "http://localhost:3000",
+	baseUrl: "https://3000-idx-bab-1733752107828.cluster-mwrgkbggpvbq6tvtviraw2knqg.cloudworkstations.dev/",
 	// set default headers for requests
 	headers: {
 		Authorization: `Bearer ${localStorage.getItem("token")}`,
