@@ -1,5 +1,5 @@
 import type { NavigationTree } from '@/@types/navigation';
-import { IconDashboard, IconUser } from '@tabler/icons-react';
+import { IconDashboard, IconSettings, IconUser } from '@tabler/icons-react';
 
 const navigationConfig: NavigationTree[] = [
   {
@@ -27,18 +27,32 @@ const navigationConfig: NavigationTree[] = [
     ],
   },
   {
-    key: 'users',
-    path: '/users',
-    title: 'Users',
-    translateKey: '',
-    icon: IconUser,
+    key: 'systems',
+    path: '/systems',
+    title: 'Systems',
+    translateKey: '系统管理',
+    icon: IconSettings,
     authority: [],
     subMenu: [
       {
-        key: 'manage',
+        key: 'managers',
+        path: 'managers',
+        title: 'Managers',
+        translateKey: '人员管理',
+        authority: [],
+      },
+      {
+        key: 'roles',
         path: 'manage',
-        title: 'Manage',
-        translateKey: '',
+        title: 'Roles',
+        translateKey: '角色管理',
+        authority: [],
+      },
+      {
+        key: 'menus',
+        path: 'manage',
+        title: 'Menus',
+        translateKey: '菜单管理',
         authority: [],
       },
     ],

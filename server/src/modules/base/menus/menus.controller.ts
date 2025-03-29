@@ -5,7 +5,6 @@ import {
   Query,
   Put,
   Delete,
-  Post,
   Patch,
 } from '@nestjs/common';
 import {
@@ -25,12 +24,9 @@ import {
 import {
   DeleteIdsDto,
   DeleteResDto,
-  PaginationDto,
   QueryIdDto,
   UpdateResDto,
 } from '../../../dtos';
-import { toInt } from 'radash';
-import { Public } from '../../../decorators';
 
 @ApiTags('菜单')
 @Controller('menus')
