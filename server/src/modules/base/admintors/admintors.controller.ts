@@ -11,7 +11,6 @@ import {
 import {
   ApiOkResponse,
   ApiOperation,
-  ApiResponse,
   ApiTags,
   IntersectionType,
 } from '@nestjs/swagger';
@@ -39,13 +38,13 @@ export class AdmintorsController {
   constructor(private readonly usersService: AdmintorsService) {}
 
   @Put('addOne')
-  @ApiOkResponse({
-    description: '添加管理人员成功',
-    type: AdmintorsResultDto,
-  })
   @ApiOperation({
     description: '添加一个管理人员',
     summary: '添加一个管理人员',
+  })
+  @ApiOkResponse({
+    description: '添加管理人员成功',
+    type: AdmintorsResultDto,
   })
   async addOne(@Body() body: AdmintorsCreateBodyDto) {
     const res = await this.usersService.addOne(body);
@@ -53,13 +52,13 @@ export class AdmintorsController {
   }
 
   @Delete('deleteByIds')
-  @ApiResponse({
-    description: '删除成功',
-    type: IntersectionType(UpdateResDto, DeleteResDto),
-  })
   @ApiOperation({
     description: '通过Ids删除管理人员',
     summary: '通过Id删除管理人员',
+  })
+  @ApiOkResponse({
+    description: '删除成功',
+    type: IntersectionType(UpdateResDto, DeleteResDto),
   })
   async deleteByIds(@Body() body: DeleteIdsDto) {
     const res = await this.usersService.deleteByIds(body.ids);
@@ -67,13 +66,13 @@ export class AdmintorsController {
   }
 
   @Patch('updateOne')
-  @ApiResponse({
-    description: '更新结果',
-    type: UpdateResDto,
-  })
   @ApiOperation({
     description: '更新单条数据',
     summary: '更新单条数据',
+  })
+  @ApiOkResponse({
+    description: '更新结果',
+    type: UpdateResDto,
   })
   async updateOne(
     @Query() query: QueryIdDto,
@@ -86,13 +85,13 @@ export class AdmintorsController {
   }
 
   @Get('findById')
-  @ApiOkResponse({
-    description: '查找成功',
-    type: AdmintorsResultDto,
-  })
   @ApiOperation({
     description: '通过Id查找管理人员',
     summary: '通过Id查找管理人员',
+  })
+  @ApiOkResponse({
+    description: '查找成功',
+    type: AdmintorsResultDto,
   })
   async findById(@Query() query: QueryIdDto) {
     const res = await this.usersService.findById(query.id);
@@ -101,13 +100,13 @@ export class AdmintorsController {
 
   @Public()
   @Post('getPageList')
-  @ApiResponse({
-    description: '获取分页列表',
-    type: AdmintorPaginationResultDto,
-  })
   @ApiOperation({
     description: '获取分页列表',
     summary: '获取分页列表',
+  })
+  @ApiOkResponse({
+    description: '获取分页列表',
+    type: AdmintorPaginationResultDto,
   })
   async getPageList(
     @Query() pagination: PaginationDto,
