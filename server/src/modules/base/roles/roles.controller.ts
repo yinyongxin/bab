@@ -20,7 +20,7 @@ import {
   RoleCreateBodyDto,
   RolesQueryFilterDto,
   RolesResultDto,
-  UpdateRoleDto,
+  RolesUpdateDto,
   RoleQueryPaginationResultDto,
 } from './dto';
 import {
@@ -75,7 +75,7 @@ export class RolesController {
     description: '更新单条数据',
     summary: '更新单条数据',
   })
-  async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateRoleDto) {
+  async updateOne(@Query() query: QueryIdDto, @Body() body: RolesUpdateDto) {
     const res = await this.usersService.updateOne(query.id, body);
     return res;
   }
@@ -94,7 +94,7 @@ export class RolesController {
     return res;
   }
 
-  @Post('findAllByFields')
+  @Post('findAllByFilter')
   @ApiOkResponse({
     description: '查询成功',
     type: [RolesResultDto],
@@ -103,8 +103,8 @@ export class RolesController {
     description: '通过字段值查询所有数据',
     summary: '通过字段值查询所有数据',
   })
-  async findAllByFields(@Body() body: RolesQueryFilterDto) {
-    const res = await this.usersService.findAllByFields(body);
+  async findAllByFilter(@Body() body: RolesQueryFilterDto) {
+    const res = await this.usersService.findAllByFilter(body);
     return res;
   }
 

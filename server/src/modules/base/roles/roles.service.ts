@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { RoleCreateBodyDto, RolesQueryFilterDto, UpdateRoleDto } from './dto';
+import { RoleCreateBodyDto, RolesQueryFilterDto, RolesUpdateDto } from './dto';
 import { Roles } from '../../../mongo/base';
 import { toFuzzyParams } from '../../../mongo/tools';
 import { PaginationDto } from '../../../dtos';
-import dayjs from 'dayjs';
-import { omit } from 'radash';
 import { deleteByIds } from '../../../mongo/tools';
 
 @Injectable()
@@ -49,14 +47,14 @@ export class RolesService {
     return res;
   }
 
-  async findAllByFields(data: RolesQueryFilterDto) {
+  async findAllByFilter(data: RolesQueryFilterDto) {
     const res = await this.userModel.find(toFuzzyParams(data), {
       password: false,
     });
     return res;
   }
 
-  async updateOne(id: string, data: UpdateRoleDto) {
+  async updateOne(id: string, data: RolesUpdateDto) {
     const res = await this.userModel
       .updateOne(
         { _id: id },
@@ -72,7 +70,7 @@ export class RolesService {
     return res;
   }
 
-  async getPageList(pagination: PaginationDto, data: UpdateRoleDto) {
+  async getPageList(pagination: PaginationDto, data: RolesUpdateDto) {
     const [res] = await this.userModel.aggregate([
       { $match: toFuzzyParams(data) },
       { $sort: { createdTime: -1 } },

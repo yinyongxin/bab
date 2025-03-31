@@ -51,7 +51,7 @@ export class AdmintorsService {
     return res;
   }
 
-  async findAllByFields(data: QueryAdmintorDto) {
+  async findAllByFilter(data: QueryAdmintorDto) {
     const res = await this.userModel.find(toFuzzyParams(data), {
       password: false,
     });

@@ -96,7 +96,7 @@ export class AdmintorsController {
     return res;
   }
 
-  @Post('findAllByFields')
+  @Post('findAllByFilter')
   @ApiOkResponse({
     description: '查询成功',
     type: [ResultAdmintorDto],
@@ -105,8 +105,8 @@ export class AdmintorsController {
     description: '通过字段值查询所有数据',
     summary: '通过字段值查询所有数据',
   })
-  async findAllByFields(@Body() body: QueryAdmintorDto) {
-    const res = await this.usersService.findAllByFields(body);
+  async findAllByFilter(@Body() body: QueryAdmintorDto) {
+    const res = await this.usersService.findAllByFilter(body);
     return res;
   }
 
