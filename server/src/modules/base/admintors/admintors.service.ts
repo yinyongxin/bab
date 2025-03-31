@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId } from 'mongoose';
+import { Model, ObjectId, Types } from 'mongoose';
 import {
   AdmintorsCreateBodyDto,
   AdmintorsFilterDto,
@@ -21,7 +21,12 @@ export class AdmintorsService {
     const session = await this.userModel.startSession();
     try {
       session.startTransaction();
-      const createdAdmintor = new this.userModel(data);
+      const createdAdmintor = new this.userModel({
+        ...data,
+        roles: data.roles.map(
+          (role) => new Types.ObjectId(role as unknown as string),
+        ),
+      });
       const res = await createdAdmintor.save({
         session,
       });
@@ -51,11 +56,22 @@ export class AdmintorsService {
     return res;
   }
 
-  async findAllByFilter(data: AdmintorsFilterDto) {
-    const res = await this.userModel.find(toFuzzyParams(data), {
-      password: false,
-    });
-    return res;
+  async findAllByFilter(filter: AdmintorsFilterDto) {
+    // const res = await this.userModel.find(toFuzzyParams(filter), {
+    //   password: false,
+    // });
+    const list = await this.userModel.aggregate([
+      { $match: toFuzzyParams(filter) },
+      {
+        $lookup: {
+          from: 'roles', // 目标集合名称（MongoDB 中小写复数）
+          localField: 'roles', // 当前集合中的字段（用户集合中的 roles）
+          foreignField: '_id', // 目标集合中的字段（角色集合中的 ID）
+          as: 'roles', // 输出到的字段名
+        },
+      },
+    ]);
+    return list;
   }
 
   async updateOne(id: string, data: AdmintorsUpdateDto) {
@@ -81,25 +97,40 @@ export class AdmintorsService {
       {
         $facet: {
           metadata: [{ $count: 'total' }],
+
           list: [
             { $skip: pagination.pageSize * (pagination.pageNo - 1) },
             { $limit: pagination.pageSize },
             {
+              $lookup: {
+                from: 'roles', // 目标集合名称（MongoDB 中小写复数）
+                localField: 'roles', // 当前集合中的字段（用户集合中的 roles）
+                foreignField: '_id', // 目标集合中的字段（角色集合中的 ID）
+                as: 'roles', // 输出到的字段名
+              },
+            },
+            {
               $project: {
-                password: 0, // 在这里处理密码的隐藏
+                password: 0, // 隐藏密码字段
               },
             },
           ],
         },
       },
-      // 使用 $addFields 来构建返回结构
+      // 最终结果的构建
       {
         $project: {
           total: { $arrayElemAt: ['$metadata.total', 0] }, // 直接取出 total
-          list: 1,
+          list: '$list', // 返回 list
         },
       },
     ]);
+
+    // 检查结果以确保处理
+    if (!res) {
+      return { total: 0, list: [] };
+    }
+
     return {
       ...(res || {
         list: [],

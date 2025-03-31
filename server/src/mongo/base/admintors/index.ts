@@ -2,6 +2,7 @@ import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
 import { AdmintorStatusEnum, SexEnum } from '../../../enums';
+import { ObjectId, Types } from 'mongoose';
 
 @Schema()
 export class Admintors extends BaseDocument {
@@ -49,6 +50,17 @@ export class Admintors extends BaseDocument {
   // swagger
   @ApiProperty({ required: false, description: '姓名', example: '' })
   name: string;
+
+  /**
+   * 角色
+   */
+  @Prop({
+    isRequired: true,
+    type: Types.ObjectId,
+  })
+  // swagger
+  @ApiProperty({ required: true, description: '角色', example: [] })
+  roles: ObjectId[];
 
   /**
    * 性别

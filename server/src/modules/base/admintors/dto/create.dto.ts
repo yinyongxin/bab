@@ -4,6 +4,7 @@ import { Admintors } from '../../../../mongo/base';
 export class AdmintorsCreateBodyDto extends PickType(Admintors, [
   'password',
   'username',
+  'roles',
 ]) {
   @ApiProperty({
     example: 'admin',
