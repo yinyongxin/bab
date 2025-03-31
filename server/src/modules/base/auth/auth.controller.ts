@@ -19,7 +19,6 @@ import { ResultAdmintorDto } from '../admintors';
 import { AuthGuard } from '../../../guards';
 
 @ApiTags('限权')
-@ApiBearerAuth('Authorization')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -39,6 +38,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Get('profile')
+  @ApiBearerAuth('Authorization')
   getProfile(@Request() req) {
     return req.user;
   }
