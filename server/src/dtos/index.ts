@@ -22,9 +22,9 @@ export class Result_idDto {
   @ApiProperty({
     required: true,
     description: '唯一值',
-    type: String,
+    type: Types.ObjectId,
   })
-  _id: string;
+  _id: Types.ObjectId;
 }
 
 export class DeleteIdsDto {
