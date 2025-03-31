@@ -16,7 +16,7 @@ async function bootstrap() {
   initSwagger(app);
 
   const port = 3000;
-  const server = await app.listen(port);
+  await app.listen(port);
 
   // 获取并打印IP地址
   const ipAddress = await getLocalExternalIP();
