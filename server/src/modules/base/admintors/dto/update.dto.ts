@@ -4,8 +4,8 @@ import { Admintors } from '../../../../mongo/base';
 export class AdmintorsUpdateDto extends PartialType(
   OmitType(Admintors, [
     'password',
-    'deletedTime',
     'createdTime',
     'deletedTime',
+    'updatedTime',
   ]),
 ) {}
