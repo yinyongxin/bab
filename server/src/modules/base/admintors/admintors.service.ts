@@ -80,6 +80,9 @@ export class AdmintorsService {
         { _id: id },
         {
           ...data,
+          roles: data.roles.map(
+            (role) => new Types.ObjectId(role as unknown as string),
+          ),
           // 更新updatedTime为当前时间
           $currentDate: {
             updatedTime: true,
