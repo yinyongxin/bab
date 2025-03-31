@@ -4,12 +4,12 @@ import dayjs from 'dayjs';
  * 将字符串文本的数据变为模糊查询
  * 不是字符串的字段返回
  */
-export const toFuzzyParams = <N extends string = string>(
-  data: Record<N, any>,
-  fieldNames?: N[],
-): Record<N, any> => {
-  const newParams: Record<N, any> = {} as Record<N, any>;
-  const names = fieldNames || (Object.keys(data) as N[]);
+export const toFuzzyParams = <D = Record<string, unknown>, K = keyof D>(
+  data: D,
+  fieldNames?: (keyof D)[],
+): D => {
+  const newParams: D = {} as D;
+  const names = fieldNames || (Object.keys(data) as K[]);
 
   names.forEach((name) => {
     const value = data[name];

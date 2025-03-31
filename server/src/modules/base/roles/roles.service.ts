@@ -71,6 +71,7 @@ export class RolesService {
   }
 
   async getPageList(pagination: PaginationDto, filter: RolesQueryFilterDto) {
+    // 构建聚合管道
     const [res] = await this.userModel.aggregate([
       { $match: toFuzzyParams(filter) },
       { $sort: { createdTime: -1 } },
