@@ -57,6 +57,8 @@ export class Admintors extends BaseDocument {
   @Prop({
     isRequired: true,
     type: Types.ObjectId,
+    minlength: 1,
+    set: (v: string[]) => v.map((item) => new Types.ObjectId(item)),
   })
   // swagger
   @ApiProperty({ required: true, description: '角色', example: [] })

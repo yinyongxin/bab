@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, ObjectId, Types } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import {
   AdmintorsCreateBodyDto,
   AdmintorsFilterDto,
@@ -23,9 +23,6 @@ export class AdmintorsService {
       session.startTransaction();
       const createdAdmintor = new this.userModel({
         ...data,
-        roles: data.roles.map(
-          (role) => new Types.ObjectId(role as unknown as string),
-        ),
       });
       const res = await createdAdmintor.save({
         session,
@@ -80,9 +77,6 @@ export class AdmintorsService {
         { _id: id },
         {
           ...data,
-          roles: data.roles.map(
-            (role) => new Types.ObjectId(role as unknown as string),
-          ),
           // 更新updatedTime为当前时间
           $currentDate: {
             updatedTime: true,
