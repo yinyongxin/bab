@@ -7,17 +7,16 @@ import {
   Get,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignInDto } from './dto';
+import { LoginSuccessResultDto, SignInDto } from './dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { AdmintorsResultDto } from '../admintors';
 import { AuthGuard } from '../../../guards';
 
-@ApiTags('限权')
+@ApiTags('限权-Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -28,7 +27,7 @@ export class AuthController {
   })
   @ApiOkResponse({
     description: 'Token和管理人员信息',
-    type: AdmintorsResultDto,
+    type: LoginSuccessResultDto,
   })
   @Post('login')
   signIn(@Body() signInDto: SignInDto) {

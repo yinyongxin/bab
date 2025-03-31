@@ -33,7 +33,7 @@ import {
 import { toInt } from 'radash';
 import { Public } from '../../../decorators';
 
-@ApiTags('管理人员')
+@ApiTags('管理人员-Admintors')
 @Controller('admintors')
 export class AdmintorsController {
   constructor(private readonly usersService: AdmintorsService) {}

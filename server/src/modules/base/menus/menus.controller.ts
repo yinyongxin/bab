@@ -28,7 +28,7 @@ import {
   UpdateResDto,
 } from '../../../dtos';
 
-@ApiTags('菜单')
+@ApiTags('菜单-Menus')
 @Controller('menus')
 export class MenusController {
   constructor(private readonly usersService: MenusService) {}
