@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { CreateRoleBodyDto, QueryRoleDto, UpdateRoleDto } from './dto';
+import { RoleCreateBodyDto, RolesQueryFilterDto, UpdateRoleDto } from './dto';
 import { Roles } from '../../../mongo/base';
 import { toFuzzyParams } from '../../../mongo/tools';
 import { PaginationDto } from '../../../dtos';
@@ -13,7 +13,7 @@ import { deleteByIds } from '../../../mongo/tools';
 export class RolesService {
   constructor(@InjectModel(Roles.name) private userModel: Model<Roles>) {}
 
-  async addOne(data: CreateRoleBodyDto) {
+  async addOne(data: RoleCreateBodyDto) {
     const session = await this.userModel.startSession();
     try {
       session.startTransaction();
@@ -49,7 +49,7 @@ export class RolesService {
     return res;
   }
 
-  async findAllByFields(data: QueryRoleDto) {
+  async findAllByFields(data: RolesQueryFilterDto) {
     const res = await this.userModel.find(toFuzzyParams(data), {
       password: false,
     });

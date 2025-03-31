@@ -1,9 +1,9 @@
 import { OmitType, ApiProperty } from '@nestjs/swagger';
 import { ObjectId } from 'mongoose';
-import { ResultPaginationDto } from '../../../../dtos';
+import { PaginationResultDto } from '../../../../dtos';
 import { Roles } from '../../../../mongo/base';
 
-export class ResultRoleDto extends OmitType(Roles, ['deletedTime']) {
+export class RolesResultDto extends OmitType(Roles, ['deletedTime']) {
   @ApiProperty({
     required: true,
     description: '唯一值',
@@ -12,11 +12,11 @@ export class ResultRoleDto extends OmitType(Roles, ['deletedTime']) {
   _id: ObjectId;
 }
 
-export class RolePaginationQueryResultDto extends ResultPaginationDto {
+export class RoleQueryPaginationResultDto extends PaginationResultDto {
   @ApiProperty({
     required: true,
     description: '所有数量',
-    type: [ResultRoleDto],
+    type: [RolesResultDto],
   })
-  list: ResultRoleDto[];
+  list: RolesResultDto[];
 }

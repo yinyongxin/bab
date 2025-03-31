@@ -103,7 +103,7 @@ export class PaginationDto {
   pageSize: number;
 }
 
-export class ResultPaginationDto extends PaginationDto {
+export class PaginationResultDto extends PaginationDto {
   @ApiProperty({
     required: true,
     description: '所有数量',

@@ -17,11 +17,11 @@ import {
 } from '@nestjs/swagger';
 import { RolesService } from './roles.service';
 import {
-  CreateRoleBodyDto,
-  QueryRoleDto,
-  ResultRoleDto,
+  RoleCreateBodyDto,
+  RolesQueryFilterDto,
+  RolesResultDto,
   UpdateRoleDto,
-  RolePaginationQueryResultDto,
+  RoleQueryPaginationResultDto,
 } from './dto';
 import {
   DeleteIdsDto,
@@ -41,13 +41,13 @@ export class RolesController {
   @Put('addOne')
   @ApiOkResponse({
     description: '添加角色成功',
-    type: ResultRoleDto,
+    type: RolesResultDto,
   })
   @ApiOperation({
     description: '添加一个角色',
     summary: '添加一个角色',
   })
-  async addOne(@Body() body: CreateRoleBodyDto) {
+  async addOne(@Body() body: RoleCreateBodyDto) {
     const res = await this.usersService.addOne(body);
     return res;
   }
@@ -83,7 +83,7 @@ export class RolesController {
   @Get('findById')
   @ApiOkResponse({
     description: '查找成功',
-    type: ResultRoleDto,
+    type: RolesResultDto,
   })
   @ApiOperation({
     description: '通过Id查找角色',
@@ -97,13 +97,13 @@ export class RolesController {
   @Post('findAllByFields')
   @ApiOkResponse({
     description: '查询成功',
-    type: [ResultRoleDto],
+    type: [RolesResultDto],
   })
   @ApiOperation({
     description: '通过字段值查询所有数据',
     summary: '通过字段值查询所有数据',
   })
-  async findAllByFields(@Body() body: QueryRoleDto) {
+  async findAllByFields(@Body() body: RolesQueryFilterDto) {
     const res = await this.usersService.findAllByFields(body);
     return res;
   }
@@ -112,7 +112,7 @@ export class RolesController {
   @Post('getPageList')
   @ApiResponse({
     description: '获取分页列表',
-    type: RolePaginationQueryResultDto,
+    type: RoleQueryPaginationResultDto,
   })
   @ApiOperation({
     description: '获取分页列表',
@@ -120,7 +120,7 @@ export class RolesController {
   })
   async getPageList(
     @Query() pagination: PaginationDto,
-    @Body() body: QueryRoleDto,
+    @Body() body: RolesQueryFilterDto,
   ) {
     const res = await this.usersService.getPageList(
       {

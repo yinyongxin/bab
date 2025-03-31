@@ -22,7 +22,7 @@ async function bootstrap() {
 
   const port = 3000;
   const server = await app.listen(port);
-
+  
   // 获取并打印IP地址
   const ipAddress = await getLocalExternalIP();
   console.log(`Application is running on: http://${ipAddress}:${port}/api`);
