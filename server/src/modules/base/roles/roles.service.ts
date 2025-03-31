@@ -38,19 +38,8 @@ export class RolesService {
     return res;
   }
 
-  async findOneByRolename(username: string) {
-    return this.userModel.findOne({ username });
-  }
-
   async deleteByIds(idsToUpdate: ObjectId[]) {
     const res = await deleteByIds(this.userModel, idsToUpdate);
-    return res;
-  }
-
-  async findAllByFilter(data: RolesQueryFilterDto) {
-    const res = await this.userModel.find(toFuzzyParams(data), {
-      password: false,
-    });
     return res;
   }
 

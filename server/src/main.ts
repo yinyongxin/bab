@@ -20,8 +20,8 @@ async function bootstrap() {
 
   // 获取并打印IP地址
   const ipAddress = await getLocalExternalIP();
-  console.log(`Application is running on: http://${ipAddress}:${port}/api`);
-  console.log(`Application is running on: http://localhost:${port}/api`);
+  console.log(`Application is running on: http://${ipAddress}:${port}`);
+  console.log(`Application is running on: http://localhost:${port}`);
 
   if (module.hot) {
     module.hot.accept();

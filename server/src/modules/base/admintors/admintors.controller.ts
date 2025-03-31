@@ -99,20 +99,6 @@ export class AdmintorsController {
     return res;
   }
 
-  @Post('findAllByFilter')
-  @ApiOkResponse({
-    description: '查询成功',
-    type: [AdmintorsResultDto],
-  })
-  @ApiOperation({
-    description: '通过字段值查询所有数据',
-    summary: '通过字段值查询所有数据',
-  })
-  async findAllByFilter(@Body() body: AdmintorsFilterDto) {
-    const res = await this.usersService.findAllByFilter(body);
-    return res;
-  }
-
   @Public()
   @Post('getPageList')
   @ApiResponse({

@@ -31,7 +31,6 @@ import {
   UpdateResDto,
 } from '../../../dtos';
 import { toInt } from 'radash';
-import { Public } from '../../../decorators';
 
 @ApiTags('角色-Roles')
 @Controller('roles')
@@ -94,21 +93,6 @@ export class RolesController {
     return res;
   }
 
-  @Post('findAllByFilter')
-  @ApiOkResponse({
-    description: '查询成功',
-    type: [RolesResultDto],
-  })
-  @ApiOperation({
-    description: '通过条件查询所有数据, 不支持分页',
-    summary: '通过条件查询所有数据',
-  })
-  async findAllByFilter(@Body() body: RolesQueryFilterDto) {
-    const res = await this.usersService.findAllByFilter(body);
-    return res;
-  }
-
-  @Public()
   @Post('getPageList')
   @ApiOkResponse({
     description: '获取分页列表',

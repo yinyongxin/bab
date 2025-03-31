@@ -53,24 +53,6 @@ export class AdmintorsService {
     return res;
   }
 
-  async findAllByFilter(filter: AdmintorsFilterDto) {
-    // const res = await this.userModel.find(toFuzzyParams(filter), {
-    //   password: false,
-    // });
-    const list = await this.userModel.aggregate([
-      { $match: toFuzzyParams(filter) },
-      {
-        $lookup: {
-          from: 'roles', // 目标集合名称（MongoDB 中小写复数）
-          localField: 'roles', // 当前集合中的字段（用户集合中的 roles）
-          foreignField: '_id', // 目标集合中的字段（角色集合中的 ID）
-          as: 'roles', // 输出到的字段名
-        },
-      },
-    ]);
-    return list;
-  }
-
   async updateOne(id: string, data: AdmintorsUpdateDto) {
     const res = await this.userModel
       .updateOne(
