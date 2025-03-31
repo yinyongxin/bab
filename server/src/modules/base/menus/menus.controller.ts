@@ -106,7 +106,7 @@ export class MenusController {
   @Get('getAll')
   @ApiOkResponse({
     description: '获取所有菜单',
-    type: [TreeMenuDataDto],
+    type: [ResultMenuDto],
   })
   @ApiOperation({
     description: '获取所有菜单',

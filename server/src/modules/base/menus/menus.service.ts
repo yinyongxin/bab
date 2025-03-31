@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { CreateMenuBodyDto, UpdateMenuDto } from './dto';
+import { CreateMenuBodyDto, ResultMenuDto, UpdateMenuDto } from './dto';
 import { Menus } from '../../../mongo/base';
 import { deleteByIds } from '../../../mongo/tools';
 import { TreeData } from '../../../typings';
@@ -46,18 +46,17 @@ export class MenusService {
 
   async getTreeData() {
     const dataList = await this.menusModel.find().exec();
-
-    const getTree = (parentId: string) => {
+    console.log('dataList', dataList);
+    const getTree = (parentId: string = null) => {
       const list = dataList.filter((dataItem) => dataItem.parent === parentId);
       return list.map((listItem) => {
-        return { children: getTree(listItem.id), ...listItem.toJSON() };
+        return {
+          children: getTree(listItem.id),
+          ...listItem.toObject(),
+        } as unknown as TreeData<ResultMenuDto>;
       });
     };
-    return getTree('') as TreeData<
-      Menus & {
-        _id: string;
-      }
-    >;
+    return getTree();
   }
 
   async getAllMenus() {
