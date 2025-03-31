@@ -70,38 +70,40 @@ export class RolesService {
     return res;
   }
 
-  async getPageList(pagination: PaginationDto, data: RolesUpdateDto) {
+  async getPageList(pagination: PaginationDto, filter: RolesQueryFilterDto) {
     const [res] = await this.userModel.aggregate([
-      { $match: toFuzzyParams(data) },
+      { $match: toFuzzyParams(filter) },
       { $sort: { createdTime: -1 } },
-      {
-        $project: {
-          password: 0,
-        },
-      },
       {
         $facet: {
           metadata: [{ $count: 'total' }],
           list: [
             { $skip: pagination.pageSize * (pagination.pageNo - 1) },
             { $limit: pagination.pageSize },
+            {
+              $project: {
+                password: 0, // 在这里处理密码的隐藏
+              },
+            },
           ],
         },
       },
-      { $unwind: '$metadata' },
+      // 使用 $addFields 来构建返回结构
       {
         $project: {
-          total: '$metadata.total',
+          total: { $arrayElemAt: ['$metadata.total', 0] }, // 直接取出 total
           list: 1,
         },
       },
     ]);
+
+    // 如果结果为空，处理为空的情况
+    // 确保返回的结果格式，如 { total: 0, list: [], ...pagination }
     return {
-      ...(res || {
-        list: [],
-        total: 0,
-      }),
-      ...pagination,
+      total: res ? res.total || 0 : 0, // 确保总数为0
+      list: res ? res.list : [], // 确保列表为空
+      pageNo: pagination.pageNo, // 返回当前页码
+      pageSize: pagination.pageSize, // 返回每页大小
     };
   }
 }

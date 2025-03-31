@@ -100,8 +100,8 @@ export class RolesController {
     type: [RolesResultDto],
   })
   @ApiOperation({
-    description: '通过字段值查询所有数据',
-    summary: '通过字段值查询所有数据',
+    description: '通过条件查询所有数据, 不支持分页',
+    summary: '通过条件查询所有数据',
   })
   async findAllByFilter(@Body() body: RolesQueryFilterDto) {
     const res = await this.usersService.findAllByFilter(body);
@@ -110,7 +110,7 @@ export class RolesController {
 
   @Public()
   @Post('getPageList')
-  @ApiResponse({
+  @ApiOkResponse({
     description: '获取分页列表',
     type: RoleQueryPaginationResultDto,
   })
