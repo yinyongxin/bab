@@ -14,7 +14,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { ResultAdmintorDto } from '../admintors';
+import { AdmintorsResultDto } from '../admintors';
 import { AuthGuard } from '../../../guards';
 
 @ApiTags('限权')
@@ -28,7 +28,7 @@ export class AuthController {
   })
   @ApiOkResponse({
     description: 'Token和管理人员信息',
-    type: ResultAdmintorDto,
+    type: AdmintorsResultDto,
   })
   @Post('login')
   signIn(@Body() signInDto: SignInDto) {

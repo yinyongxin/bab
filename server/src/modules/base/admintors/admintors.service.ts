@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import {
-  CreateAdmintorBodyDto,
-  QueryAdmintorDto,
-  UpdateAdmintorDto,
+  AdmintorsCreateBodyDto,
+  AdmintorsFilterDto,
+  AdmintorsUpdateDto,
 } from './dto';
 import { Admintors } from '../../../mongo/base';
 import { toFuzzyParams } from '../../../mongo/tools';
@@ -17,7 +17,7 @@ export class AdmintorsService {
     @InjectModel(Admintors.name) private userModel: Model<Admintors>,
   ) {}
 
-  async addOne(data: CreateAdmintorBodyDto) {
+  async addOne(data: AdmintorsCreateBodyDto) {
     const session = await this.userModel.startSession();
     try {
       session.startTransaction();
@@ -51,14 +51,14 @@ export class AdmintorsService {
     return res;
   }
 
-  async findAllByFilter(data: QueryAdmintorDto) {
+  async findAllByFilter(data: AdmintorsFilterDto) {
     const res = await this.userModel.find(toFuzzyParams(data), {
       password: false,
     });
     return res;
   }
 
-  async updateOne(id: string, data: UpdateAdmintorDto) {
+  async updateOne(id: string, data: AdmintorsUpdateDto) {
     const res = await this.userModel
       .updateOne(
         { _id: id },
@@ -74,7 +74,7 @@ export class AdmintorsService {
     return res;
   }
 
-  async getPageList(pagination: PaginationDto, data: UpdateAdmintorDto) {
+  async getPageList(pagination: PaginationDto, data: AdmintorsUpdateDto) {
     const [res] = await this.userModel.aggregate([
       { $match: toFuzzyParams(data) },
       { $sort: { createdTime: -1 } },

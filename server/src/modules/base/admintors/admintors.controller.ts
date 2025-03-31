@@ -17,11 +17,11 @@ import {
 } from '@nestjs/swagger';
 import { AdmintorsService } from './admintors.service';
 import {
-  CreateAdmintorBodyDto,
-  QueryAdmintorDto,
-  ResultAdmintorDto,
-  UpdateAdmintorDto,
-  AdmintorPaginationQueryResultDto,
+  AdmintorsCreateBodyDto,
+  AdmintorsFilterDto,
+  AdmintorsResultDto,
+  AdmintorsUpdateDto,
+  AdmintorPaginationResultDto,
 } from './dto';
 import {
   DeleteIdsDto,
@@ -41,13 +41,13 @@ export class AdmintorsController {
   @Put('addOne')
   @ApiOkResponse({
     description: '添加管理人员成功',
-    type: ResultAdmintorDto,
+    type: AdmintorsResultDto,
   })
   @ApiOperation({
     description: '添加一个管理人员',
     summary: '添加一个管理人员',
   })
-  async addOne(@Body() body: CreateAdmintorBodyDto) {
+  async addOne(@Body() body: AdmintorsCreateBodyDto) {
     const res = await this.usersService.addOne(body);
     return res;
   }
@@ -75,7 +75,10 @@ export class AdmintorsController {
     description: '更新单条数据',
     summary: '更新单条数据',
   })
-  async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateAdmintorDto) {
+  async updateOne(
+    @Query() query: QueryIdDto,
+    @Body() body: AdmintorsUpdateDto,
+  ) {
     console.log(query, 'query');
     console.log(body, 'body');
     const res = await this.usersService.updateOne(query.id, body);
@@ -85,7 +88,7 @@ export class AdmintorsController {
   @Get('findById')
   @ApiOkResponse({
     description: '查找成功',
-    type: ResultAdmintorDto,
+    type: AdmintorsResultDto,
   })
   @ApiOperation({
     description: '通过Id查找管理人员',
@@ -99,13 +102,13 @@ export class AdmintorsController {
   @Post('findAllByFilter')
   @ApiOkResponse({
     description: '查询成功',
-    type: [ResultAdmintorDto],
+    type: [AdmintorsResultDto],
   })
   @ApiOperation({
     description: '通过字段值查询所有数据',
     summary: '通过字段值查询所有数据',
   })
-  async findAllByFilter(@Body() body: QueryAdmintorDto) {
+  async findAllByFilter(@Body() body: AdmintorsFilterDto) {
     const res = await this.usersService.findAllByFilter(body);
     return res;
   }
@@ -114,7 +117,7 @@ export class AdmintorsController {
   @Post('getPageList')
   @ApiResponse({
     description: '获取分页列表',
-    type: AdmintorPaginationQueryResultDto,
+    type: AdmintorPaginationResultDto,
   })
   @ApiOperation({
     description: '获取分页列表',
@@ -122,7 +125,7 @@ export class AdmintorsController {
   })
   async getPageList(
     @Query() pagination: PaginationDto,
-    @Body() body: QueryAdmintorDto,
+    @Body() body: AdmintorsFilterDto,
   ) {
     const res = await this.usersService.getPageList(
       {

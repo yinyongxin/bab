@@ -1,7 +1,7 @@
 import { OmitType, PartialType } from '@nestjs/swagger';
 import { Admintors } from '../../../../mongo/base';
 
-export class UpdateAdmintorDto extends PartialType(
+export class AdmintorsUpdateDto extends PartialType(
   OmitType(Admintors, [
     'password',
     'deletedTime',
