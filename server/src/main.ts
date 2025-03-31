@@ -12,6 +12,7 @@ async function bootstrap() {
      */
     cors: true,
   });
+  app.setGlobalPrefix('api'); // 设置全局前缀为 'api'
 
   initSwagger(app);
 

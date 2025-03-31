@@ -1,10 +1,6 @@
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:372837407.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3818967533.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3391065727.
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:957873697.
-
 import { networkInterfaces } from 'os';
 
+import * as fs from 'fs';
 export async function getLocalExternalIP(): Promise<string> {
   const nets = networkInterfaces();
   for (const name of Object.keys(nets)) {
@@ -16,4 +12,32 @@ export async function getLocalExternalIP(): Promise<string> {
     }
   }
   throw new Error('Unable to find local external IP address');
+}
+
+export async function getDirectories(srcPath: string): Promise<string[]> {
+  return new Promise((resolve, reject) => {
+    fs.readdir(srcPath, { withFileTypes: true }, (err, files) => {
+      if (err) {
+        return reject(err);
+      }
+      const directories = files
+        .filter((dirent) => dirent.isDirectory())
+        .map((dirent) => dirent.name);
+      resolve(directories);
+    });
+  });
+}
+
+export async function getFiles(srcPath: string): Promise<string[]> {
+  return new Promise((resolve, reject) => {
+    fs.readdir(srcPath, { withFileTypes: true }, (err, files) => {
+      if (err) {
+        return reject(err);
+      }
+      const filesList = files
+        .filter((dirent) => dirent.isFile())
+        .map((dirent) => dirent.name); // 只返回文件名
+      resolve(filesList);
+    });
+  });
 }
