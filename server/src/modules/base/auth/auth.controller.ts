@@ -2,24 +2,21 @@ import {
   Body,
   Controller,
   Post,
-  HttpCode,
   Request,
   UseGuards,
   Get,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SignInDto } from './dto';
+import { LoginSuccessResultDto, SignInDto } from './dto';
 import {
   ApiBearerAuth,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { ResultAdmintorDto } from '../admintors';
 import { AuthGuard } from '../../../guards';
 
-@ApiTags('限权')
-@ApiBearerAuth('Authorization')
+@ApiTags('限权-Auth')
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
@@ -30,7 +27,7 @@ export class AuthController {
   })
   @ApiOkResponse({
     description: 'Token和管理人员信息',
-    type: ResultAdmintorDto,
+    type: LoginSuccessResultDto,
   })
   @Post('login')
   signIn(@Body() signInDto: SignInDto) {
@@ -39,6 +36,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Get('profile')
+  @ApiBearerAuth('Authorization')
   getProfile(@Request() req) {
     return req.user;
   }

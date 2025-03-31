@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './modules';
 import { initSwagger } from './plugins/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import middlewares from './middlewares';
 import { getLocalExternalIP } from './utils';
 declare const module: any;
 async function bootstrap() {
@@ -16,12 +15,8 @@ async function bootstrap() {
 
   initSwagger(app);
 
-  middlewares.forEach((middleware) => {
-    app.use(middleware);
-  });
-
   const port = 3000;
-  const server = await app.listen(port);
+  await app.listen(port);
 
   // 获取并打印IP地址
   const ipAddress = await getLocalExternalIP();

@@ -17,11 +17,11 @@ import {
 } from '@nestjs/swagger';
 import { RolesService } from './roles.service';
 import {
-  CreateRoleBodyDto,
-  QueryRoleDto,
-  ResultRoleDto,
-  UpdateRoleDto,
-  RolePaginationQueryResultDto,
+  RoleCreateBodyDto,
+  RolesQueryFilterDto,
+  RolesResultDto,
+  RolesUpdateDto,
+  RoleQueryPaginationResultDto,
 } from './dto';
 import {
   DeleteIdsDto,
@@ -33,7 +33,7 @@ import {
 import { toInt } from 'radash';
 import { Public } from '../../../decorators';
 
-@ApiTags('角色')
+@ApiTags('角色-Roles')
 @Controller('roles')
 export class RolesController {
   constructor(private readonly usersService: RolesService) {}
@@ -41,13 +41,13 @@ export class RolesController {
   @Put('addOne')
   @ApiOkResponse({
     description: '添加角色成功',
-    type: ResultRoleDto,
+    type: RolesResultDto,
   })
   @ApiOperation({
     description: '添加一个角色',
     summary: '添加一个角色',
   })
-  async addOne(@Body() body: CreateRoleBodyDto) {
+  async addOne(@Body() body: RoleCreateBodyDto) {
     const res = await this.usersService.addOne(body);
     return res;
   }
@@ -75,7 +75,7 @@ export class RolesController {
     description: '更新单条数据',
     summary: '更新单条数据',
   })
-  async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateRoleDto) {
+  async updateOne(@Query() query: QueryIdDto, @Body() body: RolesUpdateDto) {
     const res = await this.usersService.updateOne(query.id, body);
     return res;
   }
@@ -83,7 +83,7 @@ export class RolesController {
   @Get('findById')
   @ApiOkResponse({
     description: '查找成功',
-    type: ResultRoleDto,
+    type: RolesResultDto,
   })
   @ApiOperation({
     description: '通过Id查找角色',
@@ -94,25 +94,25 @@ export class RolesController {
     return res;
   }
 
-  @Post('findAllByFields')
+  @Post('findAllByFilter')
   @ApiOkResponse({
     description: '查询成功',
-    type: [ResultRoleDto],
+    type: [RolesResultDto],
   })
   @ApiOperation({
-    description: '通过字段值查询所有数据',
-    summary: '通过字段值查询所有数据',
+    description: '通过条件查询所有数据, 不支持分页',
+    summary: '通过条件查询所有数据',
   })
-  async findAllByFields(@Body() body: QueryRoleDto) {
-    const res = await this.usersService.findAllByFields(body);
+  async findAllByFilter(@Body() body: RolesQueryFilterDto) {
+    const res = await this.usersService.findAllByFilter(body);
     return res;
   }
 
   @Public()
   @Post('getPageList')
-  @ApiResponse({
+  @ApiOkResponse({
     description: '获取分页列表',
-    type: RolePaginationQueryResultDto,
+    type: RoleQueryPaginationResultDto,
   })
   @ApiOperation({
     description: '获取分页列表',
@@ -120,7 +120,7 @@ export class RolesController {
   })
   async getPageList(
     @Query() pagination: PaginationDto,
-    @Body() body: QueryRoleDto,
+    @Body() body: RolesQueryFilterDto,
   ) {
     const res = await this.usersService.getPageList(
       {

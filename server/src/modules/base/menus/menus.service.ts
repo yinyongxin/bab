@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { CreateMenuBodyDto, UpdateMenuDto } from './dto';
+import { MenusCreateBodyDto, MenusUpdateDto } from './dto';
 import { Menus } from '../../../mongo/base';
 import { deleteByIds } from '../../../mongo/tools';
-import { TreeData } from '../../../typings';
 
 @Injectable()
 export class MenusService {
   constructor(@InjectModel(Menus.name) private menusModel: Model<Menus>) {}
 
-  async addOne(data: CreateMenuBodyDto) {
+  async addOne(data: MenusCreateBodyDto) {
     const createdMenu = new this.menusModel(data);
     const res = await createdMenu.save();
     return res;
@@ -28,7 +27,7 @@ export class MenusService {
     return res;
   }
 
-  async updateOne(id: string, data: UpdateMenuDto) {
+  async updateOne(id: string, data: MenusUpdateDto) {
     const res = await this.menusModel
       .updateOne(
         { _id: id },
@@ -45,19 +44,27 @@ export class MenusService {
   }
 
   async getTreeData() {
+    // 获取所有菜单数据
     const dataList = await this.menusModel.find().exec();
 
-    const getTree = (parentId: string) => {
-      const list = dataList.filter((dataItem) => dataItem.parent === parentId);
-      return list.map((listItem) => {
-        return { children: getTree(listItem.id), ...listItem.toJSON() };
-      });
+    // 将 dataList 转换为一个 Map，便于快速查找
+    const menuMap = new Map<string, (typeof dataList)[0]>();
+    dataList.forEach((menuItem) => {
+      menuMap.set(menuItem.id, menuItem);
+    });
+
+    // 定义递归函数以构建树形结构
+    const getTree = (parentId: string | null) => {
+      return Array.from(menuMap.values())
+        .filter((menuItem) => menuItem.parent === parentId)
+        .map((menuItem) => ({
+          ...menuItem.toObject(), // 确保转换为普通对象
+          children: getTree(menuItem._id.toString()), // 递归调用自身以查找子菜单
+        }));
     };
-    return getTree('') as TreeData<
-      Menus & {
-        _id: string;
-      }
-    >;
+
+    // 返回树形结构的根节点
+    return getTree(null);
   }
 
   async getAllMenus() {

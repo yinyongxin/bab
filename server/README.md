@@ -101,9 +101,16 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 ## 依赖库
 
+[nestjs](https://docs.nestjs.com/)
+[nestjs中文](https://nest.nodejs.cn/)
+
 [radash(中文)](https://www.radash.wiki/)
 [radash(英文官网)](https://radash-docs.vercel.app/docs/getting-started)
 
 [nestia(英文官网)](https://nestia.io/docs/)
-> Nestia is a set of helper libraries for NestJS, supporting below features:
 
+## MongoDB
+
+https://cloud.mongodb.com/v2/631ad9b60d593a53deaf11ed#/clusters/detail/bab
+
+> Nestia is a set of helper libraries for NestJS, supporting below features:

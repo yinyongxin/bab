@@ -1,19 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { CreateRoleBodyDto, QueryRoleDto, UpdateRoleDto } from './dto';
+import { RoleCreateBodyDto, RolesQueryFilterDto, RolesUpdateDto } from './dto';
 import { Roles } from '../../../mongo/base';
 import { toFuzzyParams } from '../../../mongo/tools';
 import { PaginationDto } from '../../../dtos';
-import dayjs from 'dayjs';
-import { omit } from 'radash';
 import { deleteByIds } from '../../../mongo/tools';
 
 @Injectable()
 export class RolesService {
   constructor(@InjectModel(Roles.name) private userModel: Model<Roles>) {}
 
-  async addOne(data: CreateRoleBodyDto) {
+  async addOne(data: RoleCreateBodyDto) {
     const session = await this.userModel.startSession();
     try {
       session.startTransaction();
@@ -49,14 +47,14 @@ export class RolesService {
     return res;
   }
 
-  async findAllByFields(data: QueryRoleDto) {
+  async findAllByFilter(data: RolesQueryFilterDto) {
     const res = await this.userModel.find(toFuzzyParams(data), {
       password: false,
     });
     return res;
   }
 
-  async updateOne(id: string, data: UpdateRoleDto) {
+  async updateOne(id: string, data: RolesUpdateDto) {
     const res = await this.userModel
       .updateOne(
         { _id: id },
@@ -72,38 +70,41 @@ export class RolesService {
     return res;
   }
 
-  async getPageList(pagination: PaginationDto, data: UpdateRoleDto) {
+  async getPageList(pagination: PaginationDto, filter: RolesQueryFilterDto) {
+    // 构建聚合管道
     const [res] = await this.userModel.aggregate([
-      { $match: toFuzzyParams(data) },
+      { $match: toFuzzyParams(filter) },
       { $sort: { createdTime: -1 } },
-      {
-        $project: {
-          password: 0,
-        },
-      },
       {
         $facet: {
           metadata: [{ $count: 'total' }],
           list: [
             { $skip: pagination.pageSize * (pagination.pageNo - 1) },
             { $limit: pagination.pageSize },
+            {
+              $project: {
+                password: 0, // 在这里处理密码的隐藏
+              },
+            },
           ],
         },
       },
-      { $unwind: '$metadata' },
+      // 使用 $addFields 来构建返回结构
       {
         $project: {
-          total: '$metadata.total',
+          total: { $arrayElemAt: ['$metadata.total', 0] }, // 直接取出 total
           list: 1,
         },
       },
     ]);
+
+    // 如果结果为空，处理为空的情况
+    // 确保返回的结果格式，如 { total: 0, list: [], ...pagination }
     return {
-      ...(res || {
-        list: [],
-        total: 0,
-      }),
-      ...pagination,
+      total: res ? res.total || 0 : 0, // 确保总数为0
+      list: res ? res.list : [], // 确保列表为空
+      pageNo: pagination.pageNo, // 返回当前页码
+      pageSize: pagination.pageSize, // 返回每页大小
     };
   }
 }

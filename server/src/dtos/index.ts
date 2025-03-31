@@ -22,15 +22,16 @@ export class Result_idDto {
   @ApiProperty({
     required: true,
     description: '唯一值',
-    type: String,
+    type: Types.ObjectId,
   })
-  _id: string;
+  _id: Types.ObjectId;
 }
 
 export class DeleteIdsDto {
   @ApiProperty({
     required: true,
     description: '删除Id列表',
+    type: Array(Types.ObjectId),
   })
   ids: ObjectId[];
 }
@@ -103,7 +104,7 @@ export class PaginationDto {
   pageSize: number;
 }
 
-export class ResultPaginationDto extends PaginationDto {
+export class PaginationResultDto extends PaginationDto {
   @ApiProperty({
     required: true,
     description: '所有数量',

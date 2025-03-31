@@ -16,10 +16,10 @@ import {
 } from '@nestjs/swagger';
 import { MenusService } from './menus.service';
 import {
-  CreateMenuBodyDto,
-  ResultMenuDto,
+  MenusCreateBodyDto,
+  MenusResultDto,
   TreeMenuDataDto,
-  UpdateMenuDto,
+  MenusUpdateDto,
 } from './dto';
 import {
   DeleteIdsDto,
@@ -28,7 +28,7 @@ import {
   UpdateResDto,
 } from '../../../dtos';
 
-@ApiTags('菜单')
+@ApiTags('菜单-Menus')
 @Controller('menus')
 export class MenusController {
   constructor(private readonly usersService: MenusService) {}
@@ -36,13 +36,13 @@ export class MenusController {
   @Put('addOne')
   @ApiOkResponse({
     description: '添加菜单成功',
-    type: ResultMenuDto,
+    type: MenusResultDto,
   })
   @ApiOperation({
     description: '添加一个菜单',
     summary: '添加一个菜单',
   })
-  async addOne(@Body() body: CreateMenuBodyDto) {
+  async addOne(@Body() body: MenusCreateBodyDto) {
     const res = await this.usersService.addOne(body);
     return res;
   }
@@ -70,7 +70,7 @@ export class MenusController {
     description: '更新单条数据',
     summary: '更新单条数据',
   })
-  async updateOne(@Query() query: QueryIdDto, @Body() body: UpdateMenuDto) {
+  async updateOne(@Query() query: QueryIdDto, @Body() body: MenusUpdateDto) {
     const res = await this.usersService.updateOne(query.id, body);
     return res;
   }
@@ -78,7 +78,7 @@ export class MenusController {
   @Get('findById')
   @ApiOkResponse({
     description: '查找成功',
-    type: ResultMenuDto,
+    type: MenusResultDto,
   })
   @ApiOperation({
     description: '通过Id查找菜单',
@@ -106,7 +106,7 @@ export class MenusController {
   @Get('getAll')
   @ApiOkResponse({
     description: '获取所有菜单',
-    type: [TreeMenuDataDto],
+    type: [MenusResultDto],
   })
   @ApiOperation({
     description: '获取所有菜单',

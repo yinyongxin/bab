@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import {
-  CreateAdmintorBodyDto,
-  QueryAdmintorDto,
-  UpdateAdmintorDto,
+  AdmintorsCreateBodyDto,
+  AdmintorsFilterDto,
+  AdmintorsUpdateDto,
 } from './dto';
 import { Admintors } from '../../../mongo/base';
 import { toFuzzyParams } from '../../../mongo/tools';
@@ -17,11 +17,13 @@ export class AdmintorsService {
     @InjectModel(Admintors.name) private userModel: Model<Admintors>,
   ) {}
 
-  async addOne(data: CreateAdmintorBodyDto) {
+  async addOne(data: AdmintorsCreateBodyDto) {
     const session = await this.userModel.startSession();
     try {
       session.startTransaction();
-      const createdAdmintor = new this.userModel(data);
+      const createdAdmintor = new this.userModel({
+        ...data,
+      });
       const res = await createdAdmintor.save({
         session,
       });
@@ -51,14 +53,25 @@ export class AdmintorsService {
     return res;
   }
 
-  async findAllByFields(data: QueryAdmintorDto) {
-    const res = await this.userModel.find(toFuzzyParams(data), {
-      password: false,
-    });
-    return res;
+  async findAllByFilter(filter: AdmintorsFilterDto) {
+    // const res = await this.userModel.find(toFuzzyParams(filter), {
+    //   password: false,
+    // });
+    const list = await this.userModel.aggregate([
+      { $match: toFuzzyParams(filter) },
+      {
+        $lookup: {
+          from: 'roles', // 目标集合名称（MongoDB 中小写复数）
+          localField: 'roles', // 当前集合中的字段（用户集合中的 roles）
+          foreignField: '_id', // 目标集合中的字段（角色集合中的 ID）
+          as: 'roles', // 输出到的字段名
+        },
+      },
+    ]);
+    return list;
   }
 
-  async updateOne(id: string, data: UpdateAdmintorDto) {
+  async updateOne(id: string, data: AdmintorsUpdateDto) {
     const res = await this.userModel
       .updateOne(
         { _id: id },
@@ -74,32 +87,47 @@ export class AdmintorsService {
     return res;
   }
 
-  async getPageList(pagination: PaginationDto, data: UpdateAdmintorDto) {
+  async getPageList(pagination: PaginationDto, filter: AdmintorsFilterDto) {
     const [res] = await this.userModel.aggregate([
-      { $match: toFuzzyParams(data) },
+      { $match: toFuzzyParams(filter) },
       { $sort: { createdTime: -1 } },
-      {
-        $project: {
-          password: 0,
-        },
-      },
       {
         $facet: {
           metadata: [{ $count: 'total' }],
+
           list: [
             { $skip: pagination.pageSize * (pagination.pageNo - 1) },
             { $limit: pagination.pageSize },
+            {
+              $lookup: {
+                from: 'roles', // 目标集合名称（MongoDB 中小写复数）
+                localField: 'roles', // 当前集合中的字段（用户集合中的 roles）
+                foreignField: '_id', // 目标集合中的字段（角色集合中的 ID）
+                as: 'roles', // 输出到的字段名
+              },
+            },
+            {
+              $project: {
+                password: 0, // 隐藏密码字段
+              },
+            },
           ],
         },
       },
-      { $unwind: '$metadata' },
+      // 最终结果的构建
       {
         $project: {
-          total: '$metadata.total',
-          list: 1,
+          total: { $arrayElemAt: ['$metadata.total', 0] }, // 直接取出 total
+          list: '$list', // 返回 list
         },
       },
     ]);
+
+    // 检查结果以确保处理
+    if (!res) {
+      return { total: 0, list: [] };
+    }
+
     return {
       ...(res || {
         list: [],

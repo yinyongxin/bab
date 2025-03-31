@@ -1,9 +1,10 @@
 import { ApiProperty, PickType } from '@nestjs/swagger';
 import { Admintors } from '../../../../mongo/base';
 
-export class CreateAdmintorBodyDto extends PickType(Admintors, [
+export class AdmintorsCreateBodyDto extends PickType(Admintors, [
   'password',
   'username',
+  'roles',
 ]) {
   @ApiProperty({
     example: 'admin',
