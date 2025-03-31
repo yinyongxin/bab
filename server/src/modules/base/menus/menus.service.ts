@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { CreateMenuBodyDto, UpdateMenuDto } from './dto';
+import { MenusCreateBodyDto, MenusUpdateDto } from './dto';
 import { Menus } from '../../../mongo/base';
 import { deleteByIds } from '../../../mongo/tools';
 
@@ -9,7 +9,7 @@ import { deleteByIds } from '../../../mongo/tools';
 export class MenusService {
   constructor(@InjectModel(Menus.name) private menusModel: Model<Menus>) {}
 
-  async addOne(data: CreateMenuBodyDto) {
+  async addOne(data: MenusCreateBodyDto) {
     const createdMenu = new this.menusModel(data);
     const res = await createdMenu.save();
     return res;
@@ -27,7 +27,7 @@ export class MenusService {
     return res;
   }
 
-  async updateOne(id: string, data: UpdateMenuDto) {
+  async updateOne(id: string, data: MenusUpdateDto) {
     const res = await this.menusModel
       .updateOne(
         { _id: id },
