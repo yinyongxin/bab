@@ -74,28 +74,28 @@ export class AdmintorsService {
     return res;
   }
 
-  async getPageList(pagination: PaginationDto, data: AdmintorsUpdateDto) {
+  async getPageList(pagination: PaginationDto, filter: AdmintorsFilterDto) {
     const [res] = await this.userModel.aggregate([
-      { $match: toFuzzyParams(data) },
+      { $match: toFuzzyParams(filter) },
       { $sort: { createdTime: -1 } },
-      {
-        $project: {
-          password: 0,
-        },
-      },
       {
         $facet: {
           metadata: [{ $count: 'total' }],
           list: [
             { $skip: pagination.pageSize * (pagination.pageNo - 1) },
             { $limit: pagination.pageSize },
+            {
+              $project: {
+                password: 0, // 在这里处理密码的隐藏
+              },
+            },
           ],
         },
       },
-      { $unwind: '$metadata' },
+      // 使用 $addFields 来构建返回结构
       {
         $project: {
-          total: '$metadata.total',
+          total: { $arrayElemAt: ['$metadata.total', 0] }, // 直接取出 total
           list: 1,
         },
       },
