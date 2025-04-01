@@ -12,6 +12,8 @@ export class Admintors extends BaseDocument {
   @Prop({
     unique: true,
     required: true,
+    minlength: 1,
+    maxlength: 20,
   })
   // swagger
   @ApiProperty({

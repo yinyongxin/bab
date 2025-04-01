@@ -3,6 +3,7 @@ import {
   AdmintorsPageItemDto,
   AdmintorsResultDto,
   admintorsControllerGetPageList,
+  admintorsControllerUpdateOne,
 } from '@/client';
 import Page from '@/components/Page';
 import TablePage, { TablePageProps } from '@/components/TablePage';
@@ -22,12 +23,12 @@ import {
   IconCheck,
   IconEdit,
   IconEye,
-  IconTrack,
   IconTrash,
   IconX,
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import CreateManager from './CreateManager';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -43,6 +44,35 @@ export default () => {
     });
     setData(res.data);
   };
+
+  const updateStatus = async (
+    params: Pick<AdmintorsResultDto, '_id' | 'status'>,
+  ) => {
+    admintorsControllerUpdateOne({
+      query: {
+        id: params._id,
+      },
+      body: {
+        status: params.status,
+      },
+    });
+    if (!data) {
+      return;
+    }
+    setData({
+      ...data,
+      list: (data.list || []).map((item) => {
+        if (item._id === params._id) {
+          return {
+            ...item,
+            status: params.status,
+          };
+        }
+        return item;
+      }),
+    });
+  };
+
   useEffect(() => {
     getData({
       pageNo: 1,
@@ -72,10 +102,16 @@ export default () => {
     {
       title: '状态',
       dataKey: 'status',
-      render: ({ status }) => {
+      render: ({ _id, status }) => {
         return (
           <Switch
             checked={status === 'Open'}
+            onClick={() => {
+              updateStatus({
+                _id,
+                status: status === 'Open' ? 'Close' : 'Open',
+              });
+            }}
             color="teal"
             thumbIcon={
               status === 'Open' ? (
@@ -103,6 +139,7 @@ export default () => {
         return roles.map((role) => {
           return (
             <Badge
+              key={role._id}
               variant="gradient"
               gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
             >
@@ -166,7 +203,7 @@ export default () => {
         />
       </Page>
       <Modal opened={opened} onClose={close} title="添加管理人员" centered>
-        {/* Modal content */}
+        <CreateManager />
       </Modal>
     </>
   );
