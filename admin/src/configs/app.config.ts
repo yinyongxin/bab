@@ -7,6 +7,7 @@ export type AppConfig = {
   enableMock: boolean;
   locale: string;
   layoutType: LayoutTypes;
+  fileBaseUrl: string;
 };
 
 const appConfig: AppConfig = {
@@ -16,6 +17,7 @@ const appConfig: AppConfig = {
   unAuthenticatedEntryPath: '/sign-in',
   enableMock: false,
   locale: 'en',
+  fileBaseUrl: 'http://localhost:3000',
 };
 
 export default appConfig;

@@ -30,6 +30,7 @@ import {
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import CreateManager from './CreateManager';
+import { getFilePath } from '@/utils';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -49,9 +50,7 @@ export default () => {
 
       setData(res.data);
     } finally {
-      setTimeout(() => {
-        loadingAction.close();
-      }, 1000 * 10);
+      loadingAction.close();
     }
   };
 
@@ -111,7 +110,7 @@ export default () => {
       render(values) {
         return (
           <Flex gap={8} align="center">
-            <Avatar src={values?.avatar}></Avatar>
+            <Avatar src={getFilePath(values?.avatar || '')}></Avatar>
             <Flex direction="column">
               <Title order={6}>{values?.username}</Title>
               <Text size="sm" c="dimmed">

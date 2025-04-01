@@ -120,6 +120,7 @@ function CreateManager(props: CreateManagerProps) {
           <TextInput
             {...form.getInputProps('phone')}
             label="手机号"
+            type="tel"
             placeholder="填写手机号"
             maxLength={11}
           />
