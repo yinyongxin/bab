@@ -13,7 +13,7 @@ import {
   Badge,
   Button,
   Flex,
-  Group,
+  Text,
   Modal,
   Switch,
   Title,
@@ -80,20 +80,20 @@ export default () => {
   }, []);
   const columns: TablePageProps<AdmintorsPageItemDto>['columns'] = [
     {
-      title: '管理员名称',
-      dataKey: 'username',
+      title: '管理员',
       render(values) {
         return (
           <Flex gap={8} align="center">
             <Avatar src={values?.avatar}></Avatar>
-            <Title order={6}>{values?.username}</Title>
+            <Flex direction="column">
+              <Title order={6}>{values?.username}</Title>
+              <Text size="sm" c="dimmed">
+                {values?.email}
+              </Text>
+            </Flex>
           </Flex>
         );
       },
-    },
-    {
-      title: '邮箱',
-      dataKey: 'email',
     },
     {
       title: '电话',
@@ -160,7 +160,7 @@ export default () => {
       title: '操作',
       render: (record) => {
         return (
-          <Group gap="xs">
+          <>
             <ActionIcon variant="transparent" color="green">
               <IconEye style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
@@ -170,7 +170,7 @@ export default () => {
             <ActionIcon variant="transparent" color="red">
               <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
-          </Group>
+          </>
         );
       },
     },
