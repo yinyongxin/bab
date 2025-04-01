@@ -6,9 +6,25 @@ import {
 } from '@/client';
 import Page from '@/components/Page';
 import TablePage, { TablePageProps } from '@/components/TablePage';
-import { Avatar, Badge, Button, Flex, Switch, Title } from '@mantine/core';
+import {
+  ActionIcon,
+  Avatar,
+  Badge,
+  Button,
+  Flex,
+  Group,
+  Switch,
+  Title,
+} from '@mantine/core';
 import { useMounted } from '@mantine/hooks';
-import { IconCheck, IconX } from '@tabler/icons-react';
+import {
+  IconCheck,
+  IconEdit,
+  IconEye,
+  IconTrack,
+  IconTrash,
+  IconX,
+} from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
@@ -105,9 +121,17 @@ export default () => {
       title: '操作',
       render: (record) => {
         return (
-          <Button size="xs" key={record?._id}>
-            编辑
-          </Button>
+          <Group gap="xs">
+            <ActionIcon variant="transparent" color="green">
+              <IconEye style={{ width: '70%', height: '70%' }} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon variant="transparent">
+              <IconEdit style={{ width: '70%', height: '70%' }} stroke={1.5} />
+            </ActionIcon>
+            <ActionIcon variant="transparent" color="red">
+              <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
+            </ActionIcon>
+          </Group>
         );
       },
     },
