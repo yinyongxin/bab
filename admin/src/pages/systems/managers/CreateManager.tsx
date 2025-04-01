@@ -11,12 +11,12 @@ function CreateManager() {
     },
   });
 
-  const [submittedValues, setSubmittedValues] = useState<
-    typeof form.values | null
-  >(null);
+  const onSubmit = form.onSubmit((values) => {
+    console.log(values);
+  });
 
   return (
-    <form onSubmit={form.onSubmit(setSubmittedValues)}>
+    <form onSubmit={onSubmit}>
       <TextInput
         {...form.getInputProps('username')}
         label="用户名"

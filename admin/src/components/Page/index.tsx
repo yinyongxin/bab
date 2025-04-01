@@ -7,11 +7,21 @@ type PageProps = {
   description?: React.ReactNode;
   actions?: React.ReactNode[];
   footer?: React.ReactNode;
+  headerBottom?: React.ReactNode;
+  bodyTop?: React.ReactNode;
 };
 const Page = (props: PageProps) => {
-  const { children, title, description, actions, footer } = props;
+  const {
+    children,
+    title,
+    description,
+    actions,
+    footer,
+    headerBottom,
+    bodyTop,
+  } = props;
   return (
-    <Paper radius="md" p="md" className={classes.page}>
+    <Flex direction="column" gap={24}>
       <header>
         <Flex justify="space-between" align="center">
           {title && <Title order={3}>{title}</Title>}
@@ -22,10 +32,14 @@ const Page = (props: PageProps) => {
             {description}
           </Text>
         )}
+        {headerBottom}
       </header>
-      <Box mt="lg">{children}</Box>
-      {footer && <Box mt="lg">{footer}</Box>}
-    </Paper>
+      {bodyTop}
+      <Paper radius="md" p="md" className={classes.page}>
+        <Box mt="lg">{children}</Box>
+        {footer && <Box mt="lg">{footer}</Box>}
+      </Paper>
+    </Flex>
   );
 };
 
