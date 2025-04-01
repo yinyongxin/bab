@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import path from 'path';
-import fs from 'fs';
+import fs from 'fs/promises';
 import dayjs from 'dayjs';
 
 @Injectable()
@@ -14,14 +14,14 @@ export class FilesService {
     const directoryPath = path.join(__dirname, `../static/${dirPath}`);
     try {
       // 检查目录是否存在
-      fs.accessSync(directoryPath, fs.constants.F_OK);
+      await fs.access(directoryPath, fs.constants.F_OK);
     } catch {
       // 如果目录不存在，则创建目录
-      fs.mkdirSync(directoryPath, { recursive: true });
+      await fs.mkdir(directoryPath, { recursive: true });
     }
     try {
       // 将文件写入目录
-      fs.writeFileSync(
+      await fs.writeFile(
         path.join(directoryPath, `/${originalname}`),
         file.buffer,
       );
