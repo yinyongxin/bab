@@ -32,12 +32,12 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import CreateManager from './CreateManager';
 import { getFilePath } from '@/utils';
-import { notifications } from '@mantine/notifications';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [loading, loadingAction] = useDisclosure(false);
   const [data, setData] = useState<AdmintorPaginationResultDto>();
+  const [editVlaue, setEditVlaue] = useState<AdmintorsPageItemDto>();
   const getData = async (params: { pageNo: number }) => {
     try {
       loadingAction.open();
@@ -198,7 +198,13 @@ export default () => {
             <ActionIcon variant="transparent" color="green">
               <IconEye style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
-            <ActionIcon variant="transparent">
+            <ActionIcon
+              variant="transparent"
+              onClick={() => {
+                setEditVlaue(record);
+                open();
+              }}
+            >
               <IconEdit style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
             <ActionIcon
@@ -245,6 +251,7 @@ export default () => {
       </Page>
       <Modal opened={opened} onClose={close} title="添加管理人员" centered>
         <CreateManager
+          editVlaue={editVlaue}
           onSuccess={() => {
             close();
             getData({ pageNo: 1 });

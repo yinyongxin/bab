@@ -26,27 +26,37 @@ import {
   IconGenderBigender,
   IconUsersGroup,
 } from '@tabler/icons-react';
-import { admintorsControllerAddOne, filesControllerUploadFile } from '@/client';
+import {
+  AdmintorPaginationResultDto,
+  admintorsControllerAddOne,
+  AdmintorsPageItemDto,
+  AdmintorsResultDto,
+  filesControllerUploadFile,
+} from '@/client';
 import useRoleOptions from '@/utils/hooks/useRoleOptions';
 import { notifications } from '@mantine/notifications';
+import { getFilePath } from '@/utils';
 
 type CreateManagerProps = {
   onSuccess: () => void;
+  editVlaue?: AdmintorsPageItemDto;
 };
 function CreateManager(props: CreateManagerProps) {
-  const { onSuccess } = props;
+  const { onSuccess, editVlaue } = props;
 
   const [file, setFile] = useState<File | null>(null);
   const [roleOptions] = useRoleOptions();
   const form = useForm({
-    initialValues: {
-      username: '',
-      email: '',
-      sex: '',
-      avatar: '',
-      roles: [],
-      phone: '',
-    },
+    initialValues: editVlaue
+      ? { ...editVlaue, roles: editVlaue.roles.map((item) => item._id) }
+      : {
+          username: '',
+          email: '',
+          sex: '',
+          avatar: '',
+          roles: [],
+          phone: '',
+        },
     validate: {
       username: hasLength({ min: 1 }, '用户名不能为空'),
       email: isEmail('邮箱格式不正确'),
@@ -116,7 +126,7 @@ function CreateManager(props: CreateManagerProps) {
             <Avatar
               {...props}
               size={100}
-              src={file ? URL.createObjectURL(file) : ''}
+              src={form.values.avatar ? getFilePath(form.values.avatar) : ''}
             >
               <IconUpload stroke={1.5} />
             </Avatar>
