@@ -32,6 +32,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import CreateManager from './CreateManager';
 import { getFilePath } from '@/utils';
+import { modals } from '@mantine/modals';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -91,19 +92,28 @@ export default () => {
   }, []);
 
   const deleteById = async (id: string) => {
-    try {
-      loadingAction.open();
-      await admintorsControllerDeleteByIds({
-        body: {
-          ids: [id],
-        },
-      });
-      await getData({
-        pageNo: 1,
-      });
-    } finally {
-      loadingAction.close();
-    }
+    modals.openConfirmModal({
+      title: '确认删除当前管理员？',
+      centered: true,
+      children: <Text size="sm">请注意，删除管理员后，将无法恢复。</Text>,
+      labels: { confirm: '删除', cancel: '取消' },
+      confirmProps: { color: 'red' },
+      onConfirm: async () => {
+        try {
+          loadingAction.open();
+          await admintorsControllerDeleteByIds({
+            body: {
+              ids: [id],
+            },
+          });
+          await getData({
+            pageNo: 1,
+          });
+        } finally {
+          loadingAction.close();
+        }
+      },
+    });
   };
 
   const columns: TablePageProps<AdmintorsPageItemDto>['columns'] = [
