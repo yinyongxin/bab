@@ -43,8 +43,6 @@ type CreateManagerProps = {
 };
 function CreateManager(props: CreateManagerProps) {
   const { onSuccess, editVlaue } = props;
-
-  const [file, setFile] = useState<File | null>(null);
   const [roleOptions] = useRoleOptions();
   const form = useForm({
     initialValues: editVlaue
@@ -110,7 +108,6 @@ function CreateManager(props: CreateManagerProps) {
             if (!file) {
               return;
             }
-            setFile(file);
             const res = await filesControllerUploadFile({
               body: {
                 file: file,
