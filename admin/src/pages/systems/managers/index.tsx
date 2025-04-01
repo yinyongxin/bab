@@ -10,20 +10,21 @@ import { useEffect, useState } from 'react';
 
 export default () => {
   const [data, setData] = useState<AdmintorPaginationResultDto>();
-  const getData = async () => {
+  const getData = async (params: { pageNo: number }) => {
+    const { pageNo } = params;
     const res = await admintorsControllerGetPageList({
-      method: 'POST',
-
       query: {
-        pageNo: 1,
-        pageSize: 10,
+        pageNo,
+        pageSize: 1,
       },
       body: {},
     });
-    console.log(res);
+    setData(res.data);
   };
   useEffect(() => {
-    getData();
+    getData({
+      pageNo: 1,
+    });
   }, []);
   const columns: TablePageProps<{
     a: string;
@@ -54,7 +55,11 @@ export default () => {
       <Page
         title="管理人员"
         description="管理人员"
-        actions={[<Button size="xs">添加人员</Button>]}
+        actions={[
+          <Button size="xs" key="add">
+            添加人员
+          </Button>,
+        ]}
       >
         <TablePage<{
           a: string;
@@ -72,6 +77,16 @@ export default () => {
             },
           ]}
           rowkey={'a'}
+          paginationProps={{
+            total: (data?.total || 0) / (data?.pageSize || 0),
+            value: data?.pageNo,
+            onChange(value) {
+              getData({
+                pageNo: value,
+              });
+              console.log(value);
+            },
+          }}
         />
       </Page>
     </>

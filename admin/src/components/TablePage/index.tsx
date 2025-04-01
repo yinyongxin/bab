@@ -1,4 +1,10 @@
-import { Pagination, PaginationProps, Table, TableProps } from '@mantine/core';
+import {
+  Flex,
+  Pagination,
+  PaginationProps,
+  Table,
+  TableProps,
+} from '@mantine/core';
 import { Key } from 'react';
 export type TablePageProps<D> = {
   paginationProps?: PaginationProps;
@@ -39,13 +45,20 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
     </Table.Tr>
   ));
   return (
-    <div>
+    <Flex direction="column" gap={16}>
       <Table {...tableProps}>
         {getTableHeader()}
-        {rows}
+        <tbody>{rows}</tbody>
       </Table>
-      <Pagination total={0} {...paginationProps} />
-    </div>
+      <Pagination
+        total={0}
+        {...paginationProps}
+        style={{
+          alignSelf: 'flex-end',
+          ...paginationProps?.style,
+        }}
+      />
+    </Flex>
   );
 }
 
