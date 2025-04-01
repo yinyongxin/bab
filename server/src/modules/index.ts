@@ -12,7 +12,7 @@ import { join } from 'path';
     // }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'static'),
-      exclude: ['/api/{*test}'],
+      exclude: ['/api/*'],
       serveStaticOptions: {
         fallthrough: false,
       },

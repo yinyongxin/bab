@@ -1,29 +1,36 @@
-import { Injectable } from '@nestjs/common';
-
-import { getDirectories, getFiles } from '../../../utils';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import path from 'path';
 import fs from 'fs';
+import dayjs from 'dayjs';
 
 @Injectable()
 export class FilesService {
   constructor() {}
   async uploadFile(file: Express.Multer.File) {
-    console.log(file);
-    const { mimetype } = file;
-    fs.writeFileSync(
-      path.join(__dirname, `../static/files/20250331/${file.originalname}`),
-      file.buffer,
-    );
+    const { mimetype, originalname } = file;
+    const time = dayjs().format('YYYYMMDDHH');
+    const dirPath = `${mimetype}/${time}`;
     // 获取文件路径
-    const directoryPath = path.join(__dirname, `../static/files/${mimetype}`);
-    console.log('Directory Path:', directoryPath);
-    const directories = await getDirectories(directoryPath);
-    console.log('Directories:', directories);
-    if (directories.length === 0) {
-      fs.mkdirSync(directoryPath);
+    const directoryPath = path.join(__dirname, `../static/${dirPath}`);
+    try {
+      // 检查目录是否存在
+      fs.accessSync(directoryPath, fs.constants.F_OK);
+    } catch {
+      // 如果目录不存在，则创建目录
+      fs.mkdirSync(directoryPath, { recursive: true });
     }
-
-    const files = await getFiles(path.join(directoryPath, '20250331'));
-    console.log('Files:', directoryPath.concat('/20250331'), files);
+    try {
+      // 将文件写入目录
+      fs.writeFileSync(
+        path.join(directoryPath, `/${originalname}`),
+        file.buffer,
+      );
+    } catch {
+      // 处理文件写入错误
+      throw new InternalServerErrorException('文件上传失败');
+    }
+    return {
+      url: `/${dirPath}/${originalname}`,
+    };
   }
 }
