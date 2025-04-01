@@ -13,6 +13,7 @@ export class TreeMenuDataDto extends IntersectionType(Menus, Result_idDto) {
     description: '唯一值',
     type: Array(TreeMenuDataDto),
     examples: [],
+    enumName: 'TreeMenuDataDto',
   })
   children: Array<TreeMenuDataDto>;
 }

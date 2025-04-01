@@ -21,9 +21,6 @@ const admintorsResultDtoSchemaResponseTransformer = (data: any) => {
 };
 
 const loginSuccessResultDtoSchemaResponseTransformer = (data: any) => {
-  data.access_token = admintorsResultDtoSchemaResponseTransformer(
-    data.access_token,
-  );
   data.userInfo = admintorsResultDtoSchemaResponseTransformer(data.userInfo);
   return data;
 };

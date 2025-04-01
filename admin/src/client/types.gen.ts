@@ -59,7 +59,7 @@ export type AdmintorsResultDto = {
 };
 
 export type LoginSuccessResultDto = {
-  access_token: AdmintorsResultDto;
+  access_token: string;
   userInfo: AdmintorsResultDto;
 };
 

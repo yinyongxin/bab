@@ -16,7 +16,6 @@ export class SignInDto extends PickType(Admintors, ['password', 'username']) {
 export class LoginSuccessResultDto {
   @ApiProperty({
     example: 'token123456',
-    type: AdmintorsResultDto,
   })
   access_token: string;
 

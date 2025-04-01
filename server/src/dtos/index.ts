@@ -32,6 +32,7 @@ export class DeleteIdsDto {
     required: true,
     description: '删除Id列表',
     type: Array(Types.ObjectId),
+    enumName: 'ids',
   })
   ids: ObjectId[];
 }
