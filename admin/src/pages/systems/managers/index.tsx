@@ -37,6 +37,7 @@ import { modals } from '@mantine/modals';
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [loading, loadingAction] = useDisclosure(false);
+  const [title, setTitle] = useState('');
   const [data, setData] = useState<AdmintorPaginationResultDto>();
   const [initalValues, setInitalValues] = useState<AdmintorsPageItemDto>();
   const getData = async (params: { pageNo: number }) => {
@@ -211,6 +212,7 @@ export default () => {
             <ActionIcon
               variant="transparent"
               onClick={() => {
+                setTitle('编辑信息');
                 setInitalValues(record);
                 open();
               }}
@@ -238,7 +240,14 @@ export default () => {
         title="管理人员"
         description="欢迎使用管理员管理页面！"
         actions={[
-          <Button size="xs" key="add" onClick={open}>
+          <Button
+            size="xs"
+            key="add"
+            onClick={() => {
+              setTitle('添加人员');
+              open();
+            }}
+          >
             添加人员
           </Button>,
         ]}
@@ -260,7 +269,7 @@ export default () => {
         />
       </Page>
       <Modal
-        size='lg'
+        size="lg"
         opened={opened}
         onClose={() => {
           close();
@@ -268,7 +277,7 @@ export default () => {
             setInitalValues(undefined);
           }
         }}
-        title="添加管理人员"
+        title={title}
         centered
       >
         <CreateManager
