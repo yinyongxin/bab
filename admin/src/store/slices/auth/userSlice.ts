@@ -6,12 +6,14 @@ export interface UserState {
   phoneNumber?: string;
   email?: string;
   role?: string[];
+  avatar?: string;
 }
 
 const initialState: UserState = {
   username: '',
   email: '',
   role: [],
+  avatar: '',
 };
 
 const userSlice = createSlice({
@@ -23,6 +25,7 @@ const userSlice = createSlice({
       state.username = action.payload?.username;
       state.role = action.payload?.role;
       state.phoneNumber = action.payload?.phoneNumber;
+      state.avatar = action.payload?.avatar;
     },
     setUserRole(state, action) {
       state.role = action.payload.role;

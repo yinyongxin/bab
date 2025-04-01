@@ -57,6 +57,7 @@ function useAuth() {
           email: userInfo.email,
           role: userInfo.roles,
           phoneNumber: userInfo.phone,
+          avatar: userInfo.avatar,
         }),
       );
       const redirectUrl = query.get(REDIRECT_URL_KEY);
