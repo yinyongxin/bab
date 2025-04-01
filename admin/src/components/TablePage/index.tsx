@@ -56,9 +56,9 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
   ));
   return (
     <Flex direction="column" gap={16}>
-      <Table {...tableProps}>
+      <Table verticalSpacing="md" {...tableProps}>
         {getTableHeader()}
-        <tbody>{rows}</tbody>
+        <Table.Tbody>{rows}</Table.Tbody>
       </Table>
       <Pagination
         total={0}
