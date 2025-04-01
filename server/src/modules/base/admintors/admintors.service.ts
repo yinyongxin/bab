@@ -52,8 +52,11 @@ export class AdmintorsService {
     return this.userModel.findOne(filterRes);
   }
 
-  async deleteByIds(idsToUpdate: ObjectId[]) {
-    const res = await deleteByIds(this.userModel, idsToUpdate);
+  async deleteByIds(idsToUpdate: string[]) {
+    const res = await deleteByIds(
+      this.userModel,
+      idsToUpdate as unknown as ObjectId[],
+    );
     return res;
   }
 

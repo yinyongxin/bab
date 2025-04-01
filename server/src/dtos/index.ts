@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { ObjectId, Types } from 'mongoose';
+import { Types } from 'mongoose';
 
 export class QueryIdDto {
   @ApiProperty({
@@ -22,19 +22,16 @@ export class Result_idDto {
   @ApiProperty({
     required: true,
     description: '唯一值',
-    type: Types.ObjectId,
   })
-  _id: Types.ObjectId;
+  _id: string;
 }
 
 export class DeleteIdsDto {
   @ApiProperty({
     required: true,
     description: '删除Id列表',
-    type: Array(Types.ObjectId),
-    enumName: 'ids',
   })
-  ids: ObjectId[];
+  ids: string[];
 }
 
 export class UpdateResDto {

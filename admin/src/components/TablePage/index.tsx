@@ -1,5 +1,7 @@
 import {
+  Box,
   Flex,
+  LoadingOverlay,
   Pagination,
   PaginationProps,
   Table,
@@ -20,10 +22,11 @@ export type TablePageProps<D> = {
   }[];
   dataList: D[];
   rowkey: keyof D;
+  loading?: boolean;
 };
 
 function TablePage<D = unknown>(props: TablePageProps<D>) {
-  const { paginationProps, tableProps, dataList, rowkey } = props;
+  const { paginationProps, tableProps, dataList, rowkey, loading } = props;
   const getTableHeader = () => {
     return (
       <Table.Thead>
@@ -67,7 +70,12 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
     </Table.Tr>
   ));
   return (
-    <Flex direction="column" gap={16}>
+    <Flex direction="column" gap={16} style={{ position: 'relative' }}>
+      <LoadingOverlay
+        visible={loading}
+        zIndex={1000}
+        overlayProps={{ radius: 'sm', blur: 2 }}
+      />
       <Table.ScrollContainer minWidth={500}>
         <Table verticalSpacing="md" {...tableProps}>
           {getTableHeader()}

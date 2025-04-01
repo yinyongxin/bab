@@ -43,6 +43,7 @@ import type {
   MenusControllerGetAllMenusData,
   MenusControllerGetAllMenusResponse,
   FilesControllerUploadFileData,
+  FilesControllerUploadFileResponse,
   FilesControllerUploadFilesData,
 } from './types.gen';
 import {
@@ -463,17 +464,19 @@ export const menusControllerGetAllMenus = <
 export const filesControllerUploadFile = <ThrowOnError extends boolean = false>(
   options: Options<FilesControllerUploadFileData, ThrowOnError>,
 ) => {
-  return (options.client ?? _heyApiClient).post<unknown, unknown, ThrowOnError>(
-    {
-      ...formDataBodySerializer,
-      url: '/api/files/uploadFile',
-      ...options,
-      headers: {
-        'Content-Type': null,
-        ...options?.headers,
-      },
+  return (options.client ?? _heyApiClient).post<
+    FilesControllerUploadFileResponse,
+    unknown,
+    ThrowOnError
+  >({
+    ...formDataBodySerializer,
+    url: '/api/files/uploadFile',
+    ...options,
+    headers: {
+      'Content-Type': null,
+      ...options?.headers,
     },
-  );
+  });
 };
 
 export const filesControllerUploadFiles = <

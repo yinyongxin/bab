@@ -82,15 +82,11 @@ export type AdmintorsCreateBodyDto = {
   roles: Array<string>;
 };
 
-export type ObjectId = {
-  [key: string]: unknown;
-};
-
 export type DeleteIdsDto = {
   /**
    * 删除Id列表
    */
-  ids: Array<ObjectId>;
+  ids: Array<string>;
 };
 
 export type IntersectionUpdateResDtoDeleteResDto = {
@@ -461,7 +457,7 @@ export type MenusResultDto = {
   /**
    * 唯一值
    */
-  _id: ObjectId;
+  _id: string;
 };
 
 export type MenusUpdateDto = {
@@ -543,7 +539,7 @@ export type TreeMenuDataDto = {
   /**
    * 唯一值
    */
-  _id: ObjectId;
+  _id: string;
   /**
    * 唯一值
    */
@@ -552,6 +548,13 @@ export type TreeMenuDataDto = {
 
 export type FileUploadDto = {
   file: Blob | File;
+};
+
+export type FileUploadSuccessResultDto = {
+  /**
+   * 图片地址
+   */
+  url: string;
 };
 
 export type FilesUploadDto = {
@@ -917,8 +920,14 @@ export type FilesControllerUploadFileData = {
 };
 
 export type FilesControllerUploadFileResponses = {
-  201: unknown;
+  /**
+   * 单文件上传成功后返回
+   */
+  200: FileUploadSuccessResultDto;
 };
+
+export type FilesControllerUploadFileResponse =
+  FilesControllerUploadFileResponses[keyof FilesControllerUploadFileResponses];
 
 export type FilesControllerUploadFilesData = {
   /**

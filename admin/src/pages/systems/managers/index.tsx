@@ -2,6 +2,7 @@ import {
   AdmintorPaginationResultDto,
   AdmintorsPageItemDto,
   AdmintorsResultDto,
+  admintorsControllerDeleteByIds,
   admintorsControllerGetPageList,
   admintorsControllerUpdateOne,
 } from '@/client';
@@ -32,17 +33,23 @@ import CreateManager from './CreateManager';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
+  const [loading, loadingAction] = useDisclosure(false);
   const [data, setData] = useState<AdmintorPaginationResultDto>();
   const getData = async (params: { pageNo: number }) => {
-    const { pageNo } = params;
-    const res = await admintorsControllerGetPageList({
-      query: {
-        pageNo,
-        pageSize: 2,
-      },
-      body: {},
-    });
-    setData(res.data);
+    try {
+      loadingAction.open();
+      const { pageNo } = params;
+      const res = await admintorsControllerGetPageList({
+        query: {
+          pageNo,
+          pageSize: 10,
+        },
+        body: {},
+      });
+      setData(res.data);
+    } finally {
+      loadingAction.close();
+    }
   };
 
   const updateStatus = async (
@@ -78,6 +85,23 @@ export default () => {
       pageNo: 1,
     });
   }, []);
+
+  const deleteById = async (id: string) => {
+    try {
+      loadingAction.open();
+      await admintorsControllerDeleteByIds({
+        body: {
+          ids: [id],
+        },
+      });
+      await getData({
+        pageNo: 1,
+      });
+    } finally {
+      loadingAction.close();
+    }
+  };
+
   const columns: TablePageProps<AdmintorsPageItemDto>['columns'] = [
     {
       title: '管理员',
@@ -167,7 +191,13 @@ export default () => {
             <ActionIcon variant="transparent">
               <IconEdit style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
-            <ActionIcon variant="transparent" color="red">
+            <ActionIcon
+              variant="transparent"
+              color="red"
+              onClick={() => {
+                deleteById(record._id);
+              }}
+            >
               <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
           </>
@@ -188,11 +218,12 @@ export default () => {
         ]}
       >
         <TablePage<AdmintorsPageItemDto>
+          loading={loading}
           columns={columns}
           dataList={data?.list || []}
           rowkey="_id"
           paginationProps={{
-            total: (data?.total || 0) / (data?.pageSize || 0),
+            total: Math.ceil((data?.total || 0) / (data?.pageSize || 0)),
             value: data?.pageNo,
             onChange(value) {
               getData({
@@ -203,7 +234,12 @@ export default () => {
         />
       </Page>
       <Modal opened={opened} onClose={close} title="添加管理人员" centered>
-        <CreateManager />
+        <CreateManager
+          onSuccess={() => {
+            close();
+            getData({ pageNo: 1 });
+          }}
+        />
       </Modal>
     </>
   );

@@ -5,10 +5,14 @@ import {
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { FilesService } from './files.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { FilesUploadDto, FileUploadDto } from './dto';
+import {
+  FilesUploadDto,
+  FileUploadDto,
+  FileUploadSuccessResultDto,
+} from './dto';
 
 @ApiTags('文件-Files')
 @Controller('files')
@@ -20,6 +24,10 @@ export class FilesController {
   @ApiBody({
     description: '单文件上传',
     type: FileUploadDto,
+  })
+  @ApiOkResponse({
+    description: '单文件上传成功后返回',
+    type: FileUploadSuccessResultDto,
   })
   @UseInterceptors(FileInterceptor('file'))
   uploadFile(@UploadedFile() file: Express.Multer.File) {

@@ -8,26 +8,54 @@ import {
   TextInput,
   Text,
   Grid,
+  FileButton,
+  Avatar,
 } from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
 import {
   IconCheck,
   IconGenderFemale,
   IconGenderMale,
-  IconMars,
+  IconUpload,
 } from '@tabler/icons-react';
+import { admintorsControllerAddOne, filesControllerUploadFile } from '@/client';
 
-function CreateManager() {
+type CreateManagerProps = {
+  onSuccess: () => void;
+};
+function CreateManager(props: CreateManagerProps) {
+  const { onSuccess } = props;
+
+  const [file, setFile] = useState<File | null>(null);
+
   const form = useForm({
-    initialValues: { username: '', email: '', sex: 'Male' },
+    initialValues: {
+      username: '',
+      email: '',
+      sex: 'Male',
+      avatar: '',
+      roles: ['67e9ff47398e2ea2c64f02c5'],
+      phone: '',
+    },
     validate: {
       username: hasLength({ min: 1 }, '用户名不能为空'),
       email: isEmail('邮箱格式不正确'),
       sex: hasLength({ min: 1 }, '性别不能为空'),
+      phone: hasLength({ min: 1, max: 11 }, '手机号不能为空'),
     },
   });
 
-  const onSubmit = form.onSubmit((values) => {
+  const onSubmit = form.onSubmit(async (values) => {
+    const addAdmintor = await admintorsControllerAddOne({
+      body: {
+        ...values,
+        password: '123456',
+      },
+    });
+    if (addAdmintor.data) {
+      onSuccess?.();
+    }
+
     console.log(values);
   });
 
@@ -43,6 +71,36 @@ function CreateManager() {
 
   return (
     <form onSubmit={onSubmit}>
+      <Flex justify="center" pb="lg" pt="lg">
+        <FileButton
+          onChange={async (file) => {
+            if (!file) {
+              return;
+            }
+            setFile(file);
+            const res = await filesControllerUploadFile({
+              body: {
+                file: file,
+              },
+            });
+            if (res.data) {
+              form.setFieldValue('avatar', res.data.url);
+            }
+          }}
+          accept="image/png,image/jpeg"
+        >
+          {(props) => (
+            <Avatar
+              {...props}
+              size={100}
+              src={file ? URL.createObjectURL(file) : ''}
+            >
+              <IconUpload stroke={1.5} />
+            </Avatar>
+          )}
+        </FileButton>
+      </Flex>
+
       <Grid>
         <Grid.Col span={12}>
           <TextInput
@@ -56,6 +114,14 @@ function CreateManager() {
             {...form.getInputProps('email')}
             label="邮箱"
             placeholder="填写邮箱"
+          />
+        </Grid.Col>
+        <Grid.Col span={12}>
+          <TextInput
+            {...form.getInputProps('phone')}
+            label="手机号"
+            placeholder="填写手机号"
+            maxLength={11}
           />
         </Grid.Col>
         <Grid.Col span={12}>
