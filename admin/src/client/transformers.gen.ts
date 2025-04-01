@@ -46,9 +46,24 @@ export const admintorsControllerFindByIdResponseTransformer = async (
   return data;
 };
 
+const rolesResultDtoSchemaResponseTransformer = (data: any) => {
+  data.createdTime = new Date(data.createdTime);
+  data.updatedTime = new Date(data.updatedTime);
+  return data;
+};
+
+const admintorsPageItemDtoSchemaResponseTransformer = (data: any) => {
+  data.createdTime = new Date(data.createdTime);
+  data.updatedTime = new Date(data.updatedTime);
+  data.roles = data.roles.map((item: any) => {
+    return rolesResultDtoSchemaResponseTransformer(item);
+  });
+  return data;
+};
+
 const admintorPaginationResultDtoSchemaResponseTransformer = (data: any) => {
   data.list = data.list.map((item: any) => {
-    return admintorsResultDtoSchemaResponseTransformer(item);
+    return admintorsPageItemDtoSchemaResponseTransformer(item);
   });
   return data;
 };
@@ -57,12 +72,6 @@ export const admintorsControllerGetPageListResponseTransformer = async (
   data: any,
 ): Promise<AdmintorsControllerGetPageListResponse> => {
   data = admintorPaginationResultDtoSchemaResponseTransformer(data);
-  return data;
-};
-
-const rolesResultDtoSchemaResponseTransformer = (data: any) => {
-  data.createdTime = new Date(data.createdTime);
-  data.updatedTime = new Date(data.updatedTime);
   return data;
 };
 

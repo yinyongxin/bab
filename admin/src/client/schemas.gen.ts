@@ -29,13 +29,13 @@ export const AdmintorsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     username: {
       type: 'string',
@@ -289,13 +289,13 @@ export const AdmintorsFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     username: {
       type: 'string',
@@ -345,6 +345,119 @@ export const AdmintorsFilterDtoSchema = {
   },
 } as const;
 
+export const RolesResultDtoSchema = {
+  type: 'object',
+  properties: {
+    createdTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '创建日期',
+      default: 1743494512029,
+    },
+    updatedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '更新日期',
+      default: 1743494512029,
+    },
+    name: {
+      type: 'string',
+      description: '角色名称',
+      example: 'role',
+    },
+    description: {
+      type: 'string',
+      description: '角色名称',
+      example: '我是角色描述',
+    },
+    icon: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    _id: {
+      type: 'string',
+      description: '唯一值',
+    },
+  },
+  required: ['createdTime', 'updatedTime', 'name', '_id'],
+} as const;
+
+export const AdmintorsPageItemDtoSchema = {
+  type: 'object',
+  properties: {
+    createdTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '创建日期',
+      default: 1743494512029,
+    },
+    updatedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '更新日期',
+      default: 1743494512029,
+    },
+    username: {
+      type: 'string',
+      description: '管理人员名称',
+      example: 'admin',
+    },
+    avatar: {
+      type: 'string',
+      description: '头像',
+      example: '',
+    },
+    name: {
+      type: 'string',
+      description: '姓名',
+      example: '',
+    },
+    sex: {
+      type: 'string',
+      description: '性别',
+      example: 'Male',
+      enum: ['Male', 'Female'],
+    },
+    phone: {
+      type: 'string',
+      description: '电话号码',
+      example: '',
+    },
+    email: {
+      type: 'string',
+      description: '邮箱',
+      example: '',
+    },
+    status: {
+      type: 'string',
+      description: '状态',
+      example: 'Open',
+      enum: ['Open', 'Close'],
+    },
+    _id: {
+      type: 'string',
+      description: '唯一值',
+    },
+    roles: {
+      description: '角色列表',
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/RolesResultDto',
+      },
+    },
+  },
+  required: [
+    'createdTime',
+    'updatedTime',
+    'username',
+    'email',
+    'status',
+    '_id',
+    'roles',
+  ],
+} as const;
+
 export const AdmintorPaginationResultDtoSchema = {
   type: 'object',
   properties: {
@@ -369,7 +482,7 @@ export const AdmintorPaginationResultDtoSchema = {
       description: '所有数量',
       type: 'array',
       items: {
-        $ref: '#/components/schemas/AdmintorsResultDto',
+        $ref: '#/components/schemas/AdmintorsPageItemDto',
       },
     },
   },
@@ -398,44 +511,6 @@ export const RoleCreateBodyDtoSchema = {
   required: ['name'],
 } as const;
 
-export const RolesResultDtoSchema = {
-  type: 'object',
-  properties: {
-    createdTime: {
-      format: 'date-time',
-      type: 'string',
-      description: '创建日期',
-      default: 1743487536377,
-    },
-    updatedTime: {
-      format: 'date-time',
-      type: 'string',
-      description: '更新日期',
-      default: 1743487536377,
-    },
-    name: {
-      type: 'string',
-      description: '角色名称',
-      example: 'role',
-    },
-    description: {
-      type: 'string',
-      description: '角色名称',
-      example: '我是角色描述',
-    },
-    icon: {
-      type: 'string',
-      description: '图标',
-      example: '',
-    },
-    _id: {
-      type: 'string',
-      description: '唯一值',
-    },
-  },
-  required: ['createdTime', 'updatedTime', 'name', '_id'],
-} as const;
-
 export const RolesUpdateDtoSchema = {
   type: 'object',
   properties: {
@@ -443,7 +518,7 @@ export const RolesUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     name: {
       type: 'string',
@@ -470,13 +545,13 @@ export const RolesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     name: {
       type: 'string',
@@ -577,13 +652,13 @@ export const MenusResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     name: {
       type: 'string',
@@ -640,7 +715,7 @@ export const MenusUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     name: {
       type: 'string',
@@ -694,13 +769,13 @@ export const TreeMenuDataDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743487536377,
+      default: 1743494512029,
     },
     name: {
       type: 'string',

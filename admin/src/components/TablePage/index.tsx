@@ -69,7 +69,7 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
   return (
     <Flex direction="column" gap={16}>
       <Table.ScrollContainer minWidth={500}>
-        <Table {...tableProps}>
+        <Table verticalSpacing="md" {...tableProps}>
           {getTableHeader()}
           <Table.Tbody>{rows}</Table.Tbody>
         </Table>

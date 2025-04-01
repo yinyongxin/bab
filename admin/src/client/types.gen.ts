@@ -221,40 +221,6 @@ export type AdmintorsFilterDto = {
   status?: 'Open' | 'Close';
 };
 
-export type AdmintorPaginationResultDto = {
-  /**
-   * 当前页面
-   */
-  pageNo: number;
-  /**
-   * 分页大小
-   */
-  pageSize: number;
-  /**
-   * 所有数量
-   */
-  total: number;
-  /**
-   * 所有数量
-   */
-  list: Array<AdmintorsResultDto>;
-};
-
-export type RoleCreateBodyDto = {
-  /**
-   * 角色名称
-   */
-  name: string;
-  /**
-   * 角色名称
-   */
-  description?: string;
-  /**
-   * 图标
-   */
-  icon?: string;
-};
-
 export type RolesResultDto = {
   /**
    * 创建日期
@@ -280,6 +246,87 @@ export type RolesResultDto = {
    * 唯一值
    */
   _id: string;
+};
+
+export type AdmintorsPageItemDto = {
+  /**
+   * 创建日期
+   */
+  createdTime: Date;
+  /**
+   * 更新日期
+   */
+  updatedTime: Date;
+  /**
+   * 管理人员名称
+   */
+  username: string;
+  /**
+   * 头像
+   */
+  avatar?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  /**
+   * 性别
+   */
+  sex?: 'Male' | 'Female';
+  /**
+   * 电话号码
+   */
+  phone?: string;
+  /**
+   * 邮箱
+   */
+  email: string;
+  /**
+   * 状态
+   */
+  status: 'Open' | 'Close';
+  /**
+   * 唯一值
+   */
+  _id: string;
+  /**
+   * 角色列表
+   */
+  roles: Array<RolesResultDto>;
+};
+
+export type AdmintorPaginationResultDto = {
+  /**
+   * 当前页面
+   */
+  pageNo: number;
+  /**
+   * 分页大小
+   */
+  pageSize: number;
+  /**
+   * 所有数量
+   */
+  total: number;
+  /**
+   * 所有数量
+   */
+  list: Array<AdmintorsPageItemDto>;
+};
+
+export type RoleCreateBodyDto = {
+  /**
+   * 角色名称
+   */
+  name: string;
+  /**
+   * 角色名称
+   */
+  description?: string;
+  /**
+   * 图标
+   */
+  icon?: string;
 };
 
 export type RolesUpdateDto = {

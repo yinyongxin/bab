@@ -1,11 +1,12 @@
 import {
   AdmintorPaginationResultDto,
+  AdmintorsPageItemDto,
   AdmintorsResultDto,
   admintorsControllerGetPageList,
 } from '@/client';
 import Page from '@/components/Page';
 import TablePage, { TablePageProps } from '@/components/TablePage';
-import { Avatar, Button, Flex, Switch, Title } from '@mantine/core';
+import { Avatar, Badge, Button, Flex, Switch, Title } from '@mantine/core';
 import { useMounted } from '@mantine/hooks';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import dayjs from 'dayjs';
@@ -29,7 +30,7 @@ export default () => {
       pageNo: 1,
     });
   }, []);
-  const columns: TablePageProps<AdmintorsResultDto>['columns'] = [
+  const columns: TablePageProps<AdmintorsPageItemDto>['columns'] = [
     {
       title: '管理员名称',
       dataKey: 'username',
@@ -78,6 +79,22 @@ export default () => {
       },
     },
     {
+      title: '角色',
+      dataKey: 'roles',
+      render: ({ roles }) => {
+        return roles.map((role) => {
+          return (
+            <Badge
+              variant="gradient"
+              gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+            >
+              {role.name}
+            </Badge>
+          );
+        });
+      },
+    },
+    {
       title: '创建时间',
       dataKey: 'createdTime',
       render: ({ createdTime }) => {
@@ -107,7 +124,7 @@ export default () => {
           </Button>,
         ]}
       >
-        <TablePage<AdmintorsResultDto>
+        <TablePage<AdmintorsPageItemDto>
           columns={columns}
           dataList={data?.list || []}
           rowkey="_id"
@@ -118,7 +135,6 @@ export default () => {
               getData({
                 pageNo: value,
               });
-              console.log(value);
             },
           }}
         />
