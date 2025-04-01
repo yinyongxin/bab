@@ -24,10 +24,8 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
     return (
       <Table.Thead>
         <Table.Tr>
-          {props.columns.map((column) => {
-            return (
-              <Table.Th key={column.dataKey as Key}>{column.title}</Table.Th>
-            );
+          {props.columns.map((column, columnIndex) => {
+            return <Table.Th key={`${column.title}`}>{column.title}</Table.Th>;
           })}
         </Table.Tr>
       </Table.Thead>
@@ -36,17 +34,17 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
 
   const rows = dataList.map((data) => (
     <Table.Tr key={data[rowkey] as Key}>
-      {props.columns.map((column, columnIndex) => {
+      {props.columns.map((column) => {
         if (column.render) {
           return (
-            <Table.Td key={`${data[rowkey]}-${columnIndex}`}>
+            <Table.Td key={`${data[rowkey]}-${column.title}`}>
               {column.render(data)}
             </Table.Td>
           );
         }
         if (column.dataKey) {
           return (
-            <Table.Td key={`${data[rowkey]}-${columnIndex}`}>
+            <Table.Td key={`${data[rowkey]}-${column.title}`}>
               <>{data[column.dataKey]}</>
             </Table.Td>
           );
