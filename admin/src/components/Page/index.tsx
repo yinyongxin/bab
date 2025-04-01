@@ -28,7 +28,7 @@ const Page = (props: PageProps) => {
           {actions && <Group>{actions}</Group>}
         </Flex>
         {description && (
-          <Text lineClamp={2} mt="md">
+          <Text lineClamp={2} mt="sm" c="dimmed">
             {description}
           </Text>
         )}

@@ -220,7 +220,7 @@ export default () => {
     <>
       <Page
         title="管理人员"
-        description="管理人员"
+        description="欢迎使用管理员管理页面！"
         actions={[
           <Button size="xs" key="add" onClick={open}>
             添加人员

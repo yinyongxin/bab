@@ -20,6 +20,11 @@ import {
   IconExclamationCircle,
   IconUpload,
   IconGenderMale,
+  IconMail,
+  IconPhone,
+  IconUser,
+  IconGenderBigender,
+  IconUsersGroup,
 } from '@tabler/icons-react';
 import { admintorsControllerAddOne, filesControllerUploadFile } from '@/client';
 import useRoleOptions from '@/utils/hooks/useRoleOptions';
@@ -64,7 +69,7 @@ function CreateManager(props: CreateManagerProps) {
         color: 'red',
         title: '提示',
         message: '创建失败',
-        icon: <IconExclamationCircle  />,
+        icon: <IconExclamationCircle />,
       });
       return;
     }
@@ -124,6 +129,7 @@ function CreateManager(props: CreateManagerProps) {
           <TextInput
             {...form.getInputProps('username')}
             label="用户名"
+            leftSection={<IconUser size={16} />}
             placeholder="填写用户名"
           />
         </Grid.Col>
@@ -131,6 +137,7 @@ function CreateManager(props: CreateManagerProps) {
           <TextInput
             {...form.getInputProps('email')}
             label="邮箱"
+            leftSection={<IconMail size={16} />}
             placeholder="填写邮箱"
           />
         </Grid.Col>
@@ -139,6 +146,7 @@ function CreateManager(props: CreateManagerProps) {
             {...form.getInputProps('phone')}
             label="手机号"
             type="tel"
+            leftSection={<IconPhone size={16} />}
             placeholder="填写手机号"
             maxLength={11}
           />
@@ -147,6 +155,7 @@ function CreateManager(props: CreateManagerProps) {
           <Select
             {...form.getInputProps('sex')}
             label="性别"
+            leftSection={<IconGenderBigender size={16} />}
             placeholder="选择性别"
             data={[
               { label: '男生', value: 'Male' },
@@ -175,6 +184,7 @@ function CreateManager(props: CreateManagerProps) {
             {...form.getInputProps('roles')}
             label="角色"
             placeholder="选择角色"
+            leftSection={<IconUsersGroup size={16} />}
             data={roleOptions}
           />
         </Grid.Col>
