@@ -33,12 +33,8 @@ function useAuth() {
     | undefined
   > => {
     try {
-      // const resp = await AuthService.signIn(values.email, values.password);
       const { data } = await authControllerSignIn({
-        body: {
-          username: 'admin',
-          password: '123456',
-        },
+        body: values,
       });
       if (!data) {
         return {

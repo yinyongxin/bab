@@ -2,15 +2,21 @@ import { PickType, ApiProperty } from '@nestjs/swagger';
 import { Admintors } from '../../../../mongo/base';
 import { AdmintorsResultDto } from '../../admintors';
 
-export class SignInDto extends PickType(Admintors, ['password', 'username']) {
+export class SignInDto extends PickType(Admintors, [
+  'password',
+  'username',
+  'email',
+]) {
   @ApiProperty({
-    example: 'username',
+    example: 'admin',
+    required: false,
   })
   username: string;
   @ApiProperty({
-    example: '123456',
+    example: 'admin@email.com',
+    required: false,
   })
-  password: string;
+  email: string;
 }
 
 export class LoginSuccessResultDto {

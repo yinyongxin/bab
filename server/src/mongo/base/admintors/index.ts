@@ -27,7 +27,7 @@ export class Admintors extends BaseDocument {
   @Prop({
     required: true,
   })
-  // swaggerF
+  // swagger
   @ApiProperty({ required: true, description: '密码', example: '123456' })
   password: string;
 
@@ -97,7 +97,7 @@ export class Admintors extends BaseDocument {
     default: '',
   })
   // swagger
-  @ApiProperty({ required: false, description: '邮箱', example: '' })
+  @ApiProperty({ required: true, description: '邮箱', example: '' })
   email: string;
 
   @Prop({

@@ -6,15 +6,20 @@ export const SignInDtoSchema = {
     username: {
       type: 'string',
       description: '管理人员名称',
-      example: 'username',
+      example: 'admin',
     },
     password: {
       type: 'string',
       description: '密码',
       example: '123456',
     },
+    email: {
+      type: 'string',
+      description: '邮箱',
+      example: 'admin@email.com',
+    },
   },
-  required: ['username', 'password'],
+  required: ['password'],
 } as const;
 
 export const AdmintorsResultDtoSchema = {
@@ -87,6 +92,7 @@ export const AdmintorsResultDtoSchema = {
     'updatedTime',
     'username',
     'roles',
+    'email',
     'status',
     '_id',
   ],

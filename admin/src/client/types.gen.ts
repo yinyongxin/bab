@@ -4,11 +4,15 @@ export type SignInDto = {
   /**
    * 管理人员名称
    */
-  username: string;
+  username?: string;
   /**
    * 密码
    */
   password: string;
+  /**
+   * 邮箱
+   */
+  email?: string;
 };
 
 export type AdmintorsResultDto = {
@@ -47,7 +51,7 @@ export type AdmintorsResultDto = {
   /**
    * 邮箱
    */
-  email?: string;
+  email: string;
   /**
    * 状态
    */

@@ -44,8 +44,12 @@ export class AdmintorsService {
     return res;
   }
 
-  async findOneByAdmintorname(username: string) {
-    return this.userModel.findOne({ username });
+  findOneByFilter(filter: { username?: string; email?: string }) {
+    console.log(filter, 'filter');
+    const filterRes = Object.fromEntries(
+      Object.entries(filter).filter(([, value]) => value !== undefined),
+    );
+    return this.userModel.findOne(filterRes);
   }
 
   async deleteByIds(idsToUpdate: ObjectId[]) {
