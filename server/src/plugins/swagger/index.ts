@@ -19,11 +19,11 @@ export const initSwagger = async (app: NestExpressApplication) => {
   const ipAddress = await getLocalExternalIP();
   config.setExternalDoc(
     '下载JSON文件请点击',
-    `http://${ipAddress}:3000/swagger-json`,
+    `http://${ipAddress}:3000/api-json`,
   );
 
   const document = SwaggerModule.createDocument(app, config.build());
-  SwaggerModule.setup('/swagger', app, document, {
+  SwaggerModule.setup('/api', app, document, {
     swaggerOptions: {
       // 刷新页面不清楚认证信息
       persistAuthorization: true,
