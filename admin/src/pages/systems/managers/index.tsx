@@ -1,11 +1,13 @@
 import {
   AdmintorPaginationResultDto,
+  AdmintorsResultDto,
   admintorsControllerGetPageList,
 } from '@/client';
 import Page from '@/components/Page';
 import TablePage, { TablePageProps } from '@/components/TablePage';
 import { Button } from '@mantine/core';
 import { useMounted } from '@mantine/hooks';
+import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
 export default () => {
@@ -26,27 +28,34 @@ export default () => {
       pageNo: 1,
     });
   }, []);
-  const columns: TablePageProps<{
-    a: string;
-    b: string;
-    c: string;
-    d: string;
-  }>['columns'] = [
+  const columns: TablePageProps<AdmintorsResultDto>['columns'] = [
     {
-      title: 'Element position',
-      dataKey: 'a',
+      title: '管理员名称',
+      dataKey: 'username',
     },
     {
-      title: 'Atomic mass',
-      dataKey: 'b',
+      title: '邮箱',
+      dataKey: 'email',
     },
     {
-      title: 'Symbol',
-      dataKey: 'c',
+      title: '电话',
+      dataKey: 'phone',
     },
     {
-      title: 'Element name',
-      dataKey: 'd',
+      title: '创建时间',
+      render: ({ createdTime }) => {
+        return dayjs(createdTime).format('YYYY-MM-DD HH:mm:ss');
+      },
+    },
+    {
+      title: '操作',
+      render: (record) => {
+        return (
+          <Button size="xs" key={record?._id}>
+            编辑
+          </Button>
+        );
+      },
     },
   ];
 
@@ -61,22 +70,10 @@ export default () => {
           </Button>,
         ]}
       >
-        <TablePage<{
-          a: string;
-          b: string;
-          c: string;
-          d: string;
-        }>
+        <TablePage<AdmintorsResultDto>
           columns={columns}
-          dataList={[
-            {
-              a: 'a',
-              b: 'b',
-              c: 'c',
-              d: 'd',
-            },
-          ]}
-          rowkey={'a'}
+          dataList={data?.list || []}
+          rowkey="_id"
           paginationProps={{
             total: (data?.total || 0) / (data?.pageSize || 0),
             value: data?.pageNo,

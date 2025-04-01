@@ -11,7 +11,8 @@ export type TablePageProps<D> = {
   tableProps?: TableProps;
   columns: {
     title: React.ReactNode;
-    dataKey: keyof D;
+    dataKey?: keyof D;
+    render?: (values: D) => React.ReactNode;
   }[];
   dataList: D[];
   rowkey: keyof D;
@@ -36,11 +37,20 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
   const rows = dataList.map((data) => (
     <Table.Tr key={data[rowkey] as Key}>
       {props.columns.map((column) => {
-        return (
-          <Table.Td key={column.dataKey as Key}>
-            <>{data[column.dataKey]}</>
-          </Table.Td>
-        );
+        if (column.render) {
+          return (
+            <Table.Td key={column.dataKey as Key}>
+              {column.render(data)}
+            </Table.Td>
+          );
+        }
+        if (column.dataKey) {
+          return (
+            <Table.Td key={column.dataKey as Key}>
+              <>{data[column.dataKey]}</>
+            </Table.Td>
+          );
+        }
       })}
     </Table.Tr>
   ));
