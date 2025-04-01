@@ -42,13 +42,16 @@ export default () => {
       const res = await admintorsControllerGetPageList({
         query: {
           pageNo,
-          pageSize: 10,
+          pageSize: 1,
         },
         body: {},
       });
+
       setData(res.data);
     } finally {
-      loadingAction.close();
+      setTimeout(() => {
+        loadingAction.close();
+      }, 1000 * 10);
     }
   };
 

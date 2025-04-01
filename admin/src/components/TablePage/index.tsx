@@ -74,7 +74,7 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
       <LoadingOverlay
         visible={loading}
         zIndex={1000}
-        overlayProps={{ radius: 'sm', blur: 2 }}
+        overlayProps={{ blur: 2 }}
       />
       <Table.ScrollContainer minWidth={500}>
         <Table verticalSpacing="md" {...tableProps}>
