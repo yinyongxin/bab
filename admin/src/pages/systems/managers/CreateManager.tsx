@@ -132,7 +132,7 @@ function CreateManager(props: CreateManagerProps) {
       </Flex>
 
       <Grid>
-        <Grid.Col span={12}>
+        <Grid.Col span={6}>
           <TextInput
             {...form.getInputProps('username')}
             label="用户名"
@@ -140,7 +140,7 @@ function CreateManager(props: CreateManagerProps) {
             placeholder="填写用户名"
           />
         </Grid.Col>
-        <Grid.Col span={12}>
+        <Grid.Col span={6}>
           <TextInput
             {...form.getInputProps('email')}
             label="邮箱"
@@ -148,7 +148,7 @@ function CreateManager(props: CreateManagerProps) {
             placeholder="填写邮箱"
           />
         </Grid.Col>
-        <Grid.Col span={12}>
+        <Grid.Col span={6}>
           <TextInput
             {...form.getInputProps('phone')}
             label="手机号"
@@ -158,7 +158,7 @@ function CreateManager(props: CreateManagerProps) {
             maxLength={11}
           />
         </Grid.Col>
-        <Grid.Col span={12}>
+        <Grid.Col span={6}>
           <Select
             {...form.getInputProps('sex')}
             label="性别"

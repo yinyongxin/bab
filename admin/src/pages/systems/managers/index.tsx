@@ -260,6 +260,7 @@ export default () => {
         />
       </Page>
       <Modal
+        size='lg'
         opened={opened}
         onClose={() => {
           close();
