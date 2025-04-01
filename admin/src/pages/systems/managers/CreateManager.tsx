@@ -39,14 +39,14 @@ import { getFilePath } from '@/utils';
 
 type CreateManagerProps = {
   onSuccess: () => void;
-  editVlaue?: AdmintorsPageItemDto;
+  initalValues?: AdmintorsPageItemDto;
 };
 function CreateManager(props: CreateManagerProps) {
-  const { onSuccess, editVlaue } = props;
+  const { onSuccess, initalValues } = props;
   const [roleOptions] = useRoleOptions();
   const form = useForm({
-    initialValues: editVlaue
-      ? { ...editVlaue, roles: editVlaue.roles.map((item) => item._id) }
+    initialValues: initalValues
+      ? { ...initalValues, roles: initalValues.roles.map((item) => item._id) }
       : {
           username: '',
           email: '',

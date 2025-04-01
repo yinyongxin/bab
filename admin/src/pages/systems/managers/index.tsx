@@ -37,7 +37,7 @@ export default () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [loading, loadingAction] = useDisclosure(false);
   const [data, setData] = useState<AdmintorPaginationResultDto>();
-  const [editVlaue, setEditVlaue] = useState<AdmintorsPageItemDto>();
+  const [initalValues, setInitalValues] = useState<AdmintorsPageItemDto>();
   const getData = async (params: { pageNo: number }) => {
     try {
       loadingAction.open();
@@ -201,7 +201,7 @@ export default () => {
             <ActionIcon
               variant="transparent"
               onClick={() => {
-                setEditVlaue(record);
+                setInitalValues(record);
                 open();
               }}
             >
@@ -249,9 +249,19 @@ export default () => {
           }}
         />
       </Page>
-      <Modal opened={opened} onClose={close} title="添加管理人员" centered>
+      <Modal
+        opened={opened}
+        onClose={() => {
+          close();
+          if (initalValues) {
+            setInitalValues(undefined);
+          }
+        }}
+        title="添加管理人员"
+        centered
+      >
         <CreateManager
-          editVlaue={editVlaue}
+          initalValues={initalValues}
           onSuccess={() => {
             close();
             getData({ pageNo: 1 });
