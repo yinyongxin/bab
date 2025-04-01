@@ -19,6 +19,7 @@ export type TablePageProps<D> = {
     render?: (values: D) => React.ReactNode;
     thProps?: TableThProps;
     tdProps?: TableTdProps;
+    width?: string | number;
   }[];
   dataList: D[];
   rowkey: keyof D;
@@ -33,7 +34,14 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
         <Table.Tr>
           {props.columns.map((column, columnIndex) => {
             return (
-              <Table.Th key={`${column.title}`} {...column.thProps}>
+              <Table.Th
+                key={`${column.title}`}
+                {...column.thProps}
+                style={{
+                  width: column.width,
+                  ...column.thProps?.style,
+                }}
+              >
                 {column.title}
               </Table.Th>
             );
@@ -51,6 +59,10 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
             <Table.Td
               key={`${data[rowkey]}-${column.title}`}
               {...column.tdProps}
+              style={{
+                width: column.width,
+                ...column.thProps?.style,
+              }}
             >
               {column.render(data)}
             </Table.Td>
@@ -61,6 +73,10 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
             <Table.Td
               key={`${data[rowkey]}-${column.title}`}
               {...column.tdProps}
+              style={{
+                width: column.width,
+                ...column.thProps?.style,
+              }}
             >
               <>{data[column.dataKey]}</>
             </Table.Td>
@@ -70,27 +86,29 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
     </Table.Tr>
   ));
   return (
-    <Flex direction="column" gap={16} style={{ position: 'relative' }}>
+    <Box pos="relative">
       <LoadingOverlay
         visible={loading}
         zIndex={1000}
         overlayProps={{ blur: 2 }}
       />
-      <Table.ScrollContainer minWidth={500}>
-        <Table verticalSpacing="md" {...tableProps}>
-          {getTableHeader()}
-          <Table.Tbody>{rows}</Table.Tbody>
-        </Table>
-      </Table.ScrollContainer>
-      <Pagination
-        total={0}
-        {...paginationProps}
-        style={{
-          alignSelf: 'flex-end',
-          ...paginationProps?.style,
-        }}
-      />
-    </Flex>
+      <Flex direction="column" gap={16}>
+        <Table.ScrollContainer minWidth={500}>
+          <Table verticalSpacing="md" {...tableProps}>
+            {getTableHeader()}
+            <Table.Tbody>{rows}</Table.Tbody>
+          </Table>
+        </Table.ScrollContainer>
+        <Pagination
+          total={0}
+          {...paginationProps}
+          style={{
+            alignSelf: 'flex-end',
+            ...paginationProps?.style,
+          }}
+        />
+      </Flex>
+    </Box>
   );
 }
 

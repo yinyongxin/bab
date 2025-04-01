@@ -16,11 +16,9 @@ export class RolesService {
     try {
       session.startTransaction();
       const createdRole = new this.userModel(data);
-      console.log('createdRole', createdRole);
       const res = await createdRole.save({
         session,
       });
-      console.log('res', res);
       await session.commitTransaction();
       return res;
     } catch (error) {
@@ -38,8 +36,8 @@ export class RolesService {
     return res;
   }
 
-  async deleteByIds(idsToUpdate: ObjectId[]) {
-    const res = await deleteByIds(this.userModel, idsToUpdate);
+  async deleteByIds(ids: string[]) {
+    const res = await deleteByIds(this.userModel, ids as unknown as ObjectId[]);
     return res;
   }
 
@@ -95,5 +93,9 @@ export class RolesService {
       pageNo: pagination.pageNo, // 返回当前页码
       pageSize: pagination.pageSize, // 返回每页大小
     };
+  }
+
+  getAll(filter: RolesQueryFilterDto) {
+    return this.userModel.find(filter, {});
   }
 }

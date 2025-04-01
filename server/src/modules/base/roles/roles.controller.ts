@@ -115,4 +115,17 @@ export class RolesController {
     );
     return res;
   }
+
+  @Post('getAll')
+  @ApiOkResponse({
+    description: '获取全部角色',
+    type: [RolesResultDto],
+  })
+  @ApiOperation({
+    description: '获取全部角色',
+    summary: '获取全部角色',
+  })
+  async getAll(@Body() body: RolesQueryFilterDto) {
+    return this.usersService.getAll(body);
+  }
 }

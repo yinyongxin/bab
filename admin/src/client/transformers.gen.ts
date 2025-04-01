@@ -8,6 +8,7 @@ import type {
   RolesControllerAddOneResponse,
   RolesControllerFindByIdResponse,
   RolesControllerGetPageListResponse,
+  RolesControllerGetAllResponse,
   MenusControllerAddOneResponse,
   MenusControllerFindByIdResponse,
   MenusControllerGetTreeDataResponse,
@@ -100,6 +101,15 @@ export const rolesControllerGetPageListResponseTransformer = async (
   data: any,
 ): Promise<RolesControllerGetPageListResponse> => {
   data = roleQueryPaginationResultDtoSchemaResponseTransformer(data);
+  return data;
+};
+
+export const rolesControllerGetAllResponseTransformer = async (
+  data: any,
+): Promise<RolesControllerGetAllResponse> => {
+  data = data.map((item: any) => {
+    return rolesResultDtoSchemaResponseTransformer(item);
+  });
   return data;
 };
 

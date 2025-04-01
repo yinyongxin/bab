@@ -30,6 +30,8 @@ import type {
   RolesControllerFindByIdResponse,
   RolesControllerGetPageListData,
   RolesControllerGetPageListResponse,
+  RolesControllerGetAllData,
+  RolesControllerGetAllResponse,
   MenusControllerAddOneData,
   MenusControllerAddOneResponse,
   MenusControllerDeleteByIdsData,
@@ -54,6 +56,7 @@ import {
   rolesControllerAddOneResponseTransformer,
   rolesControllerFindByIdResponseTransformer,
   rolesControllerGetPageListResponseTransformer,
+  rolesControllerGetAllResponseTransformer,
   menusControllerAddOneResponseTransformer,
   menusControllerFindByIdResponseTransformer,
   menusControllerGetTreeDataResponseTransformer,
@@ -329,6 +332,28 @@ export const rolesControllerGetPageList = <
   >({
     responseTransformer: rolesControllerGetPageListResponseTransformer,
     url: '/api/roles/getPageList',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 获取全部角色
+ * 获取全部角色
+ */
+export const rolesControllerGetAll = <ThrowOnError extends boolean = false>(
+  options: Options<RolesControllerGetAllData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).post<
+    RolesControllerGetAllResponse,
+    unknown,
+    ThrowOnError
+  >({
+    responseTransformer: rolesControllerGetAllResponseTransformer,
+    url: '/api/roles/getAll',
     ...options,
     headers: {
       'Content-Type': 'application/json',

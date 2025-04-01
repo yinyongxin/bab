@@ -31,7 +31,6 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import CreateManager from './CreateManager';
 import { getFilePath } from '@/utils';
-import { notifications } from '@mantine/notifications';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -44,7 +43,7 @@ export default () => {
       const res = await admintorsControllerGetPageList({
         query: {
           pageNo,
-          pageSize: 10,
+          pageSize: 1,
         },
         body: {},
       });
@@ -129,7 +128,6 @@ export default () => {
     {
       title: '状态',
       dataKey: 'status',
-
       render: ({ _id, status }) => {
         return (
           <Switch
@@ -186,7 +184,6 @@ export default () => {
     },
     {
       title: '操作',
-      width: 110,
       render: (record) => {
         return (
           <>

@@ -797,6 +797,23 @@ export type RolesControllerGetPageListResponses = {
 export type RolesControllerGetPageListResponse =
   RolesControllerGetPageListResponses[keyof RolesControllerGetPageListResponses];
 
+export type RolesControllerGetAllData = {
+  body: RolesQueryFilterDto;
+  path?: never;
+  query?: never;
+  url: '/api/roles/getAll';
+};
+
+export type RolesControllerGetAllResponses = {
+  /**
+   * 获取全部角色
+   */
+  200: Array<RolesResultDto>;
+};
+
+export type RolesControllerGetAllResponse =
+  RolesControllerGetAllResponses[keyof RolesControllerGetAllResponses];
+
 export type MenusControllerAddOneData = {
   body: MenusCreateBodyDto;
   path?: never;

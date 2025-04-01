@@ -10,20 +10,15 @@ import {
   Grid,
   FileButton,
   Avatar,
-  MultiSelect,
 } from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
 import {
-  IconBadge4k,
   IconCheck,
   IconGenderFemale,
-  IconExclamationCircle,
-  IconUpload,
   IconGenderMale,
+  IconUpload,
 } from '@tabler/icons-react';
 import { admintorsControllerAddOne, filesControllerUploadFile } from '@/client';
-import useRoleOptions from '@/utils/hooks/useRoleOptions';
-import { notifications } from '@mantine/notifications';
 
 type CreateManagerProps = {
   onSuccess: () => void;
@@ -32,14 +27,14 @@ function CreateManager(props: CreateManagerProps) {
   const { onSuccess } = props;
 
   const [file, setFile] = useState<File | null>(null);
-  const [roleOptions] = useRoleOptions();
+
   const form = useForm({
     initialValues: {
       username: '',
       email: '',
-      sex: '',
+      sex: 'Male',
       avatar: '',
-      roles: [],
+      roles: ['67e9ff47398e2ea2c64f02c5'],
       phone: '',
     },
     validate: {
@@ -47,7 +42,6 @@ function CreateManager(props: CreateManagerProps) {
       email: isEmail('邮箱格式不正确'),
       sex: hasLength({ min: 1 }, '性别不能为空'),
       phone: hasLength({ min: 1, max: 11 }, '手机号不能为空'),
-      roles: hasLength({ min: 1 }, '角色不能为空'),
     },
   });
 
@@ -58,23 +52,11 @@ function CreateManager(props: CreateManagerProps) {
         password: '123456',
       },
     });
-    console.log('addAdmintor', addAdmintor);
-    if (addAdmintor?.error) {
-      notifications.show({
-        color: 'red',
-        title: '提示',
-        message: '创建失败',
-        icon: <IconExclamationCircle  />,
-      });
-      return;
+    if (addAdmintor.data) {
+      onSuccess?.();
     }
-    onSuccess?.();
-    notifications.show({
-      color: 'green',
-      title: '提示',
-      message: '创建成功',
-      icon: <IconCheck />,
-    });
+
+    console.log(values);
   });
 
   const iconProps = {
@@ -168,14 +150,6 @@ function CreateManager(props: CreateManagerProps) {
                 </Flex>
               </Box>
             )}
-          />
-        </Grid.Col>
-        <Grid.Col span={12}>
-          <MultiSelect
-            {...form.getInputProps('roles')}
-            label="角色"
-            placeholder="选择角色"
-            data={roleOptions}
           />
         </Grid.Col>
       </Grid>
