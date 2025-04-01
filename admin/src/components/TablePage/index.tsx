@@ -36,17 +36,17 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
 
   const rows = dataList.map((data) => (
     <Table.Tr key={data[rowkey] as Key}>
-      {props.columns.map((column) => {
+      {props.columns.map((column, columnIndex) => {
         if (column.render) {
           return (
-            <Table.Td key={column.dataKey as Key}>
+            <Table.Td key={`${data[rowkey]}-${columnIndex}`}>
               {column.render(data)}
             </Table.Td>
           );
         }
         if (column.dataKey) {
           return (
-            <Table.Td key={column.dataKey as Key}>
+            <Table.Td key={`${data[rowkey]}-${columnIndex}`}>
               <>{data[column.dataKey]}</>
             </Table.Td>
           );
@@ -56,10 +56,12 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
   ));
   return (
     <Flex direction="column" gap={16}>
-      <Table verticalSpacing="md" {...tableProps}>
-        {getTableHeader()}
-        <Table.Tbody>{rows}</Table.Tbody>
-      </Table>
+      <Table.ScrollContainer minWidth={500}>
+        <Table verticalSpacing="md" {...tableProps}>
+          {getTableHeader()}
+          <Table.Tbody>{rows}</Table.Tbody>
+        </Table>
+      </Table.ScrollContainer>
       <Pagination
         total={0}
         {...paginationProps}
