@@ -18,6 +18,7 @@ import {
   Modal,
   Switch,
   Title,
+  Group,
 } from '@mantine/core';
 import { useDisclosure, useMounted } from '@mantine/hooks';
 import {
@@ -164,17 +165,21 @@ export default () => {
       title: '角色',
       dataKey: 'roles',
       render: ({ roles }) => {
-        return roles.map((role) => {
-          return (
-            <Badge
-              key={role._id}
-              variant="gradient"
-              gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-            >
-              {role.name}
-            </Badge>
-          );
-        });
+        return (
+          <Group>
+            {roles.map((role) => {
+              return (
+                <Badge
+                  key={role._id}
+                  variant="gradient"
+                  gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+                >
+                  {role.name}
+                </Badge>
+              );
+            })}
+          </Group>
+        );
       },
     },
     {
