@@ -13,10 +13,11 @@ import {
   Button,
   Flex,
   Group,
+  Modal,
   Switch,
   Title,
 } from '@mantine/core';
-import { useMounted } from '@mantine/hooks';
+import { useDisclosure, useMounted } from '@mantine/hooks';
 import {
   IconCheck,
   IconEdit,
@@ -29,6 +30,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
 export default () => {
+  const [opened, { open, close }] = useDisclosure(false);
   const [data, setData] = useState<AdmintorPaginationResultDto>();
   const getData = async (params: { pageNo: number }) => {
     const { pageNo } = params;
@@ -143,7 +145,7 @@ export default () => {
         title="管理人员"
         description="管理人员"
         actions={[
-          <Button size="xs" key="add">
+          <Button size="xs" key="add" onClick={open}>
             添加人员
           </Button>,
         ]}
@@ -163,6 +165,9 @@ export default () => {
           }}
         />
       </Page>
+      <Modal opened={opened} onClose={close} title="添加管理人员" centered>
+        {/* Modal content */}
+      </Modal>
     </>
   );
 };
