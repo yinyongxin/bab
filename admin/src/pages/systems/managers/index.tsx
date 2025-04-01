@@ -5,8 +5,9 @@ import {
 } from '@/client';
 import Page from '@/components/Page';
 import TablePage, { TablePageProps } from '@/components/TablePage';
-import { Button } from '@mantine/core';
+import { Avatar, Button, Flex, Switch, Title } from '@mantine/core';
 import { useMounted } from '@mantine/hooks';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
@@ -17,7 +18,7 @@ export default () => {
     const res = await admintorsControllerGetPageList({
       query: {
         pageNo,
-        pageSize: 1,
+        pageSize: 2,
       },
       body: {},
     });
@@ -32,6 +33,14 @@ export default () => {
     {
       title: '管理员名称',
       dataKey: 'username',
+      render(values) {
+        return (
+          <Flex gap={8} align="center">
+            <Avatar src={values?.avatar}></Avatar>
+            <Title order={6}>{values?.username}</Title>
+          </Flex>
+        );
+      },
     },
     {
       title: '邮箱',
@@ -42,7 +51,35 @@ export default () => {
       dataKey: 'phone',
     },
     {
+      title: '状态',
+      dataKey: 'status',
+      render: ({ status }) => {
+        return (
+          <Switch
+            checked={status === 'Open'}
+            color="teal"
+            thumbIcon={
+              status === 'Open' ? (
+                <IconCheck
+                  size={12}
+                  color="var(--mantine-color-teal-6)"
+                  stroke={3}
+                />
+              ) : (
+                <IconX
+                  size={12}
+                  color="var(--mantine-color-red-6)"
+                  stroke={3}
+                />
+              )
+            }
+          />
+        );
+      },
+    },
+    {
       title: '创建时间',
+      dataKey: 'createdTime',
       render: ({ createdTime }) => {
         return dayjs(createdTime).format('YYYY-MM-DD HH:mm:ss');
       },

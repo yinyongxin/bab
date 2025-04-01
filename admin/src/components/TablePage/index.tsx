@@ -4,6 +4,8 @@ import {
   PaginationProps,
   Table,
   TableProps,
+  TableTdProps,
+  TableThProps,
 } from '@mantine/core';
 import { Key } from 'react';
 export type TablePageProps<D> = {
@@ -13,6 +15,8 @@ export type TablePageProps<D> = {
     title: React.ReactNode;
     dataKey?: keyof D;
     render?: (values: D) => React.ReactNode;
+    thProps?: TableThProps;
+    tdProps?: TableTdProps;
   }[];
   dataList: D[];
   rowkey: keyof D;
@@ -25,7 +29,11 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
       <Table.Thead>
         <Table.Tr>
           {props.columns.map((column, columnIndex) => {
-            return <Table.Th key={`${column.title}`}>{column.title}</Table.Th>;
+            return (
+              <Table.Th key={`${column.title}`} {...column.thProps}>
+                {column.title}
+              </Table.Th>
+            );
           })}
         </Table.Tr>
       </Table.Thead>
@@ -37,14 +45,20 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
       {props.columns.map((column) => {
         if (column.render) {
           return (
-            <Table.Td key={`${data[rowkey]}-${column.title}`}>
+            <Table.Td
+              key={`${data[rowkey]}-${column.title}`}
+              {...column.tdProps}
+            >
               {column.render(data)}
             </Table.Td>
           );
         }
         if (column.dataKey) {
           return (
-            <Table.Td key={`${data[rowkey]}-${column.title}`}>
+            <Table.Td
+              key={`${data[rowkey]}-${column.title}`}
+              {...column.tdProps}
+            >
               <>{data[column.dataKey]}</>
             </Table.Td>
           );
@@ -55,7 +69,7 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
   return (
     <Flex direction="column" gap={16}>
       <Table.ScrollContainer minWidth={500}>
-        <Table verticalSpacing="md" {...tableProps}>
+        <Table {...tableProps}>
           {getTableHeader()}
           <Table.Tbody>{rows}</Table.Tbody>
         </Table>
