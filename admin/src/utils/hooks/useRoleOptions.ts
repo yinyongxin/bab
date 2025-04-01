@@ -1,13 +1,18 @@
 import { rolesControllerGetAll, RolesResultDto } from '@/client';
 import { useEffect, useState } from 'react';
 
+let catchList: RolesResultDto[] = [];
 const useRoleOptions = () => {
-  const [list, setList] = useState<RolesResultDto[]>([]);
+  const [list, setList] = useState<RolesResultDto[]>(catchList);
   const getData = async () => {
+    if (catchList.length > 0) {
+      return;
+    }
     const { data } = await rolesControllerGetAll({
       body: {},
     });
     if (data) {
+      catchList = data;
       setList(data);
     }
   };
