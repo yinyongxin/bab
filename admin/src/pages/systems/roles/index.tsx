@@ -15,6 +15,8 @@ import {
   Group,
   Title,
   ActionIcon,
+  Divider,
+  Flex,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
@@ -109,21 +111,23 @@ export default () => {
                     {item.name}
                   </Title>
 
-                  <Text size="sm" c="dimmed" lineClamp={3} h={'64'}>
+                  <Text size="sm" c="dimmed" lineClamp={2} h={'48'}>
                     {item.description}
                   </Text>
-
-                  <Group grow>
-                    <ActionIcon variant="transparent">
-                      <IconEdit />
-                    </ActionIcon>
-                    <ActionIcon variant="transparent" color="yellow">
-                      <IconLayoutSidebarInactive />
-                    </ActionIcon>
-                    <ActionIcon variant="transparent" color="red">
-                      <IconTrash />
-                    </ActionIcon>
-                  </Group>
+                  <Divider />
+                  <Card.Section pb="md">
+                    <Flex justify="space-around" pt="md" px="md">
+                      <ActionIcon variant="transparent">
+                        <IconEdit />
+                      </ActionIcon>
+                      <ActionIcon variant="transparent" color="yellow">
+                        <IconLayoutSidebarInactive />
+                      </ActionIcon>
+                      <ActionIcon variant="transparent" color="red">
+                        <IconTrash />
+                      </ActionIcon>
+                    </Flex>
+                  </Card.Section>
                 </Card>
               </Grid.Col>
             );
