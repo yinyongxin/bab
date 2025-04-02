@@ -46,7 +46,7 @@ const Page = (props: PageProps) => {
       </header>
       {bodyTop}
       <Paper radius="md" p="md" flex={1} {...contentProps}>
-        <ScrollArea h="100%">{children}</ScrollArea>
+        {children}
       </Paper>
       {footer && <Box mt="lg">{footer}</Box>}
     </Flex>
