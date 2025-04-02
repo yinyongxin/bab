@@ -14,10 +14,17 @@ import {
   Card,
   Group,
   Title,
+  ActionIcon,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import CreateManager from './CreateManager';
+import {
+  IconEdit,
+  IconLayoutSidebarInactive,
+  IconMenu,
+  IconTrash,
+} from '@tabler/icons-react';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -81,7 +88,14 @@ export default () => {
         <Grid mt={0}>
           {data?.list.map((item) => {
             return (
-              <Grid.Col span={4}>
+              <Grid.Col
+                span={{
+                  sm: 12,
+                  md: 6,
+                  lg: 4,
+                  xl: 3,
+                }}
+              >
                 <Card shadow="sm" padding="lg" radius="md" withBorder>
                   <Card.Section>
                     <Image
@@ -99,9 +113,17 @@ export default () => {
                     {item.description}
                   </Text>
 
-                  <Button color="blue" fullWidth mt="md" radius="md">
-                    Book classic tour now
-                  </Button>
+                  <Group grow>
+                    <ActionIcon variant="transparent">
+                      <IconEdit />
+                    </ActionIcon>
+                    <ActionIcon variant="transparent" color="yellow">
+                      <IconLayoutSidebarInactive />
+                    </ActionIcon>
+                    <ActionIcon variant="transparent" color="red">
+                      <IconTrash />
+                    </ActionIcon>
+                  </Group>
                 </Card>
               </Grid.Col>
             );
