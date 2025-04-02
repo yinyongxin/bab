@@ -30,9 +30,10 @@ import {
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import CreateManager from './CreateManager';
+import UpdateManager from './UpdateManager';
 import { getFilePath } from '@/utils';
 import { modals } from '@mantine/modals';
+import { sexIcons } from './common';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -139,9 +140,20 @@ export default () => {
       dataKey: 'phone',
     },
     {
+      title: '性别',
+      dataKey: 'sex',
+      render: ({ sex }) => {
+        return (
+          <Group gap="xs">
+            {sex && sexIcons[sex]}
+            <Text>{sex === 'Male' ? '男' : '女'}</Text>
+          </Group>
+        );
+      },
+    },
+    {
       title: '状态',
       dataKey: 'status',
-
       render: ({ _id, status }) => {
         return (
           <Switch
@@ -280,7 +292,7 @@ export default () => {
         title={title}
         centered
       >
-        <CreateManager
+        <UpdateManager
           initalValues={initalValues}
           onSuccess={() => {
             close();

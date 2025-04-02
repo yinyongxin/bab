@@ -43,7 +43,7 @@ const navigationConfig: NavigationTree[] = [
       },
       {
         key: 'roles',
-        path: 'manage',
+        path: 'roles',
         title: 'Roles',
         translateKey: '角色管理',
         authority: [],

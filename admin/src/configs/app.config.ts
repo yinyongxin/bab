@@ -17,7 +17,8 @@ const appConfig: AppConfig = {
   unAuthenticatedEntryPath: '/sign-in',
   enableMock: false,
   locale: 'en',
-  fileBaseUrl: 'http://localhost:3000',
+  // fileBaseUrl: 'http://localhost:3000',
+  fileBaseUrl: 'https://ieib305o-t7b0ee4e-89gxl7fcbirc.vcb3.mcprev.cn/',
 };
 
 export default appConfig;

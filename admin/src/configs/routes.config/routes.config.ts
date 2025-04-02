@@ -42,4 +42,10 @@ export const protectedRoutes = [
     component: lazy(() => import('@/pages/systems/managers')),
     authority: [],
   },
+  {
+    key: 'roles',
+    path: '/systems/roles',
+    component: lazy(() => import('@/pages/systems/roles')),
+    authority: [],
+  },
 ];

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Box,
   Button,
@@ -14,12 +13,9 @@ import {
 } from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
 import {
-  IconBadge4k,
   IconCheck,
-  IconGenderFemale,
   IconExclamationCircle,
   IconUpload,
-  IconGenderMale,
   IconMail,
   IconPhone,
   IconUser,
@@ -27,23 +23,27 @@ import {
   IconUsersGroup,
 } from '@tabler/icons-react';
 import {
-  AdmintorPaginationResultDto,
   admintorsControllerAddOne,
+  admintorsControllerUpdateOne,
+  AdmintorsCreateBodyDto,
   AdmintorsPageItemDto,
-  AdmintorsResultDto,
+  AdmintorsUpdateDto,
   filesControllerUploadFile,
 } from '@/client';
 import useRoleOptions from '@/utils/hooks/useRoleOptions';
 import { notifications } from '@mantine/notifications';
 import { getFilePath } from '@/utils';
+import { sexIcons } from './common';
 
-type CreateManagerProps = {
+type UpdateManagerProps = {
   onSuccess: () => void;
   initalValues?: AdmintorsPageItemDto;
 };
-function CreateManager(props: CreateManagerProps) {
+function UpdateManager(props: UpdateManagerProps) {
   const { onSuccess, initalValues } = props;
   const [roleOptions] = useRoleOptions();
+  const isAdding = !initalValues;
+  const isEditing = initalValues && initalValues._id;
   const form = useForm({
     initialValues: initalValues
       ? { ...initalValues, roles: initalValues.roles.map((item) => item._id) }
@@ -64,14 +64,12 @@ function CreateManager(props: CreateManagerProps) {
     },
   });
 
-  const onSubmit = form.onSubmit(async (values) => {
+  const createrAdmintor = async (values: AdmintorsCreateBodyDto) => {
     const addAdmintor = await admintorsControllerAddOne({
       body: {
         ...values,
-        password: '123456',
       },
     });
-    console.log('addAdmintor', addAdmintor);
     if (addAdmintor?.error) {
       notifications.show({
         color: 'red',
@@ -88,17 +86,47 @@ function CreateManager(props: CreateManagerProps) {
       message: '创建成功',
       icon: <IconCheck />,
     });
-  });
+  };
 
-  const iconProps = {
-    stroke: 1.5,
-    opacity: 0.6,
-    size: 18,
+  const updateAdmintor = async (id: string, values: AdmintorsUpdateDto) => {
+    const addAdmintor = await admintorsControllerUpdateOne({
+      query: {
+        id,
+      },
+      body: {
+        username: values.username,
+        email: values.email,
+        sex: values.sex,
+        avatar: values.avatar,
+        roles: values.roles,
+        phone: values.phone,
+      },
+    });
+    if (addAdmintor?.error) {
+      notifications.show({
+        color: 'red',
+        title: '提示',
+        message: '更新失败',
+        icon: <IconExclamationCircle />,
+      });
+      return;
+    }
+    onSuccess?.();
+    notifications.show({
+      color: 'green',
+      title: '提示',
+      message: '更新成功',
+      icon: <IconCheck />,
+    });
   };
-  const icons: Record<string, React.ReactNode> = {
-    Male: <IconGenderMale color="blue" {...iconProps} />,
-    Female: <IconGenderFemale color="red" {...iconProps} />,
-  };
+
+  const onSubmit = form.onSubmit(async (values) => {
+    if (isAdding) {
+      await createrAdmintor({ ...values, password: '123456' });
+    } else if (isEditing) {
+      await updateAdmintor(initalValues._id, values as AdmintorsUpdateDto);
+    }
+  });
 
   return (
     <form onSubmit={onSubmit}>
@@ -172,13 +200,15 @@ function CreateManager(props: CreateManagerProps) {
               <Box w="100%">
                 <Flex justify="space-between">
                   <Group flex={1}>
-                    {icons[item.option.value]}
+                    {sexIcons[item.option.value]}
                     {item.option.label}
                   </Group>
                   {item.checked && (
                     <IconCheck
                       style={{ marginInlineStart: 'auto' }}
-                      {...iconProps}
+                      stroke={1.5}
+                      opacity={0.6}
+                      size={18}
                     />
                   )}
                 </Flex>
@@ -204,4 +234,4 @@ function CreateManager(props: CreateManagerProps) {
   );
 }
 
-export default CreateManager;
+export default UpdateManager;
