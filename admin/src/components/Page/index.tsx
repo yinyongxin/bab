@@ -1,5 +1,13 @@
-import { Title, Text, Paper, Flex, Box, Group } from '@mantine/core';
-import classes from './Page.module.css';
+import {
+  Title,
+  Text,
+  Paper,
+  Flex,
+  Box,
+  Group,
+  PaperProps,
+  ScrollArea,
+} from '@mantine/core';
 
 type PageProps = {
   children: React.ReactNode;
@@ -9,6 +17,7 @@ type PageProps = {
   footer?: React.ReactNode;
   headerBottom?: React.ReactNode;
   bodyTop?: React.ReactNode;
+  contentProps?: PaperProps;
 };
 const Page = (props: PageProps) => {
   const {
@@ -19,6 +28,7 @@ const Page = (props: PageProps) => {
     footer,
     headerBottom,
     bodyTop,
+    contentProps,
   } = props;
   return (
     <Flex direction="column" gap={24}>
@@ -35,10 +45,10 @@ const Page = (props: PageProps) => {
         {headerBottom}
       </header>
       {bodyTop}
-      <Paper radius="md" p="md" className={classes.page}>
-        <Box mt="lg">{children}</Box>
-        {footer && <Box mt="lg">{footer}</Box>}
+      <Paper radius="md" p="md" flex={1} {...contentProps}>
+        <ScrollArea h="100%">{children}</ScrollArea>
       </Paper>
+      {footer && <Box mt="lg">{footer}</Box>}
     </Flex>
   );
 };

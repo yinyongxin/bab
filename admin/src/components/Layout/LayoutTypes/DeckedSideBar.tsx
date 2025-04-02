@@ -154,7 +154,7 @@ export default function DeckedSideBar() {
     <div
       style={{
         overflow: 'hidden',
-        backgroundColor: 'rgb(236,236,236)',
+        backgroundColor: 'rgb(240,240,240)',
         display: 'flex',
         flex: '1 1 auto',
         height: '100vh',
@@ -164,8 +164,8 @@ export default function DeckedSideBar() {
       <div
         style={{
           padding: '1rem',
-          backgroundColor: 'rgb(241,240,240)',
           flex: 1,
+          overflow: 'auto',
         }}
       >
         <Views />

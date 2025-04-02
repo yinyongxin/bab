@@ -1,46 +1,33 @@
 import {
-  AdmintorPaginationResultDto,
-  AdmintorsPageItemDto,
-  AdmintorsResultDto,
-  admintorsControllerDeleteByIds,
-  admintorsControllerGetPageList,
-  admintorsControllerUpdateOne,
+  RoleQueryPaginationResultDto,
+  rolesControllerDeleteByIds,
+  rolesControllerGetPageList,
 } from '@/client';
 import Page from '@/components/Page';
-import TablePage, { TablePageProps } from '@/components/TablePage';
 import {
-  ActionIcon,
-  Avatar,
   Badge,
   Button,
-  Flex,
   Text,
   Modal,
-  Switch,
+  Image,
+  Grid,
+  Card,
+  Group,
   Title,
 } from '@mantine/core';
-import { useDisclosure, useMounted } from '@mantine/hooks';
-import {
-  IconCheck,
-  IconEdit,
-  IconEye,
-  IconTrash,
-  IconX,
-} from '@tabler/icons-react';
-import dayjs from 'dayjs';
+import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import CreateManager from './CreateManager';
-import { getFilePath } from '@/utils';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [loading, loadingAction] = useDisclosure(false);
-  const [data, setData] = useState<AdmintorPaginationResultDto>();
+  const [data, setData] = useState<RoleQueryPaginationResultDto>();
   const getData = async (params: { pageNo: number }) => {
     try {
       loadingAction.open();
       const { pageNo } = params;
-      const res = await admintorsControllerGetPageList({
+      const res = await rolesControllerGetPageList({
         query: {
           pageNo,
           pageSize: 1,
@@ -54,34 +41,6 @@ export default () => {
     }
   };
 
-  const updateStatus = async (
-    params: Pick<AdmintorsResultDto, '_id' | 'status'>,
-  ) => {
-    admintorsControllerUpdateOne({
-      query: {
-        id: params._id,
-      },
-      body: {
-        status: params.status,
-      },
-    });
-    if (!data) {
-      return;
-    }
-    setData({
-      ...data,
-      list: (data.list || []).map((item) => {
-        if (item._id === params._id) {
-          return {
-            ...item,
-            status: params.status,
-          };
-        }
-        return item;
-      }),
-    });
-  };
-
   useEffect(() => {
     getData({
       pageNo: 1,
@@ -91,7 +50,7 @@ export default () => {
   const deleteById = async (id: string) => {
     try {
       loadingAction.open();
-      await admintorsControllerDeleteByIds({
+      await rolesControllerDeleteByIds({
         body: {
           ids: [id],
         },
@@ -104,136 +63,50 @@ export default () => {
     }
   };
 
-  const columns: TablePageProps<AdmintorsPageItemDto>['columns'] = [
-    {
-      title: '管理员',
-      render(values) {
-        return (
-          <Flex gap={8} align="center">
-            <Avatar src={getFilePath(values?.avatar || '')}></Avatar>
-            <Flex direction="column">
-              <Title order={6}>{values?.username}</Title>
-              <Text size="sm" c="dimmed">
-                {values?.email}
-              </Text>
-            </Flex>
-          </Flex>
-        );
-      },
-    },
-    {
-      title: '电话',
-      dataKey: 'phone',
-    },
-    {
-      title: '状态',
-      dataKey: 'status',
-      render: ({ _id, status }) => {
-        return (
-          <Switch
-            checked={status === 'Open'}
-            onClick={() => {
-              updateStatus({
-                _id,
-                status: status === 'Open' ? 'Close' : 'Open',
-              });
-            }}
-            color="teal"
-            thumbIcon={
-              status === 'Open' ? (
-                <IconCheck
-                  size={12}
-                  color="var(--mantine-color-teal-6)"
-                  stroke={3}
-                />
-              ) : (
-                <IconX
-                  size={12}
-                  color="var(--mantine-color-red-6)"
-                  stroke={3}
-                />
-              )
-            }
-          />
-        );
-      },
-    },
-    {
-      title: '角色',
-      dataKey: 'roles',
-      render: ({ roles }) => {
-        return roles.map((role) => {
-          return (
-            <Badge
-              key={role._id}
-              variant="gradient"
-              gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-            >
-              {role.name}
-            </Badge>
-          );
-        });
-      },
-    },
-    {
-      title: '创建时间',
-      dataKey: 'createdTime',
-      render: ({ createdTime }) => {
-        return dayjs(createdTime).format('YYYY-MM-DD HH:mm:ss');
-      },
-    },
-    {
-      title: '操作',
-      render: (record) => {
-        return (
-          <>
-            <ActionIcon variant="transparent" color="green">
-              <IconEye style={{ width: '70%', height: '70%' }} stroke={1.5} />
-            </ActionIcon>
-            <ActionIcon variant="transparent">
-              <IconEdit style={{ width: '70%', height: '70%' }} stroke={1.5} />
-            </ActionIcon>
-            <ActionIcon
-              variant="transparent"
-              color="red"
-              onClick={() => {
-                deleteById(record._id);
-              }}
-            >
-              <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
-            </ActionIcon>
-          </>
-        );
-      },
-    },
-  ];
-
   return (
     <>
       <Page
-        title="管理人员"
-        description="管理人员"
+        title="人员角色"
+        description="人员角色"
         actions={[
           <Button size="xs" key="add" onClick={open}>
-            添加人员
+            添加角色
           </Button>,
         ]}
+        contentProps={{
+          p: 0,
+          bg: 'transparent',
+        }}
       >
-        <TablePage<AdmintorsPageItemDto>
-          loading={loading}
-          columns={columns}
-          dataList={data?.list || []}
-          rowkey="_id"
-          paginationProps={{
-            total: Math.ceil((data?.total || 0) / (data?.pageSize || 0)),
-            value: data?.pageNo,
-            onChange(value) {
-              getData({
-                pageNo: value,
-              });
-            },
-          }}
-        />
+        <Grid mt={0}>
+          {data?.list.map((item) => {
+            return (
+              <Grid.Col span={4}>
+                <Card shadow="sm" padding="lg" radius="md" withBorder>
+                  <Card.Section>
+                    <Image
+                      src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
+                      height={160}
+                      alt="Norway"
+                    />
+                  </Card.Section>
+
+                  <Title order={4} mt="md">
+                    {item.name}
+                  </Title>
+
+                  <Text size="sm" c="dimmed">
+                    {item.description}
+                  </Text>
+
+                  <Button color="blue" fullWidth mt="md" radius="md">
+                    Book classic tour now
+                  </Button>
+                </Card>
+              </Grid.Col>
+            );
+          })}
+        </Grid>
       </Page>
       <Modal opened={opened} onClose={close} title="添加管理人员" centered>
         <CreateManager
