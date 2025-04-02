@@ -23,8 +23,10 @@ import {
 import { useDisclosure, useMounted } from '@mantine/hooks';
 import {
   IconCheck,
+  IconClock24,
   IconEdit,
   IconEye,
+  IconPhone,
   IconTrash,
   IconX,
 } from '@tabler/icons-react';
@@ -138,6 +140,9 @@ export default () => {
     {
       title: '电话',
       dataKey: 'phone',
+      prefix() {
+        return <IconPhone size={16} />;
+      },
     },
     {
       title: '性别',
@@ -208,6 +213,7 @@ export default () => {
     {
       title: '创建时间',
       dataKey: 'createdTime',
+      prefix: () => <IconClock24 size={16} />,
       render: ({ createdTime }) => {
         return dayjs(createdTime).format('YYYY-MM-DD HH:mm:ss');
       },

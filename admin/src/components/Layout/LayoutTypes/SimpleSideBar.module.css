@@ -6,9 +6,11 @@
     flex-direction: column;
     border-right: rem(1px) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 }
+
 .logo {
     width: 9rem;
 }
+
 .navbarMain {
     overflow-y: auto;
     flex: 1;
@@ -55,13 +57,14 @@
     }
 
     &[data-active] {
+
         &,
         &:hover {
-            background-color: var(--mantine-color-blue-light);
-            color: var(--mantine-color-blue-light-color);
+            background-color: var(--mantine-primary-color-light);
+            color: var(--mantine-primary-color-light-color);
 
             .linkIcon {
-                color: var(--mantine-color-blue-light-color);
+                color: var(--mantine-primary-color-light-color);
             }
         }
     }

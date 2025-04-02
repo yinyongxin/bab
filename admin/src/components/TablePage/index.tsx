@@ -1,6 +1,7 @@
 import {
   Box,
   Flex,
+  Group,
   LoadingOverlay,
   Pagination,
   PaginationProps,
@@ -20,13 +21,14 @@ export type TablePageProps<D> = {
     thProps?: TableThProps;
     tdProps?: TableTdProps;
     width?: string | number;
+    prefix?: (values: D) => React.ReactNode;
   }[];
   dataList: D[];
   rowkey: keyof D;
   loading?: boolean;
 };
 
-function TablePage<D = unknown>(props: TablePageProps<D>) {
+function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
   const { paginationProps, tableProps, dataList, rowkey, loading } = props;
   const getTableHeader = () => {
     return (
@@ -54,34 +56,32 @@ function TablePage<D = unknown>(props: TablePageProps<D>) {
   const rows = dataList.map((data) => (
     <Table.Tr key={data[rowkey] as Key}>
       {props.columns.map((column) => {
+        let tdContent;
         if (column.render) {
-          return (
-            <Table.Td
-              key={`${data[rowkey]}-${column.title}`}
-              {...column.tdProps}
-              style={{
-                width: column.width,
-                ...column.thProps?.style,
-              }}
-            >
-              {column.render(data)}
-            </Table.Td>
+          tdContent = column.render(data);
+        } else if (column.dataKey) {
+          tdContent = data[column.dataKey];
+        }
+        if (column.prefix) {
+          tdContent = (
+            <Flex align="center" gap="xs">
+              {column.prefix(data)}
+              <>{tdContent}</>
+            </Flex>
           );
         }
-        if (column.dataKey) {
-          return (
-            <Table.Td
-              key={`${data[rowkey]}-${column.title}`}
-              {...column.tdProps}
-              style={{
-                width: column.width,
-                ...column.thProps?.style,
-              }}
-            >
-              <>{data[column.dataKey]}</>
-            </Table.Td>
-          );
-        }
+        return (
+          <Table.Td
+            key={`${data[rowkey]}-${column.title}`}
+            {...column.tdProps}
+            style={{
+              width: column.width,
+              ...column.thProps?.style,
+            }}
+          >
+            <>{tdContent}</>
+          </Table.Td>
+        );
       })}
     </Table.Tr>
   ));
