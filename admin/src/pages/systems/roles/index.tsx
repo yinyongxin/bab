@@ -30,7 +30,7 @@ export default () => {
       const res = await rolesControllerGetPageList({
         query: {
           pageNo,
-          pageSize: 1,
+          pageSize: 8,
         },
         body: {},
       });
@@ -86,7 +86,7 @@ export default () => {
                   <Card.Section>
                     <Image
                       src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
-                      height={160}
+                      height={200}
                       alt="Norway"
                     />
                   </Card.Section>
@@ -95,7 +95,7 @@ export default () => {
                     {item.name}
                   </Title>
 
-                  <Text size="sm" c="dimmed">
+                  <Text size="sm" c="dimmed" lineClamp={3} h={'64'}>
                     {item.description}
                   </Text>
 
