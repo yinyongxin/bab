@@ -46,6 +46,7 @@
     }
 
     &[data-active] {
+
         &,
         &:hover {
             background-color: var(--mantine-color-blue-light);
@@ -64,7 +65,7 @@
 
 .title {
     font-family: Greycliff CF,
-    var(--mantine-font-family);
+        var(--mantine-font-family);
     margin-bottom: var(--mantine-spacing-md);
     background-color: var(--mantine-color-body);
     padding: var(--mantine-spacing-md);
@@ -103,6 +104,7 @@
     }
 
     &[data-active] {
+
         &,
         &:hover {
             border-left-color: var(--mantine-color-blue-filled);
@@ -110,12 +112,4 @@
             color: var(--mantine-color-white);
         }
     }
-}
-
-.sideBarBottomContent {
-    width: 239px;
-    position: fixed;
-    bottom: 0;
-    background-color: var(--mantine-color-gray-0);
-    z-index: 10;
 }

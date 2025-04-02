@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { UnstyledButton, Tooltip, Title, rem } from '@mantine/core';
+import { UnstyledButton, Tooltip, Title, rem, ActionIcon } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import SimpleSideBarBottomContent from '@/components/Layout/LayoutTypes/SimpleSideBarBottomContent';
 import navigationConfig from '@/configs/navigation.config';
@@ -8,8 +8,11 @@ import Views from '@/components/Layout/Views';
 import { useTranslation } from 'react-i18next';
 import AuthorityCheck from '@/route/AuthorityCheck';
 import { useAppSelector } from '@/store';
+import { IconLogout } from '@tabler/icons-react';
+import useAuth from '@/utils/hooks/useAuth';
 
 function DeckedSideBarContent() {
+  const { signOut } = useAuth();
   const [activeMainLink, setActiveMainLink] = useState('');
   const [activeSubLink, setActiveSubLink] = useState('');
   const [title, setTitle] = useState('');
@@ -27,7 +30,11 @@ function DeckedSideBarContent() {
     setTitle(currentMainLink.toUpperCase());
   }, [location.pathname]);
 
-  const handleMainLinkClick = (mainLink: string, title: string, translateKey: string) => {
+  const handleMainLinkClick = (
+    mainLink: string,
+    title: string,
+    translateKey: string,
+  ) => {
     setActiveMainLink(mainLink.split('/')[1]);
     setTitle(translateKey ? t(translateKey) : title);
   };
@@ -37,9 +44,13 @@ function DeckedSideBarContent() {
       <div className={classes.wrapper}>
         <div className={classes.aside}>
           <div>
-            <img className={classes.logo} alt={'Mantine Logo'} src={'/logo/logo-light-full.svg'} />
+            <img
+              className={classes.logo}
+              alt={'Mantine Logo'}
+              src={'/logo/logo-light-full.svg'}
+            />
           </div>
-          <div style={{ overflowY: 'auto' }}>
+          <div style={{ overflowY: 'auto', flex: 1 }}>
             {navigationConfig.map((link, index) => (
               <AuthorityCheck
                 userAuthority={userAuthority ? userAuthority : []}
@@ -54,9 +65,17 @@ function DeckedSideBarContent() {
                   key={index}
                 >
                   <UnstyledButton
-                    onClick={() => handleMainLinkClick(link.path, link.title, link.translateKey)}
+                    onClick={() =>
+                      handleMainLinkClick(
+                        link.path,
+                        link.title,
+                        link.translateKey,
+                      )
+                    }
                     className={classes.mainLink}
-                    data-active={link.path.split('/')[1] === activeMainLink || undefined}
+                    data-active={
+                      link.path.split('/')[1] === activeMainLink || undefined
+                    }
                   >
                     <link.icon
                       style={{
@@ -70,6 +89,15 @@ function DeckedSideBarContent() {
               </AuthorityCheck>
             ))}
           </div>
+          <ActionIcon
+            size={42}
+            variant="transparent"
+            aria-label="ActionIcon with size as a number"
+            mb="xs"
+            onClick={signOut}
+          >
+            <IconLogout />
+          </ActionIcon>
         </div>
         <div className={classes.main}>
           <div>
@@ -82,7 +110,12 @@ function DeckedSideBarContent() {
               {navigationConfig.map((link, index) => (
                 <div
                   key={index}
-                  style={{ display: link.path.split('/')[1] === activeMainLink ? 'block' : 'none' }}
+                  style={{
+                    display:
+                      link.path.split('/')[1] === activeMainLink
+                        ? 'block'
+                        : 'none',
+                  }}
                 >
                   {link.subMenu?.map((submenuItem, subIndex) => {
                     return (
@@ -94,7 +127,9 @@ function DeckedSideBarContent() {
                         <Link
                           to={`${link.path}/${submenuItem.path}`}
                           className={classes.link}
-                          data-active={`${submenuItem.path}` === activeSubLink || undefined}
+                          data-active={
+                            `${submenuItem.path}` === activeSubLink || undefined
+                          }
                           key={subIndex}
                         >
                           {submenuItem.translateKey
@@ -107,9 +142,6 @@ function DeckedSideBarContent() {
                 </div>
               ))}
             </div>
-          </div>
-          <div className={classes.sideBarBottomContent}>
-            <SimpleSideBarBottomContent />
           </div>
         </div>
       </div>
