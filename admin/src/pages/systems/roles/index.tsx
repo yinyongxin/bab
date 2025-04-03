@@ -114,6 +114,7 @@ export default () => {
           {data?.list.map((item) => {
             return (
               <Grid.Col
+                key={item._id}
                 span={{
                   sm: 12,
                   md: 6,

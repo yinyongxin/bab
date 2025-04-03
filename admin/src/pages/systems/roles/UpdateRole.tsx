@@ -97,7 +97,7 @@ function UpdateRole(props: UpdateRoleProps) {
             {(props) => (
               <Box
                 {...props}
-                h="150"
+                h="180"
                 bg="gray.1"
                 style={{
                   borderRadius: 'var(--mantine-radius-default)',
