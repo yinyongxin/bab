@@ -18,7 +18,7 @@ const appConfig: AppConfig = {
   enableMock: false,
   locale: 'en',
   // fileBaseUrl: 'http://localhost:3000',
-  fileBaseUrl: 'https://ieib305o-t7b0ee4e-89gxl7fcbirc.vcb3.mcprev.cn/',
+  fileBaseUrl: 'https://dxaui78l-d3cpdocj-82qa716erid4.vcb3.mcprev.cn/',
 };
 
 export default appConfig;

@@ -259,7 +259,6 @@ export default () => {
         description="欢迎使用管理员管理页面！"
         actions={[
           <Button
-            size="xs"
             key="add"
             onClick={() => {
               setTitle('添加人员');

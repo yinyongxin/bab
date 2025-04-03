@@ -20,10 +20,10 @@ import {
 } from '@tabler/icons-react';
 import { admintorsControllerAddOne, filesControllerUploadFile } from '@/client';
 
-type CreateManagerProps = {
+type UpdateRoleProps = {
   onSuccess: () => void;
 };
-function CreateManager(props: CreateManagerProps) {
+function UpdateRole(props: UpdateRoleProps) {
   const { onSuccess } = props;
 
   const [file, setFile] = useState<File | null>(null);
@@ -161,4 +161,4 @@ function CreateManager(props: CreateManagerProps) {
   );
 }
 
-export default CreateManager;
+export default UpdateRole;

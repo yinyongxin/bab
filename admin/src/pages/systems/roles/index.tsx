@@ -5,14 +5,12 @@ import {
 } from '@/client';
 import Page from '@/components/Page';
 import {
-  Badge,
   Button,
   Text,
   Modal,
   Image,
   Grid,
   Card,
-  Group,
   Title,
   ActionIcon,
   Divider,
@@ -20,11 +18,10 @@ import {
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
-import CreateManager from './CreateManager';
+import UpdateRole from './UpdateRole';
 import {
   IconEdit,
   IconLayoutSidebarInactive,
-  IconMenu,
   IconTrash,
 } from '@tabler/icons-react';
 
@@ -135,7 +132,7 @@ export default () => {
         </Grid>
       </Page>
       <Modal opened={opened} onClose={close} title="添加管理人员" centered>
-        <CreateManager
+        <UpdateRole
           onSuccess={() => {
             close();
             getData({ pageNo: 1 });
