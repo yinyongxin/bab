@@ -36,7 +36,12 @@ export default () => {
         {data
           ?.find((item) => item._id === current)
           ?.children.map((item) => {
-            return item.name;
+            return (
+              <div>
+                <div>{item.name}</div>
+                <div>{item.pageAuthority}</div>
+              </div>
+            );
           })}
       </Flex>
     </Page>

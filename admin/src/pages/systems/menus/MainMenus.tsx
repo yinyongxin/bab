@@ -1,6 +1,6 @@
 import { TreeMenuDataDto } from '@/client';
 import FontIcons from '@/components/FontIcons';
-import { ActionIcon, Box, Card, Flex, Group, Title } from '@mantine/core';
+import { ActionIcon, Box, Card, Flex, Text, Title } from '@mantine/core';
 import { IconChevronRight, IconEdit, IconTrash } from '@tabler/icons-react';
 
 type MainMenuProps = {
@@ -40,6 +40,9 @@ const MainMenu = (props: MainMenuProps) => {
             </ActionIcon>
           </div>
         </Flex>
+        <Text c="dimmed" mt="sm" size="xs">
+          {data.description}
+        </Text>
       </Card>
     </Box>
   );
