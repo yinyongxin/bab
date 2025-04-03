@@ -22,23 +22,27 @@ import {
   IconUpload,
 } from '@tabler/icons-react';
 import {
+  RoleCreateBodyDto,
+  RolesResultDto,
+  RolesUpdateDto,
   admintorsControllerAddOne,
   filesControllerUploadFile,
   rolesControllerAddOne,
+  rolesControllerUpdateOne,
 } from '@/client';
 import { notifications } from '@mantine/notifications';
 import { getFilePath } from '@/utils';
 
 type UpdateRoleProps = {
   onSuccess: () => void;
+  initalValues?: RolesResultDto;
 };
 function UpdateRole(props: UpdateRoleProps) {
-  const { onSuccess } = props;
-
-  const [file, setFile] = useState<File | null>(null);
-
+  const { onSuccess, initalValues } = props;
+  const isAdding = !initalValues;
+  const isEditing = initalValues && initalValues._id;
   const form = useForm({
-    initialValues: {
+    initialValues: initalValues || {
       name: '',
       description: '',
       icon: '',
@@ -50,13 +54,13 @@ function UpdateRole(props: UpdateRoleProps) {
     },
   });
 
-  const onSubmit = form.onSubmit(async (values) => {
-    const addRoleRes = await rolesControllerAddOne({
+  const createrRole = async (values: RoleCreateBodyDto) => {
+    const addAdmintor = await rolesControllerAddOne({
       body: {
         ...values,
       },
     });
-    if (addRoleRes?.error) {
+    if (addAdmintor?.error) {
       notifications.show({
         color: 'red',
         title: '提示',
@@ -72,6 +76,43 @@ function UpdateRole(props: UpdateRoleProps) {
       message: '创建成功',
       icon: <IconCheck />,
     });
+  };
+
+  const updateRole = async (id: string, values: RolesUpdateDto) => {
+    const addAdmintor = await rolesControllerUpdateOne({
+      query: {
+        id,
+      },
+      body: {
+        name: values.name,
+        description: values.description,
+        icon: values.icon,
+      },
+    });
+    if (addAdmintor?.error) {
+      notifications.show({
+        color: 'red',
+        title: '提示',
+        message: '更新失败',
+        icon: <IconExclamationCircle />,
+      });
+      return;
+    }
+    onSuccess?.();
+    notifications.show({
+      color: 'green',
+      title: '提示',
+      message: '更新成功',
+      icon: <IconCheck />,
+    });
+  };
+
+  const onSubmit = form.onSubmit(async (values) => {
+    if (isAdding) {
+      await createrRole(values);
+    } else if (isEditing) {
+      await updateRole(initalValues._id, values);
+    }
   });
 
   return (

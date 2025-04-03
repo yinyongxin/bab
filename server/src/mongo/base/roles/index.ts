@@ -10,8 +10,8 @@ export class Roles extends BaseDocument {
   @Prop({
     unique: true,
     required: true,
-    minlength: 5,
-    maxlength: 10,
+    minlength: 1,
+    maxlength: 20,
   })
   // swagger
   @ApiProperty({ required: true, description: '角色名称', example: 'role' })

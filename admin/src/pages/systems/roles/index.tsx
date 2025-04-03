@@ -1,5 +1,6 @@
 import {
   RoleQueryPaginationResultDto,
+  RolesResultDto,
   rolesControllerDeleteByIds,
   rolesControllerGetPageList,
 } from '@/client';
@@ -31,6 +32,7 @@ import { modals } from '@mantine/modals';
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [title, setTitle] = useState('');
+  const [initalValues, setInitalValues] = useState<RolesResultDto>();
   const [loading, loadingAction] = useDisclosure(false);
   const [data, setData] = useState<RoleQueryPaginationResultDto>();
   const getData = async (params: { pageNo: number }) => {
@@ -88,7 +90,13 @@ export default () => {
         title="人员角色"
         description="人员角色"
         actions={[
-          <Button key="add" onClick={open}>
+          <Button
+            key="add"
+            onClick={() => {
+              setTitle('添加管理人员');
+              open();
+            }}
+          >
             添加角色
           </Button>,
         ]}
@@ -141,7 +149,14 @@ export default () => {
                   <Divider />
                   <Card.Section pb="md">
                     <Flex justify="space-around" pt="md" px="md">
-                      <ActionIcon variant="transparent">
+                      <ActionIcon
+                        variant="transparent"
+                        onClick={() => {
+                          setTitle('编辑信息');
+                          setInitalValues(item);
+                          open();
+                        }}
+                      >
                         <IconEdit />
                       </ActionIcon>
                       <ActionIcon variant="transparent" color="yellow">
@@ -164,8 +179,19 @@ export default () => {
           })}
         </Grid>
       </Page>
-      <Modal opened={opened} onClose={close} title="添加管理人员" centered>
+      <Modal
+        opened={opened}
+        onClose={() => {
+          close();
+          if (initalValues) {
+            setInitalValues(undefined);
+          }
+        }}
+        title={title}
+        centered
+      >
         <UpdateRole
+          initalValues={initalValues}
           onSuccess={() => {
             close();
             getData({ pageNo: 1 });
