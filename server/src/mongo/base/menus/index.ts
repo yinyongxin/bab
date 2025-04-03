@@ -113,14 +113,12 @@ export class Menus extends BaseDocument {
    * 菜单图标
    */
   @Prop({
-    required: false,
-    default: (data) => {
-      return !data.path ? 'defaultIcon' : null;
-    },
+    required: true,
+    default: '',
   })
   // swagger
   @ApiProperty({
-    required: false,
+    required: true,
     description: '图标',
     example: '',
   })
@@ -131,14 +129,14 @@ export class Menus extends BaseDocument {
    */
   @Prop({
     required: false,
-    default: null,
+    default: '',
     type: String,
   })
   // swagger
   @ApiProperty({
     required: false,
     description: '图标',
-    example: null,
+    example: '',
   })
   parent: string;
 }

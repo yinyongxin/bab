@@ -6,6 +6,7 @@ import {
   Put,
   Delete,
   Patch,
+  Post,
 } from '@nestjs/common';
 import {
   ApiOkResponse,
@@ -20,6 +21,7 @@ import {
   MenusResultDto,
   TreeMenuDataDto,
   MenusUpdateDto,
+  MenusQueryDto,
 } from './dto';
 import {
   DeleteIdsDto,
@@ -103,7 +105,7 @@ export class MenusController {
     return res;
   }
 
-  @Get('getAll')
+  @Post('getAllByFilter')
   @ApiOkResponse({
     description: '获取所有菜单',
     type: [MenusResultDto],
@@ -112,8 +114,8 @@ export class MenusController {
     description: '获取所有菜单',
     summary: '获取所有菜单',
   })
-  async getAllMenus() {
-    const res = await this.usersService.getAllMenus();
+  async getAllByFilter(@Body() body: MenusQueryDto) {
+    const res = await this.usersService.getAllByFilter(body);
     return res;
   }
 }

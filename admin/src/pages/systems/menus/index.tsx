@@ -1,21 +1,11 @@
-import { TreeMenuDataDto, menusControllerGetTreeData } from '@/client';
 import Page from '@/components/Page';
-import { Box, Flex, Grid, Paper } from '@mantine/core';
-import { useShallowEffect } from '@mantine/hooks';
+import { Box, Flex } from '@mantine/core';
 import { useState } from 'react';
-import MainMenu from './MainMenus';
+import { MainMenuList } from './MainMenuList';
 
 export default () => {
-  const [data, setDate] = useState<TreeMenuDataDto[]>();
   const [current, setCurrent] = useState<string>();
-  const getData = async () => {
-    const menuRes = await menusControllerGetTreeData();
-    setCurrent(menuRes.data?.[0]._id);
-    setDate(menuRes.data);
-  };
-  useShallowEffect(() => {
-    getData();
-  }, []);
+
   return (
     <Page
       style={{
@@ -28,21 +18,9 @@ export default () => {
       }}
     >
       <Flex h="100%" gap="xl">
-        <Box w={300}>
-          {data?.map((item) => {
-            return <MainMenu data={item} key={item._id} />;
-          })}
+        <Box w={400}>
+          <MainMenuList />
         </Box>
-        {data
-          ?.find((item) => item._id === current)
-          ?.children.map((item) => {
-            return (
-              <div>
-                <div>{item.name}</div>
-                <div>{item.pageAuthority}</div>
-              </div>
-            );
-          })}
       </Flex>
     </Page>
   );

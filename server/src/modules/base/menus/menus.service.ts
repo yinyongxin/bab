@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
-import { MenusCreateBodyDto, MenusUpdateDto } from './dto';
+import { MenusCreateBodyDto, MenusQueryDto, MenusUpdateDto } from './dto';
 import { Menus } from '../../../mongo/base';
 import { deleteByIds } from '../../../mongo/tools';
 import { DeleteIdsDto } from 'src/dtos';
@@ -71,8 +71,7 @@ export class MenusService {
     return getTree(null);
   }
 
-  async getAllMenus() {
-    const dataList = await this.menusModel.find().exec();
-    return dataList;
+  getAllByFilter(filter: MenusQueryDto) {
+    return this.menusModel.find(filter).exec();
   }
 }

@@ -12,7 +12,7 @@ import type {
   MenusControllerAddOneResponse,
   MenusControllerFindByIdResponse,
   MenusControllerGetTreeDataResponse,
-  MenusControllerGetAllMenusResponse,
+  MenusControllerGetAllByFilterResponse,
 } from './types.gen';
 
 const admintorsResultDtoSchemaResponseTransformer = (data: any) => {
@@ -154,9 +154,9 @@ export const menusControllerGetTreeDataResponseTransformer = async (
   return data;
 };
 
-export const menusControllerGetAllMenusResponseTransformer = async (
+export const menusControllerGetAllByFilterResponseTransformer = async (
   data: any,
-): Promise<MenusControllerGetAllMenusResponse> => {
+): Promise<MenusControllerGetAllByFilterResponse> => {
   data = data.map((item: any) => {
     return menusResultDtoSchemaResponseTransformer(item);
   });

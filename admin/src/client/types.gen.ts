@@ -392,6 +392,10 @@ export type MenusCreateBodyDto = {
    */
   name: string;
   /**
+   * 菜单唯一键
+   */
+  uniqueKey: string;
+  /**
    * 菜单名称
    */
   description?: string;
@@ -406,11 +410,11 @@ export type MenusCreateBodyDto = {
   /**
    * 页面权限
    */
-  pageAuthority?: 'Open' | 'Delete' | 'Update' | 'Query';
+  pageAuthority?: 'Create' | 'Delete' | 'Update' | 'Query';
   /**
    * 图标
    */
-  icon?: string;
+  icon: string;
   /**
    * 图标
    */
@@ -431,6 +435,10 @@ export type MenusResultDto = {
    */
   name: string;
   /**
+   * 菜单唯一键
+   */
+  uniqueKey: string;
+  /**
    * 菜单名称
    */
   description?: string;
@@ -445,11 +453,11 @@ export type MenusResultDto = {
   /**
    * 页面权限
    */
-  pageAuthority?: 'Open' | 'Delete' | 'Update' | 'Query';
+  pageAuthority?: 'Create' | 'Delete' | 'Update' | 'Query';
   /**
    * 图标
    */
-  icon?: string;
+  icon: string;
   /**
    * 图标
    */
@@ -470,6 +478,10 @@ export type MenusUpdateDto = {
    */
   name?: string;
   /**
+   * 菜单唯一键
+   */
+  uniqueKey?: string;
+  /**
    * 菜单名称
    */
   description?: string;
@@ -484,7 +496,7 @@ export type MenusUpdateDto = {
   /**
    * 页面权限
    */
-  pageAuthority?: 'Open' | 'Delete' | 'Update' | 'Query';
+  pageAuthority?: 'Create' | 'Delete' | 'Update' | 'Query';
   /**
    * 图标
    */
@@ -513,6 +525,10 @@ export type TreeMenuDataDto = {
    */
   name: string;
   /**
+   * 菜单唯一键
+   */
+  uniqueKey: string;
+  /**
    * 菜单名称
    */
   description?: string;
@@ -527,11 +543,11 @@ export type TreeMenuDataDto = {
   /**
    * 页面权限
    */
-  pageAuthority?: 'Open' | 'Delete' | 'Update' | 'Query';
+  pageAuthority?: 'Create' | 'Delete' | 'Update' | 'Query';
   /**
    * 图标
    */
-  icon?: string;
+  icon: string;
   /**
    * 图标
    */
@@ -544,6 +560,49 @@ export type TreeMenuDataDto = {
    * 唯一值
    */
   children: Array<TreeMenuDataDto>;
+};
+
+export type MenusQueryDto = {
+  /**
+   * 创建日期
+   */
+  createdTime?: Date;
+  /**
+   * 更新日期
+   */
+  updatedTime?: Date;
+  /**
+   * 菜单名称
+   */
+  name?: string;
+  /**
+   * 菜单唯一键
+   */
+  uniqueKey?: string;
+  /**
+   * 菜单名称
+   */
+  description?: string;
+  /**
+   * 菜单路径
+   */
+  path?: string;
+  /**
+   * 用作菜单排序
+   */
+  sort?: number;
+  /**
+   * 页面权限
+   */
+  pageAuthority?: 'Create' | 'Delete' | 'Update' | 'Query';
+  /**
+   * 图标
+   */
+  icon?: string;
+  /**
+   * 图标
+   */
+  parent?: string;
 };
 
 export type FileUploadDto = {
@@ -909,22 +968,22 @@ export type MenusControllerGetTreeDataResponses = {
 export type MenusControllerGetTreeDataResponse =
   MenusControllerGetTreeDataResponses[keyof MenusControllerGetTreeDataResponses];
 
-export type MenusControllerGetAllMenusData = {
-  body?: never;
+export type MenusControllerGetAllByFilterData = {
+  body: MenusQueryDto;
   path?: never;
   query?: never;
-  url: '/api/menus/getAll';
+  url: '/api/menus/getAllByFilter';
 };
 
-export type MenusControllerGetAllMenusResponses = {
+export type MenusControllerGetAllByFilterResponses = {
   /**
    * 获取所有菜单
    */
   200: Array<MenusResultDto>;
 };
 
-export type MenusControllerGetAllMenusResponse =
-  MenusControllerGetAllMenusResponses[keyof MenusControllerGetAllMenusResponses];
+export type MenusControllerGetAllByFilterResponse =
+  MenusControllerGetAllByFilterResponses[keyof MenusControllerGetAllByFilterResponses];
 
 export type FilesControllerUploadFileData = {
   /**

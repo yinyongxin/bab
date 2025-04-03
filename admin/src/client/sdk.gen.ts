@@ -42,8 +42,8 @@ import type {
   MenusControllerFindByIdResponse,
   MenusControllerGetTreeDataData,
   MenusControllerGetTreeDataResponse,
-  MenusControllerGetAllMenusData,
-  MenusControllerGetAllMenusResponse,
+  MenusControllerGetAllByFilterData,
+  MenusControllerGetAllByFilterResponse,
   FilesControllerUploadFileData,
   FilesControllerUploadFileResponse,
   FilesControllerUploadFilesData,
@@ -60,7 +60,7 @@ import {
   menusControllerAddOneResponseTransformer,
   menusControllerFindByIdResponseTransformer,
   menusControllerGetTreeDataResponseTransformer,
-  menusControllerGetAllMenusResponseTransformer,
+  menusControllerGetAllByFilterResponseTransformer,
 } from './transformers.gen';
 import { client as _heyApiClient } from './client.gen';
 
@@ -470,19 +470,23 @@ export const menusControllerGetTreeData = <
  * 获取所有菜单
  * 获取所有菜单
  */
-export const menusControllerGetAllMenus = <
+export const menusControllerGetAllByFilter = <
   ThrowOnError extends boolean = false,
 >(
-  options?: Options<MenusControllerGetAllMenusData, ThrowOnError>,
+  options: Options<MenusControllerGetAllByFilterData, ThrowOnError>,
 ) => {
-  return (options?.client ?? _heyApiClient).get<
-    MenusControllerGetAllMenusResponse,
+  return (options.client ?? _heyApiClient).post<
+    MenusControllerGetAllByFilterResponse,
     unknown,
     ThrowOnError
   >({
-    responseTransformer: menusControllerGetAllMenusResponseTransformer,
-    url: '/api/menus/getAll',
+    responseTransformer: menusControllerGetAllByFilterResponseTransformer,
+    url: '/api/menus/getAllByFilter',
     ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
   });
 };
 
