@@ -9,16 +9,25 @@ import {
   Text,
   Grid,
   FileButton,
-  Avatar,
+  Image,
+  Textarea,
+  Container,
 } from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
 import {
   IconCheck,
+  IconExclamationCircle,
   IconGenderFemale,
   IconGenderMale,
   IconUpload,
 } from '@tabler/icons-react';
-import { admintorsControllerAddOne, filesControllerUploadFile } from '@/client';
+import {
+  admintorsControllerAddOne,
+  filesControllerUploadFile,
+  rolesControllerAddOne,
+} from '@/client';
+import { notifications } from '@mantine/notifications';
+import { getFilePath } from '@/utils';
 
 type UpdateRoleProps = {
   onSuccess: () => void;
@@ -30,126 +39,99 @@ function UpdateRole(props: UpdateRoleProps) {
 
   const form = useForm({
     initialValues: {
-      username: '',
-      email: '',
-      sex: 'Male',
-      avatar: '',
-      roles: ['67e9ff47398e2ea2c64f02c5'],
-      phone: '',
+      name: '',
+      description: '',
+      icon: '',
     },
     validate: {
-      username: hasLength({ min: 1 }, '用户名不能为空'),
-      email: isEmail('邮箱格式不正确'),
-      sex: hasLength({ min: 1 }, '性别不能为空'),
-      phone: hasLength({ min: 1, max: 11 }, '手机号不能为空'),
+      name: hasLength({ min: 1 }, '用户名不能为空'),
+      description: hasLength({ min: 1 }, '描述不能为空'),
+      icon: hasLength({ min: 1 }, '头像不能为空'),
     },
   });
 
   const onSubmit = form.onSubmit(async (values) => {
-    const addAdmintor = await admintorsControllerAddOne({
+    const addRoleRes = await rolesControllerAddOne({
       body: {
         ...values,
-        password: '123456',
       },
     });
-    if (addAdmintor.data) {
-      onSuccess?.();
+    if (addRoleRes?.error) {
+      notifications.show({
+        color: 'red',
+        title: '提示',
+        message: '创建失败',
+        icon: <IconExclamationCircle />,
+      });
+      return;
     }
-
-    console.log(values);
+    onSuccess?.();
+    notifications.show({
+      color: 'green',
+      title: '提示',
+      message: '创建成功',
+      icon: <IconCheck />,
+    });
   });
-
-  const iconProps = {
-    stroke: 1.5,
-    opacity: 0.6,
-    size: 18,
-  };
-  const icons: Record<string, React.ReactNode> = {
-    Male: <IconGenderMale color="blue" {...iconProps} />,
-    Female: <IconGenderFemale color="red" {...iconProps} />,
-  };
 
   return (
     <form onSubmit={onSubmit}>
-      <Flex justify="center" pb="lg" pt="lg">
-        <FileButton
-          onChange={async (file) => {
-            if (!file) {
-              return;
-            }
-            setFile(file);
-            const res = await filesControllerUploadFile({
-              body: {
-                file: file,
-              },
-            });
-            if (res.data) {
-              form.setFieldValue('avatar', res.data.url);
-            }
-          }}
-          accept="image/png,image/jpeg"
-        >
-          {(props) => (
-            <Avatar
-              {...props}
-              size={100}
-              src={file ? URL.createObjectURL(file) : ''}
-            >
-              <IconUpload stroke={1.5} />
-            </Avatar>
-          )}
-        </FileButton>
-      </Flex>
-
       <Grid>
         <Grid.Col span={12}>
-          <TextInput
-            {...form.getInputProps('username')}
-            label="用户名"
-            placeholder="填写用户名"
-          />
-        </Grid.Col>
-        <Grid.Col span={12}>
-          <TextInput
-            {...form.getInputProps('email')}
-            label="邮箱"
-            placeholder="填写邮箱"
-          />
-        </Grid.Col>
-        <Grid.Col span={12}>
-          <TextInput
-            {...form.getInputProps('phone')}
-            label="手机号"
-            type="tel"
-            placeholder="填写手机号"
-            maxLength={11}
-          />
-        </Grid.Col>
-        <Grid.Col span={12}>
-          <Select
-            {...form.getInputProps('sex')}
-            label="性别"
-            placeholder="选择性别"
-            data={[
-              { label: '男生', value: 'Male' },
-              { label: '女生', value: 'Female' },
-            ]}
-            renderOption={(item) => (
-              <Box w="100%">
-                <Flex justify="space-between">
-                  <Group flex={1}>
-                    {icons[item.option.value]}
-                    {item.option.label}
-                  </Group>
-                  {item.checked && (
-                    <IconCheck
-                      style={{ marginInlineStart: 'auto' }}
-                      {...iconProps}
-                    />
-                  )}
-                </Flex>
+          <FileButton
+            onChange={async (file) => {
+              if (!file) {
+                return;
+              }
+              const res = await filesControllerUploadFile({
+                body: {
+                  file: file,
+                },
+              });
+              if (res.data) {
+                form.setFieldValue('icon', res.data.url);
+              }
+            }}
+            accept="image/png,image/jpeg"
+          >
+            {(props) => (
+              <Box
+                {...props}
+                h="150"
+                bg="gray.1"
+                style={{
+                  borderRadius: 'var(--mantine-radius-default)',
+                  cursor: 'pointer',
+                }}
+              >
+                {form.values.icon ? (
+                  <Image
+                    width="100%"
+                    height="100%"
+                    src={getFilePath(form.values.icon)}
+                    fit="cover"
+                  ></Image>
+                ) : (
+                  <Flex justify="center" align="center" h="100%">
+                    <IconUpload stroke={1.5} />
+                  </Flex>
+                )}
               </Box>
             )}
+          </FileButton>
+        </Grid.Col>
+        <Grid.Col span={12}>
+          <TextInput
+            {...form.getInputProps('name')}
+            label="角色名"
+            placeholder="填写角色名"
+          />
+        </Grid.Col>
+        <Grid.Col span={12}>
+          <Textarea
+            {...form.getInputProps('description')}
+            label="描述"
+            placeholder="填写描述"
           />
         </Grid.Col>
       </Grid>

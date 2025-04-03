@@ -15,6 +15,7 @@ import {
   ActionIcon,
   Divider,
   Flex,
+  Pagination,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
@@ -24,9 +25,12 @@ import {
   IconLayoutSidebarInactive,
   IconTrash,
 } from '@tabler/icons-react';
+import { getFilePath } from '@/utils';
+import { modals } from '@mantine/modals';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
+  const [title, setTitle] = useState('');
   const [loading, loadingAction] = useDisclosure(false);
   const [data, setData] = useState<RoleQueryPaginationResultDto>();
   const getData = async (params: { pageNo: number }) => {
@@ -54,19 +58,28 @@ export default () => {
   }, []);
 
   const deleteById = async (id: string) => {
-    try {
-      loadingAction.open();
-      await rolesControllerDeleteByIds({
-        body: {
-          ids: [id],
-        },
-      });
-      await getData({
-        pageNo: 1,
-      });
-    } finally {
-      loadingAction.close();
-    }
+    modals.openConfirmModal({
+      title: '确认删除当前角色？',
+      centered: true,
+      children: <Text size="sm">请注意，删除角色后，将无法恢复。</Text>,
+      labels: { confirm: '删除', cancel: '取消' },
+      confirmProps: { color: 'red' },
+      onConfirm: async () => {
+        try {
+          loadingAction.open();
+          await rolesControllerDeleteByIds({
+            body: {
+              ids: [id],
+            },
+          });
+          await getData({
+            pageNo: 1,
+          });
+        } finally {
+          loadingAction.close();
+        }
+      },
+    });
   };
 
   return (
@@ -75,7 +88,7 @@ export default () => {
         title="人员角色"
         description="人员角色"
         actions={[
-          <Button size="xs" key="add" onClick={open}>
+          <Button key="add" onClick={open}>
             添加角色
           </Button>,
         ]}
@@ -83,6 +96,19 @@ export default () => {
           p: 0,
           bg: 'transparent',
         }}
+        footer={
+          <Flex justify="flex-end">
+            <Pagination
+              total={Math.ceil((data?.total || 0) / (data?.pageSize || 0))}
+              value={data?.pageNo}
+              onChange={(value) => {
+                getData({
+                  pageNo: value,
+                });
+              }}
+            />
+          </Flex>
+        }
       >
         <Grid mt={0}>
           {data?.list.map((item) => {
@@ -96,9 +122,9 @@ export default () => {
                 }}
               >
                 <Card shadow="sm" padding="lg" radius="md" withBorder>
-                  <Card.Section>
+                  <Card.Section bg="gray.1">
                     <Image
-                      src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png"
+                      src={getFilePath(item.icon)}
                       height={200}
                       alt="Norway"
                     />
@@ -120,7 +146,13 @@ export default () => {
                       <ActionIcon variant="transparent" color="yellow">
                         <IconLayoutSidebarInactive />
                       </ActionIcon>
-                      <ActionIcon variant="transparent" color="red">
+                      <ActionIcon
+                        variant="transparent"
+                        color="red"
+                        onClick={() => {
+                          deleteById(item._id);
+                        }}
+                      >
                         <IconTrash />
                       </ActionIcon>
                     </Flex>

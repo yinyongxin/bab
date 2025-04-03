@@ -1,13 +1,4 @@
-import {
-  Title,
-  Text,
-  Paper,
-  Flex,
-  Box,
-  Group,
-  PaperProps,
-  ScrollArea,
-} from '@mantine/core';
+import { Title, Text, Paper, Flex, Group, PaperProps } from '@mantine/core';
 
 type PageProps = {
   children: React.ReactNode;
@@ -48,7 +39,7 @@ const Page = (props: PageProps) => {
       <Paper radius="md" p="md" flex={1} {...contentProps}>
         {children}
       </Paper>
-      {footer && <Box mt="lg">{footer}</Box>}
+      {footer}
     </Flex>
   );
 };
