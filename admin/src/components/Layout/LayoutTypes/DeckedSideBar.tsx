@@ -77,13 +77,7 @@ function DeckedSideBarContent() {
                       link.path.split('/')[1] === activeMainLink || undefined
                     }
                   >
-                    <link.icon
-                      style={{
-                        width: rem(22),
-                        height: rem(22),
-                      }}
-                      stroke={1.5}
-                    />
+                    {link.icon}
                   </UnstyledButton>
                 </Tooltip>
               </AuthorityCheck>
