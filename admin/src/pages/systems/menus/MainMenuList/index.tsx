@@ -109,12 +109,13 @@ export function MainMenuList() {
           新增
         </Button>
         <DragDropContext
-          onDragEnd={({ destination, source }) =>
+          onDragEnd={({ destination, source }) => {
+            console.log(destination, source);
             handlers.reorder({
               from: source.index,
               to: destination?.index || 0,
-            })
-          }
+            });
+          }}
         >
           <Droppable droppableId="dnd-list" direction="vertical">
             {(provided) => (
