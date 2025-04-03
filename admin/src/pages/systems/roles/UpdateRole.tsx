@@ -1,31 +1,24 @@
-import { useState } from 'react';
 import {
   Box,
   Button,
   Flex,
-  Group,
-  Select,
   TextInput,
   Text,
   Grid,
   FileButton,
   Image,
   Textarea,
-  Container,
 } from '@mantine/core';
-import { hasLength, isEmail, useForm } from '@mantine/form';
+import { hasLength, useForm } from '@mantine/form';
 import {
   IconCheck,
   IconExclamationCircle,
-  IconGenderFemale,
-  IconGenderMale,
   IconUpload,
 } from '@tabler/icons-react';
 import {
   RoleCreateBodyDto,
   RolesResultDto,
   RolesUpdateDto,
-  admintorsControllerAddOne,
   filesControllerUploadFile,
   rolesControllerAddOne,
   rolesControllerUpdateOne,

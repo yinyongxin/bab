@@ -6,15 +6,24 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 import cx from 'clsx';
-import { ActionIcon, Button, Flex, Text } from '@mantine/core';
-import { useListState, useShallowEffect } from '@mantine/hooks';
+import { ActionIcon, Button, Flex, Modal, Text } from '@mantine/core';
+import { useDisclosure, useListState, useShallowEffect } from '@mantine/hooks';
 import classes from './MainMenuList.module.css';
-import { MenusResultDto, menusControllerGetAllByFilter } from '@/client';
-import { useState } from 'react';
+import {
+  MenusResultDto,
+  menusControllerDeleteByIds,
+  menusControllerGetAllByFilter,
+} from '@/client';
+import { useEffect, useState } from 'react';
 import FontIcons from '@/components/FontIcons';
+import UpdataMainMenu from './UpdataMainMenu';
+import { modals } from '@mantine/modals';
 
 export function MainMenuList() {
+  const [opened, { open, close }] = useDisclosure(false);
   const [state, handlers] = useListState<MenusResultDto>([]);
+  const [id, setId] = useState();
+  const [title, setTitle] = useState('');
   const getData = async () => {
     const menuRes = await menusControllerGetAllByFilter({
       body: {
@@ -25,9 +34,28 @@ export function MainMenuList() {
       handlers.setState(menuRes.data);
     }
   };
+
   useShallowEffect(() => {
     getData();
   }, []);
+
+  const deleteById = async (id: string) => {
+    modals.openConfirmModal({
+      title: '确认删除当前角色？',
+      centered: true,
+      children: <Text size="sm">请注意，删除角色后，将无法恢复。</Text>,
+      labels: { confirm: '删除', cancel: '取消' },
+      confirmProps: { color: 'red' },
+      onConfirm: async () => {
+        await menusControllerDeleteByIds({
+          body: {
+            ids: [id],
+          },
+        });
+        getData();
+      },
+    });
+  };
 
   const items = state.map((item, index) => (
     <Draggable key={item._id} index={index} draggableId={item._id}>
@@ -54,7 +82,11 @@ export function MainMenuList() {
             <ActionIcon variant="transparent">
               <IconEdit size="18" />
             </ActionIcon>
-            <ActionIcon variant="transparent" color="red">
+            <ActionIcon
+              variant="transparent"
+              color="red"
+              onClick={() => deleteById(item._id)}
+            >
               <IconTrash size="18" />
             </ActionIcon>
           </Flex>
@@ -64,24 +96,56 @@ export function MainMenuList() {
   ));
 
   return (
-    <Flex direction="column" gap="md">
-      <Button fullWidth leftSection={<IconPlus />}>
-        新增
-      </Button>
-      <DragDropContext
-        onDragEnd={({ destination, source }) =>
-          handlers.reorder({ from: source.index, to: destination?.index || 0 })
-        }
+    <>
+      <Flex direction="column" gap="md">
+        <Button
+          fullWidth
+          leftSection={<IconPlus />}
+          onClick={() => {
+            setTitle('新增菜单');
+            open();
+          }}
+        >
+          新增
+        </Button>
+        <DragDropContext
+          onDragEnd={({ destination, source }) =>
+            handlers.reorder({
+              from: source.index,
+              to: destination?.index || 0,
+            })
+          }
+        >
+          <Droppable droppableId="dnd-list" direction="vertical">
+            {(provided) => (
+              <div {...provided.droppableProps} ref={provided.innerRef}>
+                {items}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
+      </Flex>
+      <Modal
+        opened={opened}
+        onClose={() => {
+          close();
+          if (id) {
+            setId(undefined);
+          }
+        }}
+        title={title}
+        centered
       >
-        <Droppable droppableId="dnd-list" direction="vertical">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {items}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </Flex>
+        <UpdataMainMenu
+          sort={state[state.length - 1].sort + 1}
+          id={id}
+          onSuccess={() => {
+            close();
+            getData();
+          }}
+        />
+      </Modal>
+    </>
   );
 }
