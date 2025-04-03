@@ -3,6 +3,7 @@ import Page from '@/components/Page';
 import { Flex, Grid, Paper } from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
+import MainMenu from './MainMenus';
 
 export default () => {
   const [data, setDate] = useState<TreeMenuDataDto[]>();
@@ -29,7 +30,7 @@ export default () => {
       <Flex h="100%" gap="md">
         <Paper shadow="xs" w={300}>
           {data?.map((item) => {
-            return item.name;
+            return <MainMenu data={item} key={item._id} />;
           })}
         </Paper>
         {data

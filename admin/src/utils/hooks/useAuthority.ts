@@ -6,7 +6,6 @@ function useAuthority(
   authority: string[] = [],
   emptyCheck = false,
 ) {
-  console.log('userAuthority', userAuthority);
   const roleMatched = useMemo(() => {
     return authority.some((role) => userAuthority.includes(role));
   }, [authority, userAuthority]);
