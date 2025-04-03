@@ -27,7 +27,7 @@ const MainMenu = (props: MainMenuProps) => {
       )}
       <Card radius="md" style={{ cursor: 'pointer' }} bg="primary">
         <Flex justify="space-between" align="center">
-          <Flex align="center" gap="md">
+          <Flex align="center" gap="sm">
             <FontIcons name={data.icon || ''} style={{ fontSize: 18 }} />
             <Title order={6}>{data.name}</Title>
           </Flex>
