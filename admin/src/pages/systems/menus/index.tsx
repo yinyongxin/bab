@@ -18,8 +18,11 @@ export default () => {
       }}
     >
       <Flex h="100%" gap="xl">
-        <Box w={400}>
+        <Box flex={1}>
           <MainMenuList />
+        </Box>
+        <Box flex={2}>
+        <MainMenuList />
         </Box>
       </Flex>
     </Page>

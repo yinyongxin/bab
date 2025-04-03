@@ -139,7 +139,7 @@ export function MainMenuList() {
         centered
       >
         <UpdataMainMenu
-          sort={state[state.length - 1].sort + 1}
+          sort={state[state.length - 1]?.sort + 1 || 0}
           id={id}
           onSuccess={() => {
             close();
