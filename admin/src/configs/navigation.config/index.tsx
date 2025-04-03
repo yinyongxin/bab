@@ -1,5 +1,6 @@
 import type { NavigationTree } from '@/@types/navigation';
-import { IconDashboard, IconSettings, IconUser } from '@tabler/icons-react';
+import { rem } from '@mantine/core';
+import { IconDashboard, IconSettings } from '@tabler/icons-react';
 
 const navigationConfig: NavigationTree[] = [
   {
@@ -7,7 +8,14 @@ const navigationConfig: NavigationTree[] = [
     path: '/dashboard',
     title: 'Dashboard',
     translateKey: '',
-    icon: IconDashboard,
+    icon: () => (
+      <i
+        style={{
+          fontSize: rem(18),
+        }}
+        className="ti ti-dashboard"
+      ></i>
+    ),
     authority: [],
     subMenu: [
       {
@@ -50,7 +58,7 @@ const navigationConfig: NavigationTree[] = [
       },
       {
         key: 'menus',
-        path: 'manage',
+        path: 'menus',
         title: 'Menus',
         translateKey: '菜单管理',
         authority: [],

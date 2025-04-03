@@ -9,6 +9,7 @@ type PageProps = {
   headerBottom?: React.ReactNode;
   bodyTop?: React.ReactNode;
   contentProps?: PaperProps;
+  style?: React.CSSProperties;
 };
 const Page = (props: PageProps) => {
   const {
@@ -20,9 +21,10 @@ const Page = (props: PageProps) => {
     headerBottom,
     bodyTop,
     contentProps,
+    style,
   } = props;
   return (
-    <Flex direction="column" gap={24}>
+    <Flex direction="column" gap={24} style={style}>
       <header>
         <Flex justify="space-between" align="center">
           {title && <Title order={3}>{title}</Title>}
