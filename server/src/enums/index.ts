@@ -4,7 +4,7 @@ export enum AdmintorStatusEnum {
 }
 
 export enum PageAuthorityEnum {
-  Create = 'Open',
+  Create = 'Create',
   Delete = 'Delete',
   Update = 'Update',
   Query = 'Query',
