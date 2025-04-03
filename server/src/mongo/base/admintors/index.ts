@@ -97,6 +97,7 @@ export class Admintors extends BaseDocument {
    */
   @Prop({
     default: '',
+    unique: true,
   })
   // swagger
   @ApiProperty({ required: true, description: '邮箱', example: '' })

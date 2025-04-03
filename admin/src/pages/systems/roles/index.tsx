@@ -125,9 +125,9 @@ export default () => {
                 key={item._id}
                 span={{
                   sm: 12,
-                  md: 6,
+                  md: 8,
                   lg: 4,
-                  xl: 3,
+                  xl: 2,
                 }}
               >
                 <Card shadow="sm" padding="lg" radius="md" withBorder>
