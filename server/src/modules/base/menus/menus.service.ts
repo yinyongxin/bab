@@ -4,6 +4,7 @@ import { Model, ObjectId } from 'mongoose';
 import { MenusCreateBodyDto, MenusUpdateDto } from './dto';
 import { Menus } from '../../../mongo/base';
 import { deleteByIds } from '../../../mongo/tools';
+import { DeleteIdsDto } from 'src/dtos';
 
 @Injectable()
 export class MenusService {
@@ -22,8 +23,11 @@ export class MenusService {
     return res;
   }
 
-  async deleteByIds(idsToUpdate: ObjectId[]) {
-    const res = await deleteByIds(this.menusModel, idsToUpdate);
+  async deleteByIds(idsToUpdate: DeleteIdsDto) {
+    const res = await deleteByIds(
+      this.menusModel,
+      idsToUpdate as unknown as ObjectId[],
+    );
     return res;
   }
 
