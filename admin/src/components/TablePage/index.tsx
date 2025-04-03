@@ -1,7 +1,6 @@
 import {
   Box,
   Flex,
-  Group,
   LoadingOverlay,
   Pagination,
   PaginationProps,

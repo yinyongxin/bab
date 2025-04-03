@@ -22,7 +22,7 @@ import { modals } from '@mantine/modals';
 export function MainMenuList() {
   const [opened, { open, close }] = useDisclosure(false);
   const [state, handlers] = useListState<MenusResultDto>([]);
-  const [id, setId] = useState();
+  const [id, setId] = useState('');
   const [title, setTitle] = useState('');
   const getData = async () => {
     const menuRes = await menusControllerGetAllByFilter({
@@ -79,7 +79,14 @@ export function MainMenuList() {
             </Text>
           </Flex>
           <Flex align="center">
-            <ActionIcon variant="transparent">
+            <ActionIcon
+              variant="transparent"
+              onClick={() => {
+                setTitle('新增菜单');
+                setId(item._id);
+                open();
+              }}
+            >
               <IconEdit size="18" />
             </ActionIcon>
             <ActionIcon
@@ -132,7 +139,7 @@ export function MainMenuList() {
         onClose={() => {
           close();
           if (id) {
-            setId(undefined);
+            setId('');
           }
         }}
         title={title}
