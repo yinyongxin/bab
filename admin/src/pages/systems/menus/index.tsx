@@ -1,6 +1,6 @@
 import { TreeMenuDataDto, menusControllerGetTreeData } from '@/client';
 import Page from '@/components/Page';
-import { Flex, Grid, Paper } from '@mantine/core';
+import { Box, Flex, Grid, Paper } from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
 import MainMenu from './MainMenus';
@@ -27,12 +27,12 @@ export default () => {
         bg: 'transparent',
       }}
     >
-      <Flex h="100%" gap="md">
-        <Paper shadow="xs" w={300}>
+      <Flex h="100%" gap="xl">
+        <Box w={300}>
           {data?.map((item) => {
             return <MainMenu data={item} key={item._id} />;
           })}
-        </Paper>
+        </Box>
         {data
           ?.find((item) => item._id === current)
           ?.children.map((item) => {
