@@ -23,7 +23,7 @@ export class MenusService {
     return res;
   }
 
-  async deleteByIds(idsToUpdate: DeleteIdsDto) {
+  async deleteByIds(idsToUpdate: DeleteIdsDto['ids']) {
     const res = await deleteByIds(
       this.menusModel,
       idsToUpdate as unknown as ObjectId[],
