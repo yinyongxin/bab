@@ -33,7 +33,7 @@ import {
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import UpdateManager from './UpdateManager';
-import { getFilePath } from '@/utils';
+import { getFilePath, getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 import { sexIcons } from './common';
 
@@ -275,7 +275,7 @@ export default () => {
           dataList={data?.list || []}
           rowkey="_id"
           paginationProps={{
-            total: Math.ceil((data?.total || 0) / (data?.pageSize || 0)),
+            total: getPageTotal(data?.total, data?.pageSize),
             value: data?.pageNo,
             onChange(value) {
               getData({

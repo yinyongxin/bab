@@ -26,7 +26,7 @@ import {
   IconLayoutSidebarInactive,
   IconTrash,
 } from '@tabler/icons-react';
-import { getFilePath } from '@/utils';
+import { getFilePath, getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 
 export default () => {
@@ -107,7 +107,7 @@ export default () => {
         footer={
           <Flex justify="flex-end">
             <Pagination
-              total={Math.ceil((data?.total || 0) / (data?.pageSize || 0))}
+              total={getPageTotal(data?.total, data?.pageSize)}
               value={data?.pageNo}
               onChange={(value) => {
                 getData({
