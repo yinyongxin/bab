@@ -1,9 +1,16 @@
-import { lazy } from 'react';
+import { ComponentType, lazy } from 'react';
 import authRoute from './authRoute';
 import type { Routes } from '@/@types/routes';
 
 export const publicRoutes: Routes = [...authRoute];
 
+const modules = import.meta.glob<{
+  default: ComponentType<JSX.Element>;
+}>('../../pages/**/index.page.tsx', {
+  // import: 'default',
+});
+
+console.log('modules', modules['../../pages/systems/roles/index.page.tsx']);
 export const protectedRoutes = [
   {
     key: 'dashboard',
@@ -39,19 +46,19 @@ export const protectedRoutes = [
   {
     key: 'managers',
     path: '/systems/managers',
-    component: lazy(() => import('@/pages/systems/managers')),
+    component: lazy(modules['../../pages/systems/managers/index.page.tsx']),
     authority: [],
   },
   {
     key: 'roles',
     path: '/systems/roles',
-    component: lazy(() => import('@/pages/systems/roles')),
+    component: lazy(modules['../../pages/systems/roles/index.page.tsx']),
     authority: [],
   },
   {
     key: 'roles',
     path: '/systems/menus',
-    component: lazy(() => import('@/pages/systems/menus')),
+    component: lazy(modules['../../pages/systems/menus/index.page.tsx']),
     authority: [],
   },
 ];

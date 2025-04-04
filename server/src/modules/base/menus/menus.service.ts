@@ -58,7 +58,7 @@ export class MenusService {
     });
 
     // 定义递归函数以构建树形结构
-    const getTree = (parentId: string | null) => {
+    const getTree = (parentId: string) => {
       return Array.from(menuMap.values())
         .filter((menuItem) => menuItem.parent === parentId)
         .map((menuItem) => ({
@@ -68,7 +68,7 @@ export class MenusService {
     };
 
     // 返回树形结构的根节点
-    return getTree(null);
+    return getTree('');
   }
 
   getAllByFilter(filter: MenusQueryDto) {

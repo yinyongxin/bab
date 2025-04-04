@@ -11,9 +11,8 @@ export class TreeMenuDataDto extends IntersectionType(Menus, Result_idDto) {
   @ApiProperty({
     required: true,
     description: '唯一值',
-    type: () => Array(TreeMenuDataDto),
+    type: [TreeMenuDataDto],
     examples: [],
-    enumName: 'TreeMenuDataDto',
   })
   children: TreeMenuDataDto[];
 }
