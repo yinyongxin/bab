@@ -7,6 +7,7 @@ import {
   Box,
   useMantineTheme,
   useMantineColorScheme,
+  rem,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import navigationConfig from '@/configs/navigation.config';
@@ -18,6 +19,7 @@ import { useAppSelector } from '@/store';
 import { IconLogout } from '@tabler/icons-react';
 import useAuth from '@/utils/hooks/useAuth';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
+import FontIcons from '@/components/FontIcons';
 
 function DeckedSideBarContent() {
   const { signOut } = useAuth();
@@ -85,7 +87,7 @@ function DeckedSideBarContent() {
                       link.path.split('/')[1] === activeMainLink || undefined
                     }
                   >
-                    {link.icon}
+                    <FontIcons name={link.icon} style={{ fontSize: rem(18) }} />
                   </UnstyledButton>
                 </Tooltip>
               </AuthorityCheck>

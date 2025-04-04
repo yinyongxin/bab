@@ -8,7 +8,7 @@ const navigationConfig: NavigationTree[] = [
     path: '/dashboard',
     title: '仪表板',
     translateKey: '',
-    icon: <FontIcons name="dashboard" style={{ fontSize: rem(18) }} />,
+    icon: 'dashboard',
     authority: [],
     subMenu: [
       {
@@ -32,7 +32,7 @@ const navigationConfig: NavigationTree[] = [
     path: '/systems',
     title: '系统管理',
     translateKey: '',
-    icon: <FontIcons name="settings" style={{ fontSize: rem(18) }} />,
+    icon: 'settings',
     authority: [],
     subMenu: [
       {

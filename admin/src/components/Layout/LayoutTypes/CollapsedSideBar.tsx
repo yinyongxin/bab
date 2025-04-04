@@ -51,7 +51,7 @@ function CollapsedSideBarContent() {
           navigate(item.path);
         }}
       >
-        <item.icon className={classes.linkIcon} stroke={1.5}/>
+        {item.icon}
       </Link>
     </AuthorityCheck>
   ));

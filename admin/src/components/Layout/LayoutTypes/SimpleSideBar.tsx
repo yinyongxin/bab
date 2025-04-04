@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import navigationConfig from '@/configs/navigation.config';
 import { LinksGroup } from '@/components/Layout/LinksGroup';
 import classes from '@/components/Layout/LayoutTypes/SimpleSideBar.module.css';
-import {Box, Card, Group} from '@mantine/core';
+import { Box, Card, Group } from '@mantine/core';
 import SimpleSideBarBottomContent from '@/components/Layout/LayoutTypes/SimpleSideBarBottomContent';
 import { useTranslation } from 'react-i18next';
 import AuthorityCheck from '@/route/AuthorityCheck';
@@ -24,14 +24,17 @@ function SideBar() {
 
   const links = navigationConfig.map((item, index) => {
     let links = [];
-
+    console.log('item', item);
     if (item.subMenu && item.subMenu.length > 0) {
       links = item.subMenu.map((i) => ({
         label: i.title,
         link: i.path,
         authority: i.authority,
       }));
-      const isAnyLinkActive = links.some((link) => location.pathname.includes(link.link));
+      console.log('links', links);
+      const isAnyLinkActive = links.some((link) =>
+        location.pathname.includes(link.link),
+      );
 
       return (
         <AuthorityCheck
@@ -40,12 +43,12 @@ function SideBar() {
           key={index}
         >
           <Box ml={10} my={10}>
-          <LinksGroup
-            initiallyOpened={isAnyLinkActive}
-            icon={item.icon}
-            label={item.title}
-            links={links}
-          />
+            <LinksGroup
+              initiallyOpened={isAnyLinkActive}
+              icon={item.icon}
+              label={item.title}
+              links={links}
+            />
           </Box>
         </AuthorityCheck>
       );
@@ -58,7 +61,9 @@ function SideBar() {
         >
           <Link
             className={classes.link}
-            data-active={item.path.split('/')[1] === active ? 'true' : undefined}
+            data-active={
+              item.path.split('/')[1] === active ? 'true' : undefined
+            }
             to={item.path}
             onClick={(event) => {
               event.preventDefault();
@@ -66,7 +71,7 @@ function SideBar() {
               navigate(item.path);
             }}
           >
-            <item.icon className={classes.linkIcon} stroke={1.5} />
+            {item.icon}
             <span>{item.translateKey ? t(item.translateKey) : item.title}</span>
           </Link>
         </AuthorityCheck>
@@ -78,11 +83,15 @@ function SideBar() {
     <nav className={classes.navbar}>
       <div className={classes.navbarMain}>
         <Group className={classes.header} justify="space-between">
-          <img className={classes.logo} alt={'Mantine Logo'} src={'/logo/logo-light-full.svg'} />
+          <img
+            className={classes.logo}
+            alt={'Mantine Logo'}
+            src={'/logo/logo-light-full.svg'}
+          />
         </Group>
         {links}
       </div>
-        <SimpleSideBarBottomContent />
+      <SimpleSideBarBottomContent />
     </nav>
   );
 }
