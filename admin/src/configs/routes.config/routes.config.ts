@@ -5,7 +5,7 @@ import type { Routes } from '@/@types/routes';
 export const publicRoutes: Routes = [...authRoute];
 
 const modules = import.meta.glob<{
-  default: ComponentType<JSX.Element>;
+  default: ComponentType<Record<string, unknown>>;
 }>('../../pages/**/index.page.tsx', {
   // import: 'default',
 });

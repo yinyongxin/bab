@@ -9,6 +9,7 @@ import AuthorityCheck from '@/route/AuthorityCheck';
 import { useAppSelector } from '@/store';
 import { IconLogout } from '@tabler/icons-react';
 import useAuth from '@/utils/hooks/useAuth';
+import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 
 function DeckedSideBarContent() {
   const { signOut } = useAuth();
@@ -84,13 +85,15 @@ function DeckedSideBarContent() {
           </div>
           <ActionIcon
             size={42}
-            variant="transparent"
+            variant="subtle"
+            color="red"
             aria-label="ActionIcon with size as a number"
             mb="xs"
             onClick={signOut}
           >
             <IconLogout />
           </ActionIcon>
+          <ColorSchemeToggle />
         </div>
         <div className={classes.main}>
           <div>
