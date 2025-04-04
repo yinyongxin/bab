@@ -41,6 +41,7 @@ function UpdataMainMenu(props: UpdataMainMenuProps) {
       path: '',
       sort,
       icon: 'briefcase-2',
+      pageAuthority: [],
     },
     validate: {
       name: hasLength({ min: 1 }, '用户名不能为空'),
@@ -147,7 +148,7 @@ function UpdataMainMenu(props: UpdataMainMenuProps) {
           <Grid.Col span={4}>
             <Center h="100%" bg="gray.1">
               <FontIcons
-                name={form.values.icon}
+                name={form.values.icon || ''}
                 style={{
                   fontSize: 60,
                 }}

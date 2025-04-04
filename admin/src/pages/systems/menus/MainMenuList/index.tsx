@@ -13,8 +13,9 @@ import {
   MenusResultDto,
   menusControllerDeleteByIds,
   menusControllerGetAllByFilter,
+  menusControllerUpdateOne,
 } from '@/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FontIcons from '@/components/FontIcons';
 import UpdataMainMenu from './UpdataMainMenu';
 import { modals } from '@mantine/modals';
@@ -89,8 +90,10 @@ export function MainMenuList(props: MainMenuListProps) {
             <IconGripVertical size={18} stroke={1.5} />
           </div>
           <FontIcons name={item?.icon || ''} style={{ fontSize: 40 }} />
-          <Flex direction="column" flex={1}>
-            <Title order={6}>{item.name}</Title>
+          <Flex direction="column" w="100">
+            <Title order={6} lineClamp={1}>
+              {item.name}
+            </Title>
             <Text c="dimmed" size="sm" lineClamp={1}>
               {item.description}
             </Text>
@@ -125,6 +128,23 @@ export function MainMenuList(props: MainMenuListProps) {
     </Draggable>
   ));
 
+  const updateSort = async () => {
+    await Promise.all(
+      state.map(async (item, index) => {
+        if (item.sort !== index) {
+          return menusControllerUpdateOne({
+            body: {
+              sort: index,
+            },
+            query: {
+              id: item._id,
+            },
+          });
+        }
+        return Promise.resolve();
+      }),
+    );
+  };
   return (
     <>
       <Flex direction="column" gap="md">
@@ -140,11 +160,11 @@ export function MainMenuList(props: MainMenuListProps) {
         </Button>
         <DragDropContext
           onDragEnd={({ destination, source }) => {
-            console.log(destination, source);
             handlers.reorder({
               from: source.index,
               to: destination?.index || 0,
             });
+            updateSort();
           }}
         >
           <Droppable droppableId="dnd-list" direction="vertical">
