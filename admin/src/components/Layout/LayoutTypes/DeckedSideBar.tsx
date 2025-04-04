@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { UnstyledButton, Tooltip, Title, rem, ActionIcon } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
-import SimpleSideBarBottomContent from '@/components/Layout/LayoutTypes/SimpleSideBarBottomContent';
 import navigationConfig from '@/configs/navigation.config';
 import { Link, useLocation } from 'react-router-dom';
 import Views from '@/components/Layout/Views';

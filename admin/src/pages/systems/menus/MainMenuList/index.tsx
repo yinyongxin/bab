@@ -95,7 +95,7 @@ export function MainMenuList(props: MainMenuListProps) {
             <IconGripVertical size={18} stroke={1.5} />
           </div>
           <FontIcons name={item?.icon || ''} style={{ fontSize: 40 }} />
-          <Flex direction="column" w="100">
+          <Flex direction="column" flex={1}>
             <Title order={6} lineClamp={1}>
               {item.name}
             </Title>
