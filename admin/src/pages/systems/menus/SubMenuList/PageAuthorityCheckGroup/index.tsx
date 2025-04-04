@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { Checkbox, Group } from '@mantine/core';
+import { Checkbox, CheckboxGroupProps, Group } from '@mantine/core';
 import { MenusResultDto } from '@/client';
-import { init } from 'i18next';
 
 const data: {
   label: string;
-  value: string;
+  value: MenusResultDto['pageAuthority'][0];
   description: string;
   color: string;
 }[] = [
@@ -36,12 +35,12 @@ const data: {
 ];
 
 type PageAuthorityCheckGroupProps = {
-  initialValue?: MenusResultDto['pageAuthority'];
+  checkboxGroupProps?: Omit<CheckboxGroupProps, 'children'>;
 };
 function PageAuthorityCheckGroup(props: PageAuthorityCheckGroupProps) {
-  const { initialValue = [] } = props;
-  const [value, setValue] =
-    useState<MenusResultDto['pageAuthority']>(initialValue);
+  const { checkboxGroupProps } = props;
+  // const [value, setValue] =
+  //   useState<MenusResultDto['pageAuthority']>(initialValue);
 
   const cards = data.map((item) => (
     <Checkbox
@@ -55,12 +54,7 @@ function PageAuthorityCheckGroup(props: PageAuthorityCheckGroupProps) {
 
   return (
     <>
-      <Checkbox.Group
-        value={value}
-        onChange={(nuwValue) =>
-          setValue(nuwValue as MenusResultDto['pageAuthority'])
-        }
-      >
+      <Checkbox.Group {...checkboxGroupProps}>
         <Group gap="xs">{cards}</Group>
       </Checkbox.Group>
     </>

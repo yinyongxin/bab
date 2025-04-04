@@ -6,8 +6,6 @@ import {
   Text,
   Grid,
   Textarea,
-  Anchor,
-  Center,
   LoadingOverlay,
 } from '@mantine/core';
 import { hasLength, useForm } from '@mantine/form';
@@ -22,11 +20,11 @@ import {
 } from '@/client';
 import { notifications } from '@mantine/notifications';
 import { useEffect } from 'react';
-import FontIcons from '@/components/FontIcons';
 import { useDisclosure } from '@mantine/hooks';
+import PageAuthorityCheckGroup from './PageAuthorityCheckGroup';
 
 type UpdataSubMenuProps = {
-  onSuccess: () => void;
+  onSuccess: (udpateDate?: MenusUpdateDto) => void;
   id?: string;
   parentData?: MenusResultDto;
   sort?: number;
@@ -42,6 +40,7 @@ function UpdataSubMenu(props: UpdataSubMenuProps) {
       uniqueKey: '',
       path: '',
       sort,
+      pageAuthority: [],
     },
     validate: {
       name: hasLength({ min: 1 }, '用户名不能为空'),
@@ -95,18 +94,20 @@ function UpdataSubMenu(props: UpdataSubMenuProps) {
     });
   };
 
-  const UpdataSubMenu = async (id: string, values: MenusUpdateDto) => {
+  const updataSubMenu = async (id: string, values: MenusUpdateDto) => {
+    const updateData = {
+      name: values.name,
+      description: values.description,
+      icon: values.icon,
+      path: values.path,
+      uniqueKey: values.uniqueKey,
+      pageAuthority: values.pageAuthority,
+    };
     const addAdmintor = await menusControllerUpdateOne({
       query: {
         id,
       },
-      body: {
-        name: values.name,
-        description: values.description,
-        icon: values.icon,
-        path: values.path,
-        uniqueKey: values.uniqueKey,
-      },
+      body: updateData,
     });
     if (addAdmintor?.error) {
       notifications.show({
@@ -117,7 +118,7 @@ function UpdataSubMenu(props: UpdataSubMenuProps) {
       });
       return;
     }
-    onSuccess?.();
+    onSuccess?.(updateData);
     notifications.show({
       color: 'green',
       title: '提示',
@@ -127,11 +128,10 @@ function UpdataSubMenu(props: UpdataSubMenuProps) {
   };
 
   const onSubmit = form.onSubmit(async (values) => {
-    console.log(values);
     if (isAdding) {
       await createrMainMenu(values);
     } else if (isEditing) {
-      await UpdataSubMenu(id, values);
+      await updataSubMenu(id, values);
     }
   });
 
@@ -171,6 +171,14 @@ function UpdataSubMenu(props: UpdataSubMenuProps) {
               {...form.getInputProps('path')}
               label="路径"
               placeholder="填写路径"
+            />
+          </Grid.Col>
+          <Grid.Col span={12}>
+            <PageAuthorityCheckGroup
+              checkboxGroupProps={{
+                label: '页面权限',
+                ...form.getInputProps('pageAuthority'),
+              }}
             />
           </Grid.Col>
         </Grid>

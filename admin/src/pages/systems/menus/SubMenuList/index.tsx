@@ -15,14 +15,20 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useDisclosure, useListState, useShallowEffect } from '@mantine/hooks';
+import {
+  useDidUpdate,
+  useDisclosure,
+  useListState,
+  useShallowEffect,
+} from '@mantine/hooks';
 import classes from './SubMenuList.module.css';
 import {
   MenusResultDto,
   menusControllerDeleteByIds,
   menusControllerGetAllByFilter,
+  menusControllerUpdateOne,
 } from '@/client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import UpdataSubMenu from './UpdataSubMenu';
 import { modals } from '@mantine/modals';
 import PageAuthorityCheckGroup from './PageAuthorityCheckGroup';
@@ -41,8 +47,16 @@ export function SubMenuList(props: SubMenuListProps) {
         parent: parentData?._id,
       },
     });
+
     if (menuRes.data) {
-      handlers.setState(menuRes.data);
+      handlers.setState(
+        menuRes.data.map((item) => {
+          return {
+            ...item,
+            pageAuthorityLength: item.pageAuthority?.length || 0,
+          };
+        }),
+      );
     }
   };
 
@@ -70,6 +84,26 @@ export function SubMenuList(props: SubMenuListProps) {
     });
   };
 
+  const updateSort = async () => {
+    await Promise.all(
+      state.map(async (item, index) => {
+        if (item.sort !== index) {
+          return menusControllerUpdateOne({
+            body: {
+              sort: index,
+            },
+            query: {
+              id: item._id,
+            },
+          });
+        }
+        return Promise.resolve();
+      }),
+    );
+  };
+
+  useDidUpdate(() => {}, [state]);
+
   const items = state.map((item, index) => (
     <Draggable key={item._id} index={index} draggableId={item._id}>
       {(provided, snapshot) => (
@@ -90,14 +124,19 @@ export function SubMenuList(props: SubMenuListProps) {
           >
             <IconGripVertical size={18} stroke={1.5} />
           </div>
-          <Flex direction="column" flex={1}>
+          <Flex direction="column" w="120">
             <Title order={6}>{item.name}</Title>
             <Text c="dimmed" size="sm" lineClamp={1}>
               {item.description}
             </Text>
           </Flex>
           <Box flex={6}>
-            <PageAuthorityCheckGroup initialValue={item.pageAuthority} />
+            {item.pageAuthority}
+            <PageAuthorityCheckGroup
+              checkboxGroupProps={{
+                value: item.pageAuthority || [],
+              }}
+            />
           </Box>
           <Flex align="center">
             <ActionIcon
@@ -144,11 +183,11 @@ export function SubMenuList(props: SubMenuListProps) {
         </Button>
         <DragDropContext
           onDragEnd={({ destination, source }) => {
-            console.log(destination, source);
             handlers.reorder({
               from: source.index,
               to: destination?.index || 0,
             });
+            updateSort();
           }}
         >
           <Droppable droppableId="dnd-list" direction="vertical">
@@ -165,9 +204,6 @@ export function SubMenuList(props: SubMenuListProps) {
         opened={opened}
         onClose={() => {
           close();
-          if (id) {
-            setId('');
-          }
         }}
         title={title}
         centered
@@ -178,6 +214,9 @@ export function SubMenuList(props: SubMenuListProps) {
           parentData={parentData}
           onSuccess={() => {
             close();
+            if (id) {
+              setId('');
+            }
             getData();
           }}
         />
