@@ -81,7 +81,7 @@ export class Menus extends BaseDocument {
    */
   @Prop({
     required: true,
-    type: Array(PageAuthorityEnum),
+    type: Array,
     default: (data) => {
       return data.path
         ? [
@@ -105,7 +105,6 @@ export class Menus extends BaseDocument {
     ],
     enum: PageAuthorityEnum,
     isArray: true,
-    enumName: 'PageAuthorityEnum',
   })
 
   /**

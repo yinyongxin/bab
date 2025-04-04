@@ -72,6 +72,11 @@ export class MenusService {
   }
 
   getAllByFilter(filter: MenusQueryDto) {
-    return this.menusModel.find(filter).exec();
+    return this.menusModel
+      .find(filter)
+      .sort({
+        sort: 1,
+      })
+      .exec();
   }
 }
