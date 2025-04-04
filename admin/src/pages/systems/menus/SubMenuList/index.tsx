@@ -15,10 +15,16 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { useDisclosure, useListState, useShallowEffect } from '@mantine/hooks';
+import {
+  useDidUpdate,
+  useDisclosure,
+  useListState,
+  useShallowEffect,
+} from '@mantine/hooks';
 import classes from './SubMenuList.module.css';
 import {
   MenusResultDto,
+  MenusUpdateDto,
   menusControllerDeleteByIds,
   menusControllerGetAllByFilter,
   menusControllerUpdateOne,
@@ -80,9 +86,10 @@ export function SubMenuList(props: SubMenuListProps) {
   };
 
   const updateSort = async () => {
-    await Promise.all(
-      state.map(async (item, index) => {
+    const sortChangeList = state
+      .map(async (item, index) => {
         if (item.sort !== index) {
+          handlers.setItem(index, { ...item, sort: index });
           return menusControllerUpdateOne({
             body: {
               sort: index,
@@ -92,11 +99,32 @@ export function SubMenuList(props: SubMenuListProps) {
             },
           });
         }
-        return Promise.resolve();
-      }),
-    );
-    getData();
+      })
+      .filter(Boolean);
+    if (sortChangeList.length) {
+      await Promise.all(sortChangeList);
+    }
   };
+
+  const onPageAuthorityChange = (
+    index: number,
+    id: string,
+    value: MenusResultDto,
+  ) => {
+    handlers.setItem(index, value);
+    menusControllerUpdateOne({
+      body: {
+        pageAuthority: value.pageAuthority,
+      },
+      query: {
+        id,
+      },
+    });
+  };
+
+  useDidUpdate(() => {
+    updateSort();
+  }, [state.map((item) => item.sort).join('-')]);
 
   const items = state.map((item, index) => (
     <Draggable key={item._id} index={index} draggableId={item._id}>
@@ -125,10 +153,15 @@ export function SubMenuList(props: SubMenuListProps) {
             </Text>
           </Flex>
           <Box flex={6}>
-            {item.pageAuthority}
             <PageAuthorityCheckGroup
               checkboxGroupProps={{
                 value: item.pageAuthority || [],
+                onChange: (value) => {
+                  onPageAuthorityChange(index, item._id, {
+                    ...item,
+                    pageAuthority: value as MenusResultDto['pageAuthority'],
+                  });
+                },
               }}
             />
           </Box>
@@ -181,9 +214,7 @@ export function SubMenuList(props: SubMenuListProps) {
               from: source.index,
               to: destination?.index || 0,
             });
-            setImmediate(() => {
-              updateSort();
-            });
+            updateSort();
           }}
         >
           <Droppable droppableId="dnd-list" direction="vertical">

@@ -7,7 +7,12 @@ import {
 } from '@tabler/icons-react';
 import cx from 'clsx';
 import { ActionIcon, Button, Flex, Modal, Text, Title } from '@mantine/core';
-import { useDisclosure, useListState, useShallowEffect } from '@mantine/hooks';
+import {
+  useDidUpdate,
+  useDisclosure,
+  useListState,
+  useShallowEffect,
+} from '@mantine/hooks';
 import classes from './MainMenuList.module.css';
 import {
   MenusResultDto,
@@ -129,9 +134,10 @@ export function MainMenuList(props: MainMenuListProps) {
   ));
 
   const updateSort = async () => {
-    await Promise.all(
-      state.map(async (item, index) => {
+    const sortChangeList = state
+      .map(async (item, index) => {
         if (item.sort !== index) {
+          handlers.setItem(index, { ...item, sort: index });
           return menusControllerUpdateOne({
             body: {
               sort: index,
@@ -141,10 +147,18 @@ export function MainMenuList(props: MainMenuListProps) {
             },
           });
         }
-        return Promise.resolve();
-      }),
-    );
+        return undefined;
+      })
+      .filter(Boolean);
+    if (sortChangeList.length) {
+      await Promise.all(sortChangeList);
+    }
   };
+
+  useDidUpdate(() => {
+    updateSort();
+  }, [state.map((item) => item.sort).join('-')]);
+
   return (
     <>
       <Flex direction="column" gap="md">
@@ -164,7 +178,6 @@ export function MainMenuList(props: MainMenuListProps) {
               from: source.index,
               to: destination?.index || 0,
             });
-            updateSort();
           }}
         >
           <Droppable droppableId="dnd-list" direction="vertical">
