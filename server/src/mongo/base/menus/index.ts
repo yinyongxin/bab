@@ -82,16 +82,15 @@ export class Menus extends BaseDocument {
   @Prop({
     required: true,
     type: Array,
-    default: (data) => {
-      return data.path
-        ? [
+    default: (data) =>
+      data.parent
+        ? []
+        : [
             PageAuthorityEnum.Create,
             PageAuthorityEnum.Delete,
             PageAuthorityEnum.Update,
             PageAuthorityEnum.Query,
-          ]
-        : [];
-    },
+          ],
   })
   // swagger
   @ApiProperty({
@@ -106,6 +105,7 @@ export class Menus extends BaseDocument {
     enum: PageAuthorityEnum,
     isArray: true,
   })
+  pageAuthority: PageAuthorityEnum[];
 
   /**
    * 菜单图标

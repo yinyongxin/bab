@@ -98,7 +98,6 @@ function UpdataSubMenu(props: UpdataSubMenuProps) {
     const updateData = {
       name: values.name,
       description: values.description,
-      icon: values.icon,
       path: values.path,
       uniqueKey: values.uniqueKey,
       pageAuthority: values.pageAuthority,

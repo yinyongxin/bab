@@ -15,12 +15,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import {
-  useDidUpdate,
-  useDisclosure,
-  useListState,
-  useShallowEffect,
-} from '@mantine/hooks';
+import { useDisclosure, useListState, useShallowEffect } from '@mantine/hooks';
 import classes from './SubMenuList.module.css';
 import {
   MenusResultDto,
@@ -100,9 +95,8 @@ export function SubMenuList(props: SubMenuListProps) {
         return Promise.resolve();
       }),
     );
+    getData();
   };
-
-  useDidUpdate(() => {}, [state]);
 
   const items = state.map((item, index) => (
     <Draggable key={item._id} index={index} draggableId={item._id}>
@@ -187,7 +181,9 @@ export function SubMenuList(props: SubMenuListProps) {
               from: source.index,
               to: destination?.index || 0,
             });
-            updateSort();
+            setImmediate(() => {
+              updateSort();
+            });
           }}
         >
           <Droppable droppableId="dnd-list" direction="vertical">
