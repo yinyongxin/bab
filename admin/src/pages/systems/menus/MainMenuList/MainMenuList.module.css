@@ -25,9 +25,11 @@
 }
 
 .itemChecked {
-  background-color: var(--mantine-primary-color-1) !important;
+  background-color: light-dark(
+    var(--mantine-primary-color-1),
+    var(--mantine-primary-color-8)
+  ) !important;
 }
-
 
 .dragHandle {
   display: flex;

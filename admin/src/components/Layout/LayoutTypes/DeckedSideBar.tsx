@@ -1,5 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { UnstyledButton, Tooltip, Title, rem, ActionIcon } from '@mantine/core';
+import { useEffect, useState } from 'react';
+import {
+  UnstyledButton,
+  Tooltip,
+  Title,
+  ActionIcon,
+  Box,
+  useMantineTheme,
+  useMantineColorScheme,
+} from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import navigationConfig from '@/configs/navigation.config';
 import { Link, useLocation } from 'react-router-dom';
@@ -146,18 +154,20 @@ function DeckedSideBarContent() {
 }
 
 export default function DeckedSideBar() {
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
   return (
-    <div
+    <Box
+      bg={colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1]}
       style={{
         overflow: 'hidden',
-        backgroundColor: 'rgb(240,240,240)',
         display: 'flex',
         flex: '1 1 auto',
         height: '100vh',
       }}
     >
       <DeckedSideBarContent />
-      <div
+      <Box
         style={{
           padding: '1rem',
           flex: 1,
@@ -165,7 +175,7 @@ export default function DeckedSideBar() {
         }}
       >
         <Views />
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
