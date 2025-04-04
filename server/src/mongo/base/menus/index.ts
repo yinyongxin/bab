@@ -80,9 +80,8 @@ export class Menus extends BaseDocument {
    * 页面权限
    */
   @Prop({
-    required: false,
-    enum: PageAuthorityEnum,
-    type: Array,
+    required: true,
+    type: Array(PageAuthorityEnum),
     default: (data) => {
       return data.path
         ? [
@@ -96,29 +95,29 @@ export class Menus extends BaseDocument {
   })
   // swagger
   @ApiProperty({
-    required: false,
+    required: true,
     description: '页面权限',
-    example: [
+    example: () => [
       PageAuthorityEnum.Create,
       PageAuthorityEnum.Delete,
       PageAuthorityEnum.Update,
       PageAuthorityEnum.Query,
     ],
-    type: Array,
     enum: PageAuthorityEnum,
+    isArray: true,
+    enumName: 'PageAuthorityEnum',
   })
-  pageAuthority: PageAuthorityEnum[];
 
   /**
    * 菜单图标
    */
   @Prop({
-    required: true,
+    required: false,
     default: '',
   })
   // swagger
   @ApiProperty({
-    required: true,
+    required: false,
     description: '图标',
     example: '',
   })
@@ -130,7 +129,6 @@ export class Menus extends BaseDocument {
   @Prop({
     required: false,
     default: '',
-    type: String,
   })
   // swagger
   @ApiProperty({

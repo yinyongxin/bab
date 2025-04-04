@@ -6,24 +6,31 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 import cx from 'clsx';
-import { ActionIcon, Button, Flex, Modal, Text, Title } from '@mantine/core';
+import {
+  ActionIcon,
+  Box,
+  Button,
+  Flex,
+  Modal,
+  Text,
+  Title,
+} from '@mantine/core';
 import { useDisclosure, useListState, useShallowEffect } from '@mantine/hooks';
-import classes from './MainMenuList.module.css';
+import classes from './SubMenuList.module.css';
 import {
   MenusResultDto,
   menusControllerDeleteByIds,
   menusControllerGetAllByFilter,
 } from '@/client';
 import { useState } from 'react';
-import FontIcons from '@/components/FontIcons';
-import UpdataMainMenu from './UpdataMainMenu';
+import UpdataSubMenu from './UpdataSubMenu';
 import { modals } from '@mantine/modals';
-type MainMenuListProps = {
+import PageAuthorityCheckGroup from './PageAuthorityCheckGroup';
+type SubMenuListProps = {
   parentData?: MenusResultDto;
-  setParentData: (data: MenusResultDto) => void;
 };
-export function MainMenuList(props: MainMenuListProps) {
-  const { parentData, setParentData } = props;
+export function SubMenuList(props: SubMenuListProps) {
+  const { parentData } = props;
   const [opened, { open, close }] = useDisclosure(false);
   const [state, handlers] = useListState<MenusResultDto>([]);
   const [id, setId] = useState('');
@@ -31,20 +38,19 @@ export function MainMenuList(props: MainMenuListProps) {
   const getData = async () => {
     const menuRes = await menusControllerGetAllByFilter({
       body: {
-        parent: '',
+        parent: parentData?._id,
       },
     });
     if (menuRes.data) {
       handlers.setState(menuRes.data);
-      if (!parentData) {
-        setParentData(menuRes.data[0]);
-      }
     }
   };
 
   useShallowEffect(() => {
-    getData();
-  }, []);
+    if (parentData) {
+      getData();
+    }
+  }, [parentData]);
 
   const deleteById = async (id: string) => {
     modals.openConfirmModal({
@@ -71,13 +77,9 @@ export function MainMenuList(props: MainMenuListProps) {
           gap="sm"
           className={cx(classes.item, {
             [classes.itemDragging]: snapshot.isDragging,
-            [classes.itemChecked]: parentData?._id === item._id,
           })}
           ref={provided.innerRef}
           {...provided.draggableProps}
-          onClick={() => {
-            setParentData(item);
-          }}
         >
           <div
             {...provided.dragHandleProps}
@@ -88,13 +90,15 @@ export function MainMenuList(props: MainMenuListProps) {
           >
             <IconGripVertical size={18} stroke={1.5} />
           </div>
-          <FontIcons name={item?.icon || ''} style={{ fontSize: 40 }} />
           <Flex direction="column" flex={1}>
             <Title order={6}>{item.name}</Title>
             <Text c="dimmed" size="sm" lineClamp={1}>
               {item.description}
             </Text>
           </Flex>
+          <Box flex={6}>
+            <PageAuthorityCheckGroup initialValue={item.pageAuthority} />
+          </Box>
           <Flex align="center">
             <ActionIcon
               size="xl"
@@ -168,9 +172,10 @@ export function MainMenuList(props: MainMenuListProps) {
         title={title}
         centered
       >
-        <UpdataMainMenu
+        <UpdataSubMenu
           sort={state[state.length - 1]?.sort + 1 || 0}
           id={id}
+          parentData={parentData}
           onSuccess={() => {
             close();
             getData();

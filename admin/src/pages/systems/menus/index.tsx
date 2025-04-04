@@ -2,9 +2,11 @@ import Page from '@/components/Page';
 import { Box, Flex } from '@mantine/core';
 import { useState } from 'react';
 import { MainMenuList } from './MainMenuList';
+import { SubMenuList } from './SubMenuList';
+import { MenusResultDto } from '@/client';
 
 export default () => {
-  const [current, setCurrent] = useState<string>();
+  const [parentData, setParentData] = useState<MenusResultDto>();
 
   return (
     <Page
@@ -19,10 +21,10 @@ export default () => {
     >
       <Flex h="100%" gap="xl">
         <Box flex={1}>
-          <MainMenuList />
+          <MainMenuList setParentData={setParentData} parentData={parentData} />
         </Box>
         <Box flex={2}>
-        <MainMenuList />
+          <SubMenuList parentData={parentData} />
         </Box>
       </Flex>
     </Page>

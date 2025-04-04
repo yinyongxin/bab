@@ -410,11 +410,11 @@ export type MenusCreateBodyDto = {
   /**
    * 页面权限
    */
-  pageAuthority?: 'Create' | 'Delete' | 'Update' | 'Query';
+  pageAuthority: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
   /**
    * 图标
    */
-  icon: string;
+  icon?: string;
   /**
    * 图标
    */
@@ -453,11 +453,11 @@ export type MenusResultDto = {
   /**
    * 页面权限
    */
-  pageAuthority?: 'Create' | 'Delete' | 'Update' | 'Query';
+  pageAuthority: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
   /**
    * 图标
    */
-  icon: string;
+  icon?: string;
   /**
    * 图标
    */
@@ -496,7 +496,7 @@ export type MenusUpdateDto = {
   /**
    * 页面权限
    */
-  pageAuthority?: 'Create' | 'Delete' | 'Update' | 'Query';
+  pageAuthority?: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
   /**
    * 图标
    */
@@ -543,11 +543,11 @@ export type TreeMenuDataDto = {
   /**
    * 页面权限
    */
-  pageAuthority?: 'Create' | 'Delete' | 'Update' | 'Query';
+  pageAuthority: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
   /**
    * 图标
    */
-  icon: string;
+  icon?: string;
   /**
    * 图标
    */
@@ -594,7 +594,7 @@ export type MenusQueryDto = {
   /**
    * 页面权限
    */
-  pageAuthority?: 'Create' | 'Delete' | 'Update' | 'Query';
+  pageAuthority?: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
   /**
    * 图标
    */
