@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react';
-import { setCurrentRouteKey, useAppSelector, useAppDispatch } from '@/store';
+import { setCurrentRouteKey, useAppDispatch } from '@/store';
 import { useLocation } from 'react-router-dom';
 import type { ComponentType } from 'react';
 

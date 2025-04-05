@@ -65,7 +65,7 @@ export const protectedRoutes = [
     authority: [],
   },
   {
-    key: 'roles',
+    key: 'menus',
     path: '/systems/menus',
     component: lazy(modules['../../pages/systems/menus/index.page.tsx']),
     authority: [],
