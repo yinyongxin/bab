@@ -37,7 +37,7 @@
   &[data-active] {
     &,
     &:hover {
-      border-left-color: var(--mantine-primary-color-filled);
+      border-left-color: var(--mantine-primary-color-9);
       background-color: var(--mantine-primary-color-5);
       color: var(--mantine-color-white);
     }

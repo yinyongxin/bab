@@ -11,12 +11,13 @@ import {
 import appConfig from '@/configs/app.config';
 import { REDIRECT_URL_KEY } from '@/constants/app.constant';
 import { useNavigate } from 'react-router-dom';
-import { SignInCredential, SignUpCredential } from '@/@types/auth';
 import useQuery from './useQuery';
 import {
   authControllerSignIn,
+  AuthControllerSignInData,
   menusControllerGetAllByFilter,
   MenusResultDto,
+  SignInDto,
   TreeMenuDataDto,
 } from '@/client';
 import { setMenus } from '@/store/slices/auth/menusSlice';
@@ -77,7 +78,7 @@ function useAuth() {
   const query = useQuery();
 
   const signIn = async (
-    values: SignInCredential,
+    values: SignInDto,
   ): Promise<
     | {
         status: Status;
@@ -129,20 +130,7 @@ function useAuth() {
     }
   };
 
-  const signUp = async (values: SignUpCredential) => {
-    // try {
-    //   await AuthService.signUp(values)
-    //   return {
-    //     status: 'success',
-    //     message: ''
-    //   }
-    // } catch (errors: any) {
-    //   return {
-    //     status: 'failed',
-    //     message: errors?.response?.data?.description || errors.toString()
-    //   }
-    // }
-  };
+  const signUp = async () => {};
 
   const handleSignOut = () => {
     dispatch(signOutSuccess());
