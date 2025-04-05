@@ -3,7 +3,7 @@ export interface NavigationTree {
   path: string
   title: string
   translateKey: string
-  icon: any
+  icon: string
   type?: 'title' | 'collapse' | 'item'
   authority: string[]
   subMenu?: SubMenuNavigationTree[]

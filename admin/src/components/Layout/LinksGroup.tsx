@@ -8,19 +8,20 @@ import {
   UnstyledButton,
   rem,
 } from '@mantine/core';
-import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
+import { IconChevronRight } from '@tabler/icons-react';
 import classes from './LayoutTypes/SimpleSideBar.module.css';
 import { useNavigate } from 'react-router-dom';
+import FontIcons from '../FontIcons';
 
 interface LinksGroupProps {
-  icon: React.FC<any>;
+  icon: string;
   label: string;
   initiallyOpened?: boolean;
   links?: { label: string; link: string }[];
 }
 
 export function LinksGroup({
-  icon: Icon,
+  icon,
   label,
   initiallyOpened,
   links,
@@ -67,12 +68,7 @@ export function LinksGroup({
             }}
           >
             <ThemeIcon variant="light" size={30}>
-              <Icon
-                style={{
-                  width: rem(18),
-                  height: rem(18),
-                }}
-              />
+              <FontIcons name={icon} style={{ fontSize: rem(18) }} />
             </ThemeIcon>
             <Box ml="md">{label}</Box>
           </Box>
