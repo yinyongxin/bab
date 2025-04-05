@@ -9,16 +9,8 @@ import AuthorityGuard from '@/route/AuthorityGuard';
 import PublicRoute from '@/route/PublicRoute';
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
 
-interface ViewsProps {
-  pageContainerType?: 'default' | 'gutterless' | 'contained';
-  // layout?: LayoutType
-}
-
-type AllRoutesProps = ViewsProps;
-
 const { authenticatedEntryPath } = appConfig;
-
-const AllRoutes = (props: AllRoutesProps) => {
+const AllRoutes = () => {
   const userAuthority = useAppSelector((state) => state.auth.user.roles);
 
   return (
@@ -65,10 +57,10 @@ const AllRoutes = (props: AllRoutesProps) => {
   );
 };
 
-const Views = (props: ViewsProps) => {
+const Views = () => {
   return (
     <Suspense fallback={<LoadingScreen />}>
-      <AllRoutes {...props} />
+      <AllRoutes />
     </Suspense>
   );
 };
