@@ -113,7 +113,7 @@ export class Admintors extends BaseDocument {
     example: AdmintorStatusEnum.Open,
     enum: AdmintorStatusEnum,
   })
-  status: string;
+  status: 'Open' | 'Close';
 }
 
 export const AdmintorsSchema = SchemaFactory.createForClass(Admintors);

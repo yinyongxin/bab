@@ -1,9 +1,10 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { AdmintorsService } from '../admintors/admintors.service';
 import { JwtService } from '@nestjs/jwt';
 import { SignInDto } from './dto';
 import { RolesService } from '../roles';
 import { uniq } from 'lodash';
+import { AdmintorStatusEnum } from 'src/enums';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +27,14 @@ export class AuthService {
       }),
     );
     if (user?.password !== password) {
-      throw new UnauthorizedException();
+      throw new BadRequestException({
+        message: '用户名或密码错误',
+      });
+    }
+    if (user?.status === AdmintorStatusEnum.Close) {
+      throw new BadRequestException({
+        message: '用户已被禁用',
+      });
     }
     const payload = { sub: user._id, username: user.username };
     return {

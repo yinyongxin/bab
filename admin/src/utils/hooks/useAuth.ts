@@ -33,13 +33,14 @@ function useAuth() {
     | undefined
   > => {
     try {
-      const { data } = await authControllerSignIn({
+      const signRes = await authControllerSignIn({
         body: values,
       });
+      const { data, error } = signRes;
       if (!data) {
         return {
           status: 'failed',
-          message: 'Invalid username or password',
+          message: (error as any).message,
         };
       }
       const { access_token, userInfo } = data;
@@ -69,7 +70,7 @@ function useAuth() {
     } catch (errors: any) {
       return {
         status: 'failed',
-        message: errors?.response?.data?.description || errors.toString(),
+        message: '登录失败',
       };
     }
   };

@@ -11,6 +11,8 @@ import classes from './SignIn.module.css';
 import * as yup from 'yup';
 import { useForm, yupResolver } from '@mantine/form';
 import useAuth from '@/utils/hooks/useAuth';
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconExclamationCircle } from '@tabler/icons-react';
 
 export default function SignIn() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -32,6 +34,21 @@ export default function SignIn() {
     setLoading(true);
     try {
       const res = await signIn(values);
+      if (res?.status === 'success') {
+        notifications.show({
+          color: 'green',
+          title: '提示',
+          message: '登录成功',
+          icon: <IconCheck />,
+        });
+      } else if (res?.status === 'failed') {
+        notifications.show({
+          color: 'red',
+          title: '提示',
+          message: res.message,
+          icon: <IconExclamationCircle />,
+        });
+      }
     } catch (e) {
       console.log(e);
     } finally {
