@@ -47,6 +47,21 @@ export class Roles extends BaseDocument {
     example: '',
   })
   icon: string;
+
+  /**
+   * 图标
+   */
+  @Prop({
+    required: true,
+    default: [],
+  })
+  // swagger
+  @ApiProperty({
+    required: true,
+    description: '菜单',
+    example: [],
+  })
+  menus: string[];
 }
 
 export const RolesSchema = SchemaFactory.createForClass(Roles);
