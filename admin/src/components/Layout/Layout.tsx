@@ -10,7 +10,7 @@ const layouts: any = {
     () => import('./LayoutTypes/SimpleSideBar/SimpleSideBar'),
   ),
   [LayoutTypes.DeckedSideBar]: lazy(
-    () => import('./LayoutTypes/DeckedSideBar'),
+    () => import('./LayoutTypes/DeckedSideBar/DeckedSideBar'),
   ),
 };
 
