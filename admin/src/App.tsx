@@ -11,6 +11,11 @@ import { Notifications } from '@mantine/notifications';
 import '@mantine/core/styles.css';
 import '@mantine/dropzone/styles.css';
 import '@mantine/notifications/styles.css';
+/**
+ * Spotlight
+ * https://mantine.dev/x/spotlight/#installation
+ */
+import '@mantine/spotlight/styles.css';
 export default function App() {
   return (
     <MantineProvider theme={theme}>

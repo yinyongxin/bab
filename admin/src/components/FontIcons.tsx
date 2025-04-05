@@ -1,6 +1,6 @@
 type FontIconsProps = {
   style?: React.CSSProperties;
-  name: string;
+  name?: string;
 };
 const FontIcons = (props: FontIconsProps) => {
   const { style, name } = props;

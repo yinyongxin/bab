@@ -2777,6 +2777,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mantine/spotlight@npm:^7.17.3":
+  version: 7.17.3
+  resolution: "@mantine/spotlight@npm:7.17.3"
+  dependencies:
+    "@mantine/store": "npm:7.17.3"
+  peerDependencies:
+    "@mantine/core": 7.17.3
+    "@mantine/hooks": 7.17.3
+    react: ^18.x || ^19.x
+    react-dom: ^18.x || ^19.x
+  checksum: 10c0/a9c7df235ae40940c1e5b76193922b1b690d9a38841beb5624bf6d289449a27f9d05ea960abf7dc401b80f97d47d93fbf3c5e6c8bdc664fb8f4d6f9639fa662e
+  languageName: node
+  linkType: hard
+
 "@mantine/store@npm:7.17.3":
   version: 7.17.3
   resolution: "@mantine/store@npm:7.17.3"
@@ -10419,6 +10433,7 @@ __metadata:
     "@mantine/hooks": "npm:^7.17.3"
     "@mantine/modals": "npm:^7.17.3"
     "@mantine/notifications": "npm:^7.17.3"
+    "@mantine/spotlight": "npm:^7.17.3"
     "@reduxjs/toolkit": "npm:^2.6.1"
     "@storybook/addon-essentials": "npm:^8.0.0"
     "@storybook/addon-interactions": "npm:^8.0.0"

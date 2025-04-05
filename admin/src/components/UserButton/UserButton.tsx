@@ -1,5 +1,8 @@
 import {
   IconChevronRight,
+  IconDashboard,
+  IconFileText,
+  IconHome,
   IconLogout,
   IconMoon,
   IconSun,
@@ -22,77 +25,115 @@ import {
   IconMessageCircle,
 } from '@tabler/icons-react';
 import useAuth from '@/utils/hooks/useAuth';
+import { useAppSelector } from '@/store';
+import { getFilePath } from '@/utils';
+import { SpotlightActionData, Spotlight, spotlight } from '@mantine/spotlight';
+import FontIcons from '../FontIcons';
+
 export function UserButton() {
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
   });
+  const user = useAppSelector((state) => state.auth.user);
+
+  // const actions: SpotlightActionData[] = [
+  //   {
+  //     id: 'home',
+  //     label: 'Home',
+  //     description: 'Get to home page',
+  //     onClick: () => console.log('Home'),
+  //     leftSection: <IconHome size={24} stroke={1.5} />,
+  //   },
+  //   {
+  //     id: 'dashboard',
+  //     label: 'Dashboard',
+  //     description: 'Get full information about current system status',
+  //     onClick: () => console.log('Dashboard'),
+  //     leftSection: <IconDashboard size={24} stroke={1.5} />,
+  //   },
+  //   {
+  //     id: 'documentation',
+  //     label: 'Documentation',
+  //     description: 'Visit documentation to lean more about all features',
+  //     onClick: () => console.log('Documentation'),
+  //     leftSection: <IconFileText size={24} stroke={1.5} />,
+  //   },
+  // ];
+
+
   const { signOut } = useAuth();
   return (
-    <Menu shadow="md" width={200} position="right-end">
-      <Menu.Target>
-        <UnstyledButton className={classes.user}>
-          <Group>
-            <Avatar
-              src="https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-8.png"
-              radius="xl"
-            />
+    <>
+      <Menu shadow="md" width={200} position="right-end">
+        <Menu.Target>
+          <UnstyledButton className={classes.user}>
+            <Group>
+              <Avatar src={getFilePath(user.avatar)} radius="xl" />
 
-            <div style={{ flex: 1 }}>
-              <Text size="sm" fw={500}>
-                Harriette Spoonlicker
+              <div style={{ flex: 1 }}>
+                <Text size="sm" fw={500}>
+                  {user.username}
+                </Text>
+                <Text c="dimmed" size="xs">
+                  {user.email}
+                </Text>
+              </div>
+
+              <IconChevronRight size={14} stroke={1.5} />
+            </Group>
+          </UnstyledButton>
+        </Menu.Target>
+
+        <Menu.Dropdown>
+          <Menu.Label>功能</Menu.Label>
+          {/* <Menu.Item leftSection={<IconSettings size={14} />}>
+            Settings
+          </Menu.Item>
+          <Menu.Item leftSection={<IconMessageCircle size={14} />}>
+            Messages
+          </Menu.Item>
+          <Menu.Item leftSection={<IconPhoto size={14} />}>Gallery</Menu.Item> */}
+          <Menu.Item
+            leftSection={
+              computedColorScheme === 'dark' ? (
+                <IconSun size={14} stroke={1.5} />
+              ) : (
+                <IconMoon size={14} stroke={1.5} />
+              )
+            }
+            onClick={() =>
+              setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
+            }
+          >
+            {computedColorScheme}
+          </Menu.Item>
+          <Menu.Item
+            leftSection={<IconSearch size={14} />}
+            rightSection={
+              <Text size="xs" c="dimmed">
+                ⌘K
               </Text>
+            }
+            onClick={spotlight.open}
+          >
+            Search
+          </Menu.Item>
 
-              <Text c="dimmed" size="xs">
-                hspoonlicker@outlook.com
-              </Text>
-            </div>
+          <Menu.Divider />
 
-            <IconChevronRight size={14} stroke={1.5} />
-          </Group>
-        </UnstyledButton>
-      </Menu.Target>
-
-      <Menu.Dropdown>
-        <Menu.Label>Application</Menu.Label>
-        <Menu.Item leftSection={<IconSettings size={14} />}>Settings</Menu.Item>
-        <Menu.Item leftSection={<IconMessageCircle size={14} />}>
-          Messages
-        </Menu.Item>
-        <Menu.Item leftSection={<IconPhoto size={14} />}>Gallery</Menu.Item>
-        <Menu.Item
-          leftSection={<IconSearch size={14} />}
-          rightSection={
-            <Text size="xs" c="dimmed">
-              ⌘K
-            </Text>
-          }
-        >
-          Search
-        </Menu.Item>
-        <Menu.Item
-          leftSection={
-            computedColorScheme === 'dark' ? (
-              <IconSun size={14} stroke={1.5} />
-            ) : (
-              <IconMoon size={14} stroke={1.5} />
-            )
-          }
-          onClick={() =>
-            setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
-          }
-        >
-          {computedColorScheme}
-        </Menu.Item>
-
-        <Menu.Divider />
-
-        <Menu.Label>用户</Menu.Label>
-        <Menu.Item leftSection={<IconUser size={14} />}>个人信息</Menu.Item>
-        <Menu.Item color="red" leftSection={<IconLogout size={14} />}>
-          退出登录
-        </Menu.Item>
-      </Menu.Dropdown>
-    </Menu>
+          <Menu.Label>用户</Menu.Label>
+          <Menu.Item leftSection={<IconUser size={14} />}>个人信息</Menu.Item>
+          <Menu.Item
+            color="red"
+            leftSection={<IconLogout size={14} />}
+            onClick={signOut}
+          >
+            退出登录
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+      
+    </>
   );
 }
