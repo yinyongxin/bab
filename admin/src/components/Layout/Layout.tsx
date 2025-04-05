@@ -12,9 +12,6 @@ const layouts: any = {
   [LayoutTypes.DeckedSideBar]: lazy(
     () => import('./LayoutTypes/DeckedSideBar'),
   ),
-  [LayoutTypes.CollapsedSideBar]: lazy(
-    () => import('./LayoutTypes/CollapsedSideBar'),
-  ),
 };
 
 export function Layout() {
