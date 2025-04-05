@@ -25,10 +25,10 @@ import { NavigationTree } from '@/@types/navigation';
 type Status = 'success' | 'failed';
 // 递归构建导航树
 const buildNavigationTree = (
-  authMenus: MenusResultDto[],
+  list: MenusResultDto[],
   parent?: string,
 ): NavigationTree[] => {
-  return authMenus
+  return list
     .filter((itemAuthMenu) => itemAuthMenu.parent === parent)
     .map((menu) => ({
       key: menu.uniqueKey,
@@ -37,19 +37,19 @@ const buildNavigationTree = (
       translateKey: '',
       icon: menu.icon,
       authority: [],
-      subMenu: buildNavigationTree(authMenus, menu._id),
+      subMenu: buildNavigationTree(list, menu._id),
     }));
 };
 
 const buildAuthMenusTree = (
-  authMenus: MenusResultDto[],
+  list: MenusResultDto[],
   parent?: string,
 ): TreeMenuDataDto[] => {
-  return authMenus
+  return list
     .filter((itemAuthMenu) => itemAuthMenu.parent === parent)
     .map((menu) => ({
       ...menu,
-      children: buildAuthMenusTree(authMenus, menu._id),
+      children: buildAuthMenusTree(list, menu._id),
     }));
 };
 

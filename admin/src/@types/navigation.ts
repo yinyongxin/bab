@@ -4,7 +4,6 @@ export interface NavigationTree {
   title: string;
   translateKey: string;
   icon?: string;
-  type?: 'title' | 'collapse' | 'item';
   authority: string[];
   subMenu?: SubMenuNavigationTree[];
 }
