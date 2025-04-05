@@ -46,7 +46,7 @@ export function Layout() {
           );
           navigate(`${parent?.path}${item.path}`);
         },
-        leftSection: <FontIcons style={{ fontSize: 24 }} name={item.icon} />,
+        leftSection: <FontIcons style={{ fontSize: 24 }} name={item.icon || 'menu-deep'} />,
       };
     });
   return (
