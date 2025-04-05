@@ -85,9 +85,7 @@ export function UserButton(props: UserButtonProps) {
 
         <Menu.Dropdown>
           <Menu.Label>功能</Menu.Label>
-          <Menu.Item leftSection={<IconSettings size={14} />}>
-            Settings
-          </Menu.Item>
+          <Menu.Item leftSection={<IconSettings size={14} />}>设置</Menu.Item>
           {/* <Menu.Item leftSection={<IconMessageCircle size={14} />}>
             Messages
           </Menu.Item>
