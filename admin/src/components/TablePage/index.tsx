@@ -11,8 +11,6 @@ import {
 } from '@mantine/core';
 import { Key } from 'react';
 export type TablePageProps<D> = {
-  paginationProps?: PaginationProps;
-  tableProps?: TableProps;
   columns: {
     title: React.ReactNode;
     dataKey?: keyof D;
@@ -24,6 +22,8 @@ export type TablePageProps<D> = {
   }[];
   dataList: D[];
   rowkey: keyof D;
+  paginationProps?: PaginationProps;
+  tableProps?: TableProps;
   loading?: boolean;
 };
 

@@ -2,7 +2,6 @@ import {
   configureStore,
   Action,
   Reducer,
-  AnyAction,
   Store,
 } from '@reduxjs/toolkit';
 import {
@@ -26,7 +25,7 @@ const persistConfig = {
   whitelist: ['auth', 'locale'],
 };
 
-interface CustomStore extends Store<RootState, AnyAction> {
+interface CustomStore extends Store<RootState, Action> {
   asyncReducers?: AsyncReducers;
 }
 
