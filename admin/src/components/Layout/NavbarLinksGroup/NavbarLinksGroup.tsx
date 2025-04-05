@@ -11,32 +11,26 @@ import {
 } from '@mantine/core';
 import classes from './NavbarLinksGroup.module.css';
 import FontIcons from '@/components/FontIcons';
+import { NavigationTree } from '@/@types/navigation';
+import { Link } from 'react-router-dom';
 
-interface LinksGroupProps {
-  icon: string;
-  label: string;
+interface LinksGroupProps extends NavigationTree {
   initiallyOpened?: boolean;
-  links?: { label: string; link: string }[];
 }
 
 export function LinksGroup({
   icon,
-  label,
+  title,
+  path,
   initiallyOpened,
-  links,
+  subMenu,
 }: LinksGroupProps) {
-  const hasLinks = Array.isArray(links);
+  const hasLinks = Array.isArray(subMenu);
   const [opened, setOpened] = useState(initiallyOpened || false);
-  const items = (hasLinks ? links : []).map((link) => (
-    <Text<'a'>
-      component="a"
-      className={classes.link}
-      href={link.link}
-      key={link.label}
-      onClick={(event) => event.preventDefault()}
-    >
-      {link.label}
-    </Text>
+  const items = (hasLinks ? subMenu : []).map((link) => (
+    <Link key={link.key} to={`${path}${link.path}`} className={classes.link}>
+      {link.title}
+    </Link>
   ));
 
   return (
@@ -48,9 +42,9 @@ export function LinksGroup({
         <Group justify="space-between" gap={0}>
           <Box style={{ display: 'flex', alignItems: 'center' }}>
             <ThemeIcon variant="light" size={30}>
-              <FontIcons name={icon} style={{ fontSize: rem(18) }} />
+              <FontIcons name={icon || ''} style={{ fontSize: rem(18) }} />
             </ThemeIcon>
-            <Box ml="md">{label}</Box>
+            <Box ml="md">{title}</Box>
           </Box>
           {hasLinks && (
             <IconChevronRight
@@ -64,23 +58,5 @@ export function LinksGroup({
       </UnstyledButton>
       {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
     </>
-  );
-}
-
-const mockdata = {
-  label: 'Releases',
-  icon: 'IconCalendarStats',
-  links: [
-    { label: 'Upcoming releases', link: '/' },
-    { label: 'Previous releases', link: '/' },
-    { label: 'Releases schedule', link: '/' },
-  ],
-};
-
-export function NavbarLinksGroup() {
-  return (
-    <Box mih={220} p="md">
-      <LinksGroup {...mockdata} />
-    </Box>
   );
 }

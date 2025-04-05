@@ -1,48 +1,20 @@
-import { Code, Group, ScrollArea } from '@mantine/core';
-// import { UserButton } from '../UserButton/UserButton';
+import {
+  Box,
+  Code,
+  Group,
+  ScrollArea,
+  useMantineColorScheme,
+  useMantineTheme,
+} from '@mantine/core';
 import classes from './SimpleSideBar.module.css';
 import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
 import { UserButton } from '@/components/UserButton/UserButton';
-
-const mockdata = [
-  { label: 'Dashboard', icon: 'IconGauge' },
-  {
-    label: 'Market news',
-    icon: 'IconNotes',
-    initiallyOpened: true,
-    links: [
-      { label: 'Overview', link: '/' },
-      { label: 'Forecasts', link: '/' },
-      { label: 'Outlook', link: '/' },
-      { label: 'Real time', link: '/' },
-    ],
-  },
-  {
-    label: 'Releases',
-    icon: 'IconCalendarStats',
-    links: [
-      { label: 'Upcoming releases', link: '/' },
-      { label: 'Previous releases', link: '/' },
-      { label: 'Releases schedule', link: '/' },
-    ],
-  },
-  { label: 'Analytics', icon: 'IconPresentationAnalytics' },
-  { label: 'Contracts', icon: 'IconFileAnalytics' },
-  { label: 'Settings', icon: 'IconAdjustments' },
-  {
-    label: 'Security',
-    icon: 'IconLock',
-    links: [
-      { label: 'Enable 2FA', link: '/' },
-      { label: 'Change password', link: '/' },
-      { label: 'Recovery codes', link: '/' },
-    ],
-  },
-];
-
-export default function NavbarNested() {
-  const links = mockdata.map((item) => (
-    <LinksGroup {...item} key={item.label} />
+import { useAppSelector } from '@/store';
+import Views from '../Views';
+function SimpleSideBarContent() {
+  const { navigationTree = [] } = useAppSelector((state) => state.auth.menus);
+  const links = navigationTree.map((item) => (
+    <LinksGroup {...item} key={item.key} />
   ));
 
   return (
@@ -83,9 +55,35 @@ export default function NavbarNested() {
       </ScrollArea>
 
       <div className={classes.footer}>
-
         <UserButton />
       </div>
     </nav>
   );
 }
+
+export default () => {
+  const theme = useMantineTheme();
+  const { colorScheme } = useMantineColorScheme();
+  return (
+    <Box
+      bg={colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1]}
+      style={{
+        overflow: 'hidden',
+        display: 'flex',
+        flex: '1 1 auto',
+        height: '100vh',
+      }}
+    >
+      <SimpleSideBarContent />
+      <Box
+        style={{
+          padding: '1rem',
+          flex: 1,
+          overflow: 'auto',
+        }}
+      >
+        <Views />
+      </Box>
+    </Box>
+  );
+};
