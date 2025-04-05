@@ -63,7 +63,7 @@ function DeckedSideBarContent() {
               src="/logo/logo-light-full.svg"
             />
           </div>
-          <div style={{ overflowY: 'auto', flex: 1 }}>
+          <Box style={{ overflowY: 'auto', flex: 1 }} py="md">
             {navigationConfig.map((link, index) => (
               <AuthorityCheck
                 userAuthority={userAuthority ? userAuthority : []}
@@ -95,8 +95,9 @@ function DeckedSideBarContent() {
                 </Tooltip>
               </AuthorityCheck>
             ))}
-          </div>
-          <Flex direction="column" align="center" mb="md">
+          </Box>
+          <Flex direction="column" align="center" mb="sm">
+            <ColorSchemeToggle />
             <ActionIcon
               size={42}
               variant="subtle"
@@ -106,7 +107,6 @@ function DeckedSideBarContent() {
             >
               <IconLogout />
             </ActionIcon>
-            <ColorSchemeToggle />
           </Flex>
         </div>
         <div className={classes.main}>

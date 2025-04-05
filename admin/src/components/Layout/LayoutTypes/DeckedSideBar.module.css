@@ -76,7 +76,6 @@
   font-family:
     Greycliff CF,
     var(--mantine-font-family);
-  margin-bottom: var(--mantine-spacing-md);
   background-color: var(--mantine-color-body);
   padding: var(--mantine-spacing-md);
   padding-top: rem(18px);
@@ -86,7 +85,6 @@
 }
 
 .logo {
-  margin-bottom: var(--mantine-spacing-md);
   width: 3rem;
   display: flex;
   justify-content: center;
