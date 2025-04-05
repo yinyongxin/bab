@@ -56,7 +56,7 @@ function useAuth() {
         setUser({
           username: userInfo.username,
           email: userInfo.email,
-          role: userInfo.roles,
+          roles: userInfo.roles,
           phoneNumber: userInfo.phone,
           avatar: userInfo.avatar,
         }),
@@ -96,7 +96,7 @@ function useAuth() {
       setUserInfo({
         googleLogin: false,
         name: '',
-        role: '',
+        roles:[],
         email: '',
         userId,
       }),
@@ -104,7 +104,7 @@ function useAuth() {
     dispatch(
       setUser({
         username: '',
-        role: [],
+        roles: [],
         email: '',
       }),
     );

@@ -5,14 +5,14 @@ export interface UserState {
   username?: string;
   phoneNumber?: string;
   email?: string;
-  role?: string[];
+  roles?: string[];
   avatar?: string;
 }
 
 const initialState: UserState = {
   username: '',
   email: '',
-  role: [],
+  roles: [],
   avatar: '',
 };
 
@@ -23,12 +23,12 @@ const userSlice = createSlice({
     setUser(state, action: PayloadAction<UserState>) {
       state.email = action.payload?.email;
       state.username = action.payload?.username;
-      state.role = action.payload?.role;
+      state.roles = action.payload?.roles;
       state.phoneNumber = action.payload?.phoneNumber;
       state.avatar = action.payload?.avatar;
     },
     setUserRole(state, action) {
-      state.role = action.payload.role;
+      state.roles = action.payload.roles;
     },
     setUserName(state, action) {
       state.username = action.payload;

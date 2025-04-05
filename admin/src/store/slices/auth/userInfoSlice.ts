@@ -8,7 +8,7 @@ export interface UserInfoState {
   name?: string;
   walletAddress?: string;
   language?: string;
-  role: string;
+  roles: string[];
   googleLogin?: boolean;
   notificationCount?: number;
 }
@@ -20,7 +20,7 @@ const initialState: UserInfoState = {
   name: '',
   walletAddress: '',
   language: '',
-  role: '',
+  roles: [],
   googleLogin: false,
   notificationCount: 0,
 };
@@ -33,7 +33,7 @@ const userInfoSlice = createSlice({
       state.userId = action.payload?.userId;
       state.email = action.payload?.email;
       state.language = action.payload?.language;
-      state.role = action.payload?.role;
+      state.roles = action.payload?.roles;
       state.walletAddress = action.payload?.walletAddress;
       state.name = action.payload?.name;
       state.googleLogin = action.payload.googleLogin;
@@ -44,7 +44,7 @@ const userInfoSlice = createSlice({
       state.language = action.payload?.language;
     },
     setUserInfoRole(state, action) {
-      state.role = action.payload?.role;
+      state.roles = action.payload?.roles;
     },
     setDisplayName(state, action) {
       state.name = action.payload;

@@ -19,7 +19,7 @@ type AllRoutesProps = ViewsProps;
 const { authenticatedEntryPath } = appConfig;
 
 const AllRoutes = (props: AllRoutesProps) => {
-  const userAuthority = useAppSelector((state) => state.auth.user.role);
+  const userAuthority = useAppSelector((state) => state.auth.user.roles);
 
   return (
     <Routes>
