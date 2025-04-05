@@ -8,6 +8,7 @@ import {
   useMantineTheme,
   useMantineColorScheme,
   rem,
+  Flex,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import navigationConfig from '@/configs/navigation.config';
@@ -93,17 +94,18 @@ function DeckedSideBarContent() {
               </AuthorityCheck>
             ))}
           </div>
-          <ActionIcon
-            size={42}
-            variant="subtle"
-            color="red"
-            aria-label="ActionIcon with size as a number"
-            mb="xs"
-            onClick={signOut}
-          >
-            <IconLogout />
-          </ActionIcon>
-          <ColorSchemeToggle />
+          <Flex direction="column" align="center" mb="md">
+            <ActionIcon
+              size={42}
+              variant="subtle"
+              color="red"
+              aria-label="ActionIcon with size as a number"
+              onClick={signOut}
+            >
+              <IconLogout />
+            </ActionIcon>
+            <ColorSchemeToggle />
+          </Flex>
         </div>
         <div className={classes.main}>
           <div>
