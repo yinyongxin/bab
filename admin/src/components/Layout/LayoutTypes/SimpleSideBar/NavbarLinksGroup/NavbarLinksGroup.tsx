@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
 import {
   Box,
@@ -12,7 +12,7 @@ import {
 import classes from './NavbarLinksGroup.module.css';
 import FontIcons from '@/components/FontIcons';
 import { NavigationTree } from '@/@types/navigation';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface LinksGroupProps extends NavigationTree {
   initiallyOpened?: boolean;
@@ -27,8 +27,23 @@ export function LinksGroup({
 }: LinksGroupProps) {
   const hasLinks = Array.isArray(subMenu);
   const [opened, setOpened] = useState(initiallyOpened || false);
+  const [activeSubLink, setActiveSubLink] = useState('');
+  const location = useLocation();
+  useEffect(() => {
+    const currentPath = location.pathname.split('/');
+    const currentMainLink = currentPath[1];
+    const currentSubLink = currentPath[2];
+    setOpened(`/${currentMainLink}` === path);
+    setActiveSubLink(currentSubLink);
+  }, [location.pathname]);
+
   const items = (hasLinks ? subMenu : []).map((link) => (
-    <Link key={link.key} to={`${path}${link.path}`} className={classes.link}>
+    <Link
+      key={link.key}
+      to={`${path}${link.path}`}
+      className={classes.link}
+      data-active={`${link.path.split('/')[1]}` === activeSubLink || undefined}
+    >
       {link.title}
     </Link>
   ));
