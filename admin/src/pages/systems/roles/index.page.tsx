@@ -166,6 +166,7 @@ export default () => {
                         variant="transparent"
                         color="yellow"
                         onClick={() => {
+                          setInitalValues(item);
                           drawerOpenedAition.open();
                         }}
                       >
@@ -209,10 +210,36 @@ export default () => {
       </Modal>
       <Drawer
         opened={drawerOpened}
-        onClose={drawerOpenedAition.close}
+        onClose={() => {
+          drawerOpenedAition.close();
+          if (initalValues) {
+            setInitalValues(undefined);
+          }
+        }}
         title="菜单配置"
       >
-        <MenusCheck />
+        <MenusCheck
+          roleData={initalValues}
+          onSuccess={(menus) => {
+            close();
+            setData(
+              (state) =>
+                ({
+                  ...state,
+                  list: state?.list?.map((item) => {
+                    if (item._id === initalValues?._id) {
+                      return {
+                        ...item,
+                        menus,
+                      };
+                    }
+                    return item;
+                  }),
+                }) as RoleQueryPaginationResultDto,
+            );
+            getData({ pageNo: 1 });
+          }}
+        />
       </Drawer>
     </>
   );

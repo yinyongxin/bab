@@ -29,8 +29,8 @@ import {
   QueryIdDto,
   UpdateResDto,
 } from '../../../dtos';
-import { toInt } from 'radash';
 import { Public } from '../../../decorators';
+import { toNumber } from 'lodash';
 
 @ApiTags('管理人员-Admintors')
 @Controller('admintors')
@@ -114,8 +114,8 @@ export class AdmintorsController {
   ) {
     const res = await this.usersService.getPageList(
       {
-        pageNo: toInt(pagination.pageNo),
-        pageSize: toInt(pagination.pageSize),
+        pageNo: toNumber(pagination.pageNo),
+        pageSize: toNumber(pagination.pageSize),
       },
       body,
     );

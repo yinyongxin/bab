@@ -104,8 +104,8 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 [nestjs](https://docs.nestjs.com/)
 [nestjs中文](https://nest.nodejs.cn/)
 
-[radash(中文)](https://www.radash.wiki/)
-[radash(英文官网)](https://radash-docs.vercel.app/docs/getting-started)
+[lodash(中文)](https://lodash.com/)
+[lodash(英文官网)](https://lodash.com/)
 
 [nestia(英文官网)](https://nestia.io/docs/)
 

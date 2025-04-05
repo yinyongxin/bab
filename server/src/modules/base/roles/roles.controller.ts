@@ -30,7 +30,7 @@ import {
   QueryIdDto,
   UpdateResDto,
 } from '../../../dtos';
-import { toInt } from 'radash';
+import { toNumber } from 'lodash';
 
 @ApiTags('角色-Roles')
 @Controller('roles')
@@ -108,8 +108,8 @@ export class RolesController {
   ) {
     const res = await this.usersService.getPageList(
       {
-        pageNo: toInt(pagination.pageNo),
-        pageSize: toInt(pagination.pageSize),
+        pageNo: toNumber(pagination.pageNo),
+        pageSize: toNumber(pagination.pageSize),
       },
       body,
     );

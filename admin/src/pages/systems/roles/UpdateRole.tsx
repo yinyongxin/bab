@@ -39,6 +39,7 @@ function UpdateRole(props: UpdateRoleProps) {
       name: '',
       description: '',
       icon: '',
+      menus: [],
     },
     validate: {
       name: hasLength({ min: 1 }, '用户名不能为空'),

@@ -42,4 +42,9 @@ export class LoginSuccessResultDto {
     type: AdmintorsResultDto,
   })
   userInfo: AdmintorsResultDto;
+
+  @ApiProperty({
+    example: [],
+  })
+  menus: string[];
 }

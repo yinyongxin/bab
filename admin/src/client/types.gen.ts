@@ -239,6 +239,10 @@ export type RolesResultDto = {
    */
   icon?: string;
   /**
+   * 菜单
+   */
+  menus: Array<string>;
+  /**
    * 唯一值
    */
   _id: string;
@@ -323,6 +327,10 @@ export type RoleCreateBodyDto = {
    * 图标
    */
   icon?: string;
+  /**
+   * 菜单
+   */
+  menus: Array<string>;
 };
 
 export type RolesUpdateDto = {
@@ -342,6 +350,10 @@ export type RolesUpdateDto = {
    * 图标
    */
   icon?: string;
+  /**
+   * 菜单
+   */
+  menus?: Array<string>;
 };
 
 export type RolesQueryFilterDto = {
@@ -365,6 +377,10 @@ export type RolesQueryFilterDto = {
    * 图标
    */
   icon?: string;
+  /**
+   * 菜单
+   */
+  menus?: Array<string>;
 };
 
 export type RoleQueryPaginationResultDto = {

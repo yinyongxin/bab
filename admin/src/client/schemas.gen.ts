@@ -29,13 +29,13 @@ export const AdmintorsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     username: {
       type: 'string',
@@ -284,13 +284,13 @@ export const AdmintorsFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     username: {
       type: 'string',
@@ -347,13 +347,13 @@ export const RolesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     name: {
       type: 'string',
@@ -370,12 +370,20 @@ export const RolesResultDtoSchema = {
       description: '图标',
       example: '',
     },
+    menus: {
+      description: '菜单',
+      example: [],
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
     _id: {
       type: 'string',
       description: '唯一值',
     },
   },
-  required: ['createdTime', 'updatedTime', 'name', '_id'],
+  required: ['createdTime', 'updatedTime', 'name', 'menus', '_id'],
 } as const;
 
 export const AdmintorsPageItemDtoSchema = {
@@ -385,13 +393,13 @@ export const AdmintorsPageItemDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     username: {
       type: 'string',
@@ -502,8 +510,16 @@ export const RoleCreateBodyDtoSchema = {
       description: '图标',
       example: '',
     },
+    menus: {
+      description: '菜单',
+      example: [],
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
   },
-  required: ['name'],
+  required: ['name', 'menus'],
 } as const;
 
 export const RolesUpdateDtoSchema = {
@@ -513,7 +529,7 @@ export const RolesUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     name: {
       type: 'string',
@@ -529,6 +545,14 @@ export const RolesUpdateDtoSchema = {
       type: 'string',
       description: '图标',
       example: '',
+    },
+    menus: {
+      description: '菜单',
+      example: [],
+      type: 'array',
+      items: {
+        type: 'string',
+      },
     },
   },
 } as const;
@@ -540,13 +564,13 @@ export const RolesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     name: {
       type: 'string',
@@ -562,6 +586,14 @@ export const RolesQueryFilterDtoSchema = {
       type: 'string',
       description: '图标',
       example: '',
+    },
+    menus: {
+      description: '菜单',
+      example: [],
+      type: 'array',
+      items: {
+        type: 'string',
+      },
     },
   },
 } as const;
@@ -654,13 +686,13 @@ export const MenusResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     name: {
       type: 'string',
@@ -729,7 +761,7 @@ export const MenusUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     name: {
       type: 'string',
@@ -790,13 +822,13 @@ export const TreeMenuDataDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     name: {
       type: 'string',
@@ -874,13 +906,13 @@ export const MenusQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743743934631,
+      default: 1743819027909,
     },
     name: {
       type: 'string',
