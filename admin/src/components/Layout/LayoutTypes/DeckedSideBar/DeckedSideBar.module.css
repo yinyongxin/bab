@@ -83,15 +83,15 @@
   border-bottom: rem(1px) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-7));
 }
-
 .logo {
-  width: 3rem;
-  display: flex;
-  justify-content: center;
-  padding-bottom: 4px;
-  padding-top: 6px;
+  height: 60px;
+  width: 100%;
   border-bottom: rem(1px) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-7));
+  
+}
+.logoImage {
+  width: 3rem;
 }
 
 .link {

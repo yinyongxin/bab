@@ -8,6 +8,7 @@ import {
   useMantineColorScheme,
   rem,
   Flex,
+  Center,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link, useLocation } from 'react-router-dom';
@@ -52,13 +53,13 @@ function DeckedSideBarContent() {
     <nav className={classes.navbar}>
       <div className={classes.wrapper}>
         <div className={classes.aside}>
-          <div>
+          <Center className={classes.logo}>
             <img
-              className={classes.logo}
+              className={classes.logoImage}
               alt="Mantine Logo"
               src="/logo/logo-light-full.svg"
             />
-          </div>
+          </Center>
           <Box style={{ overflowY: 'auto', flex: 1 }} py="md">
             {navigationTree.map((link, index) => (
               <AuthorityCheck
