@@ -9,6 +9,7 @@ import {
   Patch,
 } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
@@ -25,6 +26,7 @@ import {
 import {
   DeleteIdsDto,
   DeleteResDto,
+  ErrorResultDto,
   PaginationDto,
   QueryIdDto,
   UpdateResDto,
@@ -33,6 +35,10 @@ import { Public } from '../../../decorators';
 import { toNumber } from 'lodash';
 
 @ApiTags('管理人员-Admintors')
+@ApiBadRequestResponse({
+  description: '失败',
+  type: ErrorResultDto,
+})
 @Controller('admintors')
 export class AdmintorsController {
   constructor(private readonly usersService: AdmintorsService) {}

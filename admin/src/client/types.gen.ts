@@ -83,6 +83,17 @@ export type AdmintorsCreateBodyDto = {
   roles: Array<string>;
 };
 
+export type ErrorResultDto = {
+  /**
+   * 错误信息
+   */
+  message: string;
+  /**
+   * 错误码
+   */
+  statusCode: number;
+};
+
 export type DeleteIdsDto = {
   /**
    * 删除Id列表
@@ -671,6 +682,16 @@ export type AdmintorsControllerAddOneData = {
   query?: never;
   url: '/api/admintors/addOne';
 };
+
+export type AdmintorsControllerAddOneErrors = {
+  /**
+   * 添加失败
+   */
+  400: ErrorResultDto;
+};
+
+export type AdmintorsControllerAddOneError =
+  AdmintorsControllerAddOneErrors[keyof AdmintorsControllerAddOneErrors];
 
 export type AdmintorsControllerAddOneResponses = {
   /**

@@ -110,3 +110,16 @@ export class PaginationResultDto extends PaginationDto {
   })
   total: number;
 }
+
+export class ErrorResultDto {
+  @ApiProperty({
+    required: true,
+    description: '错误信息',
+  })
+  message: string;
+  @ApiProperty({
+    required: true,
+    description: '错误码',
+  })
+  statusCode: number;
+}

@@ -12,6 +12,7 @@ import type {
   AuthControllerGetProfileData,
   AdmintorsControllerAddOneData,
   AdmintorsControllerAddOneResponse,
+  AdmintorsControllerAddOneError,
   AdmintorsControllerDeleteByIdsData,
   AdmintorsControllerDeleteByIdsResponse,
   AdmintorsControllerUpdateOneData,
@@ -129,7 +130,7 @@ export const admintorsControllerAddOne = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).put<
     AdmintorsControllerAddOneResponse,
-    unknown,
+    AdmintorsControllerAddOneError,
     ThrowOnError
   >({
     responseTransformer: admintorsControllerAddOneResponseTransformer,

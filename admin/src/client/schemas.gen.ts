@@ -161,6 +161,21 @@ export const AdmintorsCreateBodyDtoSchema = {
   required: ['username', 'password', 'roles'],
 } as const;
 
+export const ErrorResultDtoSchema = {
+  type: 'object',
+  properties: {
+    message: {
+      type: 'string',
+      description: '错误信息',
+    },
+    statusCode: {
+      type: 'number',
+      description: '错误码',
+    },
+  },
+  required: ['message', 'statusCode'],
+} as const;
+
 export const DeleteIdsDtoSchema = {
   type: 'object',
   properties: {
