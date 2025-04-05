@@ -24,12 +24,11 @@ import {
 import classes from './SubMenuList.module.css';
 import {
   MenusResultDto,
-  MenusUpdateDto,
   menusControllerDeleteByIds,
   menusControllerGetAllByFilter,
   menusControllerUpdateOne,
 } from '@/client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import UpdataSubMenu from './UpdataSubMenu';
 import { modals } from '@mantine/modals';
 import PageAuthorityCheckGroup from './PageAuthorityCheckGroup';
@@ -206,7 +205,7 @@ export function SubMenuList(props: SubMenuListProps) {
             open();
           }}
         >
-          新增
+          新增页面
         </Button>
         <DragDropContext
           onDragEnd={({ destination, source }) => {

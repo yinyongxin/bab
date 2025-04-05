@@ -170,7 +170,7 @@ export function MainMenuList(props: MainMenuListProps) {
             open();
           }}
         >
-          新增
+          新增菜单
         </Button>
         <DragDropContext
           onDragEnd={({ destination, source }) => {

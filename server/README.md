@@ -108,6 +108,10 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 [lodash(英文官网)](https://lodash.com/)
 
 [nestia(英文官网)](https://nestia.io/docs/)
+> Nestia是一个用于NestJS的辅助库，它提供了一组扩展的fs（文件系统）方法，用于处理文件和目录，如复制、移动、删除等。
+
+[fs-extra](https://github.com/jprichardson/node-fs-extra)
+> fs-extra是一个用于Node.js的库，它提供了一组扩展的fs（文件系统）方法，用于处理文件和目录，如复制、移动、删除等。
 
 ## MongoDB
 

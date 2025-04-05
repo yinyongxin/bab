@@ -7,11 +7,17 @@ export type AppConfig = {
   locale: string;
   layoutType: LayoutTypes;
   fileBaseUrl: string;
+  name: string;
+  logo: string;
+  version: string;
 };
 
 const appConfig: AppConfig = {
-  layoutType: LayoutTypes.DeckedSideBar,
-  // layoutType: LayoutTypes.SimpleSideBar,
+  // layoutType: LayoutTypes.DeckedSideBar,
+  layoutType: LayoutTypes.SimpleSideBar,
+  name: 'Admin',
+  version: '1.0.0',
+  logo: '/logo/logo-light-full.svg',
   apiPrefix: '',
   authenticatedEntryPath: '/nothingFound',
   unAuthenticatedEntryPath: '/sign-in',

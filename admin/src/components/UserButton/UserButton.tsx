@@ -2,6 +2,7 @@ import {
   IconChevronRight,
   IconLogout,
   IconMoon,
+  IconSettings,
   IconSun,
   IconUser,
 } from '@tabler/icons-react';
@@ -84,10 +85,10 @@ export function UserButton(props: UserButtonProps) {
 
         <Menu.Dropdown>
           <Menu.Label>功能</Menu.Label>
-          {/* <Menu.Item leftSection={<IconSettings size={14} />}>
+          <Menu.Item leftSection={<IconSettings size={14} />}>
             Settings
           </Menu.Item>
-          <Menu.Item leftSection={<IconMessageCircle size={14} />}>
+          {/* <Menu.Item leftSection={<IconMessageCircle size={14} />}>
             Messages
           </Menu.Item>
           <Menu.Item leftSection={<IconPhoto size={14} />}>Gallery</Menu.Item> */}

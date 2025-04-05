@@ -18,6 +18,7 @@ import AuthorityCheck from '@/route/AuthorityCheck';
 import { useAppSelector } from '@/store';
 import FontIcons from '@/components/FontIcons';
 import { UserButton } from '@/components/UserButton/UserButton';
+import appConfig from '@/configs/app.config';
 
 function DeckedSideBarContent() {
   const [activeMainLink, setActiveMainLink] = useState('');
@@ -57,7 +58,7 @@ function DeckedSideBarContent() {
             <img
               className={classes.logoImage}
               alt="Mantine Logo"
-              src="/logo/logo-light-full.svg"
+              src={appConfig.logo}
             />
           </Center>
           <Box style={{ overflowY: 'auto', flex: 1 }} py="md">
