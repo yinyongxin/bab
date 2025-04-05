@@ -17,6 +17,7 @@ import {
   Divider,
   Flex,
   Pagination,
+  Drawer,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
@@ -28,9 +29,11 @@ import {
 } from '@tabler/icons-react';
 import { getFilePath, getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
+import MenusCheck from './MenusCheck';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
+  const [drawerOpened, drawerOpenedAition] = useDisclosure(false);
   const [title, setTitle] = useState('');
   const [initalValues, setInitalValues] = useState<RolesResultDto>();
   const [loading, loadingAction] = useDisclosure(false);
@@ -159,7 +162,13 @@ export default () => {
                       >
                         <IconEdit />
                       </ActionIcon>
-                      <ActionIcon variant="transparent" color="yellow">
+                      <ActionIcon
+                        variant="transparent"
+                        color="yellow"
+                        onClick={() => {
+                          drawerOpenedAition.open();
+                        }}
+                      >
                         <IconLayoutSidebarInactive />
                       </ActionIcon>
                       <ActionIcon
@@ -198,6 +207,13 @@ export default () => {
           }}
         />
       </Modal>
+      <Drawer
+        opened={drawerOpened}
+        onClose={drawerOpenedAition.close}
+        title="菜单配置"
+      >
+        <MenusCheck />
+      </Drawer>
     </>
   );
 };
