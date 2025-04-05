@@ -3,7 +3,6 @@ import {
   UnstyledButton,
   Tooltip,
   Title,
-  ActionIcon,
   Box,
   useMantineTheme,
   useMantineColorScheme,
@@ -16,13 +15,10 @@ import Views from '@/components/Layout/Views';
 import { useTranslation } from 'react-i18next';
 import AuthorityCheck from '@/route/AuthorityCheck';
 import { useAppSelector } from '@/store';
-import { IconLogout } from '@tabler/icons-react';
-import useAuth from '@/utils/hooks/useAuth';
-import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import FontIcons from '@/components/FontIcons';
+import { UserButton } from '@/components/UserButton/UserButton';
 
 function DeckedSideBarContent() {
-  const { signOut } = useAuth();
   const [activeMainLink, setActiveMainLink] = useState('');
   const [activeSubLink, setActiveSubLink] = useState('');
   const [title, setTitle] = useState('');
@@ -99,18 +95,7 @@ function DeckedSideBarContent() {
               </AuthorityCheck>
             ))}
           </Box>
-          <Flex direction="column" align="center" mb="sm">
-            <ColorSchemeToggle />
-            <ActionIcon
-              size={42}
-              variant="subtle"
-              color="red"
-              aria-label="ActionIcon with size as a number"
-              onClick={signOut}
-            >
-              <IconLogout />
-            </ActionIcon>
-          </Flex>
+          <UserButton onlyShowAvatar />
         </div>
         <div className={classes.main}>
           <div>

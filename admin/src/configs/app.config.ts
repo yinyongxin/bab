@@ -10,8 +10,8 @@ export type AppConfig = {
 };
 
 const appConfig: AppConfig = {
-  // layoutType: LayoutTypes.DeckedSideBar,
-  layoutType: LayoutTypes.SimpleSideBar,
+  layoutType: LayoutTypes.DeckedSideBar,
+  // layoutType: LayoutTypes.SimpleSideBar,
   apiPrefix: '',
   authenticatedEntryPath: '/nothingFound',
   unAuthenticatedEntryPath: '/sign-in',

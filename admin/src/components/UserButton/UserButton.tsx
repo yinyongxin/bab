@@ -1,8 +1,5 @@
 import {
   IconChevronRight,
-  IconDashboard,
-  IconFileText,
-  IconHome,
   IconLogout,
   IconMoon,
   IconSun,
@@ -18,19 +15,17 @@ import {
   useMantineColorScheme,
 } from '@mantine/core';
 import classes from './UserButton.module.css';
-import {
-  IconSettings,
-  IconSearch,
-  IconPhoto,
-  IconMessageCircle,
-} from '@tabler/icons-react';
+import { IconSearch } from '@tabler/icons-react';
 import useAuth from '@/utils/hooks/useAuth';
 import { useAppSelector } from '@/store';
 import { getFilePath } from '@/utils';
-import { SpotlightActionData, Spotlight, spotlight } from '@mantine/spotlight';
-import FontIcons from '../FontIcons';
+import { spotlight } from '@mantine/spotlight';
 
-export function UserButton() {
+type UserButtonProps = {
+  onlyShowAvatar?: boolean;
+};
+export function UserButton(props: UserButtonProps) {
+  const { onlyShowAvatar = false } = props;
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
@@ -61,7 +56,6 @@ export function UserButton() {
   //   },
   // ];
 
-
   const { signOut } = useAuth();
   return (
     <>
@@ -70,17 +64,20 @@ export function UserButton() {
           <UnstyledButton className={classes.user}>
             <Group>
               <Avatar src={getFilePath(user.avatar)} radius="xl" />
+              {!onlyShowAvatar && (
+                <>
+                  <div style={{ flex: 1 }}>
+                    <Text size="sm" fw={500}>
+                      {user.username}
+                    </Text>
+                    <Text c="dimmed" size="xs">
+                      {user.email}
+                    </Text>
+                  </div>
 
-              <div style={{ flex: 1 }}>
-                <Text size="sm" fw={500}>
-                  {user.username}
-                </Text>
-                <Text c="dimmed" size="xs">
-                  {user.email}
-                </Text>
-              </div>
-
-              <IconChevronRight size={14} stroke={1.5} />
+                  <IconChevronRight size={14} stroke={1.5} />
+                </>
+              )}
             </Group>
           </UnstyledButton>
         </Menu.Target>
@@ -106,7 +103,7 @@ export function UserButton() {
               setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
             }
           >
-            {computedColorScheme}
+            {computedColorScheme === 'light' ? '深色模式' : '浅色模式'}
           </Menu.Item>
           <Menu.Item
             leftSection={<IconSearch size={14} />}
@@ -117,7 +114,7 @@ export function UserButton() {
             }
             onClick={spotlight.open}
           >
-            Search
+            搜索
           </Menu.Item>
 
           <Menu.Divider />
@@ -133,7 +130,6 @@ export function UserButton() {
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
-      
     </>
   );
 }
