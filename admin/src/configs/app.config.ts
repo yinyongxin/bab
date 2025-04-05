@@ -11,7 +11,6 @@ export type AppConfig = {
 
 const appConfig: AppConfig = {
   layoutType: LayoutTypes.DeckedSideBar,
-  // layoutType: LayoutTypes.CollapsedSideBar,
   // layoutType: LayoutTypes.SimpleSideBar,
   apiPrefix: '',
   authenticatedEntryPath: '/dashboard',
