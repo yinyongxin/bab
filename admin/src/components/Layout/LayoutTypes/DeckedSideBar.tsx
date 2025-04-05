@@ -29,16 +29,18 @@ function DeckedSideBarContent() {
   const [title, setTitle] = useState('');
   const location = useLocation();
   const { t } = useTranslation();
-  const userAuthority = useAppSelector((state) => state.auth.user.role);
+  const userAuthority = useAppSelector((state) => state.auth.user.roles);
 
   useEffect(() => {
     const currentPath = location.pathname.split('/');
     const currentMainLink = currentPath[1];
     const currentSubLink = currentPath[2];
-
     setActiveMainLink(currentMainLink);
     setActiveSubLink(currentSubLink);
-    setTitle(currentMainLink.toUpperCase());
+    setTitle(
+      navigationConfig.find((item) => item.path === `/${currentMainLink}`)
+        ?.title || '',
+    );
   }, [location.pathname]);
 
   const handleMainLinkClick = (
@@ -111,7 +113,7 @@ function DeckedSideBarContent() {
           <div>
             <div className={classes.stickyTitle}>
               <Title order={4} className={classes.title}>
-                {title.toUpperCase()}
+                {title}
               </Title>
             </div>
             <div>
