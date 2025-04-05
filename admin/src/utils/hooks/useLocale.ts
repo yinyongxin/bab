@@ -1,25 +1,25 @@
-import { useEffect } from 'react'
-import i18n from 'i18next'
-import dayjs from 'dayjs'
-import { dateLocales } from '@/locales'
-import { useAppSelector } from '@/store'
+import { useEffect } from 'react';
+import i18n from 'i18next';
+import dayjs from 'dayjs';
+import { dateLocales } from '@/locales';
+import { useAppSelector } from '@/store';
 
 function useLocale() {
-  const locale = useAppSelector((state) => state.locale.currentLang)
+  const locale = useAppSelector((state) => state.locale.currentLang);
 
   useEffect(() => {
-    const formattedLang = locale.replace(/-([a-z])/g, (g:any) => {
-      return g[1].toUpperCase()
-    })
+    const formattedLang = locale.replace(/-([a-z])/g, (g: any) => {
+      return g[1].toUpperCase();
+    });
     if (locale !== i18n.language) {
-      i18n.changeLanguage(formattedLang)
+      i18n.changeLanguage(formattedLang);
     }
     dateLocales[formattedLang]().then(() => {
-      dayjs.locale(formattedLang)
-    })
-  }, [locale])
+      dayjs.locale(formattedLang);
+    });
+  }, [locale]);
 
-  return locale
+  return locale;
 }
 
-export default useLocale
+export default useLocale;

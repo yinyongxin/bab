@@ -75,13 +75,7 @@ export default function SignIn() {
               mt="md"
               size="md"
             />
-            <Button
-              loading={loading}
-              type="submit"
-              fullWidth
-              mt="xl"
-              size="md"
-            >
+            <Button loading={loading} type="submit" fullWidth mt="xl" size="md">
               Login
             </Button>
             {/*<Text ta="center" mt="md">*/}

@@ -144,7 +144,7 @@ function UpdateRole(props: UpdateRoleProps) {
                     height="100%"
                     src={getFilePath(form.values.icon)}
                     fit="cover"
-                   />
+                  />
                 ) : (
                   <Flex justify="center" align="center" h="100%">
                     <IconUpload stroke={1.5} />

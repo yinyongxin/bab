@@ -52,31 +52,28 @@ function SideBar() {
           </Box>
         </AuthorityCheck>
       );
-    } 
-      return (
-        <AuthorityCheck
-          userAuthority={userAuthority || []}
-          authority={item.authority}
-          key={index}
+    }
+    return (
+      <AuthorityCheck
+        userAuthority={userAuthority || []}
+        authority={item.authority}
+        key={index}
+      >
+        <Link
+          className={classes.link}
+          data-active={item.path.split('/')[1] === active ? 'true' : undefined}
+          to={item.path}
+          onClick={(event) => {
+            event.preventDefault();
+            setActive(item.path.split('/')[1]);
+            navigate(item.path);
+          }}
         >
-          <Link
-            className={classes.link}
-            data-active={
-              item.path.split('/')[1] === active ? 'true' : undefined
-            }
-            to={item.path}
-            onClick={(event) => {
-              event.preventDefault();
-              setActive(item.path.split('/')[1]);
-              navigate(item.path);
-            }}
-          >
-            {item.icon}
-            <span>{item.translateKey ? t(item.translateKey) : item.title}</span>
-          </Link>
-        </AuthorityCheck>
-      );
-    
+          {item.icon}
+          <span>{item.translateKey ? t(item.translateKey) : item.title}</span>
+        </Link>
+      </AuthorityCheck>
+    );
   });
 
   return (
