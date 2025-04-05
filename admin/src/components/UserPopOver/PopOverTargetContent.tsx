@@ -10,7 +10,7 @@ export default function PopOverTargetContent() {
   return (
     <>
       <div className={classes.contentWrapper}>
-        <Avatar color={'blue'} radius={'lg'} src={avatar}>
+        <Avatar color="blue" radius="lg" src={avatar}>
           {username}
         </Avatar>
         <div>

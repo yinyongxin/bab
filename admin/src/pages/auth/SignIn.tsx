@@ -55,13 +55,13 @@ export default function SignIn() {
             </Title>
             <Text ta="center" mt="md" mb={50}>
               To get more information about the template please check the{' '}
-              <a href={'https://github.com/auronvila/mantine-template/wiki'}>
+              <a href="https://github.com/auronvila/mantine-template/wiki">
                 documentation
               </a>
             </Text>
             <TextInput
               {...form.getInputProps('email')}
-              name={'email'}
+              name="email"
               label="Email address"
               withAsterisk
               placeholder="hello@gmail.com"
@@ -69,7 +69,7 @@ export default function SignIn() {
             />
             <PasswordInput
               {...form.getInputProps('password')}
-              name={'password'}
+              name="password"
               label="Password"
               placeholder="Your password"
               mt="md"
@@ -77,7 +77,7 @@ export default function SignIn() {
             />
             <Button
               loading={loading}
-              type={'submit'}
+              type="submit"
               fullWidth
               mt="xl"
               size="md"

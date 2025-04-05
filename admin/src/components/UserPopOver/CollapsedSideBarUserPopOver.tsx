@@ -16,7 +16,7 @@ export default function CollapsedSideBarUserPopOver() {
       >
         <Popover.Target>
           <div onClick={() => setDisplayPopOver((prevState) => !prevState)}>
-            <IconUserCircle size={30} strokeWidth={1.5} color={'black'} />
+            <IconUserCircle size={30} strokeWidth={1.5} color="black" />
           </div>
         </Popover.Target>
         <Popover.Dropdown>

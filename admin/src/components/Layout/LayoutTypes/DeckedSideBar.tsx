@@ -56,8 +56,8 @@ function DeckedSideBarContent() {
           <div>
             <img
               className={classes.logo}
-              alt={'Mantine Logo'}
-              src={'/logo/logo-light-full.svg'}
+              alt="Mantine Logo"
+              src="/logo/logo-light-full.svg"
             />
           </div>
           <div style={{ overflowY: 'auto', flex: 1 }}>

@@ -126,7 +126,7 @@ export default () => {
       render(values) {
         return (
           <Flex gap={8} align="center">
-            <Avatar src={getFilePath(values?.avatar || '')}></Avatar>
+            <Avatar src={getFilePath(values?.avatar || '')} />
             <Flex direction="column">
               <Title order={6}>{values?.username}</Title>
               <Text size="sm" c="dimmed">

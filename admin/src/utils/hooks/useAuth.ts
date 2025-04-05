@@ -97,7 +97,7 @@ function useAuth() {
         name: '',
         role: '',
         email: '',
-        userId: userId,
+        userId,
       }),
     );
     dispatch(

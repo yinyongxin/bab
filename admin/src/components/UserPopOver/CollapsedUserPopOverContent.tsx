@@ -8,7 +8,7 @@ export default function CollapsedUserPopOverContent() {
   return (
     <>
       <div className={classes.contentWrapper}>
-        <Avatar color={'blue'} radius={'lg'}>
+        <Avatar color="blue" radius="lg">
           {username}
         </Avatar>
         <div>

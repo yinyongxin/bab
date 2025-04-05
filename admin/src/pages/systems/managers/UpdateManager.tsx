@@ -138,7 +138,7 @@ function UpdateManager(props: UpdateManagerProps) {
             }
             const res = await filesControllerUploadFile({
               body: {
-                file: file,
+                file,
               },
             });
             if (res.data) {

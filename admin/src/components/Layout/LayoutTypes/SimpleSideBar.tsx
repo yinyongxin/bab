@@ -52,7 +52,7 @@ function SideBar() {
           </Box>
         </AuthorityCheck>
       );
-    } else {
+    } 
       return (
         <AuthorityCheck
           userAuthority={userAuthority || []}
@@ -76,7 +76,7 @@ function SideBar() {
           </Link>
         </AuthorityCheck>
       );
-    }
+    
   });
 
   return (
@@ -85,8 +85,8 @@ function SideBar() {
         <Group className={classes.header} justify="space-between">
           <img
             className={classes.logo}
-            alt={'Mantine Logo'}
-            src={'/logo/logo-light-full.svg'}
+            alt="Mantine Logo"
+            src="/logo/logo-light-full.svg"
           />
         </Group>
         {links}

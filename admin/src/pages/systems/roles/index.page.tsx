@@ -143,7 +143,7 @@ export default () => {
                     {item.name}
                   </Title>
 
-                  <Text size="sm" c="dimmed" lineClamp={2} h={'48'}>
+                  <Text size="sm" c="dimmed" lineClamp={2} h="48">
                     {item.description}
                   </Text>
                   <Divider />

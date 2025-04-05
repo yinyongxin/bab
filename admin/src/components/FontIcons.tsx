@@ -4,7 +4,7 @@ type FontIconsProps = {
 };
 const FontIcons = (props: FontIconsProps) => {
   const { style, name } = props;
-  return <i style={style} className={`ti ti-${name}`}></i>;
+  return <i style={style} className={`ti ti-${name}`} />;
 };
 
 export default FontIcons;
