@@ -6,15 +6,68 @@ import {
   useAppDispatch,
   setUserInfo,
   setUserId,
+  AppThunkDispatch,
 } from '@/store';
 import appConfig from '@/configs/app.config';
 import { REDIRECT_URL_KEY } from '@/constants/app.constant';
 import { useNavigate } from 'react-router-dom';
 import { SignInCredential, SignUpCredential } from '@/@types/auth';
 import useQuery from './useQuery';
-import { authControllerSignIn } from '@/client';
+import {
+  authControllerSignIn,
+  menusControllerGetAllByFilter,
+  MenusResultDto,
+  TreeMenuDataDto,
+} from '@/client';
+import { setMenus } from '@/store/slices/auth/menusSlice';
+import { NavigationTree } from '@/@types/navigation';
 
 type Status = 'success' | 'failed';
+// 递归构建导航树
+const buildNavigationTree = (
+  authMenus: MenusResultDto[],
+  parent?: string,
+): NavigationTree[] => {
+  return authMenus
+    .filter((itemAuthMenu) => itemAuthMenu.parent === parent)
+    .map((menu) => ({
+      key: menu.uniqueKey,
+      path: menu.path,
+      title: menu.name,
+      translateKey: '',
+      icon: menu.icon,
+      authority: [],
+      subMenu: buildNavigationTree(authMenus, menu._id),
+    }));
+};
+
+const buildAuthMenusTree = (
+  authMenus: MenusResultDto[],
+  parent?: string,
+): TreeMenuDataDto[] => {
+  return authMenus
+    .filter((itemAuthMenu) => itemAuthMenu.parent === parent)
+    .map((menu) => ({
+      ...menu,
+      children: buildAuthMenusTree(authMenus, menu._id),
+    }));
+};
+
+const updateMenus = async (menus: string[], dispatch: AppThunkDispatch) => {
+  const allMenus = await menusControllerGetAllByFilter({
+    body: {},
+  });
+  /** 有权限的菜单 */
+  const authMenus =
+    allMenus.data?.filter((menu) => menus.includes(menu._id)) || [];
+  dispatch(
+    setMenus({
+      list: authMenus,
+      tree: buildAuthMenusTree(authMenus, ''),
+      navigationTree: buildNavigationTree(authMenus, ''),
+    }),
+  );
+};
 
 function useAuth() {
   const dispatch = useAppDispatch();
@@ -43,6 +96,7 @@ function useAuth() {
           message: (error as any).message,
         };
       }
+      updateMenus(data.menus, dispatch);
       const { access_token, userInfo } = data;
       dispatch(setUserId(userInfo._id));
       dispatch(
@@ -96,7 +150,7 @@ function useAuth() {
       setUserInfo({
         googleLogin: false,
         name: '',
-        roles:[],
+        roles: [],
         email: '',
         userId,
       }),

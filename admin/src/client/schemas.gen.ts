@@ -29,13 +29,13 @@ export const AdmintorsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     username: {
       type: 'string',
@@ -125,8 +125,15 @@ export const LoginSuccessResultDtoSchema = {
         },
       ],
     },
+    menus: {
+      example: [],
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
   },
-  required: ['access_token', 'userInfo'],
+  required: ['access_token', 'userInfo', 'menus'],
 } as const;
 
 export const AdmintorsCreateBodyDtoSchema = {
@@ -284,13 +291,13 @@ export const AdmintorsFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     username: {
       type: 'string',
@@ -347,13 +354,13 @@ export const RolesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     name: {
       type: 'string',
@@ -393,13 +400,13 @@ export const AdmintorsPageItemDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     username: {
       type: 'string',
@@ -529,7 +536,7 @@ export const RolesUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     name: {
       type: 'string',
@@ -564,13 +571,13 @@ export const RolesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     name: {
       type: 'string',
@@ -686,13 +693,13 @@ export const MenusResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     name: {
       type: 'string',
@@ -761,7 +768,7 @@ export const MenusUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     name: {
       type: 'string',
@@ -822,13 +829,13 @@ export const TreeMenuDataDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     name: {
       type: 'string',
@@ -906,13 +913,13 @@ export const MenusQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743819027909,
+      default: 1743828213926,
     },
     name: {
       type: 'string',

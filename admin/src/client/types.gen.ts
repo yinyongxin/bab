@@ -65,6 +65,7 @@ export type AdmintorsResultDto = {
 export type LoginSuccessResultDto = {
   access_token: string;
   userInfo: AdmintorsResultDto;
+  menus: Array<string>;
 };
 
 export type AdmintorsCreateBodyDto = {

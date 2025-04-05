@@ -4,11 +4,11 @@ import appConfig from '@/configs/app.config';
 import en from './lang/en.json';
 import es from './lang/es.json';
 import tr from './lang/tr.json';
-import ZhCn from './lang/zh-cn.json';
+import cn from './lang/cn.json';
 import errEn from './lang/errors/en.json';
 import errTr from './lang/errors/tr.json';
 import errEs from './lang/errors/es.json';
-import errZhCn from './lang/errors/zh-cn.json';
+import errCn from './lang/errors/cn.json';
 
 const resources = {
   en: {
@@ -20,8 +20,8 @@ const resources = {
   tr: {
     translation: { ...tr, ...errTr },
   },
-  'zh-cn': {
-    translation: { ...ZhCn, ...errZhCn },
+  cn: {
+    translation: { ...cn, ...errCn },
   },
 };
 i18n.use(initReactI18next).init({
@@ -37,7 +37,7 @@ export const dateLocales: {
   [key: string]: () => Promise<ILocale>;
 } = {
   en: () => import('dayjs/locale/en'),
-  'zh-cn': () => import('dayjs/locale/zh-cn'),
+  cn: () => import('dayjs/locale/zh-cn'),
   es: () => import('dayjs/locale/es'),
   tr: () => import('dayjs/locale/tr'),
 };

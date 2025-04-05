@@ -11,7 +11,6 @@ import {
   Flex,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
-import navigationConfig from '@/configs/navigation.config';
 import { Link, useLocation } from 'react-router-dom';
 import Views from '@/components/Layout/Views';
 import { useTranslation } from 'react-i18next';
@@ -30,6 +29,7 @@ function DeckedSideBarContent() {
   const location = useLocation();
   const { t } = useTranslation();
   const userAuthority = useAppSelector((state) => state.auth.user.roles);
+  const { navigationTree = [] } = useAppSelector((state) => state.auth.menus);
 
   useEffect(() => {
     const currentPath = location.pathname.split('/');
@@ -38,7 +38,7 @@ function DeckedSideBarContent() {
     setActiveMainLink(currentMainLink);
     setActiveSubLink(currentSubLink);
     setTitle(
-      navigationConfig.find((item) => item.path === `/${currentMainLink}`)
+      navigationTree.find((item) => item.path === `/${currentMainLink}`)
         ?.title || '',
     );
   }, [location.pathname]);
@@ -64,7 +64,7 @@ function DeckedSideBarContent() {
             />
           </div>
           <Box style={{ overflowY: 'auto', flex: 1 }} py="md">
-            {navigationConfig.map((link, index) => (
+            {navigationTree.map((link, index) => (
               <AuthorityCheck
                 userAuthority={userAuthority ? userAuthority : []}
                 authority={link.authority}
@@ -90,7 +90,10 @@ function DeckedSideBarContent() {
                       link.path.split('/')[1] === activeMainLink || undefined
                     }
                   >
-                    <FontIcons name={link.icon} style={{ fontSize: rem(18) }} />
+                    <FontIcons
+                      name={link.icon || ''}
+                      style={{ fontSize: rem(18) }}
+                    />
                   </UnstyledButton>
                 </Tooltip>
               </AuthorityCheck>
@@ -117,7 +120,7 @@ function DeckedSideBarContent() {
               </Title>
             </div>
             <div>
-              {navigationConfig.map((link, index) => (
+              {navigationTree.map((link, index) => (
                 <div
                   key={index}
                   style={{
@@ -135,10 +138,11 @@ function DeckedSideBarContent() {
                         key={subIndex}
                       >
                         <Link
-                          to={`${link.path}/${submenuItem.path}`}
+                          to={`${link.path}${submenuItem.path}`}
                           className={classes.link}
                           data-active={
-                            `${submenuItem.path}` === activeSubLink || undefined
+                            `${submenuItem.path.split('/')[1]}` ===
+                              activeSubLink || undefined
                           }
                           key={subIndex}
                         >
