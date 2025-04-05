@@ -7,7 +7,7 @@ import { useAppSelector } from '@/store';
 
 const layouts: any = {
   [LayoutTypes.SimpleSideBar]: lazy(
-    () => import('./LayoutTypes/SimpleSideBar'),
+    () => import('./LayoutTypes/SimpleSideBar/SimpleSideBar'),
   ),
   [LayoutTypes.DeckedSideBar]: lazy(
     () => import('./LayoutTypes/DeckedSideBar'),

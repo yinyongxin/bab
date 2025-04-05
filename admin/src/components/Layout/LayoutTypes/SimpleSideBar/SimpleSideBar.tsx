@@ -7,10 +7,10 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import classes from './SimpleSideBar.module.css';
-import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
+import { LinksGroup } from './NavbarLinksGroup/NavbarLinksGroup';
 import { UserButton } from '@/components/UserButton/UserButton';
 import { useAppSelector } from '@/store';
-import Views from '../Views';
+import Views from '../../Views';
 function SimpleSideBarContent() {
   const { navigationTree = [] } = useAppSelector((state) => state.auth.menus);
   const links = navigationTree.map((item) => (
