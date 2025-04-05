@@ -13,7 +13,7 @@ const appConfig: AppConfig = {
   layoutType: LayoutTypes.DeckedSideBar,
   // layoutType: LayoutTypes.SimpleSideBar,
   apiPrefix: '',
-  authenticatedEntryPath: '/dashboard',
+  authenticatedEntryPath: '/nothingFound',
   unAuthenticatedEntryPath: '/sign-in',
   locale: 'cn',
   fileBaseUrl: 'http://localhost:3000',

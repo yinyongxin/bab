@@ -8,6 +8,7 @@ import AppRoute from '@/route/AppRoute';
 import AuthorityGuard from '@/route/AuthorityGuard';
 import PublicRoute from '@/route/PublicRoute';
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
+import { errorRoutes } from '@/configs/routes.config/routes.config';
 
 const { authenticatedEntryPath } = appConfig;
 const AllRoutes = () => {
@@ -53,6 +54,13 @@ const AllRoutes = () => {
           />
         ))}
       </Route>
+      {errorRoutes.map((route) => (
+        <Route
+          key={route.path}
+          path={route.path}
+          element={<route.component />}
+        />
+      ))}
     </Routes>
   );
 };

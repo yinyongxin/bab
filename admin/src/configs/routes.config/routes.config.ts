@@ -3,6 +3,14 @@ import authRoute from './authRoute';
 import type { Routes } from '@/@types/routes';
 
 export const publicRoutes: Routes = [...authRoute];
+export const errorRoutes: Routes = [
+  {
+    key: 'nothingFound',
+    path: '/nothingFound',
+    component: lazy(() => import('@/pages/nothingFoundBackground/index.page')),
+    authority: [],
+  },
+];
 
 const modules = import.meta.glob<{
   // default: ComponentType<JSX.Element>;
