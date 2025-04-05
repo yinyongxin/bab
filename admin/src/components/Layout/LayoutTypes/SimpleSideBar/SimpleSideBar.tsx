@@ -42,7 +42,7 @@ function SimpleSideBarContent() {
   );
 }
 
-export default () => {
+export default function SimpleSideBar() {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   return (
@@ -67,4 +67,4 @@ export default () => {
       </Box>
     </Box>
   );
-};
+}

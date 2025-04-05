@@ -19,7 +19,7 @@ const modules = import.meta.glob<{
   // import: 'default',
 });
 
-console.log('modules', modules['../../pages/systems/roles/index.page.tsx']);
+console.log('modules', modules);
 export const protectedRoutes = [
   {
     key: 'dashboard',
