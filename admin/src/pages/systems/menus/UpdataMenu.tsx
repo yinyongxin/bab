@@ -14,6 +14,7 @@ import { hasLength, useForm } from '@mantine/form';
 import { IconCheck, IconExclamationCircle } from '@tabler/icons-react';
 import {
   MenusCreateBodyDto,
+  MenusResultDto,
   MenusUpdateDto,
   menusControllerAddOne,
   menusControllerFindById,
@@ -24,13 +25,14 @@ import { useEffect } from 'react';
 import FontIcons from '@/components/FontIcons';
 import { useDisclosure } from '@mantine/hooks';
 
-type UpdataMainMenuProps = {
+type UpdataMenuProps = {
   onSuccess: () => void;
+  parentData?: MenusResultDto;
   id?: string;
   sort?: number;
 };
-function UpdataMainMenu(props: UpdataMainMenuProps) {
-  const { onSuccess, id, sort = 0 } = props;
+function UpdataMenu(props: UpdataMenuProps) {
+  const { onSuccess, id, sort = 0, parentData } = props;
   const [loading, loadingAction] = useDisclosure(false);
   const isAdding = !id;
   const isEditing = id;
@@ -41,7 +43,6 @@ function UpdataMainMenu(props: UpdataMainMenuProps) {
       path: '',
       sort,
       icon: 'briefcase-2',
-      pageAuthority: [],
     },
     validate: {
       name: hasLength({ min: 1 }, '用户名不能为空'),
@@ -76,7 +77,7 @@ function UpdataMainMenu(props: UpdataMainMenuProps) {
 
   const createrMainMenu = async (values: MenusCreateBodyDto) => {
     const addAdmintor = await menusControllerAddOne({
-      body: values,
+      body: { ...values, parent: parentData?._id },
     });
     if (addAdmintor?.error) {
       notifications.show({
@@ -210,4 +211,4 @@ function UpdataMainMenu(props: UpdataMainMenuProps) {
   );
 }
 
-export default UpdataMainMenu;
+export default UpdataMenu;

@@ -22,8 +22,8 @@ import {
 } from '@/client';
 import { useEffect, useState } from 'react';
 import FontIcons from '@/components/FontIcons';
-import UpdataMainMenu from './UpdataMainMenu';
 import { modals } from '@mantine/modals';
+import UpdataMenu from '../UpdataMenu';
 type MainMenuListProps = {
   parentData?: MenusResultDto;
   setParentData: (data: MenusResultDto) => void;
@@ -201,7 +201,7 @@ export function MainMenuList(props: MainMenuListProps) {
         title={title}
         centered
       >
-        <UpdataMainMenu
+        <UpdataMenu
           sort={state[state.length - 1]?.sort + 1 || 0}
           id={id}
           onSuccess={() => {

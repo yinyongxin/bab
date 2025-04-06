@@ -6,14 +6,7 @@ import {
   IconTrash,
 } from '@tabler/icons-react';
 import cx from 'clsx';
-import {
-  ActionIcon,
-  Button,
-  Flex,
-  Modal,
-  Text,
-  Title,
-} from '@mantine/core';
+import { ActionIcon, Button, Flex, Modal, Text, Title } from '@mantine/core';
 import {
   useDidUpdate,
   useDisclosure,
@@ -28,8 +21,8 @@ import {
   menusControllerUpdateOne,
 } from '@/client';
 import { useState } from 'react';
-import UpdataSubMenu from './UpdataSubMenu';
 import { modals } from '@mantine/modals';
+import UpdataMenu from '../UpdataMenu';
 type SubMenuListProps = {
   parentData?: MenusResultDto;
 };
@@ -196,8 +189,8 @@ export function SubMenuList(props: SubMenuListProps) {
         title={title}
         centered
       >
-        <UpdataSubMenu
-          sort={state[state.length - 1]?.sort + 1 || 0}
+        <UpdataMenu
+          sort={state[-1]?.sort + 1 || 0}
           id={id}
           parentData={parentData}
           onSuccess={() => {
