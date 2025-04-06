@@ -73,9 +73,10 @@ export class Roles extends BaseDocument {
       PermissionAuthorityEnum.Query,
     ],
     enum: PermissionAuthorityEnum,
+    enumName: 'PermissionAuthorityEnum',
     isArray: true,
   })
-  permissionAuthority: string[];
+  permissionAuthority: PermissionAuthorityEnum[];
 
   /**
    * 图标

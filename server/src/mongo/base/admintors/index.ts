@@ -72,6 +72,7 @@ export class Admintors extends BaseDocument {
   @Prop({
     default: SexEnum.Male,
     enum: SexEnum,
+    type: SexEnum,
   })
   // swagger
   @ApiProperty({
@@ -79,6 +80,7 @@ export class Admintors extends BaseDocument {
     description: '性别',
     example: SexEnum.Male,
     enum: SexEnum,
+    enumName: 'SexEnum',
   })
   sex: string;
 

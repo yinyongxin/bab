@@ -1,6 +1,7 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
+import { MenuTypeEnum } from 'src/enums';
 
 @Schema()
 export class Menus extends BaseDocument {
@@ -104,6 +105,21 @@ export class Menus extends BaseDocument {
     example: '',
   })
   parent: string;
+
+  @Prop({
+    required: true,
+    default: '',
+    enum: MenuTypeEnum,
+  })
+  // swagger
+  @ApiProperty({
+    required: true,
+    description: '菜单类型',
+    example: MenuTypeEnum.Directory,
+    enum: MenuTypeEnum,
+    enumName: 'MenuTypeEnum',
+  })
+  menuType: string;
 }
 
 export const MenusSchema = SchemaFactory.createForClass(Menus);

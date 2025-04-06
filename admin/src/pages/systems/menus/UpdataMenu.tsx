@@ -13,6 +13,7 @@ import {
 import { hasLength, useForm } from '@mantine/form';
 import { IconCheck, IconExclamationCircle } from '@tabler/icons-react';
 import {
+  MenuTypeEnum,
   MenusCreateBodyDto,
   MenusResultDto,
   MenusUpdateDto,
@@ -43,6 +44,7 @@ function UpdataMenu(props: UpdataMenuProps) {
       path: '',
       sort,
       icon: 'briefcase-2',
+      menuType: MenuTypeEnum.DIRECTORY,
     },
     validate: {
       name: hasLength({ min: 1 }, '用户名不能为空'),
@@ -129,7 +131,6 @@ function UpdataMenu(props: UpdataMenuProps) {
   };
 
   const onSubmit = form.onSubmit(async (values) => {
-    console.log(values);
     if (isAdding) {
       await createrMainMenu(values);
     } else if (isEditing) {

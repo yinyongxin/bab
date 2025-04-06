@@ -15,6 +15,19 @@ export type SignInDto = {
   email?: string;
 };
 
+/**
+ * 性别
+ */
+export type SexEnum = 'Male' | 'Female';
+
+/**
+ * 性别
+ */
+export const SexEnum = {
+  MALE: 'Male',
+  FEMALE: 'Female',
+} as const;
+
 export type AdmintorsResultDto = {
   /**
    * 创建日期
@@ -43,7 +56,7 @@ export type AdmintorsResultDto = {
   /**
    * 性别
    */
-  sex?: 'Male' | 'Female';
+  sex?: SexEnum;
   /**
    * 电话号码
    */
@@ -148,7 +161,7 @@ export type AdmintorsUpdateDto = {
   /**
    * 性别
    */
-  sex?: 'Male' | 'Female';
+  sex?: SexEnum;
   /**
    * 电话号码
    */
@@ -214,7 +227,7 @@ export type AdmintorsFilterDto = {
   /**
    * 性别
    */
-  sex?: 'Male' | 'Female';
+  sex?: SexEnum;
   /**
    * 电话号码
    */
@@ -228,6 +241,21 @@ export type AdmintorsFilterDto = {
    */
   status?: 'Open' | 'Close';
 };
+
+/**
+ * 页面操作权限
+ */
+export type PermissionAuthorityEnum = 'Create' | 'Delete' | 'Update' | 'Query';
+
+/**
+ * 页面操作权限
+ */
+export const PermissionAuthorityEnum = {
+  CREATE: 'Create',
+  DELETE: 'Delete',
+  UPDATE: 'Update',
+  QUERY: 'Query',
+} as const;
 
 export type RolesResultDto = {
   /**
@@ -253,7 +281,7 @@ export type RolesResultDto = {
   /**
    * 页面操作权限
    */
-  permissionAuthority: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
+  permissionAuthority: Array<PermissionAuthorityEnum>;
   /**
    * 菜单
    */
@@ -288,7 +316,7 @@ export type AdmintorsPageItemDto = {
   /**
    * 性别
    */
-  sex?: 'Male' | 'Female';
+  sex?: SexEnum;
   /**
    * 电话号码
    */
@@ -346,7 +374,7 @@ export type RoleCreateBodyDto = {
   /**
    * 页面操作权限
    */
-  permissionAuthority: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
+  permissionAuthority: Array<PermissionAuthorityEnum>;
   /**
    * 菜单
    */
@@ -373,7 +401,7 @@ export type RolesUpdateDto = {
   /**
    * 页面操作权限
    */
-  permissionAuthority?: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
+  permissionAuthority?: Array<PermissionAuthorityEnum>;
   /**
    * 菜单
    */
@@ -404,7 +432,7 @@ export type RolesQueryFilterDto = {
   /**
    * 页面操作权限
    */
-  permissionAuthority?: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
+  permissionAuthority?: Array<PermissionAuthorityEnum>;
   /**
    * 菜单
    */
@@ -429,6 +457,20 @@ export type RoleQueryPaginationResultDto = {
    */
   list: Array<RolesResultDto>;
 };
+
+/**
+ * 菜单类型
+ */
+export type MenuTypeEnum = 'Directory' | 'Page' | 'FunctionArea';
+
+/**
+ * 菜单类型
+ */
+export const MenuTypeEnum = {
+  DIRECTORY: 'Directory',
+  PAGE: 'Page',
+  FUNCTION_AREA: 'FunctionArea',
+} as const;
 
 export type MenusCreateBodyDto = {
   /**
@@ -459,6 +501,10 @@ export type MenusCreateBodyDto = {
    * 图标
    */
   parent?: string;
+  /**
+   * 菜单类型
+   */
+  menuType: MenuTypeEnum;
 };
 
 export type MenusResultDto = {
@@ -499,6 +545,10 @@ export type MenusResultDto = {
    */
   parent?: string;
   /**
+   * 菜单类型
+   */
+  menuType: MenuTypeEnum;
+  /**
    * 唯一值
    */
   _id: string;
@@ -537,6 +587,10 @@ export type MenusUpdateDto = {
    * 图标
    */
   parent?: string;
+  /**
+   * 菜单类型
+   */
+  menuType?: MenuTypeEnum;
 };
 
 export type TreeMenuDataDto = {
@@ -580,6 +634,10 @@ export type TreeMenuDataDto = {
    * 图标
    */
   parent?: string;
+  /**
+   * 菜单类型
+   */
+  menuType: MenuTypeEnum;
   /**
    * 唯一值
    */
@@ -627,6 +685,10 @@ export type MenusQueryDto = {
    * 图标
    */
   parent?: string;
+  /**
+   * 菜单类型
+   */
+  menuType?: MenuTypeEnum;
 };
 
 export type FileUploadDto = {
