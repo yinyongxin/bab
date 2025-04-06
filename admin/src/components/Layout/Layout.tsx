@@ -30,16 +30,14 @@ export function Layout() {
 
   useLocale();
 
-  useShallowEffect(() => {
-    client.setConfig({
-      // set default base url for requests
-      // baseURL: 'http://localhost:3000',
-      // set default headers for requests
-      headers: {
-        Authorization: `Bearer ${auth.session.token}`,
-      },
-    });
-  }, [auth.session]);
+  client.setConfig({
+    // set default base url for requests
+    // baseURL: 'http://localhost:3000',
+    // set default headers for requests
+    headers: {
+      Authorization: `Bearer ${auth.session.token}`,
+    },
+  });
 
   const AppLayout = useMemo(() => {
     if (authenticated) {

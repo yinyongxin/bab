@@ -1146,5 +1146,5 @@ export type FilesControllerGetDirsPaginationResponse =
   FilesControllerGetDirsPaginationResponses[keyof FilesControllerGetDirsPaginationResponses];
 
 export type ClientOptions = {
-  baseURL: string;
+  baseUrl: string;
 };

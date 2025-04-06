@@ -8,7 +8,8 @@ export default defineConfig({
     path: './src/client',
   },
   plugins: [
-    '@hey-api/client-axios',
+    '@hey-api/client-fetch',
+    // '@hey-api/client-axios',
     '@hey-api/schemas',
     {
       dates: true,

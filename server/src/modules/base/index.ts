@@ -1,6 +1,6 @@
 import { AdmintorsModule } from './admintors';
 import { AuthModule } from './auth';
-import { RolesModule } from './roles';
+import { RolesModule } from './roles/roles.module';
 import { MenusModule } from './menus/menus.module';
 import { FilesModule } from './files';
 
