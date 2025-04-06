@@ -84,8 +84,6 @@ export class AdmintorsController {
     @Query() query: QueryIdDto,
     @Body() body: AdmintorsUpdateDto,
   ) {
-    console.log(query, 'query');
-    console.log(body, 'body');
     const res = await this.usersService.updateOne(query.id, body);
     return res;
   }

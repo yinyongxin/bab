@@ -35,7 +35,7 @@ import { toNumber } from 'lodash';
 @ApiTags('角色-Roles')
 @Controller('roles')
 export class RolesController {
-  constructor(private readonly usersService: RolesService) {}
+  constructor(private readonly rolesService: RolesService) {}
 
   @Put('addOne')
   @ApiOkResponse({
@@ -47,7 +47,7 @@ export class RolesController {
     summary: '添加一个角色',
   })
   async addOne(@Body() body: RoleCreateBodyDto) {
-    const res = await this.usersService.addOne(body);
+    const res = await this.rolesService.addOne(body);
     return res;
   }
 
@@ -61,7 +61,7 @@ export class RolesController {
     summary: '通过Id删除角色',
   })
   async deleteByIds(@Body() body: DeleteIdsDto) {
-    const res = await this.usersService.deleteByIds(body.ids);
+    const res = await this.rolesService.deleteByIds(body.ids);
     return res;
   }
 
@@ -75,7 +75,7 @@ export class RolesController {
     summary: '更新单条数据',
   })
   async updateOne(@Query() query: QueryIdDto, @Body() body: RolesUpdateDto) {
-    const res = await this.usersService.updateOne(query.id, body);
+    const res = await this.rolesService.updateOne(query.id, body);
     return res;
   }
 
@@ -89,7 +89,7 @@ export class RolesController {
     summary: '通过Id查找角色',
   })
   async findById(@Query() query: QueryIdDto) {
-    const res = await this.usersService.findById(query.id);
+    const res = await this.rolesService.findById(query.id);
     return res;
   }
 
@@ -102,18 +102,17 @@ export class RolesController {
     description: '获取分页列表',
     summary: '获取分页列表',
   })
-  async getPageList(
+  getPageList(
     @Query() pagination: PaginationDto,
     @Body() body: RolesQueryFilterDto,
   ) {
-    const res = await this.usersService.getPageList(
+    return this.rolesService.getPageList(
       {
         pageNo: toNumber(pagination.pageNo),
         pageSize: toNumber(pagination.pageSize),
       },
       body,
     );
-    return res;
   }
 
   @Post('getAll')
@@ -126,6 +125,6 @@ export class RolesController {
     summary: '获取全部角色',
   })
   async getAll(@Body() body: RolesQueryFilterDto) {
-    return this.usersService.getAll(body);
+    return this.rolesService.getAll(body);
   }
 }
