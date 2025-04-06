@@ -9,13 +9,13 @@ import { deleteByIds } from '../../../mongo/tools';
 
 @Injectable()
 export class RolesService {
-  constructor(@InjectModel(Roles.name) private userModel: Model<Roles>) {}
+  constructor(@InjectModel(Roles.name) private rolesModel: Model<Roles>) {}
 
   async addOne(data: RoleCreateBodyDto) {
-    const session = await this.userModel.startSession();
+    const session = await this.rolesModel.startSession();
     try {
       session.startTransaction();
-      const createdRole = new this.userModel(data);
+      const createdRole = new this.rolesModel(data);
       const res = await createdRole.save({
         session,
       });
@@ -30,19 +30,22 @@ export class RolesService {
   }
 
   async findById(id: string) {
-    const res = this.userModel.findById(id, {
+    const res = this.rolesModel.findById(id, {
       password: false,
     });
     return res;
   }
 
   async deleteByIds(ids: string[]) {
-    const res = await deleteByIds(this.userModel, ids as unknown as ObjectId[]);
+    const res = await deleteByIds(
+      this.rolesModel,
+      ids as unknown as ObjectId[],
+    );
     return res;
   }
 
   async updateOne(id: string, data: RolesUpdateDto) {
-    const res = await this.userModel
+    const res = await this.rolesModel
       .updateOne(
         { _id: id },
         {
@@ -59,7 +62,7 @@ export class RolesService {
 
   async getPageList(pagination: PaginationDto, filter: RolesQueryFilterDto) {
     // 构建聚合管道
-    const [res] = await this.userModel.aggregate([
+    const [res] = await this.rolesModel.aggregate([
       { $match: toFuzzyParams(filter) },
       { $sort: { createdTime: -1 } },
       {
@@ -96,6 +99,6 @@ export class RolesService {
   }
 
   getAll(filter: RolesQueryFilterDto) {
-    return this.userModel.find(filter, {});
+    return this.rolesModel.find(filter, {});
   }
 }
