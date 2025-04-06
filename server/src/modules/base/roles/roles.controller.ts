@@ -104,7 +104,7 @@ export class RolesController {
   })
   getPageList(
     @Query() pagination: PaginationDto,
-    @Body() body: RolesQueryFilterDto,
+    @Body() body?: RolesQueryFilterDto,
   ) {
     return this.rolesService.getPageList(
       {

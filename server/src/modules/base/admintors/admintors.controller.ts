@@ -31,7 +31,6 @@ import {
   QueryIdDto,
   UpdateResDto,
 } from '../../../dtos';
-import { Public } from '../../../decorators';
 import { toNumber } from 'lodash';
 
 @ApiTags('管理人员-Admintors')
@@ -102,7 +101,6 @@ export class AdmintorsController {
     return res;
   }
 
-  @Public()
   @Post('getPageList')
   @ApiOperation({
     description: '获取分页列表',

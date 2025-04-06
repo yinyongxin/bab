@@ -44,10 +44,11 @@ export default () => {
       const { pageNo } = params;
       const res = await rolesControllerGetPageList({
         query: {
-          pageNo: 1,
+          pageNo,
           pageSize: 8,
         },
-        body: {},
+        body: {
+        }
       });
 
       setData(res.data);
