@@ -21,7 +21,6 @@ import {
 import { notifications } from '@mantine/notifications';
 import { useEffect } from 'react';
 import { useDisclosure } from '@mantine/hooks';
-import PageAuthorityCheckGroup from './PageAuthorityCheckGroup';
 
 type UpdataSubMenuProps = {
   onSuccess: (udpateDate?: MenusUpdateDto) => void;
@@ -40,7 +39,6 @@ function UpdataSubMenu(props: UpdataSubMenuProps) {
       uniqueKey: '',
       path: '',
       sort,
-      pageAuthority: [],
     },
     validate: {
       name: hasLength({ min: 1 }, '用户名不能为空'),
@@ -100,7 +98,6 @@ function UpdataSubMenu(props: UpdataSubMenuProps) {
       description: values.description,
       path: values.path,
       uniqueKey: values.uniqueKey,
-      pageAuthority: values.pageAuthority,
     };
     const addAdmintor = await menusControllerUpdateOne({
       query: {
@@ -170,14 +167,6 @@ function UpdataSubMenu(props: UpdataSubMenuProps) {
               {...form.getInputProps('path')}
               label="路径"
               placeholder="填写路径"
-            />
-          </Grid.Col>
-          <Grid.Col span={12}>
-            <PageAuthorityCheckGroup
-              checkboxGroupProps={{
-                label: '页面权限',
-                ...form.getInputProps('pageAuthority'),
-              }}
             />
           </Grid.Col>
         </Grid>

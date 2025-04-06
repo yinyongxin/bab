@@ -1,10 +1,9 @@
-import { useState } from 'react';
 import { Checkbox, CheckboxGroupProps, Group } from '@mantine/core';
-import { MenusResultDto } from '@/client';
+import { RolesResultDto } from '@/client';
 
 const data: {
   label: string;
-  value: MenusResultDto['pageAuthority'][0];
+  value: RolesResultDto['permissionAuthority'][0];
   description: string;
   color: string;
 }[] = [
@@ -34,14 +33,13 @@ const data: {
   },
 ];
 
-type PageAuthorityCheckGroupProps = {
+type PermissionAuthorityCheckGroupProps = {
   checkboxGroupProps?: Omit<CheckboxGroupProps, 'children'>;
 };
-function PageAuthorityCheckGroup(props: PageAuthorityCheckGroupProps) {
+function PermissionAuthorityCheckGroup(
+  props: PermissionAuthorityCheckGroupProps,
+) {
   const { checkboxGroupProps } = props;
-  // const [value, setValue] =
-  //   useState<MenusResultDto['pageAuthority']>(initialValue);
-
   const cards = data.map((item) => (
     <Checkbox
       label={item.label}
@@ -61,4 +59,4 @@ function PageAuthorityCheckGroup(props: PageAuthorityCheckGroupProps) {
   );
 }
 
-export default PageAuthorityCheckGroup;
+export default PermissionAuthorityCheckGroup;

@@ -29,13 +29,13 @@ export const AdmintorsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     username: {
       type: 'string',
@@ -136,6 +136,21 @@ export const LoginSuccessResultDtoSchema = {
   required: ['access_token', 'userInfo', 'menus'],
 } as const;
 
+export const ErrorResultDtoSchema = {
+  type: 'object',
+  properties: {
+    message: {
+      type: 'string',
+      description: '错误信息',
+    },
+    statusCode: {
+      type: 'number',
+      description: '错误码',
+    },
+  },
+  required: ['message', 'statusCode'],
+} as const;
+
 export const AdmintorsCreateBodyDtoSchema = {
   type: 'object',
   properties: {
@@ -159,21 +174,6 @@ export const AdmintorsCreateBodyDtoSchema = {
     },
   },
   required: ['username', 'password', 'roles'],
-} as const;
-
-export const ErrorResultDtoSchema = {
-  type: 'object',
-  properties: {
-    message: {
-      type: 'string',
-      description: '错误信息',
-    },
-    statusCode: {
-      type: 'number',
-      description: '错误码',
-    },
-  },
-  required: ['message', 'statusCode'],
 } as const;
 
 export const DeleteIdsDtoSchema = {
@@ -306,13 +306,13 @@ export const AdmintorsFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     username: {
       type: 'string',
@@ -369,13 +369,13 @@ export const RolesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     name: {
       type: 'string',
@@ -392,6 +392,14 @@ export const RolesResultDtoSchema = {
       description: '图标',
       example: '',
     },
+    permissionAuthority: {
+      type: 'array',
+      description: '页面操作权限',
+      items: {
+        type: 'string',
+        enum: ['Create', 'Delete', 'Update', 'Query'],
+      },
+    },
     menus: {
       description: '菜单',
       example: [],
@@ -405,7 +413,14 @@ export const RolesResultDtoSchema = {
       description: '唯一值',
     },
   },
-  required: ['createdTime', 'updatedTime', 'name', 'menus', '_id'],
+  required: [
+    'createdTime',
+    'updatedTime',
+    'name',
+    'permissionAuthority',
+    'menus',
+    '_id',
+  ],
 } as const;
 
 export const AdmintorsPageItemDtoSchema = {
@@ -415,13 +430,13 @@ export const AdmintorsPageItemDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     username: {
       type: 'string',
@@ -532,6 +547,14 @@ export const RoleCreateBodyDtoSchema = {
       description: '图标',
       example: '',
     },
+    permissionAuthority: {
+      type: 'array',
+      description: '页面操作权限',
+      items: {
+        type: 'string',
+        enum: ['Create', 'Delete', 'Update', 'Query'],
+      },
+    },
     menus: {
       description: '菜单',
       example: [],
@@ -541,7 +564,7 @@ export const RoleCreateBodyDtoSchema = {
       },
     },
   },
-  required: ['name', 'menus'],
+  required: ['name', 'permissionAuthority', 'menus'],
 } as const;
 
 export const RolesUpdateDtoSchema = {
@@ -551,7 +574,7 @@ export const RolesUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     name: {
       type: 'string',
@@ -567,6 +590,14 @@ export const RolesUpdateDtoSchema = {
       type: 'string',
       description: '图标',
       example: '',
+    },
+    permissionAuthority: {
+      type: 'array',
+      description: '页面操作权限',
+      items: {
+        type: 'string',
+        enum: ['Create', 'Delete', 'Update', 'Query'],
+      },
     },
     menus: {
       description: '菜单',
@@ -586,13 +617,13 @@ export const RolesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     name: {
       type: 'string',
@@ -608,6 +639,14 @@ export const RolesQueryFilterDtoSchema = {
       type: 'string',
       description: '图标',
       example: '',
+    },
+    permissionAuthority: {
+      type: 'array',
+      description: '页面操作权限',
+      items: {
+        type: 'string',
+        enum: ['Create', 'Delete', 'Update', 'Query'],
+      },
     },
     menus: {
       description: '菜单',
@@ -679,14 +718,6 @@ export const MenusCreateBodyDtoSchema = {
       description: '用作菜单排序',
       example: 0,
     },
-    pageAuthority: {
-      type: 'array',
-      description: '页面权限',
-      items: {
-        type: 'string',
-        enum: ['Create', 'Delete', 'Update', 'Query'],
-      },
-    },
     icon: {
       type: 'string',
       description: '图标',
@@ -698,7 +729,7 @@ export const MenusCreateBodyDtoSchema = {
       example: '',
     },
   },
-  required: ['name', 'uniqueKey', 'path', 'sort', 'pageAuthority'],
+  required: ['name', 'uniqueKey', 'path', 'sort'],
 } as const;
 
 export const MenusResultDtoSchema = {
@@ -708,13 +739,13 @@ export const MenusResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     name: {
       type: 'string',
@@ -740,14 +771,6 @@ export const MenusResultDtoSchema = {
       type: 'number',
       description: '用作菜单排序',
       example: 0,
-    },
-    pageAuthority: {
-      type: 'array',
-      description: '页面权限',
-      items: {
-        type: 'string',
-        enum: ['Create', 'Delete', 'Update', 'Query'],
-      },
     },
     icon: {
       type: 'string',
@@ -771,7 +794,6 @@ export const MenusResultDtoSchema = {
     'uniqueKey',
     'path',
     'sort',
-    'pageAuthority',
     '_id',
   ],
 } as const;
@@ -783,7 +805,7 @@ export const MenusUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     name: {
       type: 'string',
@@ -809,14 +831,6 @@ export const MenusUpdateDtoSchema = {
       type: 'number',
       description: '用作菜单排序',
       example: 0,
-    },
-    pageAuthority: {
-      type: 'array',
-      description: '页面权限',
-      items: {
-        type: 'string',
-        enum: ['Create', 'Delete', 'Update', 'Query'],
-      },
     },
     icon: {
       type: 'string',
@@ -844,13 +858,13 @@ export const TreeMenuDataDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     name: {
       type: 'string',
@@ -876,14 +890,6 @@ export const TreeMenuDataDtoSchema = {
       type: 'number',
       description: '用作菜单排序',
       example: 0,
-    },
-    pageAuthority: {
-      type: 'array',
-      description: '页面权限',
-      items: {
-        type: 'string',
-        enum: ['Create', 'Delete', 'Update', 'Query'],
-      },
     },
     icon: {
       type: 'string',
@@ -915,7 +921,6 @@ export const TreeMenuDataDtoSchema = {
     'uniqueKey',
     'path',
     'sort',
-    'pageAuthority',
     '_id',
     'children',
   ],
@@ -928,13 +933,13 @@ export const MenusQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1743828213926,
+      default: 1743906058074,
     },
     name: {
       type: 'string',
@@ -960,14 +965,6 @@ export const MenusQueryDtoSchema = {
       type: 'number',
       description: '用作菜单排序',
       example: 0,
-    },
-    pageAuthority: {
-      type: 'array',
-      description: '页面权限',
-      items: {
-        type: 'string',
-        enum: ['Create', 'Delete', 'Update', 'Query'],
-      },
     },
     icon: {
       type: 'string',

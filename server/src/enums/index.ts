@@ -3,12 +3,12 @@ export enum AdmintorStatusEnum {
   Close = 'Close',
 }
 
-export enum PageAuthorityEnum {
-  Create = 'Create',
-  Delete = 'Delete',
-  Update = 'Update',
-  Query = 'Query',
-}
+export const PermissionAuthorityEnum = {
+  Create: 'Create',
+  Delete: 'Delete',
+  Update: 'Update',
+  Query: 'Query',
+} as const;
 
 export enum SexEnum {
   Male = 'Male',

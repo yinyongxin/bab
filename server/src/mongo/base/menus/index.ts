@@ -1,7 +1,6 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
-import { PageAuthorityEnum } from '../../../enums';
 
 @Schema()
 export class Menus extends BaseDocument {
@@ -75,37 +74,6 @@ export class Menus extends BaseDocument {
   // swagger
   @ApiProperty({ required: true, description: '用作菜单排序', example: 0 })
   sort: number;
-
-  /**
-   * 页面权限
-   */
-  @Prop({
-    required: true,
-    type: Array,
-    default: (data) =>
-      data.parent
-        ? []
-        : [
-            PageAuthorityEnum.Create,
-            PageAuthorityEnum.Delete,
-            PageAuthorityEnum.Update,
-            PageAuthorityEnum.Query,
-          ],
-  })
-  // swagger
-  @ApiProperty({
-    required: true,
-    description: '页面权限',
-    example: () => [
-      PageAuthorityEnum.Create,
-      PageAuthorityEnum.Delete,
-      PageAuthorityEnum.Update,
-      PageAuthorityEnum.Query,
-    ],
-    enum: PageAuthorityEnum,
-    isArray: true,
-  })
-  pageAuthority: PageAuthorityEnum[];
 
   /**
    * 菜单图标

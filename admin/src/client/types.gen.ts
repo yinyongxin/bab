@@ -68,6 +68,17 @@ export type LoginSuccessResultDto = {
   menus: Array<string>;
 };
 
+export type ErrorResultDto = {
+  /**
+   * 错误信息
+   */
+  message: string;
+  /**
+   * 错误码
+   */
+  statusCode: number;
+};
+
 export type AdmintorsCreateBodyDto = {
   /**
    * 管理人员名称
@@ -81,17 +92,6 @@ export type AdmintorsCreateBodyDto = {
    * 角色
    */
   roles: Array<string>;
-};
-
-export type ErrorResultDto = {
-  /**
-   * 错误信息
-   */
-  message: string;
-  /**
-   * 错误码
-   */
-  statusCode: number;
 };
 
 export type DeleteIdsDto = {
@@ -251,6 +251,10 @@ export type RolesResultDto = {
    */
   icon?: string;
   /**
+   * 页面操作权限
+   */
+  permissionAuthority: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
+  /**
    * 菜单
    */
   menus: Array<string>;
@@ -340,6 +344,10 @@ export type RoleCreateBodyDto = {
    */
   icon?: string;
   /**
+   * 页面操作权限
+   */
+  permissionAuthority: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
+  /**
    * 菜单
    */
   menus: Array<string>;
@@ -362,6 +370,10 @@ export type RolesUpdateDto = {
    * 图标
    */
   icon?: string;
+  /**
+   * 页面操作权限
+   */
+  permissionAuthority?: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
   /**
    * 菜单
    */
@@ -389,6 +401,10 @@ export type RolesQueryFilterDto = {
    * 图标
    */
   icon?: string;
+  /**
+   * 页面操作权限
+   */
+  permissionAuthority?: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
   /**
    * 菜单
    */
@@ -436,10 +452,6 @@ export type MenusCreateBodyDto = {
    */
   sort: number;
   /**
-   * 页面权限
-   */
-  pageAuthority: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
-  /**
    * 图标
    */
   icon?: string;
@@ -479,10 +491,6 @@ export type MenusResultDto = {
    */
   sort: number;
   /**
-   * 页面权限
-   */
-  pageAuthority: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
-  /**
    * 图标
    */
   icon?: string;
@@ -521,10 +529,6 @@ export type MenusUpdateDto = {
    * 用作菜单排序
    */
   sort?: number;
-  /**
-   * 页面权限
-   */
-  pageAuthority?: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
   /**
    * 图标
    */
@@ -568,10 +572,6 @@ export type TreeMenuDataDto = {
    * 用作菜单排序
    */
   sort: number;
-  /**
-   * 页面权限
-   */
-  pageAuthority: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
   /**
    * 图标
    */
@@ -619,10 +619,6 @@ export type MenusQueryDto = {
    * 用作菜单排序
    */
   sort?: number;
-  /**
-   * 页面权限
-   */
-  pageAuthority?: Array<'Create' | 'Delete' | 'Update' | 'Query'>;
   /**
    * 图标
    */
@@ -685,7 +681,7 @@ export type AdmintorsControllerAddOneData = {
 
 export type AdmintorsControllerAddOneErrors = {
   /**
-   * 添加失败
+   * 失败
    */
   400: ErrorResultDto;
 };
@@ -710,6 +706,16 @@ export type AdmintorsControllerDeleteByIdsData = {
   url: '/api/admintors/deleteByIds';
 };
 
+export type AdmintorsControllerDeleteByIdsErrors = {
+  /**
+   * 失败
+   */
+  400: ErrorResultDto;
+};
+
+export type AdmintorsControllerDeleteByIdsError =
+  AdmintorsControllerDeleteByIdsErrors[keyof AdmintorsControllerDeleteByIdsErrors];
+
 export type AdmintorsControllerDeleteByIdsResponses = {
   /**
    * 删除成功
@@ -732,6 +738,16 @@ export type AdmintorsControllerUpdateOneData = {
   url: '/api/admintors/updateOne';
 };
 
+export type AdmintorsControllerUpdateOneErrors = {
+  /**
+   * 失败
+   */
+  400: ErrorResultDto;
+};
+
+export type AdmintorsControllerUpdateOneError =
+  AdmintorsControllerUpdateOneErrors[keyof AdmintorsControllerUpdateOneErrors];
+
 export type AdmintorsControllerUpdateOneResponses = {
   /**
    * 更新结果
@@ -753,6 +769,16 @@ export type AdmintorsControllerFindByIdData = {
   };
   url: '/api/admintors/findById';
 };
+
+export type AdmintorsControllerFindByIdErrors = {
+  /**
+   * 失败
+   */
+  400: ErrorResultDto;
+};
+
+export type AdmintorsControllerFindByIdError =
+  AdmintorsControllerFindByIdErrors[keyof AdmintorsControllerFindByIdErrors];
 
 export type AdmintorsControllerFindByIdResponses = {
   /**
@@ -779,6 +805,16 @@ export type AdmintorsControllerGetPageListData = {
   };
   url: '/api/admintors/getPageList';
 };
+
+export type AdmintorsControllerGetPageListErrors = {
+  /**
+   * 失败
+   */
+  400: ErrorResultDto;
+};
+
+export type AdmintorsControllerGetPageListError =
+  AdmintorsControllerGetPageListErrors[keyof AdmintorsControllerGetPageListErrors];
 
 export type AdmintorsControllerGetPageListResponses = {
   /**

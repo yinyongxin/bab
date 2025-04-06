@@ -15,12 +15,16 @@ import type {
   AdmintorsControllerAddOneError,
   AdmintorsControllerDeleteByIdsData,
   AdmintorsControllerDeleteByIdsResponse,
+  AdmintorsControllerDeleteByIdsError,
   AdmintorsControllerUpdateOneData,
   AdmintorsControllerUpdateOneResponse,
+  AdmintorsControllerUpdateOneError,
   AdmintorsControllerFindByIdData,
   AdmintorsControllerFindByIdResponse,
+  AdmintorsControllerFindByIdError,
   AdmintorsControllerGetPageListData,
   AdmintorsControllerGetPageListResponse,
+  AdmintorsControllerGetPageListError,
   RolesControllerAddOneData,
   RolesControllerAddOneResponse,
   RolesControllerDeleteByIdsData,
@@ -154,7 +158,7 @@ export const admintorsControllerDeleteByIds = <
 ) => {
   return (options.client ?? _heyApiClient).delete<
     AdmintorsControllerDeleteByIdsResponse,
-    unknown,
+    AdmintorsControllerDeleteByIdsError,
     ThrowOnError
   >({
     url: '/api/admintors/deleteByIds',
@@ -177,7 +181,7 @@ export const admintorsControllerUpdateOne = <
 ) => {
   return (options.client ?? _heyApiClient).patch<
     AdmintorsControllerUpdateOneResponse,
-    unknown,
+    AdmintorsControllerUpdateOneError,
     ThrowOnError
   >({
     url: '/api/admintors/updateOne',
@@ -200,7 +204,7 @@ export const admintorsControllerFindById = <
 ) => {
   return (options.client ?? _heyApiClient).get<
     AdmintorsControllerFindByIdResponse,
-    unknown,
+    AdmintorsControllerFindByIdError,
     ThrowOnError
   >({
     responseTransformer: admintorsControllerFindByIdResponseTransformer,
@@ -220,7 +224,7 @@ export const admintorsControllerGetPageList = <
 ) => {
   return (options.client ?? _heyApiClient).post<
     AdmintorsControllerGetPageListResponse,
-    unknown,
+    AdmintorsControllerGetPageListError,
     ThrowOnError
   >({
     responseTransformer: admintorsControllerGetPageListResponseTransformer,

@@ -8,7 +8,6 @@ import {
 import cx from 'clsx';
 import {
   ActionIcon,
-  Box,
   Button,
   Flex,
   Modal,
@@ -31,7 +30,6 @@ import {
 import { useState } from 'react';
 import UpdataSubMenu from './UpdataSubMenu';
 import { modals } from '@mantine/modals';
-import PageAuthorityCheckGroup from './PageAuthorityCheckGroup';
 type SubMenuListProps = {
   parentData?: MenusResultDto;
 };
@@ -48,15 +46,8 @@ export function SubMenuList(props: SubMenuListProps) {
       },
     });
 
-    if (menuRes.data) {
-      handlers.setState(
-        menuRes.data.map((item) => {
-          return {
-            ...item,
-            pageAuthorityLength: item.pageAuthority?.length || 0,
-          };
-        }),
-      );
+    if (!menuRes.error && menuRes.data) {
+      handlers.setState(menuRes.data);
     }
   };
 
@@ -105,22 +96,6 @@ export function SubMenuList(props: SubMenuListProps) {
     }
   };
 
-  const onPageAuthorityChange = (
-    index: number,
-    id: string,
-    value: MenusResultDto,
-  ) => {
-    handlers.setItem(index, value);
-    menusControllerUpdateOne({
-      body: {
-        pageAuthority: value.pageAuthority,
-      },
-      query: {
-        id,
-      },
-    });
-  };
-
   useDidUpdate(() => {
     updateSort();
   }, [state.map((item) => item.sort).join('-')]);
@@ -151,19 +126,6 @@ export function SubMenuList(props: SubMenuListProps) {
               {item.description}
             </Text>
           </Flex>
-          <Box flex={6}>
-            <PageAuthorityCheckGroup
-              checkboxGroupProps={{
-                value: item.pageAuthority || [],
-                onChange: (value) => {
-                  onPageAuthorityChange(index, item._id, {
-                    ...item,
-                    pageAuthority: value as MenusResultDto['pageAuthority'],
-                  });
-                },
-              }}
-            />
-          </Box>
           <Flex align="center">
             <ActionIcon
               size="xl"

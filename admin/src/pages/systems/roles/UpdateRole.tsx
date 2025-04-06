@@ -25,6 +25,7 @@ import {
 } from '@/client';
 import { notifications } from '@mantine/notifications';
 import { getFilePath } from '@/utils';
+import PermissionAuthorityCheckGroup from './PermissionAuthorityCheckGroup';
 
 type UpdateRoleProps = {
   onSuccess: () => void;
@@ -40,6 +41,7 @@ function UpdateRole(props: UpdateRoleProps) {
       description: '',
       icon: '',
       menus: [],
+      permissionAuthority: [],
     },
     validate: {
       name: hasLength({ min: 1 }, '用户名不能为空'),
@@ -81,6 +83,7 @@ function UpdateRole(props: UpdateRoleProps) {
         name: values.name,
         description: values.description,
         icon: values.icon,
+        permissionAuthority: values.permissionAuthority,
       },
     });
     if (addAdmintor?.error) {
@@ -167,6 +170,14 @@ function UpdateRole(props: UpdateRoleProps) {
             {...form.getInputProps('description')}
             label="描述"
             placeholder="填写描述"
+          />
+        </Grid.Col>
+        <Grid.Col span={12}>
+          <PermissionAuthorityCheckGroup
+            checkboxGroupProps={{
+              ...form.getInputProps('permissionAuthority'),
+              label: '操作权限',
+            }}
           />
         </Grid.Col>
       </Grid>

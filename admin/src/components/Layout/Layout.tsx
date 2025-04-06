@@ -8,6 +8,8 @@ import { SpotlightActionData, Spotlight } from '@mantine/spotlight';
 import { IconSearch } from '@tabler/icons-react';
 import FontIcons from '../FontIcons';
 import { useNavigate } from 'react-router-dom';
+import { useShallowEffect } from '@mantine/hooks';
+import { client } from '@/client/client.gen';
 
 const layouts: any = {
   [LayoutTypes.SimpleSideBar]: lazy(
@@ -24,7 +26,20 @@ export function Layout() {
   const navigate = useNavigate();
 
   const menus = useAppSelector((state) => state.auth.menus);
+  const auth = useAppSelector((state) => state.auth);
+
   useLocale();
+
+  useShallowEffect(() => {
+    client.setConfig({
+      // set default base url for requests
+      // baseURL: 'http://localhost:3000',
+      // set default headers for requests
+      headers: {
+        Authorization: `Bearer ${auth.session.token}`,
+      },
+    });
+  }, [auth.session]);
 
   const AppLayout = useMemo(() => {
     if (authenticated) {
@@ -46,7 +61,9 @@ export function Layout() {
           );
           navigate(`${parent?.path}${item.path}`);
         },
-        leftSection: <FontIcons style={{ fontSize: 24 }} name={item.icon || 'menu-deep'} />,
+        leftSection: (
+          <FontIcons style={{ fontSize: 24 }} name={item.icon || 'menu-deep'} />
+        ),
       };
     });
   return (
