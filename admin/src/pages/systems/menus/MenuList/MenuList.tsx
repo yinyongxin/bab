@@ -13,7 +13,7 @@ import {
   useListState,
   useShallowEffect,
 } from '@mantine/hooks';
-import classes from './SubMenuList.module.css';
+import classes from './MenuList.module.css';
 import {
   MenusResultDto,
   menusControllerDeleteByIds,
@@ -21,33 +21,36 @@ import {
   menusControllerUpdateOne,
 } from '@/client';
 import { useState } from 'react';
+import FontIcons from '@/components/FontIcons';
 import { modals } from '@mantine/modals';
 import UpdataMenu from '../UpdataMenu';
-type SubMenuListProps = {
+type MenuListProps = {
+  checkedList: MenusResultDto[];
+  onChecked?: (data: MenusResultDto) => void;
+  level: number;
   parentData?: MenusResultDto;
 };
-export function SubMenuList(props: SubMenuListProps) {
-  const { parentData } = props;
+export function MenuList(props: MenuListProps) {
+  const { checkedList, onChecked, level, parentData } = props;
   const [opened, { open, close }] = useDisclosure(false);
   const [state, handlers] = useListState<MenusResultDto>([]);
   const [id, setId] = useState('');
   const [title, setTitle] = useState('');
+  const currentChecked = checkedList[level];
   const getData = async () => {
     const menuRes = await menusControllerGetAllByFilter({
       body: {
-        parent: parentData?._id,
+        parent: parentData?._id || '',
       },
     });
-
-    if (!menuRes.error && menuRes.data) {
+    if (menuRes.data) {
       handlers.setState(menuRes.data);
+      onChecked?.(menuRes.data[0]);
     }
   };
 
   useShallowEffect(() => {
-    if (parentData) {
-      getData();
-    }
+    getData();
   }, [parentData]);
 
   const deleteById = async (id: string) => {
@@ -68,31 +71,6 @@ export function SubMenuList(props: SubMenuListProps) {
     });
   };
 
-  const updateSort = async () => {
-    const sortChangeList = state
-      .map(async (item, index) => {
-        if (item.sort !== index) {
-          handlers.setItem(index, { ...item, sort: index });
-          return menusControllerUpdateOne({
-            body: {
-              sort: index,
-            },
-            query: {
-              id: item._id,
-            },
-          });
-        }
-      })
-      .filter(Boolean);
-    if (sortChangeList.length) {
-      await Promise.all(sortChangeList);
-    }
-  };
-
-  useDidUpdate(() => {
-    updateSort();
-  }, [state.map((item) => item.sort).join('-')]);
-
   const items = state.map((item, index) => (
     <Draggable key={item._id} index={index} draggableId={item._id}>
       {(provided, snapshot) => (
@@ -100,9 +78,13 @@ export function SubMenuList(props: SubMenuListProps) {
           gap="sm"
           className={cx(classes.item, {
             [classes.itemDragging]: snapshot.isDragging,
+            [classes.itemChecked]: currentChecked?._id === item._id,
           })}
           ref={provided.innerRef}
           {...provided.draggableProps}
+          onClick={() => {
+            onChecked?.(item);
+          }}
         >
           <div
             {...provided.dragHandleProps}
@@ -113,8 +95,11 @@ export function SubMenuList(props: SubMenuListProps) {
           >
             <IconGripVertical size={18} stroke={1.5} />
           </div>
-          <Flex direction="column" w="120">
-            <Title order={6}>{item.name}</Title>
+          <FontIcons name={item?.icon || ''} style={{ fontSize: 40 }} />
+          <Flex direction="column" flex={1}>
+            <Title order={6} lineClamp={1}>
+              {item.name}
+            </Title>
             <Text c="dimmed" size="sm" lineClamp={1}>
               {item.description}
             </Text>
@@ -149,6 +134,32 @@ export function SubMenuList(props: SubMenuListProps) {
     </Draggable>
   ));
 
+  const updateSort = async () => {
+    const sortChangeList = state
+      .map(async (item, index) => {
+        if (item.sort !== index) {
+          handlers.setItem(index, { ...item, sort: index });
+          return menusControllerUpdateOne({
+            body: {
+              sort: index,
+            },
+            query: {
+              id: item._id,
+            },
+          });
+        }
+        return undefined;
+      })
+      .filter(Boolean);
+    if (sortChangeList.length) {
+      await Promise.all(sortChangeList);
+    }
+  };
+
+  useDidUpdate(() => {
+    updateSort();
+  }, [state.map((item) => item.sort).join('-')]);
+
   return (
     <>
       <Flex direction="column" gap="md">
@@ -156,11 +167,11 @@ export function SubMenuList(props: SubMenuListProps) {
           fullWidth
           leftSection={<IconPlus />}
           onClick={() => {
-            setTitle('新增菜单');
+            setTitle('新增');
             open();
           }}
         >
-          新增页面
+          新增
         </Button>
         <DragDropContext
           onDragEnd={({ destination, source }) => {
@@ -168,7 +179,6 @@ export function SubMenuList(props: SubMenuListProps) {
               from: source.index,
               to: destination?.index || 0,
             });
-            updateSort();
           }}
         >
           <Droppable droppableId="dnd-list" direction="vertical">
@@ -185,19 +195,18 @@ export function SubMenuList(props: SubMenuListProps) {
         opened={opened}
         onClose={() => {
           close();
+          if (id) {
+            setId('');
+          }
         }}
         title={title}
         centered
       >
         <UpdataMenu
-          sort={state[-1]?.sort + 1 || 0}
+          sort={state[state.length - 1]?.sort + 1 || 0}
           id={id}
-          parentData={parentData}
           onSuccess={() => {
             close();
-            if (id) {
-              setId('');
-            }
             getData();
           }}
         />

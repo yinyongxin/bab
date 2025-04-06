@@ -1,12 +1,11 @@
 import Page from '@/components/Page';
-import { Box, Flex } from '@mantine/core';
+import { Grid } from '@mantine/core';
 import { useState } from 'react';
-import { MainMenuList } from './MainMenuList';
-import { SubMenuList } from './SubMenuList';
+import { MenuList } from './MenuList/MenuList';
 import { MenusResultDto } from '@/client';
 
 export default () => {
-  const [parentData, setParentData] = useState<MenusResultDto>();
+  const [checkedList, setCheckedList] = useState<MenusResultDto[]>([]);
 
   return (
     <Page
@@ -19,14 +18,27 @@ export default () => {
         bg: 'transparent',
       }}
     >
-      <Flex h="100%" gap="xl">
-        <Box flex={1}>
-          <MainMenuList setParentData={setParentData} parentData={parentData} />
-        </Box>
-        <Box flex={2}>
-          <SubMenuList parentData={parentData} />
-        </Box>
-      </Flex>
+      <Grid>
+        <Grid.Col span={4}>
+          <MenuList
+            onChecked={(value) => {
+              setCheckedList([value]);
+            }}
+            checkedList={checkedList}
+            level={0}
+          />
+        </Grid.Col>
+        <Grid.Col span={4}>
+          {checkedList[0] && (
+            <MenuList
+              checkedList={checkedList}
+              level={1}
+              parentData={checkedList[0]}
+            />
+          )}
+        </Grid.Col>
+        <Grid.Col span={4}>3</Grid.Col>
+      </Grid>
     </Page>
   );
 };
