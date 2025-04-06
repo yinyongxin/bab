@@ -24,7 +24,6 @@ function DeckedSideBarContent() {
   const [title, setTitle] = useState('');
   const location = useLocation();
   const { t } = useTranslation();
-  const userAuthority = useAppSelector((state) => state.auth.user.roles);
   const { navigationTree = [] } = useAppSelector((state) => state.auth.menus);
 
   useEffect(() => {
