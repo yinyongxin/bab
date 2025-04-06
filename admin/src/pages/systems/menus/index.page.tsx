@@ -37,7 +37,6 @@ export default () => {
             />
           )}
         </Grid.Col>
-        <Grid.Col span={4}>3</Grid.Col>
       </Grid>
     </Page>
   );

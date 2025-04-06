@@ -1,4 +1,12 @@
-import { Title, Text, Paper, Flex, Group, PaperProps } from '@mantine/core';
+import {
+  Title,
+  Text,
+  Paper,
+  Flex,
+  Group,
+  PaperProps,
+  Stack,
+} from '@mantine/core';
 
 type PageProps = {
   children: React.ReactNode;
@@ -25,7 +33,7 @@ const Page = (props: PageProps) => {
   } = props;
   return (
     <Flex direction="column" gap={24} style={style}>
-      <header>
+      <Stack gap="sm">
         <Flex justify="space-between" align="center">
           {title && <Title order={3}>{title}</Title>}
           {actions && <Group>{actions}</Group>}
@@ -36,7 +44,7 @@ const Page = (props: PageProps) => {
           </Text>
         )}
         {headerBottom}
-      </header>
+      </Stack>
       {bodyTop}
       <Paper radius="md" p="md" flex={1} {...contentProps}>
         {children}

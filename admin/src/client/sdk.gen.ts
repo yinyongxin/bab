@@ -52,6 +52,8 @@ import type {
   FilesControllerUploadFileData,
   FilesControllerUploadFileResponse,
   FilesControllerUploadFilesData,
+  FilesControllerGetDirsPaginationData,
+  FilesControllerGetDirsPaginationResponse,
 } from './types.gen';
 import {
   authControllerSignInResponseTransformer,
@@ -529,4 +531,27 @@ export const filesControllerUploadFiles = <
       },
     },
   );
+};
+
+/**
+ * 获取分页列表
+ * 获取分页列表
+ */
+export const filesControllerGetDirsPagination = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<FilesControllerGetDirsPaginationData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).post<
+    FilesControllerGetDirsPaginationResponse,
+    unknown,
+    ThrowOnError
+  >({
+    url: '/api/files/getDirsPagination',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+  });
 };

@@ -644,6 +644,32 @@ export type FilesUploadDto = {
   files: Array<Blob | File>;
 };
 
+export type QueryDirsFilterDto = {
+  /**
+   * 路径
+   */
+  dirPath?: string;
+};
+
+export type QueryDirsPaginationResultDto = {
+  /**
+   * 当前页面
+   */
+  pageNo?: number;
+  /**
+   * 分页大小
+   */
+  pageSize?: number;
+  /**
+   * 所有数量
+   */
+  total?: number;
+  /**
+   * 列表
+   */
+  list: Array<string>;
+};
+
 export type AuthControllerSignInData = {
   body: SignInDto;
   path?: never;
@@ -1092,6 +1118,32 @@ export type FilesControllerUploadFilesData = {
 export type FilesControllerUploadFilesResponses = {
   201: unknown;
 };
+
+export type FilesControllerGetDirsPaginationData = {
+  body: QueryDirsFilterDto;
+  path?: never;
+  query?: {
+    /**
+     * 当前页面
+     */
+    pageNo?: number;
+    /**
+     * 分页大小
+     */
+    pageSize?: number;
+  };
+  url: '/api/files/getDirsPagination';
+};
+
+export type FilesControllerGetDirsPaginationResponses = {
+  /**
+   * 获取分页列表
+   */
+  200: QueryDirsPaginationResultDto;
+};
+
+export type FilesControllerGetDirsPaginationResponse =
+  FilesControllerGetDirsPaginationResponses[keyof FilesControllerGetDirsPaginationResponses];
 
 export type ClientOptions = {
   baseURL: string;

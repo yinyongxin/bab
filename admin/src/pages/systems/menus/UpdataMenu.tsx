@@ -146,7 +146,7 @@ function UpdataMenu(props: UpdataMenuProps) {
       />
       <form onSubmit={onSubmit}>
         <Grid>
-          <Grid.Col span={4}>
+          <Grid.Col span={3}>
             <Center h="100%" bg="gray.1">
               <FontIcons
                 name={form.values.icon || ''}
@@ -156,7 +156,7 @@ function UpdataMenu(props: UpdataMenuProps) {
               />
             </Center>
           </Grid.Col>
-          <Grid.Col span={8}>
+          <Grid.Col span={9}>
             <TextInput
               {...form.getInputProps('icon')}
               label="图标"

@@ -2,14 +2,25 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import path from 'path';
 import fs from 'fs/promises';
 import dayjs from 'dayjs';
+import { QueryDirsFilterDto, QueryDirsPaginationDto } from './dto';
+import { isNumber } from 'lodash';
+import { Model } from 'mongoose';
+import { Files } from '../../../mongo/base/files';
+import { InjectModel } from '@nestjs/mongoose';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class FilesService {
-  constructor() {}
+  constructor(@InjectModel(Files.name) private userModel: Model<Files>) {}
   async uploadFile(file: Express.Multer.File) {
+    console.log(file);
     const { mimetype, originalname } = file;
+    const uuid = randomUUID();
+    const uniquedName = `${uuid}.${originalname.split('.').pop()}`;
+
     const time = dayjs().format('YYYYMMDDHH');
     const dirPath = `${mimetype}/${time}`;
+
     // 获取文件路径
     const directoryPath = path.join(__dirname, `../static/${dirPath}`);
     try {
@@ -19,18 +30,48 @@ export class FilesService {
       // 如果目录不存在，则创建目录
       await fs.mkdir(directoryPath, { recursive: true });
     }
+    const pathUrl = `/${dirPath}/${uniquedName}`;
     try {
       // 将文件写入目录
       await fs.writeFile(
-        path.join(directoryPath, `/${originalname}`),
+        path.join(directoryPath, `/${uniquedName}`),
         file.buffer,
       );
-    } catch {
+      const fileCreate = await this.userModel.create({
+        mimetype: file.mimetype,
+        originalname: file.originalname,
+        path: pathUrl,
+        size: file.size,
+        uniquedName,
+      });
+      fileCreate.save();
+    } catch (error) {
+      console.error(error);
       // 处理文件写入错误
       throw new InternalServerErrorException('文件上传失败');
     }
     return {
-      url: `/${dirPath}/${originalname}`,
+      url: pathUrl,
+    };
+  }
+
+  async getDirsPagination(
+    pagination: QueryDirsPaginationDto,
+    filter: QueryDirsFilterDto,
+  ) {
+    const { pageNo, pageSize } = pagination;
+    const { dirPath = '' } = filter;
+    const directoryPath = path.join(__dirname, `../static${dirPath}`);
+    const directories = await fs.readdir(directoryPath, {
+      withFileTypes: true,
+      recursive: false,
+    });
+    const list = directories.map(({ name }) => name);
+    return {
+      list,
+      total: list.length,
+      pageNo: isNumber(pageNo) ? pageNo : undefined,
+      pageSize: isNumber(pageSize) ? pageSize : undefined,
     };
   }
 }

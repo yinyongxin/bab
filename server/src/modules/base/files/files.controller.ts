@@ -1,18 +1,30 @@
 import {
+  Body,
   Controller,
   Post,
+  Query,
   UploadedFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiConsumes,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { FilesService } from './files.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import {
   FilesUploadDto,
   FileUploadDto,
   FileUploadSuccessResultDto,
+  QueryDirsFilterDto,
+  QueryDirsPaginationDto,
+  QueryDirsPaginationResultDto,
 } from './dto';
+import { toNumber } from 'lodash';
 
 @ApiTags('文件-Files')
 @Controller('files')
@@ -43,5 +55,29 @@ export class FilesController {
   @UseInterceptors(FilesInterceptor('files'))
   uploadFiles(@UploadedFiles() files: Array<Express.Multer.File>) {
     console.log(files);
+  }
+  @Post('getDirsPagination')
+  @ApiOkResponse({
+    description: '获取分页列表',
+    type: QueryDirsPaginationResultDto,
+  })
+  @ApiOperation({
+    description: '获取分页列表',
+    summary: '获取分页列表',
+  })
+  async getDirsPagination(
+    @Query() pagination: QueryDirsPaginationDto,
+    @Body() body: QueryDirsFilterDto,
+  ) {
+    const res = await this.filesService.getDirsPagination(
+      {
+        pageNo: pagination.pageNo ? toNumber(pagination.pageNo) : undefined,
+        pageSize: pagination.pageSize
+          ? toNumber(pagination.pageSize)
+          : undefined,
+      },
+      body,
+    );
+    return res;
   }
 }

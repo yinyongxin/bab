@@ -70,4 +70,10 @@ export const protectedRoutes = [
     component: lazy(modules['../../pages/systems/menus/index.page.tsx']),
     authority: [],
   },
+  {
+    key: 'files',
+    path: '/systems/files',
+    component: lazy(modules['../../pages/systems/files/index.page.tsx']),
+    authority: [],
+  },
 ];

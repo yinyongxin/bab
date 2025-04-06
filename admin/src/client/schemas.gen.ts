@@ -1014,3 +1014,44 @@ export const FilesUploadDtoSchema = {
   },
   required: ['files'],
 } as const;
+
+export const QueryDirsFilterDtoSchema = {
+  type: 'object',
+  properties: {
+    dirPath: {
+      type: 'string',
+      description: '路径',
+    },
+  },
+} as const;
+
+export const QueryDirsPaginationResultDtoSchema = {
+  type: 'object',
+  properties: {
+    pageNo: {
+      type: 'number',
+      description: '当前页面',
+      minimum: 1,
+      example: 1,
+    },
+    pageSize: {
+      type: 'number',
+      description: '分页大小',
+      minimum: 1,
+      example: 10,
+    },
+    total: {
+      type: 'number',
+      description: '所有数量',
+      example: 1,
+    },
+    list: {
+      description: '列表',
+      type: 'array',
+      items: {
+        type: 'string',
+      },
+    },
+  },
+  required: ['list'],
+} as const;
