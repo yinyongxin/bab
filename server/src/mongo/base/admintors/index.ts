@@ -72,7 +72,6 @@ export class Admintors extends BaseDocument {
   @Prop({
     default: SexEnum.Male,
     enum: SexEnum,
-    type: SexEnum,
   })
   // swagger
   @ApiProperty({
