@@ -71,11 +71,6 @@ export class RolesService {
           list: [
             { $skip: pagination.pageSize * (pagination.pageNo - 1) },
             { $limit: pagination.pageSize },
-            {
-              $project: {
-                password: 0, // 在这里处理密码的隐藏
-              },
-            },
           ],
         },
       },
