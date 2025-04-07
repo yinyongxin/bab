@@ -91,7 +91,10 @@ export class FilesService {
     ]);
     return res;
   }
-  async updateFile(file: Express.Multer.File, fileInfo: FilesResultDto) {
+  async updateFile(
+    file: Express.Multer.File,
+    fileInfo: Pick<FilesResultDto, 'path' | '_id'>,
+  ) {
     const { path: filePath } = fileInfo;
     const fullPath = path.join(__dirname, `../static${filePath}`);
     await fs.unlink(fullPath);
@@ -102,6 +105,9 @@ export class FilesService {
         mimetype: file.mimetype,
         originalname: file.originalname,
         size: file.size,
+        $currentDate: {
+          updatedTime: true,
+        },
       },
     );
     return {
