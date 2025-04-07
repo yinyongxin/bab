@@ -4,7 +4,6 @@ import type { Routes } from '@/@types/routes';
 
 export const publicRoutes: Routes = [...authRoute];
 
-
 const modules = import.meta.glob<{
   // default: ComponentType<JSX.Element>;
   default: ComponentType<Record<string, unknown>>;
@@ -14,37 +13,6 @@ const modules = import.meta.glob<{
 
 console.log('modules', modules);
 export const protectedRoutes = [
-  {
-    key: 'dashboard',
-    path: '/dashboard',
-    component: lazy(() => import('@/pages/examples/Dashboard')),
-    authority: [],
-  },
-
-  {
-    key: 'pages',
-    path: '/dashboard/pages',
-    component: lazy(() => import('@/pages/examples/Pages')),
-    authority: [],
-  },
-  {
-    key: 'files',
-    path: '/dashboard/files',
-    component: lazy(() => import('@/pages/examples/Files')),
-    authority: [],
-  },
-  {
-    key: 'users',
-    path: '/users',
-    component: lazy(() => import('@/pages/examples/Users')),
-    authority: [],
-  },
-  {
-    key: 'manage',
-    path: '/users/manage',
-    component: lazy(() => import('@/pages/examples/Manage')),
-    authority: [],
-  },
   {
     key: 'managers',
     path: '/systems/managers',
