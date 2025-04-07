@@ -20,7 +20,6 @@ import { IconChevronRight } from '@tabler/icons-react';
 
 export default function SimpleSideBar() {
   const theme = useMantineTheme();
-  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
   const { colorScheme } = useMantineColorScheme();
   const simpleSideBarContent = (
