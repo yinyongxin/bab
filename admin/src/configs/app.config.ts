@@ -24,7 +24,7 @@ const appConfig: AppConfig = {
   unAuthenticatedEntryPath: '/sign-in',
   locale: 'cn',
   // fileBaseUrl: 'http://localhost:3000',
-  fileBaseUrl: 'https://kh8ukw1n-sehhmkdp-aisly5uplha0.vcb3.mcprev.cn/',
+  fileBaseUrl: 'https://fkrt7x0u-eh88n5yc-wbdrwfkuohbs.vcb3.mcprev.cn/',
   dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
 };
 

@@ -222,11 +222,7 @@ export default () => {
                   <>
                     <CopyButton value={getFilePath(record.path)}>
                       {({ copied, copy }) => (
-                        <Tooltip
-                          label={copied ? 'Copied' : 'Copy'}
-                          withArrow
-                          position="right"
-                        >
+                        <Tooltip label={copied ? 'Copied' : 'Copy'} withArrow>
                           <ActionIcon
                             color={copied ? 'teal' : 'gray'}
                             variant="subtle"
