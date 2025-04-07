@@ -8,7 +8,7 @@ import {
   useMantineColorScheme,
   rem,
   Center,
-  ScrollArea,
+  AppShell,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link, useLocation } from 'react-router-dom';
@@ -140,26 +140,17 @@ export default function DeckedSideBar() {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   return (
-    <Box
-      bg={colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1]}
-      style={{
-        overflow: 'hidden',
-        display: 'flex',
-        flex: '1 1 auto',
-        height: '100vh',
-      }}
-    >
-      <DeckedSideBarContent />
-      <Box
-        style={{
-          flex: 1,
-          overflow: 'auto',
-        }}
+    <AppShell navbar={{ width: 300, breakpoint: 'sm' }} padding="md">
+      <AppShell.Navbar>
+        <DeckedSideBarContent />
+      </AppShell.Navbar>
+      <AppShell.Main
+        bg={
+          colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1]
+        }
       >
-        <ScrollArea h={'100%'}>
-          <Views />
-        </ScrollArea>
-      </Box>
-    </Box>
+        <Views />
+      </AppShell.Main>
+    </AppShell>
   );
 }

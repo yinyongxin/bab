@@ -14,8 +14,8 @@ export type AppConfig = {
 };
 
 const appConfig: AppConfig = {
-  // layoutType: LayoutTypes.DeckedSideBar,
-  layoutType: LayoutTypes.SimpleSideBar,
+  layoutType: LayoutTypes.DeckedSideBar,
+  // layoutType: LayoutTypes.SimpleSideBar,
   name: 'Admin',
   version: '1.0.0',
   logo: '/logo/logo-light-full.svg',
