@@ -1,10 +1,10 @@
 import {
-  Box,
   Divider,
   Flex,
   LoadingOverlay,
   Pagination,
   PaginationProps,
+  Paper,
   ScrollArea,
   Table,
   TableProps,
@@ -41,7 +41,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     return (
       <Table.Thead
         className={clsx(classes.header, { [classes.scrolled]: scrolled })}
-        bg="light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))"
+        // bg="light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))"
       >
         <Table.Tr>
           {props.columns.map((column) => {
@@ -100,9 +100,12 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     </Table.Tbody>
   );
   return (
-    <Box
+    <Paper
       pos="relative"
-      style={{ borderRadius: 'var(--mantine-radius-md)', overflow: 'hidden' }}
+      radius="md"
+      style={{
+        overflow: 'hidden',
+      }}
     >
       <LoadingOverlay
         visible={loading}
@@ -126,7 +129,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
       <Flex justify="flex-end" p="md">
         <Pagination total={0} {...paginationProps} />
       </Flex>
-    </Box>
+    </Paper>
   );
 }
 

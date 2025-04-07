@@ -36,7 +36,7 @@ export default () => {
   const [drawerOpened, drawerOpenedAition] = useDisclosure(false);
   const [title, setTitle] = useState('');
   const [initalValues, setInitalValues] = useState<RolesResultDto>();
-  const [loading, loadingAction] = useDisclosure(false);
+  const [, loadingAction] = useDisclosure(false);
   const [data, setData] = useState<RoleQueryPaginationResultDto>();
   const getData = async (params: { pageNo: number }) => {
     try {
