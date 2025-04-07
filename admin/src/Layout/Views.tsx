@@ -2,13 +2,16 @@ import { Suspense } from 'react';
 import appConfig from '@/configs/app.config';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAppSelector } from '@/store';
-import { protectedRoutes, publicRoutes } from '@/configs/routes.config';
+import {
+  errorRoutes,
+  protectedRoutes,
+  publicRoutes,
+} from '@/configs/routes.config';
 import ProtectedRoute from '@/route/ProtectedRoute';
 import AppRoute from '@/route/AppRoute';
 import AuthorityGuard from '@/route/AuthorityGuard';
 import PublicRoute from '@/route/PublicRoute';
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
-import { errorRoutes } from '@/configs/routes.config/routes.config';
 
 const { authenticatedEntryPath } = appConfig;
 const AllRoutes = () => {
