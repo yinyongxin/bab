@@ -5,12 +5,12 @@ import {
   Code,
   Divider,
   Group,
-  rem,
   ScrollArea,
   Title,
   UnstyledButton,
   useMantineColorScheme,
   useMantineTheme,
+  Image,
 } from '@mantine/core';
 import NavbarLinksGroup from '../../NavbarLinksGroup/NavbarLinksGroup';
 import { UserButton } from '@/components/UserButton/UserButton';
@@ -37,11 +37,10 @@ export default function SimpleSideBar() {
       <AppShell.Navbar>
         <AppShell.Section>
           <Group justify="space-between" gap="md" p="md">
-            <img
-              style={{
-                width: rem(30),
-                height: rem(30),
-              }}
+            <Image
+              w="30"
+              h="30"
+              radius="sm"
               alt="Logo"
               src={getFilePath(appConfig.logo)}
             />

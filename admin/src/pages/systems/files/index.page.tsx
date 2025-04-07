@@ -133,6 +133,7 @@ export default () => {
         bodyTop={bodyTop()}
         actions={[
           <FileButton
+            key="upload"
             onChange={async (file) => {
               await uploadFile(file);
               getData();

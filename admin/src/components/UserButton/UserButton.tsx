@@ -5,6 +5,7 @@ import {
   IconSettings,
   IconSun,
   IconUser,
+  IconSearch,
 } from '@tabler/icons-react';
 import {
   Avatar,
@@ -16,7 +17,6 @@ import {
   useMantineColorScheme,
 } from '@mantine/core';
 import classes from './UserButton.module.css';
-import { IconSearch } from '@tabler/icons-react';
 import useAuth from '@/utils/hooks/useAuth';
 import { useAppSelector } from '@/store';
 import { getFilePath } from '@/utils';
@@ -33,30 +33,6 @@ export function UserButton(props: UserButtonProps) {
   });
   const user = useAppSelector((state) => state.auth.user);
 
-  // const actions: SpotlightActionData[] = [
-  //   {
-  //     id: 'home',
-  //     label: 'Home',
-  //     description: 'Get to home page',
-  //     onClick: () => console.log('Home'),
-  //     leftSection: <IconHome size={24} stroke={1.5} />,
-  //   },
-  //   {
-  //     id: 'dashboard',
-  //     label: 'Dashboard',
-  //     description: 'Get full information about current system status',
-  //     onClick: () => console.log('Dashboard'),
-  //     leftSection: <IconDashboard size={24} stroke={1.5} />,
-  //   },
-  //   {
-  //     id: 'documentation',
-  //     label: 'Documentation',
-  //     description: 'Visit documentation to lean more about all features',
-  //     onClick: () => console.log('Documentation'),
-  //     leftSection: <IconFileText size={24} stroke={1.5} />,
-  //   },
-  // ];
-
   const { signOut } = useAuth();
   return (
     <>
@@ -64,7 +40,7 @@ export function UserButton(props: UserButtonProps) {
         <Menu.Target>
           <UnstyledButton className={classes.user}>
             <Group>
-              <Avatar src={getFilePath(user.avatar)} radius="xl" />
+              <Avatar src={getFilePath(user.avatar)} radius="md" />
               {!onlyShowAvatar && (
                 <>
                   <div style={{ flex: 1 }}>

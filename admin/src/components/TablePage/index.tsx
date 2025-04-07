@@ -41,7 +41,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     return (
       <Table.Thead
         className={clsx(classes.header, { [classes.scrolled]: scrolled })}
-        bg="light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))"
+        bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))"
       >
         <Table.Tr>
           {props.columns.map((column) => {

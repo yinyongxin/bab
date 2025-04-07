@@ -9,6 +9,7 @@ import {
   rem,
   Center,
   AppShell,
+  Image,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link, useLocation } from 'react-router-dom';
@@ -83,8 +84,10 @@ function DeckedSideBarContent() {
       <div className={classes.wrapper}>
         <div className={classes.aside}>
           <Center className={classes.logo}>
-            <img
-              className={classes.logoImage}
+            <Image
+              radius="sm"
+              w="40"
+              h="40"
               alt="Logo"
               src={getFilePath(appConfig.logo)}
             />
