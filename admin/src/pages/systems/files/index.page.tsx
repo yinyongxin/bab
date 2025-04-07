@@ -8,16 +8,13 @@ import {
 import Page from '@/components/Page';
 import {
   Stack,
-  Tabs,
   Title,
   Text,
   Anchor,
   ActionIcon,
   Flex,
-  Pagination,
   FileButton,
   Chip,
-  Grid,
   Group,
   Button,
   CopyButton,
@@ -149,19 +146,6 @@ export default () => {
             )}
           </FileButton>,
         ]}
-        footer={
-          <Flex justify="flex-end">
-            <Pagination
-              total={getPageTotal(data?.total, data?.pageSize)}
-              value={data?.pageNo}
-              onChange={(value) => {
-                getData({
-                  pageNo: value,
-                });
-              }}
-            />
-          </Flex>
-        }
       >
         <TablePage
           columns={[
@@ -190,12 +174,11 @@ export default () => {
               dataKey: 'size',
               render: ({ size }) => {
                 if (size < 1024) {
-                  return size + 'B';
+                  return `${size}B`;
                 } else if (size < 1024 * 1024) {
-                  return (size / 1024).toFixed(2) + 'KB';
-                } else {
-                  return (size / 1024 / 1024).toFixed(2) + 'MB';
+                  return `${(size / 1024).toFixed(2)}KB`;
                 }
+                return `${(size / 1024 / 1024).toFixed(2)}MB`;
               },
             },
             {
@@ -298,8 +281,17 @@ export default () => {
             },
           ]}
           dataList={data?.list || []}
-          rowkey={'_id'}
-        ></TablePage>
+          rowkey="_id"
+          paginationProps={{
+            total: getPageTotal(data?.total, data?.pageSize),
+            value: data?.pageNo,
+            onChange(value) {
+              getData({
+                pageNo: value,
+              });
+            },
+          }}
+        />
       </Page>
     </>
   );

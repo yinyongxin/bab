@@ -18,6 +18,7 @@ import { useAppSelector } from '@/store';
 import FontIcons from '@/components/FontIcons';
 import { UserButton } from '@/components/UserButton/UserButton';
 import appConfig from '@/configs/app.config';
+import { getFilePath } from '@/utils';
 
 function DeckedSideBarContent() {
   const [activeMainLink, setActiveMainLink] = useState('');
@@ -84,8 +85,8 @@ function DeckedSideBarContent() {
           <Center className={classes.logo}>
             <img
               className={classes.logoImage}
-              alt="Mantine Logo"
-              src={appConfig.logo}
+              alt="Logo"
+              src={getFilePath(appConfig.logo)}
             />
           </Center>
           <Box style={{ overflowY: 'auto', flex: 1 }} py="md">
@@ -131,7 +132,7 @@ export default function DeckedSideBar() {
       </AppShell.Navbar>
       <AppShell.Main
         bg={
-          colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1]
+          colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0]
         }
       >
         <Views />

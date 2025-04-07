@@ -5,6 +5,7 @@ import {
   Code,
   Divider,
   Group,
+  rem,
   ScrollArea,
   Title,
   UnstyledButton,
@@ -17,6 +18,7 @@ import Views from '../../Views';
 import appConfig from '@/configs/app.config';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronRight } from '@tabler/icons-react';
+import { getFilePath } from '@/utils';
 
 export default function SimpleSideBar() {
   const theme = useMantineTheme();
@@ -35,7 +37,14 @@ export default function SimpleSideBar() {
       <AppShell.Navbar>
         <AppShell.Section>
           <Group justify="space-between" gap="md" p="md">
-            <img width={40} alt="Logo" src={appConfig.logo} />
+            <img
+              style={{
+                width: rem(30),
+                height: rem(30),
+              }}
+              alt="Logo"
+              src={getFilePath(appConfig.logo)}
+            />
             <Title order={5} flex={1}>
               {appConfig.name}
             </Title>
@@ -71,7 +80,7 @@ export default function SimpleSideBar() {
       </AppShell.Navbar>
       <AppShell.Main
         bg={
-          colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1]
+          colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0]
         }
       >
         <Box>
