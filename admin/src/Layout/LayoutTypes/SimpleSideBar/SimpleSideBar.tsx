@@ -8,20 +8,17 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import classes from './SimpleSideBar.module.css';
-import { LinksGroup } from './NavbarLinksGroup/NavbarLinksGroup';
+import NavbarLinksGroup, {
+  LinksGroup,
+} from '../../NavbarLinksGroup/NavbarLinksGroup';
 import { UserButton } from '@/components/UserButton/UserButton';
 import { useAppSelector } from '@/store';
 import Views from '../../Views';
 import appConfig from '@/configs/app.config';
 function SimpleSideBarContent() {
-  const { navigationTree = [] } = useAppSelector((state) => state.auth.menus);
-  const links = navigationTree.map((item) => (
-    <LinksGroup {...item} key={item.key} />
-  ));
-
   return (
     <nav className={classes.navbar}>
-      <div className={classes.header}>
+      <header className={classes.header}>
         <Group justify="space-between" gap="md">
           <img width={40} alt="Logo" src={appConfig.logo} />
           <Title order={5} flex={1}>
@@ -29,15 +26,17 @@ function SimpleSideBarContent() {
           </Title>
           <Code fw={700}>{appConfig.version}</Code>
         </Group>
-      </div>
+      </header>
 
       <ScrollArea className={classes.links}>
-        <div className={classes.linksInner}>{links}</div>
+        <main className={classes.linksInner}>
+          <NavbarLinksGroup />
+        </main>
       </ScrollArea>
 
-      <div className={classes.footer}>
+      <footer className={classes.footer}>
         <UserButton />
-      </div>
+      </footer>
     </nav>
   );
 }

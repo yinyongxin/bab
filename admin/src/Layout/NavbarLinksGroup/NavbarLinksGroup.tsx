@@ -13,6 +13,7 @@ import classes from './NavbarLinksGroup.module.css';
 import FontIcons from '@/components/FontIcons';
 import { NavigationTree } from '@/@types/navigation';
 import { Link, useLocation } from 'react-router-dom';
+import { useAppSelector } from '@/store';
 
 interface LinksGroupProps extends NavigationTree {
   initiallyOpened?: boolean;
@@ -75,3 +76,10 @@ export function LinksGroup({
     </>
   );
 }
+
+const NavbarLinksGroup = () => {
+  const { navigationTree = [] } = useAppSelector((state) => state.auth.menus);
+  return navigationTree.map((item) => <LinksGroup {...item} key={item.key} />);
+};
+
+export default NavbarLinksGroup;
