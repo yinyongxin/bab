@@ -1,6 +1,6 @@
 import { MantineProvider } from '@mantine/core';
 import { theme } from './theme';
-import { Layout } from '@/components/Layout/Layout';
+import { Layout } from '@/Layout/Layout';
 import { Provider } from 'react-redux';
 import store, { persistor, useAppSelector } from '@/store';
 import { PersistGate } from 'redux-persist/integration/react';

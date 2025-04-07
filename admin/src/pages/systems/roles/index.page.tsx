@@ -47,8 +47,7 @@ export default () => {
           pageNo,
           pageSize: 8,
         },
-        body: {
-        }
+        body: {},
       });
 
       setData(res.data);

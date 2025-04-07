@@ -16,6 +16,9 @@ import {
   Flex,
   Pagination,
   FileButton,
+  Chip,
+  Grid,
+  Group,
 } from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
@@ -26,20 +29,33 @@ import appConfig from '@/configs/app.config';
 import { decode } from 'punycode';
 import { getFilePath, getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
+import { FileMIMEOptions } from './common';
 
 export default () => {
   const [activeTab, setActiveTab] = useState<string | null>(null);
-  const [data, setData] = useState<FilesPaginationResultDto>();
+  const [data, setData] = useState<FilesPaginationResultDto>({
+    list: [],
+    pageNo: 1,
+    pageSize: 10,
+    total: 0,
+  });
   const [dirList, setDirList] = useState<string[]>([]);
-
-  const getData = async (pagination: { pageNo: number; pageSize?: number }) => {
-    const { pageNo, pageSize = 10 } = pagination;
+  const [fileMIMEChecked, setFileMIMEChecked] = useState<string>();
+  const getData = async (pagination?: {
+    pageNo?: number;
+    pageSize?: number;
+  }) => {
+    const { pageNo = data.pageNo, pageSize = data.pageSize } = {
+      ...pagination,
+    };
     const getDirsRes = await filesControllerGetPaginationList({
       query: {
         pageNo,
         pageSize,
       },
-      body: {},
+      body: {
+        mimetype: fileMIMEChecked,
+      },
     });
     if (!getDirsRes.error) {
       setData(getDirsRes.data);
@@ -47,10 +63,8 @@ export default () => {
   };
 
   useShallowEffect(() => {
-    getData({
-      pageNo: 1,
-    });
-  }, []);
+    getData();
+  }, [fileMIMEChecked]);
   const tabsRender = () => {
     return (
       <Tabs value={activeTab} onChange={setActiveTab}>
@@ -79,10 +93,49 @@ export default () => {
           },
         });
         await getData({
-          pageNo: data?.pageNo || 1,
+          pageNo: data?.pageNo,
         });
       },
     });
+  };
+
+  const bodyTop = () => {
+    return (
+      <Stack>
+        <Grid>
+          <Grid.Col span={1}>
+            <Title order={6} lh={2}>
+              文件类型:
+            </Title>
+          </Grid.Col>
+          <Grid.Col span={11}>
+            <Group>
+              <Chip
+                checked={!fileMIMEChecked}
+                onClick={() => {
+                  setFileMIMEChecked(undefined);
+                }}
+              >
+                全部
+              </Chip>
+              {FileMIMEOptions.map((item) => {
+                return (
+                  <Chip
+                    key={item.value}
+                    checked={fileMIMEChecked === item.value}
+                    onClick={() => {
+                      setFileMIMEChecked(item.value);
+                    }}
+                  >
+                    {item.label}
+                  </Chip>
+                );
+              })}
+            </Group>
+          </Grid.Col>
+        </Grid>
+      </Stack>
+    );
   };
 
   return (
@@ -90,6 +143,7 @@ export default () => {
       <Page
         title="文件管理"
         headerBottom={tabsRender()}
+        bodyTop={bodyTop()}
         footer={
           <Flex justify="flex-end">
             <Pagination
@@ -188,7 +242,7 @@ export default () => {
                         });
                         if (res.data) {
                           getData({
-                            pageNo: data?.pageNo || 1,
+                            pageNo: data?.pageNo,
                           });
                         }
                       }}

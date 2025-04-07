@@ -6,10 +6,11 @@ import { LayoutTypes } from '@/@types/layout';
 import { useAppSelector } from '@/store';
 import { SpotlightActionData, Spotlight } from '@mantine/spotlight';
 import { IconSearch } from '@tabler/icons-react';
-import FontIcons from '../FontIcons';
+import FontIcons from '../components/FontIcons';
 import { useNavigate } from 'react-router-dom';
 import { useShallowEffect } from '@mantine/hooks';
 import { client } from '@/client/client.gen';
+import { TOKEN_TYPE } from '@/constants/api.constant';
 
 const layouts: any = {
   [LayoutTypes.SimpleSideBar]: lazy(
@@ -35,7 +36,7 @@ export function Layout() {
     // baseURL: 'http://localhost:3000',
     // set default headers for requests
     headers: {
-      Authorization: `Bearer ${auth.session.token}`,
+      Authorization: `${TOKEN_TYPE}${auth.session.token}`,
     },
   });
 

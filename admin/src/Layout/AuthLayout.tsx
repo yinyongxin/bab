@@ -1,4 +1,4 @@
-import Views from '@/components/Layout/Views';
+import Views from '@/Layout/Views';
 
 export default function AuthLayout() {
   return (
