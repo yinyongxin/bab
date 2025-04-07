@@ -1,24 +1,27 @@
 import {
   FilesPaginationResultDto,
+  FilesResultDto,
+  filesControllerBatchDelete,
   filesControllerGetPaginationList,
 } from '@/client';
 import Page from '@/components/Page';
-import { Stack, Tabs, Title, Text, Anchor } from '@mantine/core';
+import { Stack, Tabs, Title, Text, Anchor, ActionIcon } from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
 import TablePage from '@/components/TablePage';
-import { IconClock24 } from '@tabler/icons-react';
+import { IconClock24, IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import appConfig from '@/configs/app.config';
 import { decode } from 'punycode';
 import { getFilePath } from '@/utils';
+import { modals } from '@mantine/modals';
 
 export default () => {
   const [activeTab, setActiveTab] = useState<string | null>(null);
   const [data, setData] = useState<FilesPaginationResultDto>();
   const [dirList, setDirList] = useState<string[]>([]);
 
-  const getDate = async (pagination: { pageNo: number; pageSize?: number }) => {
+  const getData = async (pagination: { pageNo: number; pageSize?: number }) => {
     const { pageNo, pageSize = 10 } = pagination;
     const getDirsRes = await filesControllerGetPaginationList({
       query: {
@@ -33,7 +36,7 @@ export default () => {
   };
 
   useShallowEffect(() => {
-    getDate({
+    getData({
       pageNo: 1,
     });
   }, []);
@@ -50,6 +53,27 @@ export default () => {
       </Tabs>
     );
   };
+
+  const deleteById = async (record: FilesResultDto) => {
+    modals.openConfirmModal({
+      title: '确认删除当前文件？',
+      centered: true,
+      children: <Text size="sm">请注意，删除文件后，将无法恢复。</Text>,
+      labels: { confirm: '删除', cancel: '取消' },
+      confirmProps: { color: 'red' },
+      onConfirm: async () => {
+        await filesControllerBatchDelete({
+          body: {
+            fileList: [record],
+          },
+        });
+        await getData({
+          pageNo: data?.pageNo || 1,
+        });
+      },
+    });
+  };
+
   return (
     <>
       <Page title="文件管理" headerBottom={tabsRender()}>
@@ -102,6 +126,42 @@ export default () => {
               prefix: () => <IconClock24 size={16} />,
               render: ({ createdTime }) => {
                 return dayjs(createdTime).format(appConfig.dateTimeFormat);
+              },
+            },
+            {
+              title: '操作',
+              width: 110,
+              render: (record) => {
+                return (
+                  <>
+                    <Anchor href={getFilePath(record.path)} target="_blank">
+                      <ActionIcon variant="transparent" color="green">
+                        <IconEye
+                          style={{ width: '70%', height: '70%' }}
+                          stroke={1.5}
+                        />
+                      </ActionIcon>
+                    </Anchor>
+                    <ActionIcon variant="transparent" onClick={() => {}}>
+                      <IconEdit
+                        style={{ width: '70%', height: '70%' }}
+                        stroke={1.5}
+                      />
+                    </ActionIcon>
+                    <ActionIcon
+                      variant="transparent"
+                      color="red"
+                      onClick={() => {
+                        deleteById(record);
+                      }}
+                    >
+                      <IconTrash
+                        style={{ width: '70%', height: '70%' }}
+                        stroke={1.5}
+                      />
+                    </ActionIcon>
+                  </>
+                );
               },
             },
           ]}

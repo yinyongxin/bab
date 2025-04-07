@@ -51,9 +51,15 @@ import type {
   MenusControllerGetAllByFilterResponse,
   FilesControllerUploadFileData,
   FilesControllerUploadFileResponse,
+  FilesControllerUploadFileError,
   FilesControllerUploadFilesData,
+  FilesControllerUploadFilesError,
   FilesControllerGetPaginationListData,
   FilesControllerGetPaginationListResponse,
+  FilesControllerGetPaginationListError,
+  FilesControllerBatchDeleteData,
+  FilesControllerBatchDeleteResponse,
+  FilesControllerBatchDeleteError,
 } from './types.gen';
 import {
   authControllerSignInResponseTransformer,
@@ -503,7 +509,7 @@ export const filesControllerUploadFile = <ThrowOnError extends boolean = false>(
 ) => {
   return (options.client ?? _heyApiClient).post<
     FilesControllerUploadFileResponse,
-    unknown,
+    FilesControllerUploadFileError,
     ThrowOnError
   >({
     ...formDataBodySerializer,
@@ -521,17 +527,19 @@ export const filesControllerUploadFiles = <
 >(
   options: Options<FilesControllerUploadFilesData, ThrowOnError>,
 ) => {
-  return (options.client ?? _heyApiClient).post<unknown, unknown, ThrowOnError>(
-    {
-      ...formDataBodySerializer,
-      url: '/api/files/uploadFiles',
-      ...options,
-      headers: {
-        'Content-Type': null,
-        ...options?.headers,
-      },
+  return (options.client ?? _heyApiClient).post<
+    unknown,
+    FilesControllerUploadFilesError,
+    ThrowOnError
+  >({
+    ...formDataBodySerializer,
+    url: '/api/files/uploadFiles',
+    ...options,
+    headers: {
+      'Content-Type': null,
+      ...options?.headers,
     },
-  );
+  });
 };
 
 /**
@@ -545,11 +553,34 @@ export const filesControllerGetPaginationList = <
 ) => {
   return (options.client ?? _heyApiClient).post<
     FilesControllerGetPaginationListResponse,
-    unknown,
+    FilesControllerGetPaginationListError,
     ThrowOnError
   >({
     responseTransformer: filesControllerGetPaginationListResponseTransformer,
     url: '/api/files/getPaginationList',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 通过Id删除文件
+ * 通过Ids删除文件
+ */
+export const filesControllerBatchDelete = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<FilesControllerBatchDeleteData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).delete<
+    FilesControllerBatchDeleteResponse,
+    FilesControllerBatchDeleteError,
+    ThrowOnError
+  >({
+    url: '/api/files/batchDelete',
     ...options,
     headers: {
       'Content-Type': 'application/json',

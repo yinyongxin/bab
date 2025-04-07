@@ -795,6 +795,13 @@ export type FilesPaginationResultDto = {
   list: Array<FilesResultDto>;
 };
 
+export type FilesBatchDeleteDto = {
+  /**
+   * 文件列表
+   */
+  fileList: Array<FilesResultDto>;
+};
+
 export type AuthControllerSignInData = {
   body: SignInDto;
   path?: never;
@@ -1220,6 +1227,16 @@ export type FilesControllerUploadFileData = {
   url: '/api/files/uploadFile';
 };
 
+export type FilesControllerUploadFileErrors = {
+  /**
+   * 失败
+   */
+  400: ErrorResultDto;
+};
+
+export type FilesControllerUploadFileError =
+  FilesControllerUploadFileErrors[keyof FilesControllerUploadFileErrors];
+
 export type FilesControllerUploadFileResponses = {
   /**
    * 单文件上传成功后返回
@@ -1239,6 +1256,16 @@ export type FilesControllerUploadFilesData = {
   query?: never;
   url: '/api/files/uploadFiles';
 };
+
+export type FilesControllerUploadFilesErrors = {
+  /**
+   * 失败
+   */
+  400: ErrorResultDto;
+};
+
+export type FilesControllerUploadFilesError =
+  FilesControllerUploadFilesErrors[keyof FilesControllerUploadFilesErrors];
 
 export type FilesControllerUploadFilesResponses = {
   201: unknown;
@@ -1260,6 +1287,16 @@ export type FilesControllerGetPaginationListData = {
   url: '/api/files/getPaginationList';
 };
 
+export type FilesControllerGetPaginationListErrors = {
+  /**
+   * 失败
+   */
+  400: ErrorResultDto;
+};
+
+export type FilesControllerGetPaginationListError =
+  FilesControllerGetPaginationListErrors[keyof FilesControllerGetPaginationListErrors];
+
 export type FilesControllerGetPaginationListResponses = {
   /**
    * 获取分页列表
@@ -1269,6 +1306,33 @@ export type FilesControllerGetPaginationListResponses = {
 
 export type FilesControllerGetPaginationListResponse =
   FilesControllerGetPaginationListResponses[keyof FilesControllerGetPaginationListResponses];
+
+export type FilesControllerBatchDeleteData = {
+  body: FilesBatchDeleteDto;
+  path?: never;
+  query?: never;
+  url: '/api/files/batchDelete';
+};
+
+export type FilesControllerBatchDeleteErrors = {
+  /**
+   * 失败
+   */
+  400: ErrorResultDto;
+};
+
+export type FilesControllerBatchDeleteError =
+  FilesControllerBatchDeleteErrors[keyof FilesControllerBatchDeleteErrors];
+
+export type FilesControllerBatchDeleteResponses = {
+  /**
+   * 删除成功
+   */
+  200: IntersectionUpdateResDtoDeleteResDto;
+};
+
+export type FilesControllerBatchDeleteResponse =
+  FilesControllerBatchDeleteResponses[keyof FilesControllerBatchDeleteResponses];
 
 export type ClientOptions = {
   baseUrl: string;

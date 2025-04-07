@@ -2,13 +2,13 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import path from 'path';
 import fs from 'fs/promises';
 import dayjs from 'dayjs';
-import { FilesQueryFilterDto } from './dto';
-import { Model } from 'mongoose';
+import { FilesBatchDeleteDto, FilesQueryFilterDto } from './dto';
+import { Model, ObjectId } from 'mongoose';
 import { Files } from '../../../mongo/base/files';
 import { InjectModel } from '@nestjs/mongoose';
 import { randomUUID } from 'crypto';
 import { PaginationDto } from 'src/dtos';
-import { queryPagination } from 'src/mongo/tools';
+import { deleteByIds, queryPagination } from 'src/mongo/tools';
 
 @Injectable()
 export class FilesService {
@@ -70,5 +70,21 @@ export class FilesService {
       ...queryPaginationRes,
       ...pagination,
     };
+  }
+
+  async batchDelete(filesBatchDeleteDto: FilesBatchDeleteDto) {
+    const [res] = await Promise.all([
+      deleteByIds(
+        this.filesModel,
+        filesBatchDeleteDto.fileList.map(
+          ({ _id }) => _id,
+        ) as unknown as ObjectId[],
+      ),
+      ...filesBatchDeleteDto.fileList.map(({ path: filePath }) => {
+        const fullPath = path.join(__dirname, `../static${filePath}`);
+        return fs.unlink(fullPath);
+      }),
+    ]);
+    return res;
   }
 }

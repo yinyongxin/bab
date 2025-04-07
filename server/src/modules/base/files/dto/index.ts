@@ -55,3 +55,12 @@ export class FilesPaginationResultDto extends PaginationResultDto {
   })
   list: FilesResultDto[];
 }
+
+export class FilesBatchDeleteDto {
+  @ApiProperty({
+    required: true,
+    description: '文件列表',
+    type: [FilesResultDto],
+  })
+  fileList: FilesResultDto[];
+}

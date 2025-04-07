@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Post,
   Query,
   UploadedFile,
@@ -8,15 +9,18 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import {
+  ApiBadRequestResponse,
   ApiBody,
   ApiConsumes,
   ApiOkResponse,
   ApiOperation,
   ApiTags,
+  IntersectionType,
 } from '@nestjs/swagger';
 import { FilesService } from './files.service';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import {
+  FilesBatchDeleteDto,
   FilesPaginationResultDto,
   FilesQueryFilterDto,
   FilesUploadDto,
@@ -24,9 +28,18 @@ import {
   FileUploadSuccessResultDto,
 } from './dto';
 import { toNumber } from 'lodash';
-import { PaginationDto } from 'src/dtos';
+import {
+  DeleteResDto,
+  ErrorResultDto,
+  PaginationDto,
+  UpdateResDto,
+} from 'src/dtos';
 
 @ApiTags('文件-Files')
+@ApiBadRequestResponse({
+  description: '失败',
+  type: ErrorResultDto,
+})
 @Controller('files')
 export class FilesController {
   constructor(private readonly filesService: FilesService) {}
@@ -76,6 +89,20 @@ export class FilesController {
       },
       body,
     );
+    return res;
+  }
+
+  @Delete('batchDelete')
+  @ApiOperation({
+    description: '通过Ids删除文件',
+    summary: '通过Id删除文件',
+  })
+  @ApiOkResponse({
+    description: '删除成功',
+    type: IntersectionType(UpdateResDto, DeleteResDto),
+  })
+  async batchDelete(@Body() body: FilesBatchDeleteDto) {
+    const res = await this.filesService.batchDelete(body);
     return res;
   }
 }
