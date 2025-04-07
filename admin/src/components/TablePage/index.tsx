@@ -10,6 +10,7 @@ import {
   TableThProps,
 } from '@mantine/core';
 import { Key } from 'react';
+import Empty from '../Empty/Empty';
 export type TablePageProps<D> = {
   columns: {
     title: React.ReactNode;
@@ -92,12 +93,16 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
         overlayProps={{ blur: 2 }}
       />
       <Flex direction="column" gap={16}>
-        <Table.ScrollContainer minWidth={500}>
-          <Table verticalSpacing="md" {...tableProps}>
-            {getTableHeader()}
-            <Table.Tbody>{rows}</Table.Tbody>
-          </Table>
-        </Table.ScrollContainer>
+        {dataList.length === 0 ? (
+          <Empty />
+        ) : (
+          <Table.ScrollContainer minWidth={500}>
+            <Table verticalSpacing="md" {...tableProps}>
+              {getTableHeader()}
+              <Table.Tbody>{rows}</Table.Tbody>
+            </Table>
+          </Table.ScrollContainer>
+        )}
         <Pagination
           total={0}
           {...paginationProps}
