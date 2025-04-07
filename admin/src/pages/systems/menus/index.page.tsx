@@ -37,6 +37,15 @@ export default () => {
             />
           )}
         </Grid.Col>
+        <Grid.Col span={4}>
+          {checkedList[0] && (
+            <MenuList
+              checkedList={checkedList}
+              level={1}
+              parentData={checkedList[0]}
+            />
+          )}
+        </Grid.Col>
       </Grid>
     </Page>
   );

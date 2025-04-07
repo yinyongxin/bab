@@ -60,7 +60,7 @@ export class Menus extends BaseDocument {
   })
   // swagger
   @ApiProperty({
-    required: true,
+    required: false,
     description: '菜单路径',
     example: '',
   })
