@@ -109,10 +109,12 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
         type="always"
         onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
       >
-        <Table verticalSpacing="md" {...tableProps}>
+        {/* <Table.ScrollContainer minWidth={500} type="native"> */}
+        <Table verticalSpacing="md" stickyHeader={false} {...tableProps}>
           {getTableHeader()}
           {tableBody}
         </Table>
+        {/* </Table.ScrollContainer> */}
         {dataList.length === 0 && <Empty />}
       </ScrollArea>
       <Divider />
