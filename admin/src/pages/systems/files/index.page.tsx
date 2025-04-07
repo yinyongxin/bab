@@ -26,7 +26,6 @@ import TablePage from '@/components/TablePage';
 import { IconClock24, IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import appConfig from '@/configs/app.config';
-import { decode } from 'punycode';
 import { getFilePath, getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 import { FileMIMEOptions } from './common';
@@ -65,19 +64,6 @@ export default () => {
   useShallowEffect(() => {
     getData();
   }, [fileMIMEChecked]);
-  const tabsRender = () => {
-    return (
-      <Tabs value={activeTab} onChange={setActiveTab}>
-        <Tabs.List>
-          {dirList.map((item) => (
-            <Tabs.Tab key={item} value={`/${item}`}>
-              {item}
-            </Tabs.Tab>
-          ))}
-        </Tabs.List>
-      </Tabs>
-    );
-  };
 
   const deleteById = async (record: FilesResultDto) => {
     modals.openConfirmModal({
@@ -102,38 +88,34 @@ export default () => {
   const bodyTop = () => {
     return (
       <Stack>
-        <Grid>
-          <Grid.Col span={1}>
-            <Title order={6} lh={2}>
-              文件类型:
-            </Title>
-          </Grid.Col>
-          <Grid.Col span={11}>
-            <Group>
-              <Chip
-                checked={!fileMIMEChecked}
-                onClick={() => {
-                  setFileMIMEChecked(undefined);
-                }}
-              >
-                全部
-              </Chip>
-              {FileMIMEOptions.map((item) => {
-                return (
-                  <Chip
-                    key={item.value}
-                    checked={fileMIMEChecked === item.value}
-                    onClick={() => {
-                      setFileMIMEChecked(item.value);
-                    }}
-                  >
-                    {item.label}
-                  </Chip>
-                );
-              })}
-            </Group>
-          </Grid.Col>
-        </Grid>
+        <Flex gap="md">
+          <Title order={6} lh={2}>
+            文件类型:
+          </Title>
+          <Group>
+            <Chip
+              checked={!fileMIMEChecked}
+              onClick={() => {
+                setFileMIMEChecked(undefined);
+              }}
+            >
+              全部
+            </Chip>
+            {FileMIMEOptions.map((item) => {
+              return (
+                <Chip
+                  key={item.value}
+                  checked={fileMIMEChecked === item.value}
+                  onClick={() => {
+                    setFileMIMEChecked(item.value);
+                  }}
+                >
+                  {item.label}
+                </Chip>
+              );
+            })}
+          </Group>
+        </Flex>
       </Stack>
     );
   };
@@ -142,7 +124,6 @@ export default () => {
     <>
       <Page
         title="文件管理"
-        headerBottom={tabsRender()}
         bodyTop={bodyTop()}
         footer={
           <Flex justify="flex-end">

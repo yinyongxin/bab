@@ -8,6 +8,7 @@ import {
   useMantineColorScheme,
   rem,
   Center,
+  ScrollArea,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link, useLocation } from 'react-router-dom';
@@ -151,12 +152,13 @@ export default function DeckedSideBar() {
       <DeckedSideBarContent />
       <Box
         style={{
-          padding: '1rem',
           flex: 1,
           overflow: 'auto',
         }}
       >
-        <Views />
+        <ScrollArea h={'100%'}>
+          <Views />
+        </ScrollArea>
       </Box>
     </Box>
   );

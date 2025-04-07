@@ -1,5 +1,5 @@
 import {
-  Box,
+  AppShell,
   Code,
   Group,
   ScrollArea,
@@ -46,25 +46,17 @@ export default function SimpleSideBar() {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   return (
-    <Box
-      bg={colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1]}
-      style={{
-        overflow: 'hidden',
-        display: 'flex',
-        flex: '1 1 auto',
-        height: '100vh',
-      }}
-    >
-      <SimpleSideBarContent />
-      <Box
-        style={{
-          padding: '1rem',
-          flex: 1,
-          overflow: 'auto',
-        }}
+    <AppShell navbar={{ width: 300, breakpoint: 'sm' }} padding="md">
+      <AppShell.Navbar>
+        <SimpleSideBarContent />
+      </AppShell.Navbar>
+      <AppShell.Main
+        bg={
+          colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1]
+        }
       >
         <Views />
-      </Box>
-    </Box>
+      </AppShell.Main>
+    </AppShell>
   );
 }

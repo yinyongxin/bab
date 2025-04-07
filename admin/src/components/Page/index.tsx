@@ -6,6 +6,8 @@ import {
   Group,
   PaperProps,
   Stack,
+  Box,
+  BoxComponentProps,
 } from '@mantine/core';
 
 type PageProps = {
@@ -18,7 +20,7 @@ type PageProps = {
   bodyTop?: React.ReactNode;
   contentProps?: PaperProps;
   style?: React.CSSProperties;
-};
+} & BoxComponentProps;
 const Page = (props: PageProps) => {
   const {
     children,
@@ -30,27 +32,30 @@ const Page = (props: PageProps) => {
     bodyTop,
     contentProps,
     style,
+    ...rest
   } = props;
   return (
-    <Flex direction="column" gap={24} style={style}>
-      <Stack gap="sm">
-        <Flex justify="space-between" align="center">
-          {title && <Title order={3}>{title}</Title>}
-          {actions && <Group>{actions}</Group>}
-        </Flex>
-        {description && (
-          <Text lineClamp={2} mt="sm" c="dimmed">
-            {description}
-          </Text>
-        )}
-        {headerBottom}
-      </Stack>
-      {bodyTop}
-      <Paper radius="md" p="md" flex={1} {...contentProps}>
-        {children}
-      </Paper>
-      {footer}
-    </Flex>
+    <Box {...rest}>
+      <Flex direction="column" gap={24} style={style}>
+        <Stack gap="sm">
+          <Flex justify="space-between" align="center">
+            {title && <Title order={3}>{title}</Title>}
+            {actions && <Group>{actions}</Group>}
+          </Flex>
+          {description && (
+            <Text lineClamp={2} mt="sm" c="dimmed">
+              {description}
+            </Text>
+          )}
+          {headerBottom}
+        </Stack>
+        {bodyTop}
+        <Paper radius="md" p="md" flex={1} {...contentProps}>
+          {children}
+        </Paper>
+        {footer}
+      </Flex>
+    </Box>
   );
 };
 
