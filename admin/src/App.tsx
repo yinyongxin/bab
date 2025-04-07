@@ -2,7 +2,7 @@ import { MantineProvider } from '@mantine/core';
 import { theme } from './theme';
 import { Layout } from '@/Layout/Layout';
 import { Provider } from 'react-redux';
-import store, { persistor, useAppSelector } from '@/store';
+import store, { persistor } from '@/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ModalsProvider } from '@mantine/modals';

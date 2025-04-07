@@ -63,40 +63,42 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     );
   };
 
-  const tableBody = dataList.map((data) => (
+  const getTableBody = () => (
     <Table.Tbody>
-      <Table.Tr key={data[rowkey] as Key}>
-        {props.columns.map((column) => {
-          let tdContent;
-          if (column.render) {
-            tdContent = column.render(data);
-          } else if (column.dataKey) {
-            tdContent = data[column.dataKey];
-          }
-          if (column.prefix) {
-            tdContent = (
-              <Flex align="center" gap="xs">
-                {column.prefix(data)}
+      {dataList.map((data) => (
+        <Table.Tr key={data[rowkey] as Key}>
+          {props.columns.map((column) => {
+            let tdContent;
+            if (column.render) {
+              tdContent = column.render(data);
+            } else if (column.dataKey) {
+              tdContent = data[column.dataKey];
+            }
+            if (column.prefix) {
+              tdContent = (
+                <Flex align="center" gap="xs">
+                  {column.prefix(data)}
+                  <>{tdContent}</>
+                </Flex>
+              );
+            }
+            return (
+              <Table.Td
+                key={`${data[rowkey]}-${column.title}`}
+                {...column.tdProps}
+                style={{
+                  width: column.width,
+                  ...column.thProps?.style,
+                }}
+              >
                 <>{tdContent}</>
-              </Flex>
+              </Table.Td>
             );
-          }
-          return (
-            <Table.Td
-              key={`${data[rowkey]}-${column.title}`}
-              {...column.tdProps}
-              style={{
-                width: column.width,
-                ...column.thProps?.style,
-              }}
-            >
-              <>{tdContent}</>
-            </Table.Td>
-          );
-        })}
-      </Table.Tr>
+          })}
+        </Table.Tr>
+      ))}
     </Table.Tbody>
-  ));
+  );
   return (
     <Box pos="relative">
       <LoadingOverlay
@@ -112,7 +114,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
         {/* <Table.ScrollContainer minWidth={500} type="native"> */}
         <Table verticalSpacing="md" stickyHeader={false} {...tableProps}>
           {getTableHeader()}
-          {tableBody}
+          {getTableBody()}
         </Table>
         {/* </Table.ScrollContainer> */}
         {dataList.length === 0 && <Empty />}
