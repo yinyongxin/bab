@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { IconCalendarStats, IconChevronRight } from '@tabler/icons-react';
+import { IconChevronRight } from '@tabler/icons-react';
 import {
   Box,
   Collapse,
   Group,
   rem,
-  Text,
   ThemeIcon,
   UnstyledButton,
 } from '@mantine/core';
@@ -34,16 +33,16 @@ export function LinksGroup({
     const currentPath = location.pathname.split('/');
     const currentMainLink = currentPath[1];
     const currentSubLink = currentPath[2];
-    setOpened(`/${currentMainLink}` === path);
+    setOpened(currentMainLink === path);
     setActiveSubLink(currentSubLink);
   }, [location.pathname]);
 
   const items = (hasLinks ? subMenu : []).map((link) => (
     <Link
       key={link.key}
-      to={`${path}${link.path}`}
+      to={`/${path}/${link.path}`}
       className={classes.link}
-      data-active={`${link.path.split('/')[1]}` === activeSubLink || undefined}
+      data-active={link.path === activeSubLink || undefined}
     >
       {link.title}
     </Link>

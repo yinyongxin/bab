@@ -29,9 +29,8 @@ function DeckedSideBarContent() {
 
   const subLinkList = useMemo(() => {
     const subMenus =
-      navigationTree.find(
-        (subLinkItem) => subLinkItem.path.split('/')[1] === activeMainLink,
-      )?.subMenu || [];
+      navigationTree.find((subLinkItem) => subLinkItem.path === activeMainLink)
+        ?.subMenu || [];
     return (
       <div className={classes.main}>
         <div>
@@ -42,12 +41,9 @@ function DeckedSideBarContent() {
           </div>
           {subMenus.map((submenuItem, subIndex) => (
             <Link
-              to={`/${activeMainLink}${submenuItem.path}`}
+              to={`/${activeMainLink}/${submenuItem.path}`}
               className={classes.link}
-              data-active={
-                `${submenuItem.path.split('/')[1]}` === activeSubLink ||
-                undefined
-              }
+              data-active={submenuItem.path === activeSubLink || undefined}
               key={subIndex}
             >
               {submenuItem.translateKey
@@ -77,7 +73,7 @@ function DeckedSideBarContent() {
     title: string,
     translateKey: string,
   ) => {
-    setActiveMainLink(mainLink.split('/')[1]);
+    setActiveMainLink(mainLink);
     setTitle(translateKey ? t(translateKey) : title);
   };
 
@@ -110,9 +106,7 @@ function DeckedSideBarContent() {
                     )
                   }
                   className={classes.mainLink}
-                  data-active={
-                    link.path.split('/')[1] === activeMainLink || undefined
-                  }
+                  data-active={link.path === activeMainLink || undefined}
                 >
                   <FontIcons name={link.icon} style={{ fontSize: rem(18) }} />
                 </UnstyledButton>
