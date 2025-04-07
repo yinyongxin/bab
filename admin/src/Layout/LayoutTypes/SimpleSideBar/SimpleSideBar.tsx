@@ -73,7 +73,7 @@ export default function SimpleSideBar() {
           </Center>
         </UnstyledButton>
       </AppShell.Navbar>
-      <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))">
+      <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))">
         <Box>
           <Views />
         </Box>

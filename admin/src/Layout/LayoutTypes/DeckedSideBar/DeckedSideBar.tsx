@@ -129,7 +129,7 @@ export default function DeckedSideBar() {
       <AppShell.Navbar>
         <DeckedSideBarContent />
       </AppShell.Navbar>
-      <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))">
+      <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))">
         <Views />
       </AppShell.Main>
     </AppShell>
