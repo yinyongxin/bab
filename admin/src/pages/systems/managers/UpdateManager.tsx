@@ -137,9 +137,12 @@ function UpdateManager(props: UpdateManagerProps) {
             if (!file) {
               return;
             }
+            const newFile = new File([file], encodeURI(file.name), {
+              type: file.type,
+            });
             const res = await filesControllerUploadFile({
               body: {
-                file,
+                file: newFile,
               },
             });
             if (res.data) {

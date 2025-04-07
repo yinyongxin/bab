@@ -39,8 +39,8 @@ export class FilesService {
         file.buffer,
       );
       const fileCreate = await this.filesModel.create({
-        mimetype: file.mimetype,
-        originalname: encodeURI(file.originalname),
+        mimetype,
+        originalname,
         path: pathUrl,
         size: file.size,
         uniquedName,
