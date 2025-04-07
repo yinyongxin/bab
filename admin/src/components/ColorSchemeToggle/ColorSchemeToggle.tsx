@@ -1,7 +1,5 @@
 import {
   ActionIcon,
-  Button,
-  Group,
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core';

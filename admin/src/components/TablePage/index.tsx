@@ -5,13 +5,18 @@ import {
   LoadingOverlay,
   Pagination,
   PaginationProps,
+  ScrollArea,
   Table,
   TableProps,
   TableTdProps,
   TableThProps,
 } from '@mantine/core';
-import { Key } from 'react';
+import { Key, useState } from 'react';
 import Empty from '../Empty/Empty';
+import clsx from 'clsx';
+
+import classes from './TablePage.module.css';
+
 export type TablePageProps<D> = {
   columns: {
     title: React.ReactNode;
@@ -19,8 +24,8 @@ export type TablePageProps<D> = {
     render?: (values: D) => React.ReactNode;
     thProps?: TableThProps;
     tdProps?: TableTdProps;
-    width?: string | number;
     prefix?: (values: D) => React.ReactNode;
+    width?: string | number;
   }[];
   dataList: D[];
   rowkey: keyof D;
@@ -31,9 +36,13 @@ export type TablePageProps<D> = {
 
 function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
   const { paginationProps, tableProps, dataList, rowkey, loading } = props;
+  const [scrolled, setScrolled] = useState(false);
   const getTableHeader = () => {
     return (
-      <Table.Thead bg="light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))">
+      <Table.Thead
+        className={clsx(classes.header, { [classes.scrolled]: scrolled })}
+        bg="light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))"
+      >
         <Table.Tr>
           {props.columns.map((column) => {
             return (
@@ -93,8 +102,10 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
         zIndex={1000}
         overlayProps={{ blur: 2 }}
       />
-
-      <Table.ScrollContainer minWidth={500} pb="">
+      <ScrollArea
+        h="60vh"
+        onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+      >
         <Table verticalSpacing="md" {...tableProps}>
           {getTableHeader()}
           {dataList.length === 0 ? (
@@ -103,7 +114,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
             <Table.Tbody>{rows}</Table.Tbody>
           )}
         </Table>
-      </Table.ScrollContainer>
+      </ScrollArea>
       <Divider />
       <Flex justify="flex-end" mt="md">
         <Pagination total={0} {...paginationProps} />
