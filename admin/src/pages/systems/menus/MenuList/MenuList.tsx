@@ -86,13 +86,7 @@ export function MenuList(props: MenuListProps) {
             onChecked?.(item);
           }}
         >
-          <div
-            {...provided.dragHandleProps}
-            className={classes.dragHandle}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
+          <div {...provided.dragHandleProps} className={classes.dragHandle}>
             <IconGripVertical size={18} stroke={1.5} />
           </div>
           <FontIcons name={item?.icon || ''} style={{ fontSize: 40 }} />
