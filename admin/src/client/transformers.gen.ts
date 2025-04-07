@@ -13,6 +13,7 @@ import type {
   MenusControllerFindByIdResponse,
   MenusControllerGetTreeDataResponse,
   MenusControllerGetAllByFilterResponse,
+  FilesControllerGetPaginationListResponse,
 } from './types.gen';
 
 const admintorsResultDtoSchemaResponseTransformer = (data: any) => {
@@ -160,5 +161,25 @@ export const menusControllerGetAllByFilterResponseTransformer = async (
   data = data.map((item: any) => {
     return menusResultDtoSchemaResponseTransformer(item);
   });
+  return data;
+};
+
+const filesResultDtoSchemaResponseTransformer = (data: any) => {
+  data.createdTime = new Date(data.createdTime);
+  data.updatedTime = new Date(data.updatedTime);
+  return data;
+};
+
+const filesPaginationResultDtoSchemaResponseTransformer = (data: any) => {
+  data.list = data.list.map((item: any) => {
+    return filesResultDtoSchemaResponseTransformer(item);
+  });
+  return data;
+};
+
+export const filesControllerGetPaginationListResponseTransformer = async (
+  data: any,
+): Promise<FilesControllerGetPaginationListResponse> => {
+  data = filesPaginationResultDtoSchemaResponseTransformer(data);
   return data;
 };

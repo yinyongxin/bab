@@ -2,16 +2,17 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import path from 'path';
 import fs from 'fs/promises';
 import dayjs from 'dayjs';
-import { QueryDirsFilterDto, QueryDirsPaginationDto } from './dto';
-import { isNumber } from 'lodash';
+import { FilesQueryFilterDto } from './dto';
 import { Model } from 'mongoose';
 import { Files } from '../../../mongo/base/files';
 import { InjectModel } from '@nestjs/mongoose';
 import { randomUUID } from 'crypto';
+import { PaginationDto } from 'src/dtos';
+import { queryPagination } from 'src/mongo/tools';
 
 @Injectable()
 export class FilesService {
-  constructor(@InjectModel(Files.name) private userModel: Model<Files>) {}
+  constructor(@InjectModel(Files.name) private filesModel: Model<Files>) {}
   async uploadFile(file: Express.Multer.File) {
     console.log(file);
     const { mimetype, originalname } = file;
@@ -37,9 +38,9 @@ export class FilesService {
         path.join(directoryPath, `/${uniquedName}`),
         file.buffer,
       );
-      const fileCreate = await this.userModel.create({
+      const fileCreate = await this.filesModel.create({
         mimetype: file.mimetype,
-        originalname: file.originalname,
+        originalname: encodeURI(file.originalname),
         path: pathUrl,
         size: file.size,
         uniquedName,
@@ -55,23 +56,19 @@ export class FilesService {
     };
   }
 
-  async getDirsPagination(
-    pagination: QueryDirsPaginationDto,
-    filter: QueryDirsFilterDto,
+  async getPaginationList(
+    pagination: PaginationDto,
+    filter: FilesQueryFilterDto,
   ) {
-    const { pageNo, pageSize } = pagination;
-    const { dirPath = '' } = filter;
-    const directoryPath = path.join(__dirname, `../static${dirPath}`);
-    const directories = await fs.readdir(directoryPath, {
-      withFileTypes: true,
-      recursive: false,
-    });
-    const list = directories.map(({ name }) => name);
+    const queryPaginationRes = await queryPagination(
+      this.filesModel,
+      pagination,
+      filter,
+    );
+
     return {
-      list,
-      total: list.length,
-      pageNo: isNumber(pageNo) ? pageNo : undefined,
-      pageSize: isNumber(pageSize) ? pageSize : undefined,
+      ...queryPaginationRes,
+      ...pagination,
     };
   }
 }

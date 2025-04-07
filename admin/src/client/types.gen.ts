@@ -706,30 +706,93 @@ export type FilesUploadDto = {
   files: Array<Blob | File>;
 };
 
-export type QueryDirsFilterDto = {
+export type FilesQueryFilterDto = {
   /**
-   * 路径
+   * 删除时间
    */
-  dirPath?: string;
+  deletedTime?: Date;
+  /**
+   * 创建日期
+   */
+  createdTime?: Date;
+  /**
+   * 更新日期
+   */
+  updatedTime?: Date;
+  /**
+   * 原始文件名
+   */
+  originalname?: string;
+  /**
+   * 唯一文件名
+   */
+  uniquedName?: string;
+  /**
+   * 文件类型
+   */
+  mimetype?: string;
+  /**
+   * 文件大小
+   */
+  size?: number;
+  /**
+   * 文件路径
+   */
+  path?: string;
 };
 
-export type QueryDirsPaginationResultDto = {
+export type FilesResultDto = {
+  /**
+   * 创建日期
+   */
+  createdTime: Date;
+  /**
+   * 更新日期
+   */
+  updatedTime: Date;
+  /**
+   * 原始文件名
+   */
+  originalname: string;
+  /**
+   * 唯一文件名
+   */
+  uniquedName: string;
+  /**
+   * 文件类型
+   */
+  mimetype: string;
+  /**
+   * 文件大小
+   */
+  size: number;
+  /**
+   * 文件路径
+   */
+  path: string;
+  /**
+   * 唯一值
+   */
+  _id: string;
+};
+
+export type FilesPaginationResultDto = {
   /**
    * 当前页面
    */
-  pageNo?: number;
+  pageNo: number;
   /**
    * 分页大小
    */
-  pageSize?: number;
+  pageSize: number;
   /**
    * 所有数量
    */
-  total?: number;
+  total: number;
   /**
-   * 列表
+   * 所有数量
    */
-  list: Array<string>;
+  list: Array<FilesResultDto>;
 };
 
 export type AuthControllerSignInData = {
@@ -1181,31 +1244,31 @@ export type FilesControllerUploadFilesResponses = {
   201: unknown;
 };
 
-export type FilesControllerGetDirsPaginationData = {
-  body: QueryDirsFilterDto;
+export type FilesControllerGetPaginationListData = {
+  body: FilesQueryFilterDto;
   path?: never;
-  query?: {
+  query: {
     /**
      * 当前页面
      */
-    pageNo?: number;
+    pageNo: number;
     /**
      * 分页大小
      */
-    pageSize?: number;
+    pageSize: number;
   };
-  url: '/api/files/getDirsPagination';
+  url: '/api/files/getPaginationList';
 };
 
-export type FilesControllerGetDirsPaginationResponses = {
+export type FilesControllerGetPaginationListResponses = {
   /**
    * 获取分页列表
    */
-  200: QueryDirsPaginationResultDto;
+  200: FilesPaginationResultDto;
 };
 
-export type FilesControllerGetDirsPaginationResponse =
-  FilesControllerGetDirsPaginationResponses[keyof FilesControllerGetDirsPaginationResponses];
+export type FilesControllerGetPaginationListResponse =
+  FilesControllerGetPaginationListResponses[keyof FilesControllerGetPaginationListResponses];
 
 export type ClientOptions = {
   baseUrl: string;

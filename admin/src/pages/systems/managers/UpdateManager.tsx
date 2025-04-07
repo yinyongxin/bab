@@ -70,7 +70,6 @@ function UpdateManager(props: UpdateManagerProps) {
         ...values,
       },
     });
-    console.log('addAdmintor', addAdmintor);
 
     if (addAdmintor?.error) {
       notifications.show({

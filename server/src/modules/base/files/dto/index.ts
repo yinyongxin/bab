@@ -1,5 +1,11 @@
-import { ApiProperty, PartialType } from '@nestjs/swagger';
-import { PaginationDto, PaginationResultDto } from 'src/dtos';
+import {
+  ApiProperty,
+  IntersectionType,
+  OmitType,
+  PartialType,
+} from '@nestjs/swagger';
+import { PaginationResultDto, Result_idDto } from 'src/dtos';
+import { Files } from 'src/mongo/base/files';
 
 export class FileUploadDto {
   @ApiProperty({ type: 'string', format: 'binary' })
@@ -26,23 +32,26 @@ export class FilesUploadSuccessResultDto {
   urls: string[];
 }
 
-export class QueryDirsPaginationDto extends PartialType(PaginationDto) {}
-
-export class QueryDirsPaginationResultDto extends PartialType(
-  PaginationResultDto,
-) {
-  @ApiProperty({
-    required: true,
-    description: '列表',
-    type: [String],
-  })
-  list: string[];
-}
-
 export class QueryDirsFilterDto {
   @ApiProperty({
     required: false,
     description: '路径',
   })
   dirPath?: string;
+}
+
+export class FilesQueryFilterDto extends PartialType(Files) {}
+
+export class FilesResultDto extends IntersectionType(
+  OmitType(Files, ['deletedTime']),
+  Result_idDto,
+) {}
+
+export class FilesPaginationResultDto extends PaginationResultDto {
+  @ApiProperty({
+    required: true,
+    description: '所有数量',
+    type: [FilesResultDto],
+  })
+  list: FilesResultDto[];
 }

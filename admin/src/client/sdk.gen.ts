@@ -52,8 +52,8 @@ import type {
   FilesControllerUploadFileData,
   FilesControllerUploadFileResponse,
   FilesControllerUploadFilesData,
-  FilesControllerGetDirsPaginationData,
-  FilesControllerGetDirsPaginationResponse,
+  FilesControllerGetPaginationListData,
+  FilesControllerGetPaginationListResponse,
 } from './types.gen';
 import {
   authControllerSignInResponseTransformer,
@@ -68,6 +68,7 @@ import {
   menusControllerFindByIdResponseTransformer,
   menusControllerGetTreeDataResponseTransformer,
   menusControllerGetAllByFilterResponseTransformer,
+  filesControllerGetPaginationListResponseTransformer,
 } from './transformers.gen';
 import { client as _heyApiClient } from './client.gen';
 
@@ -537,17 +538,18 @@ export const filesControllerUploadFiles = <
  * 获取分页列表
  * 获取分页列表
  */
-export const filesControllerGetDirsPagination = <
+export const filesControllerGetPaginationList = <
   ThrowOnError extends boolean = false,
 >(
-  options: Options<FilesControllerGetDirsPaginationData, ThrowOnError>,
+  options: Options<FilesControllerGetPaginationListData, ThrowOnError>,
 ) => {
   return (options.client ?? _heyApiClient).post<
-    FilesControllerGetDirsPaginationResponse,
+    FilesControllerGetPaginationListResponse,
     unknown,
     ThrowOnError
   >({
-    url: '/api/files/getDirsPagination',
+    responseTransformer: filesControllerGetPaginationListResponseTransformer,
+    url: '/api/files/getPaginationList',
     ...options,
     headers: {
       'Content-Type': 'application/json',

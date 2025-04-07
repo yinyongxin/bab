@@ -1,4 +1,6 @@
 import dayjs from 'dayjs';
+import { Model } from 'mongoose';
+import { PaginationDto } from 'src/dtos';
 
 /**
  * 将字符串文本的数据变为模糊查询
@@ -28,4 +30,42 @@ export const toFuzzyParams = <D = Record<string, unknown>, K = keyof D>(
   });
 
   return newParams;
+};
+
+export const queryPagination = async <
+  M extends Model<any>,
+  F = Record<string, unknown>,
+>(
+  model: M,
+  pagination: PaginationDto,
+  filter?: F,
+  options?: {
+    sort: Record<string, 1 | -1>;
+  },
+) => {
+  const { sort } = { sort: { createdTime: -1 }, ...options };
+  const [res] = await model.aggregate([
+    { $match: { ...filter } },
+    { $sort: sort },
+    {
+      $facet: {
+        metadata: [{ $count: 'total' }],
+        list: [
+          { $skip: pagination.pageSize * (pagination.pageNo - 1) },
+          { $limit: pagination.pageSize },
+        ],
+      },
+    },
+    // 最终结果的构建
+    {
+      $project: {
+        total: { $arrayElemAt: ['$metadata.total', 0] }, // 直接取出 total
+        list: '$list', // 返回 list
+      },
+    },
+  ]);
+  return {
+    total: res?.total || 0,
+    list: res?.list || [],
+  };
 };

@@ -10,6 +10,7 @@ export type AppConfig = {
   name: string;
   logo: string;
   version: string;
+  dateTimeFormat: string;
 };
 
 const appConfig: AppConfig = {
@@ -22,8 +23,9 @@ const appConfig: AppConfig = {
   authenticatedEntryPath: '/nothingFound',
   unAuthenticatedEntryPath: '/sign-in',
   locale: 'cn',
-  fileBaseUrl: 'http://localhost:3000',
-  // fileBaseUrl: 'https://ilg4hjxi-k9br2qqv-9nytigm87m48.vcb3.mcprev.cn/',
+  // fileBaseUrl: 'http://localhost:3000',
+  fileBaseUrl: 'https://524t2k5i-zc7r4al5-liwcr6tx7um0.vcb3.mcprev.cn/',
+  dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
 };
 
 export default appConfig;
