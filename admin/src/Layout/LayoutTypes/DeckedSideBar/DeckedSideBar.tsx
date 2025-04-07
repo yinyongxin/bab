@@ -131,7 +131,7 @@ export default function DeckedSideBar() {
   const theme = useMantineTheme();
   const { colorScheme } = useMantineColorScheme();
   return (
-    <AppShell navbar={{ width: 300, breakpoint: 'sm' }} padding="xl">
+    <AppShell navbar={{ width: 300, breakpoint: 'md' }} padding="md">
       <AppShell.Navbar>
         <DeckedSideBarContent />
       </AppShell.Navbar>

@@ -36,7 +36,7 @@ const Page = (props: PageProps) => {
   return (
     <Box {...rest}>
       <Flex direction="column" gap="md">
-        <Stack gap="sm" m={'-xl'} p="xl" pb="md">
+        <Stack>
           <Flex justify="space-between" align="center">
             {title && <Title order={3}>{title}</Title>}
             {actions && <Group>{actions}</Group>}
