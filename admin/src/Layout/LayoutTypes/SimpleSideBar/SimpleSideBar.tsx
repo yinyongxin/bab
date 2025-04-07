@@ -1,9 +1,12 @@
 import {
   AppShell,
+  Box,
+  Center,
   Code,
   Group,
   ScrollArea,
   Title,
+  UnstyledButton,
   useMantineColorScheme,
   useMantineTheme,
 } from '@mantine/core';
@@ -13,6 +16,7 @@ import { UserButton } from '@/components/UserButton/UserButton';
 import Views from '../../Views';
 import appConfig from '@/configs/app.config';
 import { useDisclosure } from '@mantine/hooks';
+import { IconChevronRight } from '@tabler/icons-react';
 
 export default function SimpleSideBar() {
   const theme = useMantineTheme();
@@ -48,17 +52,41 @@ export default function SimpleSideBar() {
       navbar={{
         width: 300,
         breakpoint: 'sm',
-        collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
+        collapsed: { desktop: !desktopOpened },
       }}
-      padding="md"
+      padding="xl"
     >
-      <AppShell.Navbar>{simpleSideBarContent}</AppShell.Navbar>
+      <AppShell.Navbar>
+        {simpleSideBarContent}
+        <UnstyledButton
+          w="xl"
+          // bg="gray.2"
+          pos="absolute"
+          h="100%"
+          right="0"
+          // top="50%"
+          style={{
+            transform: 'translateX(100%)',
+          }}
+        >
+          <Center>
+            <IconChevronRight
+              style={{
+                transform: !desktopOpened ? 'rotate(180deg)' : 'rotate(0deg)',
+              }}
+              onClick={toggleDesktop}
+            />
+          </Center>
+        </UnstyledButton>
+      </AppShell.Navbar>
       <AppShell.Main
         bg={
           colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1]
         }
       >
-        <Views />
+        <Box>
+          <Views />
+        </Box>
       </AppShell.Main>
     </AppShell>
   );
