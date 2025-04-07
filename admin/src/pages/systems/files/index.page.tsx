@@ -20,12 +20,16 @@ import {
   Grid,
   Group,
   Button,
+  CopyButton,
+  Tooltip,
 } from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
 import TablePage from '@/components/TablePage';
 import {
+  IconCheck,
   IconClock24,
+  IconCopy,
   IconEdit,
   IconEye,
   IconTrash,
@@ -139,7 +143,7 @@ export default () => {
             accept={fileMIMEChecked}
           >
             {(props) => (
-              <Button {...props} leftSection={<IconUpload />}>
+              <Button {...props} leftSection={<IconUpload size={14} />}>
                 上传文件
               </Button>
             )}
@@ -212,10 +216,31 @@ export default () => {
             },
             {
               title: '操作',
-              width: 110,
+              width: 140,
               render: (record) => {
                 return (
                   <>
+                    <CopyButton value={getFilePath(record.path)}>
+                      {({ copied, copy }) => (
+                        <Tooltip
+                          label={copied ? 'Copied' : 'Copy'}
+                          withArrow
+                          position="right"
+                        >
+                          <ActionIcon
+                            color={copied ? 'teal' : 'gray'}
+                            variant="subtle"
+                            onClick={copy}
+                          >
+                            {copied ? (
+                              <IconCheck size={16} />
+                            ) : (
+                              <IconCopy size={16} />
+                            )}
+                          </ActionIcon>
+                        </Tooltip>
+                      )}
+                    </CopyButton>
                     <Anchor href={getFilePath(record.path)} target="_blank">
                       <ActionIcon variant="transparent" color="green">
                         <IconEye
