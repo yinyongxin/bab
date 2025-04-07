@@ -5,7 +5,16 @@ import {
   filesControllerGetPaginationList,
 } from '@/client';
 import Page from '@/components/Page';
-import { Stack, Tabs, Title, Text, Anchor, ActionIcon } from '@mantine/core';
+import {
+  Stack,
+  Tabs,
+  Title,
+  Text,
+  Anchor,
+  ActionIcon,
+  Flex,
+  Pagination,
+} from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
 import TablePage from '@/components/TablePage';
@@ -13,7 +22,7 @@ import { IconClock24, IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import appConfig from '@/configs/app.config';
 import { decode } from 'punycode';
-import { getFilePath } from '@/utils';
+import { getFilePath, getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 
 export default () => {
@@ -76,7 +85,23 @@ export default () => {
 
   return (
     <>
-      <Page title="文件管理" headerBottom={tabsRender()}>
+      <Page
+        title="文件管理"
+        headerBottom={tabsRender()}
+        footer={
+          <Flex justify="flex-end">
+            <Pagination
+              total={getPageTotal(data?.total, data?.pageSize)}
+              value={data?.pageNo}
+              onChange={(value) => {
+                getData({
+                  pageNo: value,
+                });
+              }}
+            />
+          </Flex>
+        }
+      >
         <TablePage
           columns={[
             {
