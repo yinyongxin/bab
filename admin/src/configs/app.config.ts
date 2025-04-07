@@ -14,8 +14,8 @@ export type AppConfig = {
 };
 
 const appConfig: AppConfig = {
-  // layoutType: LayoutTypes.DeckedSideBar,
-  layoutType: LayoutTypes.SimpleSideBar,
+  layoutType: LayoutTypes.DeckedSideBar,
+  // layoutType: LayoutTypes.SimpleSideBar,
   name: 'Admin',
   version: '1.0.0',
   logo: '/logo/logo-light-full.svg',
@@ -23,8 +23,8 @@ const appConfig: AppConfig = {
   authenticatedEntryPath: '/nothingFound',
   unAuthenticatedEntryPath: '/sign-in',
   locale: 'cn',
-  // fileBaseUrl: 'http://localhost:3000',
-  fileBaseUrl: 'https://fkrt7x0u-eh88n5yc-wbdrwfkuohbs.vcb3.mcprev.cn/',
+  fileBaseUrl: 'http://localhost:3000',
+  // fileBaseUrl: 'https://fkrt7x0u-eh88n5yc-wbdrwfkuohbs.vcb3.mcprev.cn/',
   dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
 };
 

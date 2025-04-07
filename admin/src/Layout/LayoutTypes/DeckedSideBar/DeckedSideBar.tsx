@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   UnstyledButton,
   Tooltip,
@@ -26,6 +26,39 @@ function DeckedSideBarContent() {
   const location = useLocation();
   const { t } = useTranslation();
   const { navigationTree = [] } = useAppSelector((state) => state.auth.menus);
+
+  const subLinkList = useMemo(() => {
+    const subMenus =
+      navigationTree.find(
+        (subLinkItem) => subLinkItem.path.split('/')[1] === activeMainLink,
+      )?.subMenu || [];
+    return (
+      <div className={classes.main}>
+        <div>
+          <div className={classes.stickyTitle}>
+            <Title order={4} className={classes.title}>
+              {title}
+            </Title>
+          </div>
+          {subMenus.map((submenuItem, subIndex) => (
+            <Link
+              to={`/${activeMainLink}${submenuItem.path}`}
+              className={classes.link}
+              data-active={
+                `${submenuItem.path.split('/')[1]}` === activeSubLink ||
+                undefined
+              }
+              key={subIndex}
+            >
+              {submenuItem.translateKey
+                ? t(submenuItem.translateKey)
+                : submenuItem.title}
+            </Link>
+          ))}
+        </div>
+      </div>
+    );
+  }, [activeMainLink, activeSubLink, title]);
 
   useEffect(() => {
     const currentPath = location.pathname.split('/');
@@ -81,56 +114,14 @@ function DeckedSideBarContent() {
                     link.path.split('/')[1] === activeMainLink || undefined
                   }
                 >
-                  <FontIcons
-                    name={link.icon || ''}
-                    style={{ fontSize: rem(18) }}
-                  />
+                  <FontIcons name={link.icon} style={{ fontSize: rem(18) }} />
                 </UnstyledButton>
               </Tooltip>
             ))}
           </Box>
           <UserButton onlyShowAvatar />
         </div>
-        <div className={classes.main}>
-          <div>
-            <div className={classes.stickyTitle}>
-              <Title order={4} className={classes.title}>
-                {title}
-              </Title>
-            </div>
-            <div>
-              {navigationTree.map((link, index) => (
-                <div
-                  key={index}
-                  style={{
-                    display:
-                      link.path.split('/')[1] === activeMainLink
-                        ? 'block'
-                        : 'none',
-                  }}
-                >
-                  {link.subMenu?.map((submenuItem, subIndex) => {
-                    return (
-                      <Link
-                        to={`${link.path}${submenuItem.path}`}
-                        className={classes.link}
-                        data-active={
-                          `${submenuItem.path.split('/')[1]}` ===
-                            activeSubLink || undefined
-                        }
-                        key={subIndex}
-                      >
-                        {submenuItem.translateKey
-                          ? t(submenuItem.translateKey)
-                          : submenuItem.title}
-                      </Link>
-                    );
-                  })}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        {subLinkList}
       </div>
     </nav>
   );
