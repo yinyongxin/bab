@@ -20,7 +20,7 @@ const appConfig: AppConfig = {
   version: '1.0.0',
   logo: '/logo/logo-light-full.svg',
   apiPrefix: '',
-  authenticatedEntryPath: '/nothingFound',
+  authenticatedEntryPath: '/home',
   unAuthenticatedEntryPath: '/sign-in',
   locale: 'cn',
   fileBaseUrl: 'http://localhost:3000',

@@ -1,9 +1,11 @@
-import { Button, Container, Group, NavLink, Text, Title } from '@mantine/core';
+import { Button, Container, Group, Text, Title } from '@mantine/core';
 import { Illustration } from './Illustration';
-import classes from './NothingFoundBackground.module.css';
+import classes from './nothingFound.module.css';
 import { Link } from 'react-router-dom';
+import appConfig from '@/configs/app.config';
 
-export default function NothingFoundBackground() {
+const { authenticatedEntryPath } = appConfig;
+export default function NothingFound() {
   return (
     <Container className={classes.root}>
       <div className={classes.inner}>
@@ -21,7 +23,7 @@ export default function NothingFoundBackground() {
             this is an error contact support.
           </Text>
           <Group justify="center">
-            <Link to={'/'}>
+            <Link to={authenticatedEntryPath}>
               <Button size="md">Take me back to home page</Button>
             </Link>
           </Group>
