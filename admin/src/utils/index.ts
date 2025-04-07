@@ -1,3 +1,4 @@
+import { filesControllerUploadFile } from '@/client';
 import appConfig from '@/configs/app.config';
 
 export const getFilePath = (path?: string) => {
@@ -18,4 +19,19 @@ export const getPageTotal = (total?: number, pageSize?: number): number => {
   const validPageSize =
     typeof pageSize === 'number' && pageSize > 0 ? pageSize : 10; // 默认值为10
   return Math.ceil(total / validPageSize);
+};
+
+export const uploadFile = async (file?: File | null) => {
+  if (!file) {
+    return;
+  }
+  const newFile = new File([file], encodeURI(file.name), {
+    type: file.type,
+  });
+  const res = await filesControllerUploadFile({
+    body: {
+      file: newFile,
+    },
+  });
+  return res.data;
 };

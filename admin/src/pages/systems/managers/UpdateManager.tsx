@@ -32,7 +32,7 @@ import {
 } from '@/client';
 import useRoleOptions from '@/utils/hooks/useRoleOptions';
 import { notifications } from '@mantine/notifications';
-import { getFilePath } from '@/utils';
+import { getFilePath, uploadFile } from '@/utils';
 import { sexIcons } from './common';
 
 type UpdateManagerProps = {
@@ -134,19 +134,9 @@ function UpdateManager(props: UpdateManagerProps) {
       <Flex justify="center" pb="lg" pt="lg">
         <FileButton
           onChange={async (file) => {
-            if (!file) {
-              return;
-            }
-            const newFile = new File([file], encodeURI(file.name), {
-              type: file.type,
-            });
-            const res = await filesControllerUploadFile({
-              body: {
-                file: newFile,
-              },
-            });
-            if (res.data) {
-              form.setFieldValue('avatar', res.data.url);
+            const data = await uploadFile(file);
+            if (data) {
+              form.setFieldValue('avatar', data.url);
             }
           }}
           accept="image/png,image/jpeg"

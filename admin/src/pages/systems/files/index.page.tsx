@@ -19,26 +19,31 @@ import {
   Chip,
   Grid,
   Group,
+  Button,
 } from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
 import TablePage from '@/components/TablePage';
-import { IconClock24, IconEdit, IconEye, IconTrash } from '@tabler/icons-react';
+import {
+  IconClock24,
+  IconEdit,
+  IconEye,
+  IconTrash,
+  IconUpload,
+} from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import appConfig from '@/configs/app.config';
-import { getFilePath, getPageTotal } from '@/utils';
+import { getFilePath, getPageTotal, uploadFile } from '@/utils';
 import { modals } from '@mantine/modals';
 import { FileMIMEOptions } from './common';
 
 export default () => {
-  const [activeTab, setActiveTab] = useState<string | null>(null);
   const [data, setData] = useState<FilesPaginationResultDto>({
     list: [],
     pageNo: 1,
     pageSize: 10,
     total: 0,
   });
-  const [dirList, setDirList] = useState<string[]>([]);
   const [fileMIMEChecked, setFileMIMEChecked] = useState<string>();
   const getData = async (pagination?: {
     pageNo?: number;
@@ -125,6 +130,21 @@ export default () => {
       <Page
         title="文件管理"
         bodyTop={bodyTop()}
+        actions={[
+          <FileButton
+            onChange={async (file) => {
+              await uploadFile(file);
+              getData();
+            }}
+            accept={fileMIMEChecked}
+          >
+            {(props) => (
+              <Button {...props} leftSection={<IconUpload />}>
+                上传文件
+              </Button>
+            )}
+          </FileButton>,
+        ]}
         footer={
           <Flex justify="flex-end">
             <Pagination
