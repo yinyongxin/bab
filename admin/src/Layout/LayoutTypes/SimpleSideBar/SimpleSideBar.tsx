@@ -59,21 +59,19 @@ export default function SimpleSideBar() {
         {simpleSideBarContent}
         <UnstyledButton
           w="xl"
-          // bg="gray.2"
           pos="absolute"
           h="100%"
           right="0"
-          // top="50%"
           style={{
             transform: 'translateX(100%)',
           }}
+          onClick={toggleDesktop}
         >
           <Center>
             <IconChevronRight
               style={{
                 transform: !desktopOpened ? 'rotate(180deg)' : 'rotate(0deg)',
               }}
-              onClick={toggleDesktop}
             />
           </Center>
         </UnstyledButton>
