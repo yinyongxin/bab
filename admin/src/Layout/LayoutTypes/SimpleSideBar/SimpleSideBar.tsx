@@ -63,7 +63,7 @@ export default function SimpleSideBar() {
           <Center>
             <IconChevronRight
               style={{
-                transform: !desktopOpened ? 'rotate(180deg)' : 'rotate(0deg)',
+                transform: desktopOpened ? 'rotate(180deg)' : 'rotate(0deg)',
               }}
             />
           </Center>
