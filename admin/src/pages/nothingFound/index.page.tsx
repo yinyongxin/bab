@@ -11,20 +11,18 @@ export default function NothingFound() {
       <div className={classes.inner}>
         <Illustration className={classes.image} />
         <div className={classes.content}>
-          <Title className={classes.title}>Nothing to see here</Title>
+          <Title className={classes.title}>这里什么也没有</Title>
           <Text
             c="dimmed"
             size="lg"
             ta="center"
             className={classes.description}
           >
-            Page you are trying to open does not exist. You may have mistyped
-            the address, or the page has been moved to another URL. If you think
-            this is an error contact support.
+            您试图打开的页面不存在。您可能已经误解了 地址或页面已移至另一个URL。
           </Text>
           <Group justify="center">
             <Link to={authenticatedEntryPath}>
-              <Button size="md">Take me back to home page</Button>
+              <Button size="md">点击我回到主页</Button>
             </Link>
           </Group>
         </div>
