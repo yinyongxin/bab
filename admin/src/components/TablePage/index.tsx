@@ -63,37 +63,39 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     );
   };
 
-  const rows = dataList.map((data) => (
-    <Table.Tr key={data[rowkey] as Key}>
-      {props.columns.map((column) => {
-        let tdContent;
-        if (column.render) {
-          tdContent = column.render(data);
-        } else if (column.dataKey) {
-          tdContent = data[column.dataKey];
-        }
-        if (column.prefix) {
-          tdContent = (
-            <Flex align="center" gap="xs">
-              {column.prefix(data)}
+  const tableBody = dataList.map((data) => (
+    <Table.Tbody>
+      <Table.Tr key={data[rowkey] as Key}>
+        {props.columns.map((column) => {
+          let tdContent;
+          if (column.render) {
+            tdContent = column.render(data);
+          } else if (column.dataKey) {
+            tdContent = data[column.dataKey];
+          }
+          if (column.prefix) {
+            tdContent = (
+              <Flex align="center" gap="xs">
+                {column.prefix(data)}
+                <>{tdContent}</>
+              </Flex>
+            );
+          }
+          return (
+            <Table.Td
+              key={`${data[rowkey]}-${column.title}`}
+              {...column.tdProps}
+              style={{
+                width: column.width,
+                ...column.thProps?.style,
+              }}
+            >
               <>{tdContent}</>
-            </Flex>
+            </Table.Td>
           );
-        }
-        return (
-          <Table.Td
-            key={`${data[rowkey]}-${column.title}`}
-            {...column.tdProps}
-            style={{
-              width: column.width,
-              ...column.thProps?.style,
-            }}
-          >
-            <>{tdContent}</>
-          </Table.Td>
-        );
-      })}
-    </Table.Tr>
+        })}
+      </Table.Tr>
+    </Table.Tbody>
   ));
   return (
     <Box pos="relative">
@@ -104,16 +106,14 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
       />
       <ScrollArea
         h="60vh"
+        type="always"
         onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
       >
         <Table verticalSpacing="md" {...tableProps}>
           {getTableHeader()}
-          {dataList.length === 0 ? (
-            <Empty />
-          ) : (
-            <Table.Tbody>{rows}</Table.Tbody>
-          )}
+          {tableBody}
         </Table>
+        {dataList.length === 0 && <Empty />}
       </ScrollArea>
       <Divider />
       <Flex justify="flex-end" mt="md">
