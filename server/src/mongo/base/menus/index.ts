@@ -22,14 +22,13 @@ export class Menus extends BaseDocument {
    * 菜单唯一键
    */
   @Prop({
-    unique: true,
-    required: true,
+    required: false,
     minlength: 1,
     maxlength: 100,
   })
   // swagger
   @ApiProperty({
-    required: true,
+    required: false,
     description: '菜单唯一键',
     example: 'uniqueKey',
   })
