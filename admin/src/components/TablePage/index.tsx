@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   Flex,
   LoadingOverlay,
   Pagination,
@@ -32,9 +33,9 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
   const { paginationProps, tableProps, dataList, rowkey, loading } = props;
   const getTableHeader = () => {
     return (
-      <Table.Thead>
+      <Table.Thead bg="light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))">
         <Table.Tr>
-          {props.columns.map((column, columnIndex) => {
+          {props.columns.map((column) => {
             return (
               <Table.Th
                 key={`${column.title}`}
@@ -92,25 +93,20 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
         zIndex={1000}
         overlayProps={{ blur: 2 }}
       />
-      <Flex direction="column" gap={16}>
-        {dataList.length === 0 ? (
-          <Empty />
-        ) : (
-          <Table.ScrollContainer minWidth={500}>
-            <Table verticalSpacing="md" {...tableProps}>
-              {getTableHeader()}
-              <Table.Tbody>{rows}</Table.Tbody>
-            </Table>
-          </Table.ScrollContainer>
-        )}
-        <Pagination
-          total={0}
-          {...paginationProps}
-          style={{
-            alignSelf: 'flex-end',
-            ...paginationProps?.style,
-          }}
-        />
+
+      <Table.ScrollContainer minWidth={500} pb="">
+        <Table verticalSpacing="md" {...tableProps}>
+          {getTableHeader()}
+          {dataList.length === 0 ? (
+            <Empty />
+          ) : (
+            <Table.Tbody>{rows}</Table.Tbody>
+          )}
+        </Table>
+      </Table.ScrollContainer>
+      <Divider />
+      <Flex justify="flex-end" mt="md">
+        <Pagination total={0} {...paginationProps} />
       </Flex>
     </Box>
   );
