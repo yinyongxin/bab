@@ -31,13 +31,12 @@ const Page = (props: PageProps) => {
     headerBottom,
     bodyTop,
     contentProps,
-    style,
     ...rest
   } = props;
   return (
     <Box {...rest}>
-      <Flex direction="column" gap={24} style={style}>
-        <Stack gap="sm">
+      <Flex direction="column" gap="md">
+        <Stack gap="sm" m={'-xl'} p="xl" pb="md">
           <Flex justify="space-between" align="center">
             {title && <Title order={3}>{title}</Title>}
             {actions && <Group>{actions}</Group>}
