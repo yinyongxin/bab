@@ -802,6 +802,22 @@ export type FilesBatchDeleteDto = {
   fileList: Array<FilesResultDto>;
 };
 
+export type PickTypeClass = {
+  /**
+   * 文件路径
+   */
+  path: string;
+  /**
+   * 唯一值
+   */
+  _id: string;
+};
+
+export type FileUpdateDto = {
+  file: Blob | File;
+  fileInfo: PickTypeClass;
+};
+
 export type AuthControllerSignInData = {
   body: SignInDto;
   path?: never;
@@ -1333,6 +1349,36 @@ export type FilesControllerBatchDeleteResponses = {
 
 export type FilesControllerBatchDeleteResponse =
   FilesControllerBatchDeleteResponses[keyof FilesControllerBatchDeleteResponses];
+
+export type FilesControllerUpdateFileData = {
+  /**
+   * 单文件上传
+   */
+  body: FileUpdateDto;
+  path?: never;
+  query?: never;
+  url: '/api/files/update';
+};
+
+export type FilesControllerUpdateFileErrors = {
+  /**
+   * 失败
+   */
+  400: ErrorResultDto;
+};
+
+export type FilesControllerUpdateFileError =
+  FilesControllerUpdateFileErrors[keyof FilesControllerUpdateFileErrors];
+
+export type FilesControllerUpdateFileResponses = {
+  /**
+   * 更新成功后返回
+   */
+  200: FileUploadSuccessResultDto;
+};
+
+export type FilesControllerUpdateFileResponse =
+  FilesControllerUpdateFileResponses[keyof FilesControllerUpdateFileResponses];
 
 export type ClientOptions = {
   baseUrl: string;

@@ -21,7 +21,8 @@ This template comes with the following features:
 
 ## Getting Started
 
-___
+---
+
 Install deps and run the development server:
 
 ```bash
@@ -73,3 +74,4 @@ Any contribution is welcomed :).
 ## 依赖
 
 [Icon](https://tablericons.com)
+[Tabler](https://tabler.io/icons)

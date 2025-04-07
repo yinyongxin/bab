@@ -3,13 +3,29 @@ import {
   IntersectionType,
   OmitType,
   PartialType,
+  PickType,
 } from '@nestjs/swagger';
 import { PaginationResultDto, Result_idDto } from 'src/dtos';
 import { Files } from 'src/mongo/base/files';
 
+export class FilesResultDto extends IntersectionType(
+  OmitType(Files, ['deletedTime']),
+  Result_idDto,
+) {}
+
 export class FileUploadDto {
   @ApiProperty({ type: 'string', format: 'binary' })
   file: any;
+}
+
+export class FileUpdateDto {
+  @ApiProperty({ type: 'string', format: 'binary' })
+  file: any;
+  @ApiProperty({
+    type: PickType(FilesResultDto, ['path', '_id']),
+    format: 'binary',
+  })
+  fileInfo: any;
 }
 
 export class FileUploadSuccessResultDto {
@@ -41,11 +57,6 @@ export class QueryDirsFilterDto {
 }
 
 export class FilesQueryFilterDto extends PartialType(Files) {}
-
-export class FilesResultDto extends IntersectionType(
-  OmitType(Files, ['deletedTime']),
-  Result_idDto,
-) {}
 
 export class FilesPaginationResultDto extends PaginationResultDto {
   @ApiProperty({

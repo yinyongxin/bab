@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Patch,
   Post,
   Query,
   UploadedFile,
@@ -24,6 +25,7 @@ import {
   FilesPaginationResultDto,
   FilesQueryFilterDto,
   FilesUploadDto,
+  FileUpdateDto,
   FileUploadDto,
   FileUploadSuccessResultDto,
 } from './dto';
@@ -104,5 +106,23 @@ export class FilesController {
   async batchDelete(@Body() body: FilesBatchDeleteDto) {
     const res = await this.filesService.batchDelete(body);
     return res;
+  }
+
+  @Patch('update')
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({
+    description: '单文件上传',
+    type: FileUpdateDto,
+  })
+  @ApiOkResponse({
+    description: '更新成功后返回',
+    type: FileUploadSuccessResultDto,
+  })
+  @UseInterceptors(FileInterceptor('file'))
+  updateFile(
+    @UploadedFile() file: Express.Multer.File,
+    @Body('fileInfo') fileInfo: string,
+  ) {
+    this.filesService.updateFile(file, JSON.parse(fileInfo));
   }
 }

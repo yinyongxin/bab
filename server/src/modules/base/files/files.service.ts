@@ -2,7 +2,11 @@ import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import path from 'path';
 import fs from 'fs/promises';
 import dayjs from 'dayjs';
-import { FilesBatchDeleteDto, FilesQueryFilterDto } from './dto';
+import {
+  FilesBatchDeleteDto,
+  FilesQueryFilterDto,
+  FilesResultDto,
+} from './dto';
 import { Model, ObjectId } from 'mongoose';
 import { Files } from '../../../mongo/base/files';
 import { InjectModel } from '@nestjs/mongoose';
@@ -86,5 +90,22 @@ export class FilesService {
       }),
     ]);
     return res;
+  }
+  async updateFile(file: Express.Multer.File, fileInfo: FilesResultDto) {
+    const { path: filePath } = fileInfo;
+    const fullPath = path.join(__dirname, `../static${filePath}`);
+    await fs.unlink(fullPath);
+    await fs.writeFile(fullPath, file.buffer);
+    await this.filesModel.updateOne(
+      { _id: fileInfo._id },
+      {
+        mimetype: file.mimetype,
+        originalname: file.originalname,
+        size: file.size,
+      },
+    );
+    return {
+      url: filePath,
+    };
   }
 }

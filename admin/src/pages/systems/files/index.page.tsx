@@ -3,6 +3,7 @@ import {
   FilesResultDto,
   filesControllerBatchDelete,
   filesControllerGetPaginationList,
+  filesControllerUpdateFile,
 } from '@/client';
 import Page from '@/components/Page';
 import {
@@ -14,6 +15,7 @@ import {
   ActionIcon,
   Flex,
   Pagination,
+  FileButton,
 } from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
@@ -167,12 +169,41 @@ export default () => {
                         />
                       </ActionIcon>
                     </Anchor>
-                    <ActionIcon variant="transparent" onClick={() => {}}>
-                      <IconEdit
-                        style={{ width: '70%', height: '70%' }}
-                        stroke={1.5}
-                      />
-                    </ActionIcon>
+                    <FileButton
+                      onChange={async (file) => {
+                        if (!file) {
+                          return;
+                        }
+                        const newFile = new File([file], encodeURI(file.name), {
+                          type: file.type,
+                        });
+                        const res = await filesControllerUpdateFile({
+                          body: {
+                            file: newFile,
+                            fileInfo: {
+                              path: record.path,
+                              _id: record._id,
+                            },
+                          },
+                        });
+                        if (res.data) {
+                          getData({
+                            pageNo: data?.pageNo || 1,
+                          });
+                        }
+                      }}
+                      accept={record.mimetype}
+                    >
+                      {(props) => (
+                        <ActionIcon {...props} variant="transparent">
+                          <IconEdit
+                            style={{ width: '70%', height: '70%' }}
+                            stroke={1.5}
+                          />
+                        </ActionIcon>
+                      )}
+                    </FileButton>
+
                     <ActionIcon
                       variant="transparent"
                       color="red"

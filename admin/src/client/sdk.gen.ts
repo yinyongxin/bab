@@ -60,6 +60,9 @@ import type {
   FilesControllerBatchDeleteData,
   FilesControllerBatchDeleteResponse,
   FilesControllerBatchDeleteError,
+  FilesControllerUpdateFileData,
+  FilesControllerUpdateFileResponse,
+  FilesControllerUpdateFileError,
 } from './types.gen';
 import {
   authControllerSignInResponseTransformer,
@@ -584,6 +587,24 @@ export const filesControllerBatchDelete = <
     ...options,
     headers: {
       'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+  });
+};
+
+export const filesControllerUpdateFile = <ThrowOnError extends boolean = false>(
+  options: Options<FilesControllerUpdateFileData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).patch<
+    FilesControllerUpdateFileResponse,
+    FilesControllerUpdateFileError,
+    ThrowOnError
+  >({
+    ...formDataBodySerializer,
+    url: '/api/files/update',
+    ...options,
+    headers: {
+      'Content-Type': null,
       ...options?.headers,
     },
   });
