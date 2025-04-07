@@ -151,8 +151,8 @@ export default () => {
               title: '修改时间',
               dataKey: 'updatedTime',
               prefix: () => <IconClock24 size={16} />,
-              render: ({ createdTime }) => {
-                return dayjs(createdTime).format(appConfig.dateTimeFormat);
+              render: ({ updatedTime }) => {
+                return dayjs(updatedTime).format(appConfig.dateTimeFormat);
               },
             },
             {
