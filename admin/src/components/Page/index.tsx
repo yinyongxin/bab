@@ -35,7 +35,7 @@ const Page = (props: PageProps) => {
   } = props;
   return (
     <Box {...rest}>
-      <Flex direction="column" gap="md">
+      <Stack gap="md">
         <Stack>
           <Flex justify="space-between" align="center">
             {title && <Title order={3}>{title}</Title>}
@@ -53,7 +53,7 @@ const Page = (props: PageProps) => {
           {children}
         </Paper>
         {footer}
-      </Flex>
+      </Stack>
     </Box>
   );
 };
