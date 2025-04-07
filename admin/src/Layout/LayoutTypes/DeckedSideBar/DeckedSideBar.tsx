@@ -4,8 +4,6 @@ import {
   Tooltip,
   Title,
   Box,
-  useMantineTheme,
-  useMantineColorScheme,
   rem,
   Center,
   AppShell,
@@ -126,18 +124,12 @@ function DeckedSideBarContent() {
 }
 
 export default function DeckedSideBar() {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
   return (
     <AppShell navbar={{ width: 300, breakpoint: 'md' }} padding="xl">
       <AppShell.Navbar>
         <DeckedSideBarContent />
       </AppShell.Navbar>
-      <AppShell.Main
-        bg={
-          colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0]
-        }
-      >
+      <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))">
         <Views />
       </AppShell.Main>
     </AppShell>

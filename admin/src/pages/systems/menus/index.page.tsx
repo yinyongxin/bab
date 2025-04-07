@@ -13,10 +13,6 @@ export default () => {
         height: '100%',
       }}
       title="菜单管理"
-      contentProps={{
-        p: 0,
-        bg: 'transparent',
-      }}
     >
       <Grid>
         <Grid.Col span={4}>

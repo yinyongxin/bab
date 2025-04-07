@@ -1,10 +1,8 @@
 import {
   Title,
   Text,
-  Paper,
   Flex,
   Group,
-  PaperProps,
   Stack,
   Box,
   BoxComponentProps,
@@ -18,7 +16,6 @@ type PageProps = {
   footer?: React.ReactNode;
   headerBottom?: React.ReactNode;
   bodyTop?: React.ReactNode;
-  contentProps?: PaperProps;
   style?: React.CSSProperties;
 } & BoxComponentProps;
 const Page = (props: PageProps) => {
@@ -30,7 +27,6 @@ const Page = (props: PageProps) => {
     footer,
     headerBottom,
     bodyTop,
-    contentProps,
     ...rest
   } = props;
   return (
@@ -49,9 +45,7 @@ const Page = (props: PageProps) => {
           {headerBottom}
         </Stack>
         {bodyTop}
-        <Paper radius="md" p="md" flex={1} {...contentProps}>
-          {children}
-        </Paper>
+        {children}
         {footer}
       </Stack>
     </Box>

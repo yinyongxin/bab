@@ -103,10 +103,6 @@ export default () => {
             添加角色
           </Button>,
         ]}
-        contentProps={{
-          p: 0,
-          bg: 'transparent',
-        }}
         footer={
           <Flex justify="flex-end">
             <Pagination

@@ -8,8 +8,6 @@ import {
   ScrollArea,
   Title,
   UnstyledButton,
-  useMantineColorScheme,
-  useMantineTheme,
   Image,
 } from '@mantine/core';
 import NavbarLinksGroup from '../../NavbarLinksGroup/NavbarLinksGroup';
@@ -21,9 +19,7 @@ import { IconChevronRight } from '@tabler/icons-react';
 import { getFilePath } from '@/utils';
 
 export default function SimpleSideBar() {
-  const theme = useMantineTheme();
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-  const { colorScheme } = useMantineColorScheme();
 
   return (
     <AppShell
@@ -77,11 +73,7 @@ export default function SimpleSideBar() {
           </Center>
         </UnstyledButton>
       </AppShell.Navbar>
-      <AppShell.Main
-        bg={
-          colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0]
-        }
-      >
+      <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))">
         <Box>
           <Views />
         </Box>

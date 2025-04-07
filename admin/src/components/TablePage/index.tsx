@@ -41,7 +41,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     return (
       <Table.Thead
         className={clsx(classes.header, { [classes.scrolled]: scrolled })}
-        bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))"
+        bg="light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))"
       >
         <Table.Tr>
           {props.columns.map((column) => {
@@ -100,7 +100,10 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     </Table.Tbody>
   );
   return (
-    <Box pos="relative">
+    <Box
+      pos="relative"
+      style={{ borderRadius: 'var(--mantine-radius-md)', overflow: 'hidden' }}
+    >
       <LoadingOverlay
         visible={loading}
         zIndex={1000}
@@ -120,7 +123,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
         {dataList.length === 0 && <Empty />}
       </ScrollArea>
       <Divider />
-      <Flex justify="flex-end" mt="md">
+      <Flex justify="flex-end" p="md">
         <Pagination total={0} {...paginationProps} />
       </Flex>
     </Box>
