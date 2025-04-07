@@ -8,15 +8,18 @@ import {
   useMantineTheme,
 } from '@mantine/core';
 import classes from './SimpleSideBar.module.css';
-import NavbarLinksGroup, {
-  LinksGroup,
-} from '../../NavbarLinksGroup/NavbarLinksGroup';
+import NavbarLinksGroup from '../../NavbarLinksGroup/NavbarLinksGroup';
 import { UserButton } from '@/components/UserButton/UserButton';
-import { useAppSelector } from '@/store';
 import Views from '../../Views';
 import appConfig from '@/configs/app.config';
-function SimpleSideBarContent() {
-  return (
+import { useDisclosure } from '@mantine/hooks';
+
+export default function SimpleSideBar() {
+  const theme = useMantineTheme();
+  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
+  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
+  const { colorScheme } = useMantineColorScheme();
+  const simpleSideBarContent = (
     <nav className={classes.navbar}>
       <header className={classes.header}>
         <Group justify="space-between" gap="md">
@@ -39,16 +42,17 @@ function SimpleSideBarContent() {
       </footer>
     </nav>
   );
-}
 
-export default function SimpleSideBar() {
-  const theme = useMantineTheme();
-  const { colorScheme } = useMantineColorScheme();
   return (
-    <AppShell navbar={{ width: 300, breakpoint: 'sm' }} padding="md">
-      <AppShell.Navbar>
-        <SimpleSideBarContent />
-      </AppShell.Navbar>
+    <AppShell
+      navbar={{
+        width: 300,
+        breakpoint: 'sm',
+        collapsed: { mobile: !mobileOpened, desktop: !desktopOpened },
+      }}
+      padding="md"
+    >
+      <AppShell.Navbar>{simpleSideBarContent}</AppShell.Navbar>
       <AppShell.Main
         bg={
           colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[1]
