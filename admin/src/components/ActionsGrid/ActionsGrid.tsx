@@ -26,6 +26,7 @@ import { ElementType, MouseEventHandler } from 'react';
 type ActionsGridProps = {
   title?: string;
   subTitle?: string;
+  cols?: number;
   serverList?: {
     title: string;
     icon: ElementType;
@@ -34,7 +35,7 @@ type ActionsGridProps = {
   }[];
 };
 export function ActionsGrid(props: ActionsGridProps) {
-  const { title, subTitle, serverList = [] } = props;
+  const { title, subTitle, serverList = [], cols = 3 } = props;
   const theme = useMantineTheme();
 
   const items = serverList.map((item) => (
@@ -63,7 +64,7 @@ export function ActionsGrid(props: ActionsGridProps) {
             )}
           </Group>
         )}
-        <SimpleGrid cols={3}>{items}</SimpleGrid>
+        <SimpleGrid cols={cols}>{items}</SimpleGrid>
       </Stack>
     </Card>
   );

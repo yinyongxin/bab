@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useShallowEffect } from '@mantine/hooks';
 import { client } from '@/client/client.gen';
 import { TOKEN_TYPE } from '@/constants/api.constant';
+import { MenuTypeEnum } from '@/client';
 
 const layouts: any = {
   [LayoutTypes.SimpleSideBar]: lazy(
@@ -25,9 +26,8 @@ export function Layout() {
   const { authenticated } = useAuth();
   const layoutType = useAppSelector((state) => state.theme.currentLayout);
   const navigate = useNavigate();
-
-  const menus = useAppSelector((state) => state.auth.menus);
   const auth = useAppSelector((state) => state.auth);
+  const { menus } = auth;
 
   useLocale();
 
@@ -48,7 +48,7 @@ export function Layout() {
   }, [authenticated]);
 
   const actions: SpotlightActionData[] = menus.list
-    .filter((item) => item.parent)
+    .filter((item) => item.menuType === MenuTypeEnum.PAGE)
     .map((item) => {
       return {
         id: item._id,
@@ -58,7 +58,7 @@ export function Layout() {
           const parent = menus.list.find(
             (listItem) => listItem._id === item.parent,
           );
-          navigate(`${parent?.path}${item.path}`);
+          navigate(`/${parent?.path}/${item.path}`);
         },
         leftSection: (
           <FontIcons style={{ fontSize: 24 }} name={item.icon || 'menu-deep'} />
