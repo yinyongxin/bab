@@ -8,6 +8,5 @@ export const errorRoutes: Routes = [
     key: 'nothingFound',
     path: '/nothingFound',
     component: lazy(() => import('@/pages/nothingFound/index.page')),
-    authority: [],
   },
 ];

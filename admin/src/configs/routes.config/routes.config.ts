@@ -17,24 +17,20 @@ export const protectedRoutes = [
     key: 'managers',
     path: '/systems/managers',
     component: lazy(modules['../../pages/systems/managers/index.page.tsx']),
-    authority: [],
   },
   {
     key: 'roles',
     path: '/systems/roles',
     component: lazy(modules['../../pages/systems/roles/index.page.tsx']),
-    authority: [],
   },
   {
     key: 'menus',
     path: '/systems/menus',
     component: lazy(modules['../../pages/systems/menus/index.page.tsx']),
-    authority: [],
   },
   {
     key: 'files',
     path: '/systems/files',
     component: lazy(modules['../../pages/systems/files/index.page.tsx']),
-    authority: [],
   },
 ];
