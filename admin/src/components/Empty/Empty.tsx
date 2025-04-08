@@ -9,7 +9,7 @@ type EmptyProps = {
 const Empty = (props: EmptyProps) => {
   const { text = '未找到任何资源', children } = props;
   return (
-    <Box h="100%" mt={40}>
+    <Box h="100%" py={100}>
       <Flex
         direction="column"
         justify="center"

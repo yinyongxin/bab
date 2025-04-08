@@ -164,9 +164,9 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
           {/* </Table.ScrollContainer> */}
           {dataList.length === 0 && <Empty />}
         </ScrollArea>
-        <Divider />
         {paginationProps?.total ? (
           <footer>
+            <Divider />
             <Flex justify="flex-end" p="md">
               <Pagination {...paginationProps} />
             </Flex>
