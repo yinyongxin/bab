@@ -19,6 +19,7 @@ import {
   Button,
   CopyButton,
   Tooltip,
+  rem,
 } from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
@@ -95,7 +96,7 @@ export default () => {
     return (
       <Stack>
         <Flex gap="md">
-          <Title order={6} lh={2} textWrap="nowrap">
+          <Title order={6} lh={rem(28)} textWrap="nowrap">
             文件类型:
           </Title>
           <Group>

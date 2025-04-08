@@ -1,12 +1,16 @@
 import {
+  ActionIcon,
+  Box,
   Divider,
   Flex,
+  Group,
   LoadingOverlay,
   MantineStyleProps,
   Pagination,
   PaginationProps,
   Paper,
   ScrollArea,
+  Stack,
   Table,
   TableProps,
   TableTdProps,
@@ -17,6 +21,8 @@ import Empty from '../Empty/Empty';
 import clsx from 'clsx';
 
 import classes from './TablePage.module.css';
+import { IconMaximize, IconMinimize } from '@tabler/icons-react';
+import { useFullscreen } from '@mantine/hooks';
 
 export type TablePageProps<D> = {
   columns: {
@@ -33,11 +39,14 @@ export type TablePageProps<D> = {
   paginationProps?: PaginationProps;
   tableProps?: TableProps;
   loading?: boolean;
+  title?: React.ReactNode;
 };
 
 function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
-  const { paginationProps, tableProps, dataList, rowkey, loading } = props;
+  const { paginationProps, tableProps, dataList, rowkey, loading, title } =
+    props;
   const [scrolled, setScrolled] = useState(false);
+  const { ref, toggle, fullscreen } = useFullscreen();
   const getTableHeader = () => {
     return (
       <Table.Thead
@@ -93,6 +102,23 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
       ))}
     </Table.Tbody>
   );
+
+  const toolList = [
+    {
+      key: 'fullscreen',
+      title: '全屏',
+      icon: (
+        <ActionIcon
+          onClick={() => {
+            toggle();
+          }}
+          variant="subtle"
+        >
+          {fullscreen ? <IconMinimize /> : <IconMaximize />}
+        </ActionIcon>
+      ),
+    },
+  ];
   return (
     <Paper
       pos="relative"
@@ -100,33 +126,43 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
       style={{
         overflow: 'hidden',
       }}
+      ref={ref}
     >
       <LoadingOverlay
         visible={loading}
         zIndex={1000}
         loaderProps={{ type: 'bars' }}
       />
-      <ScrollArea
-        h="60vh"
-        type="always"
-        onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
-      >
-        {/* <Table.ScrollContainer minWidth={500} type="native"> */}
-        <Table verticalSpacing="md" stickyHeader={false} {...tableProps}>
-          {getTableHeader()}
-          {getTableBody()}
-        </Table>
-        {/* </Table.ScrollContainer> */}
-        {dataList.length === 0 && <Empty />}
-      </ScrollArea>
-      {paginationProps?.total ? (
-        <>
-          <Divider />
-          <Flex justify="flex-end" p="md">
-            <Pagination {...paginationProps} />
+      <Flex direction='column' h="100%">
+        <header>
+          <Flex justify="space-between">
+            {title ? title : <div />}
+            <Box p="sm">{toolList.map((tool) => tool.icon)}</Box>
           </Flex>
-        </>
-      ) : null}
+        </header>
+          <Divider />
+        <ScrollArea
+          flex={1}
+          type="always"
+          onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+        >
+          {/* <Table.ScrollContainer minWidth={500} type="native"> */}
+          <Table verticalSpacing="md" stickyHeader={false} {...tableProps}>
+            {getTableHeader()}
+            {getTableBody()}
+          </Table>
+          {/* </Table.ScrollContainer> */}
+          {dataList.length === 0 && <Empty />}
+        </ScrollArea>
+        <Divider />
+        {paginationProps?.total ? (
+          <footer>
+            <Flex justify="flex-end" p="md">
+              <Pagination {...paginationProps} />
+            </Flex>
+          </footer>
+        ) : null}
+      </Flex>
     </Paper>
   );
 }
