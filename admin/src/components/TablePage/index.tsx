@@ -16,11 +16,10 @@ import {
 } from '@mantine/core';
 import { Key, useState } from 'react';
 import Empty from '../Empty/Empty';
-import clsx from 'clsx';
-
 import classes from './TablePage.module.css';
 import { IconMaximize, IconMinimize } from '@tabler/icons-react';
 import { useFullscreen } from '@mantine/hooks';
+import clsx from 'clsx';
 
 export type TablePageProps<D> = {
   columns: {
