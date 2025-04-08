@@ -18,6 +18,7 @@ import {
   Flex,
   Pagination,
   Drawer,
+  ScrollArea,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
@@ -212,16 +213,8 @@ export default () => {
             setInitalValues(undefined);
           }
         }}
-        styles={{
-          content: {
-            display: 'flex',
-            flexDirection: 'column',
-          },
-          body: {
-            flex: 1,
-          },
-        }}
         title="菜单配置"
+        scrollAreaComponent={ScrollArea.Autosize}
       >
         <MenusCheck
           roleData={initalValues}

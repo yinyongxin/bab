@@ -102,7 +102,7 @@ const Page = (props: PageProps) => {
         }
         top={0}
         style={{
-          zIndex: 1000,
+          zIndex: 10,
           transition: 'background-color,box-shadow 0.2s ease-in-out',
           ...(scroll.y > 5 && {
             backdropFilter: 'blur(8px)',

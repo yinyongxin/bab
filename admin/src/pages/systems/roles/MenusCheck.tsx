@@ -3,7 +3,6 @@ import {
   MenusResultDto,
   rolesControllerUpdateOne,
   RolesResultDto,
-  TreeMenuDataDto,
 } from '@/client';
 import { ActionsGrid } from '@/components/ActionsGrid/ActionsGrid';
 import FontIcons from '@/components/FontIcons';
@@ -18,6 +17,8 @@ import {
   Tree,
   TreeNodeData,
   useTree,
+  Text,
+  rem,
 } from '@mantine/core';
 import { useDisclosure, useShallowEffect } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
@@ -41,25 +42,40 @@ const renderTreeNode = ({
   const indeterminate = tree.isNodeIndeterminate(node.value);
 
   return (
-    <Group gap="xs" {...elementProps}>
-      <Checkbox.Indicator
-        checked={checked}
-        indeterminate={indeterminate}
-        onClick={() =>
-          !checked ? tree.checkNode(node.value) : tree.uncheckNode(node.value)
-        }
-      />
+    <Group gap="xs" my="xs" {...elementProps}>
+      <Group gap={5}>
+        <Stack gap="xs">
+          <Group>
+            <Checkbox.Indicator
+              checked={checked}
+              indeterminate={indeterminate}
+              onClick={() =>
+                !checked
+                  ? tree.checkNode(node.value)
+                  : tree.uncheckNode(node.value)
+              }
+            />
+            <Group gap="xs" onClick={() => tree.toggleExpanded(node.value)}>
+              <FontIcons
+                name={node.nodeProps?.icon || ''}
+                style={{ fontSize: 18 }}
+              />
+              <span>{node.label}</span>
 
-      <Group gap={5} onClick={() => tree.toggleExpanded(node.value)}>
-        <FontIcons name={node.nodeProps?.icon || ''} style={{ fontSize: 18 }} />
-        <span>{node.label}</span>
-
-        {hasChildren && (
-          <IconChevronDown
-            size={14}
-            style={{ transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
-          />
-        )}
+              {hasChildren && (
+                <IconChevronDown
+                  size={14}
+                  style={{
+                    transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                  }}
+                />
+              )}
+            </Group>
+          </Group>
+          <Text pl={rem(64)} c="dimmed">
+            {node.nodeProps?.description}
+          </Text>
+        </Stack>
       </Group>
     </Group>
   );
@@ -144,7 +160,7 @@ const MenusCheck = (props: MenusCheckProps) => {
   const tree = useTree();
 
   return (
-    <Stack gap="md" h="100%">
+    <Stack gap="md" flex={1}>
       <ScrollArea flex={1}>
         <Tree
           flex={1}
