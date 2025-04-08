@@ -23,8 +23,8 @@ const appConfig: AppConfig = {
   authenticatedEntryPath: '/home',
   unAuthenticatedEntryPath: '/sign-in',
   locale: 'cn',
-  fileBaseUrl: 'http://localhost:3000',
-  // fileBaseUrl: 'https://fkrt7x0u-eh88n5yc-wbdrwfkuohbs.vcb3.mcprev.cn/',
+  // fileBaseUrl: 'http://localhost:3000',
+  fileBaseUrl: 'https://l6s01ix8-2du6jj0o-ay42qcbpcofs.vcb3.mcprev.cn/',
   dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
 };
 

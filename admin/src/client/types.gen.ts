@@ -242,21 +242,6 @@ export type AdmintorsFilterDto = {
   status?: 'Open' | 'Close';
 };
 
-/**
- * 页面操作权限
- */
-export type PermissionAuthorityEnum = 'Create' | 'Delete' | 'Update' | 'Query';
-
-/**
- * 页面操作权限
- */
-export const PermissionAuthorityEnum = {
-  CREATE: 'Create',
-  DELETE: 'Delete',
-  UPDATE: 'Update',
-  QUERY: 'Query',
-} as const;
-
 export type RolesResultDto = {
   /**
    * 创建日期
@@ -278,10 +263,6 @@ export type RolesResultDto = {
    * 图标
    */
   icon?: string;
-  /**
-   * 页面操作权限
-   */
-  permissionAuthority: Array<PermissionAuthorityEnum>;
   /**
    * 菜单
    */
@@ -372,10 +353,6 @@ export type RoleCreateBodyDto = {
    */
   icon?: string;
   /**
-   * 页面操作权限
-   */
-  permissionAuthority: Array<PermissionAuthorityEnum>;
-  /**
    * 菜单
    */
   menus: Array<string>;
@@ -398,10 +375,6 @@ export type RolesUpdateDto = {
    * 图标
    */
   icon?: string;
-  /**
-   * 页面操作权限
-   */
-  permissionAuthority?: Array<PermissionAuthorityEnum>;
   /**
    * 菜单
    */
@@ -429,10 +402,6 @@ export type RolesQueryFilterDto = {
    * 图标
    */
   icon?: string;
-  /**
-   * 页面操作权限
-   */
-  permissionAuthority?: Array<PermissionAuthorityEnum>;
   /**
    * 菜单
    */
@@ -480,7 +449,7 @@ export type MenusCreateBodyDto = {
   /**
    * 菜单唯一键
    */
-  uniqueKey: string;
+  uniqueKey?: string;
   /**
    * 菜单名称
    */
@@ -488,7 +457,7 @@ export type MenusCreateBodyDto = {
   /**
    * 菜单路径
    */
-  path: string;
+  path?: string;
   /**
    * 用作菜单排序
    */
@@ -523,7 +492,7 @@ export type MenusResultDto = {
   /**
    * 菜单唯一键
    */
-  uniqueKey: string;
+  uniqueKey?: string;
   /**
    * 菜单名称
    */
@@ -531,7 +500,7 @@ export type MenusResultDto = {
   /**
    * 菜单路径
    */
-  path: string;
+  path?: string;
   /**
    * 用作菜单排序
    */
@@ -613,7 +582,7 @@ export type TreeMenuDataDto = {
   /**
    * 菜单唯一键
    */
-  uniqueKey: string;
+  uniqueKey?: string;
   /**
    * 菜单名称
    */
@@ -621,7 +590,7 @@ export type TreeMenuDataDto = {
   /**
    * 菜单路径
    */
-  path: string;
+  path?: string;
   /**
    * 用作菜单排序
    */

@@ -35,13 +35,13 @@ export const AdmintorsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     username: {
       type: 'string',
@@ -318,13 +318,13 @@ export const AdmintorsFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     username: {
       type: 'string',
@@ -377,12 +377,6 @@ export const AdmintorsFilterDtoSchema = {
   },
 } as const;
 
-export const PermissionAuthorityEnumSchema = {
-  type: 'string',
-  enum: ['Create', 'Delete', 'Update', 'Query'],
-  description: '页面操作权限',
-} as const;
-
 export const RolesResultDtoSchema = {
   type: 'object',
   properties: {
@@ -390,13 +384,13 @@ export const RolesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     name: {
       type: 'string',
@@ -413,13 +407,6 @@ export const RolesResultDtoSchema = {
       description: '图标',
       example: '',
     },
-    permissionAuthority: {
-      type: 'array',
-      description: '页面操作权限',
-      items: {
-        $ref: '#/components/schemas/PermissionAuthorityEnum',
-      },
-    },
     menus: {
       description: '菜单',
       example: [],
@@ -433,14 +420,7 @@ export const RolesResultDtoSchema = {
       description: '唯一值',
     },
   },
-  required: [
-    'createdTime',
-    'updatedTime',
-    'name',
-    'permissionAuthority',
-    'menus',
-    '_id',
-  ],
+  required: ['createdTime', 'updatedTime', 'name', 'menus', '_id'],
 } as const;
 
 export const AdmintorsPageItemDtoSchema = {
@@ -450,13 +430,13 @@ export const AdmintorsPageItemDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     username: {
       type: 'string',
@@ -570,13 +550,6 @@ export const RoleCreateBodyDtoSchema = {
       description: '图标',
       example: '',
     },
-    permissionAuthority: {
-      type: 'array',
-      description: '页面操作权限',
-      items: {
-        $ref: '#/components/schemas/PermissionAuthorityEnum',
-      },
-    },
     menus: {
       description: '菜单',
       example: [],
@@ -586,7 +559,7 @@ export const RoleCreateBodyDtoSchema = {
       },
     },
   },
-  required: ['name', 'permissionAuthority', 'menus'],
+  required: ['name', 'menus'],
 } as const;
 
 export const RolesUpdateDtoSchema = {
@@ -596,7 +569,7 @@ export const RolesUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     name: {
       type: 'string',
@@ -612,13 +585,6 @@ export const RolesUpdateDtoSchema = {
       type: 'string',
       description: '图标',
       example: '',
-    },
-    permissionAuthority: {
-      type: 'array',
-      description: '页面操作权限',
-      items: {
-        $ref: '#/components/schemas/PermissionAuthorityEnum',
-      },
     },
     menus: {
       description: '菜单',
@@ -638,13 +604,13 @@ export const RolesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     name: {
       type: 'string',
@@ -660,13 +626,6 @@ export const RolesQueryFilterDtoSchema = {
       type: 'string',
       description: '图标',
       example: '',
-    },
-    permissionAuthority: {
-      type: 'array',
-      description: '页面操作权限',
-      items: {
-        $ref: '#/components/schemas/PermissionAuthorityEnum',
-      },
     },
     menus: {
       description: '菜单',
@@ -764,7 +723,7 @@ export const MenusCreateBodyDtoSchema = {
       ],
     },
   },
-  required: ['name', 'uniqueKey', 'path', 'sort', 'menuType'],
+  required: ['name', 'sort', 'menuType'],
 } as const;
 
 export const MenusResultDtoSchema = {
@@ -774,13 +733,13 @@ export const MenusResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     name: {
       type: 'string',
@@ -831,16 +790,7 @@ export const MenusResultDtoSchema = {
       description: '唯一值',
     },
   },
-  required: [
-    'createdTime',
-    'updatedTime',
-    'name',
-    'uniqueKey',
-    'path',
-    'sort',
-    'menuType',
-    '_id',
-  ],
+  required: ['createdTime', 'updatedTime', 'name', 'sort', 'menuType', '_id'],
 } as const;
 
 export const MenusUpdateDtoSchema = {
@@ -850,7 +800,7 @@ export const MenusUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     name: {
       type: 'string',
@@ -912,13 +862,13 @@ export const TreeMenuDataDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     name: {
       type: 'string',
@@ -981,8 +931,6 @@ export const TreeMenuDataDtoSchema = {
     'createdTime',
     'updatedTime',
     'name',
-    'uniqueKey',
-    'path',
     'sort',
     'menuType',
     '_id',
@@ -997,13 +945,13 @@ export const MenusQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     name: {
       type: 'string',
@@ -1101,13 +1049,13 @@ export const FilesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     originalname: {
       type: 'string',
@@ -1144,13 +1092,13 @@ export const FilesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744006259359,
+      default: 1744077195636,
     },
     originalname: {
       type: 'string',
@@ -1263,7 +1211,12 @@ export const FileUpdateDtoSchema = {
       format: 'binary',
     },
     fileInfo: {
-      $ref: '#/components/schemas/PickTypeClass',
+      format: 'binary',
+      allOf: [
+        {
+          $ref: '#/components/schemas/PickTypeClass',
+        },
+      ],
     },
   },
   required: ['file', 'fileInfo'],

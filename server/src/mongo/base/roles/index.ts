@@ -1,7 +1,6 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
-import { PermissionAuthorityEnum } from 'src/enums';
 
 @Schema()
 export class Roles extends BaseDocument {
@@ -48,35 +47,6 @@ export class Roles extends BaseDocument {
     example: '',
   })
   icon: string;
-
-  /**
-   * 页面权限
-   */
-  @Prop({
-    required: true,
-    type: Array,
-    default: [
-      PermissionAuthorityEnum.Create,
-      PermissionAuthorityEnum.Delete,
-      PermissionAuthorityEnum.Update,
-      PermissionAuthorityEnum.Query,
-    ],
-  })
-  // swagger
-  @ApiProperty({
-    required: true,
-    description: '页面操作权限',
-    example: () => [
-      PermissionAuthorityEnum.Create,
-      PermissionAuthorityEnum.Delete,
-      PermissionAuthorityEnum.Update,
-      PermissionAuthorityEnum.Query,
-    ],
-    enum: PermissionAuthorityEnum,
-    enumName: 'PermissionAuthorityEnum',
-    isArray: true,
-  })
-  permissionAuthority: PermissionAuthorityEnum[];
 
   /**
    * 图标

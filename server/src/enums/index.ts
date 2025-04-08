@@ -3,13 +3,6 @@ export enum AdmintorStatusEnum {
   Close = 'Close',
 }
 
-export enum PermissionAuthorityEnum {
-  Create = 'Create',
-  Delete = 'Delete',
-  Update = 'Update',
-  Query = 'Query',
-}
-
 export enum SexEnum {
   Male = 'Male',
   Female = 'Female',
