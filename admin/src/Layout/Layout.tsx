@@ -51,7 +51,7 @@ export function Layout() {
     .filter((item) => item.parent)
     .map((item) => {
       return {
-        id: item.path,
+        id: item._id,
         label: item.name,
         description: item.description,
         onClick: () => {

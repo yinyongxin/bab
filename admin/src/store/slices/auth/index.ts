@@ -1,26 +1,26 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import session, { SessionState } from './sessionSlice';
 import user, { UserState } from './userSlice';
-import userInfo, { UserInfoState } from './userInfoSlice';
+import appConfig, { AppConfigState } from './appConfigSlice';
 import menus, { MenusState } from './menusSlice';
 
 const reducer = combineReducers({
   session,
   user,
-  userInfo,
+  appConfig,
   menus,
 });
 
 export type AuthState = {
   session: SessionState;
   user: UserState;
-  userInfo: UserInfoState;
+  userInfo: AppConfigState;
   menus: MenusState;
 };
 
 export * from './sessionSlice';
 export * from './userSlice';
-export * from './userInfoSlice';
+export * from './appConfigSlice';
 export * from './menusSlice';
 
 export default reducer;

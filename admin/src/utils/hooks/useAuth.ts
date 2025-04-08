@@ -4,8 +4,6 @@ import {
   signOutSuccess,
   useAppSelector,
   useAppDispatch,
-  setUserInfo,
-  setUserId,
   AppThunkDispatch,
   initialUserState,
 } from '@/store';
@@ -82,7 +80,6 @@ function useAuth() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { token, signedIn } = useAppSelector((state) => state.auth.session);
-  const userId = useAppSelector((state) => state.auth.userInfo.userId);
   const query = useQuery();
 
   const signIn = async (
@@ -107,7 +104,6 @@ function useAuth() {
       }
       updateMenus(data.menus, dispatch);
       const { access_token, userInfo } = data;
-      dispatch(setUserId(userInfo._id));
       dispatch(
         signInSuccess({
           token: access_token,
@@ -134,15 +130,6 @@ function useAuth() {
 
   const handleSignOut = () => {
     dispatch(signOutSuccess());
-    dispatch(
-      setUserInfo({
-        googleLogin: false,
-        name: '',
-        roles: [],
-        email: '',
-        userId,
-      }),
-    );
     dispatch(setUser(initialUserState));
     navigate(appConfig.unAuthenticatedEntryPath);
   };
