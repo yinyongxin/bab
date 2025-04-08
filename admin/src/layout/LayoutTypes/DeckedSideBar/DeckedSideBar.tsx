@@ -11,7 +11,7 @@ import {
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link, useLocation } from 'react-router-dom';
-import Views from '@/Layout/Views';
+import Views from '@/layout/Views';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@/store';
 import FontIcons from '@/components/FontIcons';
