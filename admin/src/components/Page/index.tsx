@@ -8,8 +8,14 @@ import {
   ActionIcon,
   LoadingOverlay,
   StackProps,
+  Affix,
+  rgba,
 } from '@mantine/core';
-import { useDisclosure, useShallowEffect } from '@mantine/hooks';
+import {
+  useDisclosure,
+  useShallowEffect,
+  useWindowScroll,
+} from '@mantine/hooks';
 import { IconArrowLeft, IconReload } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
@@ -71,6 +77,7 @@ const Page = (props: PageProps) => {
       close();
     }
   };
+  const [scroll] = useWindowScroll();
 
   useShallowEffect(() => {
     init();
@@ -86,7 +93,24 @@ const Page = (props: PageProps) => {
           loaderProps={{ type: 'bars' }}
         />
       )}
-      <Stack px="xl" pt="xl" pb="md">
+      <Stack
+        px="xl"
+        pt="xl"
+        pb="md"
+        pos="sticky"
+        bg={
+          scroll.y > 0 ? rgba('var(--mantine-color-body)', 0.2) : 'transparent'
+        }
+        top={0}
+        style={{
+          zIndex: 1000,
+          transition: 'background-color,box-shadow 0.2s ease-in-out',
+          ...(scroll.y > 5 && {
+            backdropFilter: 'blur(8px)',
+            boxShadow: 'var(--mantine-shadow-sm)',
+          }),
+        }}
+      >
         <Flex justify="space-between" align="center">
           <Group gap="sm" align="center">
             {showBack && (
@@ -123,10 +147,7 @@ const Page = (props: PageProps) => {
         {headerBottom}
       </Stack>
       {bodyTop && <Box px="xl">{bodyTop}</Box>}
-      <Box
-        px="xl"
-        flex={1}
-      >
+      <Box px="xl" flex={1}>
         {children}
       </Box>
       {footer && <Box px="xl">{footer}</Box>}
