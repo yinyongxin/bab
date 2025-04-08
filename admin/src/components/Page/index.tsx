@@ -77,7 +77,7 @@ const Page = (props: PageProps) => {
 
   const navigate = useNavigate();
   return (
-    <Box pos="relative" p="xl" {...rest} h="100%">
+    <Box pos="relative" {...rest} h="100%">
       {(showLoading || loading) && (
         <LoadingOverlay
           visible={visible || loading}
@@ -86,7 +86,7 @@ const Page = (props: PageProps) => {
         />
       )}
       <Stack gap="md" h="inherit">
-        <Stack>
+        <Stack px="xl" py="md">
           <Flex justify="space-between" align="center">
             <Group gap="sm" align="center">
               {showBack && (
@@ -126,9 +126,13 @@ const Page = (props: PageProps) => {
           )}
           {headerBottom}
         </Stack>
-        {bodyTop}
-        <Box flex={1}>{children}</Box>
-        {footer}
+        <Box px="xl">{bodyTop}</Box>
+        <Box flex={1} px="xl">
+          {children}
+        </Box>
+        <Box px="xl" pb="md">
+          {footer}
+        </Box>
       </Stack>
     </Box>
   );
