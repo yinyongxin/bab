@@ -36,7 +36,7 @@ import dayjs from 'dayjs';
 import appConfig from '@/configs/app.config';
 import { getFilePath, getPageTotal, uploadFile } from '@/utils';
 import { modals } from '@mantine/modals';
-import { FileMIMEOptions } from './common';
+import { FileMIMEOptions } from './constants';
 
 export default () => {
   const [data, setData] = useState<FilesPaginationResultDto>({
@@ -95,7 +95,7 @@ export default () => {
     return (
       <Stack>
         <Flex gap="md">
-          <Title order={6} lh={2}>
+          <Title order={6} lh={2} textWrap="nowrap">
             文件类型:
           </Title>
           <Group>

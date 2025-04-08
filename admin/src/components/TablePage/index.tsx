@@ -125,10 +125,14 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
         {/* </Table.ScrollContainer> */}
         {dataList.length === 0 && <Empty />}
       </ScrollArea>
-      <Divider />
-      <Flex justify="flex-end" p="md">
-        <Pagination total={0} {...paginationProps} />
-      </Flex>
+      {paginationProps?.total ? (
+        <>
+          <Divider />
+          <Flex justify="flex-end" p="md">
+            <Pagination {...paginationProps} />
+          </Flex>
+        </>
+      ) : null}
     </Paper>
   );
 }
