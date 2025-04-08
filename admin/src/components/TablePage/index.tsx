@@ -195,7 +195,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     },
   ];
   return (
-    <Paper pos="relative" radius="md" flex={1} ref={ref}>
+    <Paper pos="relative" radius="md" flex={1} ref={ref} shadow="xs">
       <LoadingOverlay
         visible={loading}
         zIndex={1000}
