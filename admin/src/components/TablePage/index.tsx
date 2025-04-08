@@ -51,7 +51,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
   const { paginationProps, tableProps, dataList, rowkey, loading, title } =
     props;
   const [scrolled, setScrolled] = useState(false);
-  const [verticalSpacing, setVerticalSpacing] = useState<MantineSpacing>('xs');
+  const [verticalSpacing, setVerticalSpacing] = useState<MantineSpacing>('md');
   const { ref, toggle, fullscreen } = useFullscreen();
   const getTableHeader = () => {
     return (

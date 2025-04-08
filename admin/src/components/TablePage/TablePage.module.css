@@ -1,7 +1,7 @@
 .header {
   position: sticky;
   top: 0;
-  background-color: var(--mantine-color-body);
+  background-color: rgba('var(--mantine-color-body)', 0.2);
 
   transition: box-shadow 150ms ease;
 

@@ -8,7 +8,6 @@ import {
   ActionIcon,
   LoadingOverlay,
   StackProps,
-  Affix,
   rgba,
 } from '@mantine/core';
 import {
