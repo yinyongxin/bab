@@ -28,9 +28,10 @@ function DeckedSideBarContent() {
   const { navigationTree = [] } = useAppSelector((state) => state.auth.menus);
 
   const subLinkList = useMemo(() => {
-    const subMenus =
-      navigationTree.find((subLinkItem) => subLinkItem.path === activeMainLink)
-        ?.subMenu || [];
+    const subMenus = (
+      navigationTree.find((linkItem) => linkItem.path === activeMainLink)
+        ?.subMenu || []
+    ).filter((subLinkItem) => !subLinkItem.isHide);
     return (
       <div className={classes.main}>
         <div>
@@ -39,16 +40,16 @@ function DeckedSideBarContent() {
               {title}
             </Title>
           </div>
-          {subMenus.map((submenuItem, subIndex) => (
+          {subMenus.map((subMenuItem, subIndex) => (
             <Link
-              to={`/${activeMainLink}/${submenuItem.path}`}
+              to={`/${activeMainLink}/${subMenuItem.path}`}
               className={classes.link}
-              data-active={submenuItem.path === activeSubLink || undefined}
+              data-active={subMenuItem.path === activeSubLink || undefined}
               key={subIndex}
             >
-              {submenuItem.translateKey
-                ? t(submenuItem.translateKey)
-                : submenuItem.title}
+              {subMenuItem.translateKey
+                ? t(subMenuItem.translateKey)
+                : subMenuItem.title}
             </Link>
           ))}
         </div>

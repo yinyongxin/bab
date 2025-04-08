@@ -36,6 +36,7 @@ const buildNavigationTree = (
       title: menu.name,
       translateKey: '',
       icon: menu.icon,
+      isHide: menu.isHide,
       subMenu: buildNavigationTree(list, menu._id),
     }));
 };
