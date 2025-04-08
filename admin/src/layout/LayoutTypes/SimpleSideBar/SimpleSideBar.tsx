@@ -28,7 +28,6 @@ export default function SimpleSideBar() {
         breakpoint: 'sm',
         collapsed: { desktop: !desktopOpened },
       }}
-      padding="xl"
     >
       <AppShell.Navbar>
         <AppShell.Section>

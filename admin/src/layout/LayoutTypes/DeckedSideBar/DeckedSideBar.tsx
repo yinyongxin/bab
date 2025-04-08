@@ -125,7 +125,7 @@ function DeckedSideBarContent() {
 
 export default function DeckedSideBar() {
   return (
-    <AppShell navbar={{ width: 300, breakpoint: 'md' }} padding="xl">
+    <AppShell navbar={{ width: 300, breakpoint: 'md' }}>
       <AppShell.Navbar>
         <DeckedSideBarContent />
       </AppShell.Navbar>

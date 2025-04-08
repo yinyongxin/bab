@@ -131,6 +131,9 @@ export default () => {
       <Page
         title="文件管理"
         bodyTop={bodyTop()}
+        onReload={async () => {
+          await getData();
+        }}
         actions={[
           <FileButton
             key="upload"
