@@ -8,6 +8,7 @@ import {
   BoxComponentProps,
   ActionIcon,
   LoadingOverlay,
+  StackProps,
 } from '@mantine/core';
 import { useDisclosure, useShallowEffect } from '@mantine/hooks';
 import { IconArrowLeft, IconLoader, IconReload } from '@tabler/icons-react';
@@ -27,7 +28,7 @@ type PageProps = {
   showLoading?: boolean;
   loading?: boolean;
   showBack?: boolean;
-} & BoxComponentProps;
+} & StackProps;
 
 const Page = (props: PageProps) => {
   const [visible, { open, close }] = useDisclosure(false);
@@ -77,7 +78,7 @@ const Page = (props: PageProps) => {
 
   const navigate = useNavigate();
   return (
-    <Box pos="relative" {...rest} h="100%">
+    <Stack pos="relative" gap="md" {...rest} pb="xl">
       {(showLoading || loading) && (
         <LoadingOverlay
           visible={visible || loading}
@@ -85,56 +86,62 @@ const Page = (props: PageProps) => {
           loaderProps={{ type: 'bars' }}
         />
       )}
-      <Stack gap="md" h="inherit">
-        <Stack px="xl" py="md">
-          <Flex justify="space-between" align="center">
-            <Group gap="sm" align="center">
-              {showBack && (
-                <ActionIcon
-                  size="md"
-                  variant="gradient"
-                  onClick={() => {
-                    navigate(-1);
-                  }}
-                >
-                  <IconArrowLeft />
-                </ActionIcon>
-              )}
-              {title && (
-                <Title order={3} pt="4">
-                  {title}
-                </Title>
-              )}
+      <Stack px="xl" py="xl">
+        <Flex justify="space-between" align="center">
+          <Group gap="sm" align="center">
+            {showBack && (
+              <ActionIcon
+                size="md"
+                variant="gradient"
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                <IconArrowLeft />
+              </ActionIcon>
+            )}
+            {title && (
+              <Title order={3} pt="4">
+                {title}
+              </Title>
+            )}
 
-              {onReload && (
-                <ActionIcon
-                  size="md"
-                  variant="transparent"
-                  loading={visible}
-                  onClick={reload}
-                >
-                  <IconReload />
-                </ActionIcon>
-              )}
-            </Group>
-            {actions && <Group>{actions}</Group>}
-          </Flex>
-          {description && (
-            <Text lineClamp={2} c="dimmed">
-              {description}
-            </Text>
-          )}
-          {headerBottom}
-        </Stack>
-        <Box px="xl">{bodyTop}</Box>
-        <Box flex={1} px="xl">
-          {children}
-        </Box>
-        <Box px="xl" pb="md">
+            {onReload && (
+              <ActionIcon
+                size="md"
+                variant="transparent"
+                loading={visible}
+                onClick={reload}
+              >
+                <IconReload />
+              </ActionIcon>
+            )}
+          </Group>
+          {actions && <Group>{actions}</Group>}
+        </Flex>
+        {description && (
+          <Text lineClamp={2} c="dimmed">
+            {description}
+          </Text>
+        )}
+        {headerBottom}
+      </Stack>
+      {bodyTop && <Box px="xl">{bodyTop}</Box>}
+      <Box
+        px="xl"
+        flex={1}
+        style={{
+          overflow: 'hidden',
+        }}
+      >
+        {children}
+      </Box>
+      {footer && (
+        <Box px="xl" pb="xl">
           {footer}
         </Box>
-      </Stack>
-    </Box>
+      )}
+    </Stack>
   );
 };
 

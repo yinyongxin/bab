@@ -109,6 +109,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
       title: '全屏',
       icon: (
         <ActionIcon
+          key={'fullscreen'}
           onClick={() => {
             toggle();
           }}
@@ -123,6 +124,8 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     <Paper
       pos="relative"
       radius="md"
+      h="100%"
+      flex={1}
       style={{
         overflow: 'hidden',
       }}
@@ -133,14 +136,21 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
         zIndex={1000}
         loaderProps={{ type: 'bars' }}
       />
-      <Flex direction='column' h="100%">
+      <Flex
+        direction="column"
+        flex={1}
+        h="100%"
+        style={{
+          overflow: 'hidden',
+        }}
+      >
         <header>
           <Flex justify="space-between">
             {title ? title : <div />}
             <Box p="sm">{toolList.map((tool) => tool.icon)}</Box>
           </Flex>
         </header>
-          <Divider />
+        <Divider />
         <ScrollArea
           flex={1}
           type="always"
