@@ -83,7 +83,7 @@
 }
 
 .logo {
-  height: 60px;
+  height: rem(60px);
   width: 100%;
   border-bottom: rem(1px) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-7));

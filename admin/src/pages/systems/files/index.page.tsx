@@ -131,7 +131,7 @@ export default () => {
     <>
       <Page
         title="文件管理"
-        bodyTop={bodyTop()}
+        headerBottom={bodyTop()}
         onReload={async () => {
           await getData();
         }}
