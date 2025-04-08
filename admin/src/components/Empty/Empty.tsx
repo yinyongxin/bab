@@ -1,4 +1,6 @@
-import { Box, Flex } from '@mantine/core';
+import appConfig from '@/configs/app.config';
+import { getFilePath } from '@/utils';
+import { Box, Flex, Image } from '@mantine/core';
 type EmptyProps = {
   text?: string;
   children?: React.ReactNode;
@@ -7,7 +9,7 @@ type EmptyProps = {
 const Empty = (props: EmptyProps) => {
   const { text = '未找到任何资源', children } = props;
   return (
-    <Box h="100%">
+    <Box h="100%" mt={40}>
       <Flex
         direction="column"
         justify="center"
@@ -15,7 +17,13 @@ const Empty = (props: EmptyProps) => {
         h="100%"
         gap="md"
       >
-        {children}
+        {children || (
+          <Image
+            w="200"
+            src={getFilePath(appConfig.emptyOrder)}
+            fallbackSrc="/images/Empty-Order--Streamline-Bruxelles.png"
+          />
+        )}
         {text}
       </Flex>
     </Box>

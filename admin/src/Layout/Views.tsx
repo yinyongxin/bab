@@ -1,7 +1,6 @@
 import { Suspense } from 'react';
 import appConfig from '@/configs/app.config';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useAppSelector } from '@/store';
 import {
   errorRoutes,
   protectedRoutes,
@@ -9,14 +8,11 @@ import {
 } from '@/configs/routes.config';
 import ProtectedRoute from '@/route/ProtectedRoute';
 import AppRoute from '@/route/AppRoute';
-import AuthorityGuard from '@/route/AuthorityGuard';
 import PublicRoute from '@/route/PublicRoute';
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
 
 const { authenticatedEntryPath } = appConfig;
 const AllRoutes = () => {
-  const userAuthority = useAppSelector((state) => state.auth.user.roles);
-
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoute />}>
@@ -30,16 +26,7 @@ const AllRoutes = () => {
               key={route.key + index}
               path={route.path}
               element={
-                <AuthorityGuard
-                  userAuthority={userAuthority}
-                  authority={route.authority}
-                >
-                  <AppRoute
-                    routeKey={route.key}
-                    component={route.component}
-                    {...route.authority}
-                  />
-                </AuthorityGuard>
+                <AppRoute routeKey={route.key} component={route.component} />
               }
             />
           );

@@ -7,6 +7,7 @@ export type AppConfig = {
   locale: string;
   layoutType: LayoutTypes;
   fileBaseUrl: string;
+  emptyOrder: string;
   name: string;
   logo: string;
   version: string;
@@ -19,6 +20,7 @@ const appConfig: AppConfig = {
   name: 'Admin',
   version: '1.0.0',
   logo: '/image/png/2025040622/0b444c0d-5c82-41ee-a41b-e077d9ac8f4f.png',
+  emptyOrder: '/images/Empty-Order--Streamline-Bruxelles.png',
   apiPrefix: '',
   authenticatedEntryPath: '/home',
   unAuthenticatedEntryPath: '/sign-in',
