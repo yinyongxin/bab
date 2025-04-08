@@ -18,6 +18,7 @@ type PageProps = {
   bodyTop?: React.ReactNode;
   style?: React.CSSProperties;
 } & BoxComponentProps;
+
 const Page = (props: PageProps) => {
   const {
     children,

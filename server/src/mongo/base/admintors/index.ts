@@ -113,6 +113,7 @@ export class Admintors extends BaseDocument {
     description: '状态',
     example: AdmintorStatusEnum.Open,
     enum: AdmintorStatusEnum,
+    enumName: 'AdmintorStatusEnum',
   })
   status: 'Open' | 'Close';
 }

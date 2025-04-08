@@ -7,6 +7,7 @@ import {
   setUserInfo,
   setUserId,
   AppThunkDispatch,
+  initialUserState,
 } from '@/store';
 import appConfig from '@/configs/app.config';
 import { REDIRECT_URL_KEY } from '@/constants/app.constant';
@@ -16,6 +17,7 @@ import {
   authControllerSignIn,
   menusControllerGetAllByFilter,
   MenusResultDto,
+  MenuTypeEnum,
   SignInDto,
   TreeMenuDataDto,
 } from '@/client';
@@ -52,6 +54,9 @@ const buildAuthMenusTree = (
     }));
 };
 
+/**
+ * 更新菜单
+ */
 const updateMenus = async (menus: string[], dispatch: AppThunkDispatch) => {
   const allMenus = await menusControllerGetAllByFilter({
     body: {},
@@ -63,7 +68,12 @@ const updateMenus = async (menus: string[], dispatch: AppThunkDispatch) => {
     setMenus({
       list: authMenus,
       tree: buildAuthMenusTree(authMenus, ''),
-      navigationTree: buildNavigationTree(authMenus, ''),
+      navigationTree: buildNavigationTree(
+        authMenus.filter(
+          ({ menuType }) => menuType !== MenuTypeEnum.FUNCTION_AREA,
+        ),
+        '',
+      ),
     }),
   );
 };
@@ -105,15 +115,7 @@ function useAuth() {
           expireTime: 0,
         }),
       );
-      dispatch(
-        setUser({
-          username: userInfo.username,
-          email: userInfo.email,
-          roles: userInfo.roles,
-          phoneNumber: userInfo.phone,
-          avatar: userInfo.avatar,
-        }),
-      );
+      dispatch(setUser(userInfo));
       const redirectUrl = query.get(REDIRECT_URL_KEY);
       navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath);
       return {
@@ -141,13 +143,7 @@ function useAuth() {
         userId,
       }),
     );
-    dispatch(
-      setUser({
-        username: '',
-        roles: [],
-        email: '',
-      }),
-    );
+    dispatch(setUser(initialUserState));
     navigate(appConfig.unAuthenticatedEntryPath);
   };
 
