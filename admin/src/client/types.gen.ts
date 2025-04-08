@@ -474,6 +474,10 @@ export type MenusCreateBodyDto = {
    * 菜单类型
    */
   menuType: MenuTypeEnum;
+  /**
+   * 是否隐藏
+   */
+  isHide: boolean;
 };
 
 export type MenusResultDto = {
@@ -518,6 +522,10 @@ export type MenusResultDto = {
    */
   menuType: MenuTypeEnum;
   /**
+   * 是否隐藏
+   */
+  isHide: boolean;
+  /**
    * 唯一值
    */
   _id: string;
@@ -560,6 +568,10 @@ export type MenusUpdateDto = {
    * 菜单类型
    */
   menuType?: MenuTypeEnum;
+  /**
+   * 是否隐藏
+   */
+  isHide?: boolean;
 };
 
 export type TreeMenuDataDto = {
@@ -607,6 +619,10 @@ export type TreeMenuDataDto = {
    * 菜单类型
    */
   menuType: MenuTypeEnum;
+  /**
+   * 是否隐藏
+   */
+  isHide: boolean;
   /**
    * 唯一值
    */
@@ -658,6 +674,10 @@ export type MenusQueryDto = {
    * 菜单类型
    */
   menuType?: MenuTypeEnum;
+  /**
+   * 是否隐藏
+   */
+  isHide?: boolean;
 };
 
 export type FileUploadDto = {

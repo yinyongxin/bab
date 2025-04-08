@@ -722,8 +722,12 @@ export const MenusCreateBodyDtoSchema = {
         },
       ],
     },
+    isHide: {
+      type: 'boolean',
+      description: '是否隐藏',
+    },
   },
-  required: ['name', 'sort', 'menuType'],
+  required: ['name', 'sort', 'menuType', 'isHide'],
 } as const;
 
 export const MenusResultDtoSchema = {
@@ -785,12 +789,24 @@ export const MenusResultDtoSchema = {
         },
       ],
     },
+    isHide: {
+      type: 'boolean',
+      description: '是否隐藏',
+    },
     _id: {
       type: 'string',
       description: '唯一值',
     },
   },
-  required: ['createdTime', 'updatedTime', 'name', 'sort', 'menuType', '_id'],
+  required: [
+    'createdTime',
+    'updatedTime',
+    'name',
+    'sort',
+    'menuType',
+    'isHide',
+    '_id',
+  ],
 } as const;
 
 export const MenusUpdateDtoSchema = {
@@ -845,6 +861,10 @@ export const MenusUpdateDtoSchema = {
           $ref: '#/components/schemas/MenuTypeEnum',
         },
       ],
+    },
+    isHide: {
+      type: 'boolean',
+      description: '是否隐藏',
     },
   },
 } as const;
@@ -914,6 +934,10 @@ export const TreeMenuDataDtoSchema = {
         },
       ],
     },
+    isHide: {
+      type: 'boolean',
+      description: '是否隐藏',
+    },
     _id: {
       type: 'string',
       description: '唯一值',
@@ -933,6 +957,7 @@ export const TreeMenuDataDtoSchema = {
     'name',
     'sort',
     'menuType',
+    'isHide',
     '_id',
     'children',
   ],
@@ -996,6 +1021,10 @@ export const MenusQueryDtoSchema = {
           $ref: '#/components/schemas/MenuTypeEnum',
         },
       ],
+    },
+    isHide: {
+      type: 'boolean',
+      description: '是否隐藏',
     },
   },
 } as const;

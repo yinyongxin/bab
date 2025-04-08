@@ -2,10 +2,15 @@ import Page from '@/components/Page';
 import { Grid } from '@mantine/core';
 import { useState } from 'react';
 import { MenuList } from './MenuList/MenuList';
-import { MenusResultDto } from '@/client';
+import { MenuTypeEnum, MenusResultDto } from '@/client';
 
 export default () => {
-  const [checkedList, setCheckedList] = useState<MenusResultDto[]>([]);
+  const [checked, setChecked] = useState<
+    Partial<Record<MenuTypeEnum, MenusResultDto>>
+  >({
+    [MenuTypeEnum.DIRECTORY]: undefined,
+    [MenuTypeEnum.PAGE]: undefined,
+  });
 
   return (
     <Page
@@ -17,28 +22,37 @@ export default () => {
       <Grid>
         <Grid.Col span={4}>
           <MenuList
+            menuType={MenuTypeEnum.DIRECTORY}
+            currentChecked={checked[MenuTypeEnum.DIRECTORY]}
             onChecked={(value) => {
-              setCheckedList([value]);
+              setChecked({
+                ...checked,
+                [MenuTypeEnum.DIRECTORY]: value,
+              });
             }}
-            checkedList={checkedList}
-            level={0}
           />
         </Grid.Col>
         <Grid.Col span={4}>
-          {checkedList[0] && (
+          {checked[MenuTypeEnum.DIRECTORY] && (
             <MenuList
-              checkedList={checkedList}
-              level={1}
-              parentData={checkedList[0]}
+              menuType={MenuTypeEnum.PAGE}
+              currentChecked={checked[MenuTypeEnum.PAGE]}
+              parentData={checked[MenuTypeEnum.DIRECTORY]}
+              onChecked={(value) => {
+                setChecked({
+                  ...checked,
+                  [MenuTypeEnum.PAGE]: value,
+                });
+              }}
             />
           )}
         </Grid.Col>
         <Grid.Col span={4}>
-          {checkedList[0] && (
+          {checked[MenuTypeEnum.PAGE] && (
             <MenuList
-              checkedList={checkedList}
-              level={1}
-              parentData={checkedList[0]}
+              menuType={MenuTypeEnum.FUNCTION_AREA}
+              currentChecked={checked[MenuTypeEnum.FUNCTION_AREA]}
+              parentData={checked[MenuTypeEnum.PAGE]}
             />
           )}
         </Grid.Col>

@@ -15,6 +15,7 @@ import {
 } from '@mantine/hooks';
 import classes from './MenuList.module.css';
 import {
+  MenuTypeEnum,
   MenusResultDto,
   menusControllerDeleteByIds,
   menusControllerGetAllByFilter,
@@ -25,18 +26,17 @@ import FontIcons from '@/components/FontIcons';
 import { modals } from '@mantine/modals';
 import UpdataMenu from '../UpdataMenu';
 type MenuListProps = {
-  checkedList: MenusResultDto[];
-  onChecked?: (data: MenusResultDto) => void;
-  level: number;
   parentData?: MenusResultDto;
+  currentChecked?: MenusResultDto;
+  onChecked?: (data: MenusResultDto) => void;
+  menuType: MenuTypeEnum;
 };
 export function MenuList(props: MenuListProps) {
-  const { checkedList, onChecked, level, parentData } = props;
+  const { currentChecked, onChecked, parentData, menuType } = props;
   const [opened, { open, close }] = useDisclosure(false);
   const [state, handlers] = useListState<MenusResultDto>([]);
   const [id, setId] = useState('');
   const [title, setTitle] = useState('');
-  const currentChecked = checkedList[level];
   const getData = async () => {
     const menuRes = await menusControllerGetAllByFilter({
       body: {
@@ -197,6 +197,7 @@ export function MenuList(props: MenuListProps) {
         centered
       >
         <UpdataMenu
+          menuType={menuType}
           parentData={parentData}
           sort={state[state.length - 1]?.sort + 1 || 0}
           id={id}

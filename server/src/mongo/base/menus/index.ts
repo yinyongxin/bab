@@ -22,6 +22,7 @@ export class Menus extends BaseDocument {
    * 菜单唯一键
    */
   @Prop({
+    unique: true,
     required: false,
     minlength: 1,
     maxlength: 100,
@@ -54,6 +55,7 @@ export class Menus extends BaseDocument {
    * 菜单路径
    */
   @Prop({
+    unique: true,
     required: false,
     default: '',
   })
@@ -119,6 +121,18 @@ export class Menus extends BaseDocument {
     enumName: 'MenuTypeEnum',
   })
   menuType: string;
+
+  @Prop({
+    required: true,
+    default: false,
+    type: Boolean,
+  })
+  // swagger
+  @ApiProperty({
+    required: true,
+    description: '是否隐藏',
+  })
+  isHide: boolean;
 }
 
 export const MenusSchema = SchemaFactory.createForClass(Menus);

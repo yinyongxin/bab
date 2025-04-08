@@ -31,12 +31,16 @@ type UpdataMenuProps = {
   parentData?: MenusResultDto;
   id?: string;
   sort?: number;
+  menuType: MenuTypeEnum;
 };
 function UpdataMenu(props: UpdataMenuProps) {
-  const { onSuccess, id, sort = 0, parentData } = props;
+  const { onSuccess, id, sort = 0, parentData, menuType } = props;
   const [loading, loadingAction] = useDisclosure(false);
   const isAdding = !id;
   const isEditing = id;
+  const isDirectory = menuType === MenuTypeEnum.DIRECTORY;
+  const isPage = menuType === MenuTypeEnum.PAGE;
+  const isFunctionArea = menuType === MenuTypeEnum.FUNCTION_AREA;
   const form = useForm<MenusCreateBodyDto>({
     initialValues: {
       name: '',
@@ -44,7 +48,9 @@ function UpdataMenu(props: UpdataMenuProps) {
       path: '',
       sort,
       icon: 'briefcase-2',
-      menuType: MenuTypeEnum.DIRECTORY,
+      menuType,
+      description: '',
+      isHide: false,
     },
     validate: {
       name: hasLength({ min: 1 }, '用户名不能为空'),
