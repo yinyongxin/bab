@@ -9,9 +9,15 @@ import {
   Anchor,
   Center,
   LoadingOverlay,
+  Switch,
 } from '@mantine/core';
 import { hasLength, useForm } from '@mantine/form';
-import { IconCheck, IconExclamationCircle } from '@tabler/icons-react';
+import {
+  IconCheck,
+  IconExclamationCircle,
+  IconLink,
+  IconTextCaption,
+} from '@tabler/icons-react';
 import {
   MenuTypeEnum,
   MenusCreateBodyDto,
@@ -44,20 +50,28 @@ function UpdataMenu(props: UpdataMenuProps) {
   const form = useForm<MenusCreateBodyDto>({
     initialValues: {
       name: '',
-      uniqueKey: '',
-      path: '',
+      ...(isFunctionArea && {
+        uniqueKey: '',
+      }),
+      ...(!isFunctionArea && {
+        path: '',
+      }),
+      isHide: false,
       sort,
-      icon: 'briefcase-2',
+      icon: 'icons',
       menuType,
       description: '',
-      isHide: false,
     },
     validate: {
+      icon: hasLength({ min: 1 }, '头像不能为空'),
       name: hasLength({ min: 1 }, '用户名不能为空'),
       description: hasLength({ min: 1 }, '描述不能为空'),
-      icon: hasLength({ min: 1 }, '头像不能为空'),
-      path: hasLength({ min: 1 }, '路径不能为空'),
-      uniqueKey: hasLength({ min: 1 }, '唯一标识不能为空'),
+      ...(!isFunctionArea && {
+        path: hasLength({ min: 1 }, '路径不能为空'),
+      }),
+      ...(isFunctionArea && {
+        uniqueKey: hasLength({ min: 1 }, '唯一标识不能为空'),
+      }),
     },
   });
   const getDetail = async (id: string) => {
@@ -69,7 +83,7 @@ function UpdataMenu(props: UpdataMenuProps) {
           id,
         },
       });
-      if (res.data) {
+      if (!res.error && res.data) {
         form.setValues(res.data);
       }
     } finally {
@@ -106,19 +120,25 @@ function UpdataMenu(props: UpdataMenuProps) {
   };
 
   const updataMainMenu = async (id: string, values: MenusUpdateDto) => {
-    const addAdmintor = await menusControllerUpdateOne({
+    const updateAdmintor = await menusControllerUpdateOne({
       query: {
         id,
       },
       body: {
+        icon: values.icon,
         name: values.name,
         description: values.description,
-        icon: values.icon,
-        path: values.path,
-        uniqueKey: values.uniqueKey,
+        isHide: values.isHide,
+        menuType: values.menuType || menuType,
+        ...(!isFunctionArea && {
+          path: values.path,
+        }),
+        ...(isFunctionArea && {
+          uniqueKey: values.uniqueKey,
+        }),
       },
     });
-    if (addAdmintor?.error) {
+    if (updateAdmintor?.error) {
       notifications.show({
         color: 'red',
         title: '提示',
@@ -154,7 +174,13 @@ function UpdataMenu(props: UpdataMenuProps) {
       <form onSubmit={onSubmit}>
         <Grid>
           <Grid.Col span={3}>
-            <Center h="100%" bg="gray.1">
+            <Center
+              h="100%"
+              bg="gray.1"
+              style={{
+                borderRadius: 'var(--mantine-radius-md)',
+              }}
+            >
               <FontIcons
                 name={form.values.icon || ''}
                 style={{
@@ -179,20 +205,62 @@ function UpdataMenu(props: UpdataMenuProps) {
               placeholder="填写图标"
             />
           </Grid.Col>
-          <Grid.Col span={6}>
+          <Grid.Col span={12}>
             <TextInput
               {...form.getInputProps('name')}
-              label="标题"
-              placeholder="填写标题"
+              leftSection={<IconTextCaption size={14} />}
+              label={
+                {
+                  [MenuTypeEnum.DIRECTORY]: '目录名称',
+                  [MenuTypeEnum.PAGE]: '页面名称',
+                  [MenuTypeEnum.FUNCTION_AREA]: '功能区名称',
+                }[menuType]
+              }
+              placeholder={
+                {
+                  [MenuTypeEnum.DIRECTORY]: '填写目录名称',
+                  [MenuTypeEnum.PAGE]: '填写页面名称',
+                  [MenuTypeEnum.FUNCTION_AREA]: '填写功能区名称',
+                }[menuType]
+              }
             />
           </Grid.Col>
-          <Grid.Col span={6}>
-            <TextInput
-              {...form.getInputProps('uniqueKey')}
-              label="唯一值"
-              placeholder="唯一值"
-            />
-          </Grid.Col>
+          {isFunctionArea && (
+            <Grid.Col span={12}>
+              <TextInput
+                {...form.getInputProps('uniqueKey')}
+                label="功能区域标识"
+                placeholder="填写功能区域标识"
+              />
+            </Grid.Col>
+          )}
+
+          {!isFunctionArea && (
+            <Grid.Col span={12}>
+              <TextInput
+                {...form.getInputProps('path')}
+                leftSection={<IconLink size={14} />}
+                label={
+                  {
+                    [MenuTypeEnum.DIRECTORY]: '填写目录路径',
+                    [MenuTypeEnum.PAGE]: '填写页面路径',
+                  }[menuType]
+                }
+                description={
+                  {
+                    [MenuTypeEnum.DIRECTORY]: `/${form.values.path}`,
+                    [MenuTypeEnum.PAGE]: `/${parentData?.path}/${form.values.path}`,
+                  }[menuType]
+                }
+                placeholder={
+                  {
+                    [MenuTypeEnum.DIRECTORY]: '填写目录路径',
+                    [MenuTypeEnum.PAGE]: '填写页面路径',
+                  }[menuType]
+                }
+              />
+            </Grid.Col>
+          )}
           <Grid.Col span={12}>
             <Textarea
               {...form.getInputProps('description')}
@@ -200,14 +268,15 @@ function UpdataMenu(props: UpdataMenuProps) {
               placeholder="填写描述"
             />
           </Grid.Col>
-
-          <Grid.Col span={12}>
-            <TextInput
-              {...form.getInputProps('path')}
-              label="路径"
-              placeholder="填写路径"
-            />
-          </Grid.Col>
+          {isPage && (
+            <Grid.Col span={12}>
+              <Switch
+                {...form.getInputProps('isHide')}
+                checked={form.getInputProps('isHide').value}
+                label="是否在菜单中隐藏"
+              />
+            </Grid.Col>
+          )}
         </Grid>
         <Flex justify="space-between" align="center" mt="md">
           <Text c="dimmed">填写完信息后点击确定保存</Text>

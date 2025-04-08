@@ -45,7 +45,7 @@ export function MenuList(props: MenuListProps) {
     });
     if (menuRes.data) {
       handlers.setState(menuRes.data);
-      onChecked?.(menuRes.data[0]);
+      if (!currentChecked) onChecked?.(menuRes.data[0]);
     }
   };
 
@@ -104,7 +104,13 @@ export function MenuList(props: MenuListProps) {
               variant="transparent"
               onClick={(e) => {
                 e.stopPropagation();
-                setTitle('新增菜单');
+                setTitle(
+                  {
+                    [MenuTypeEnum.DIRECTORY]: '修改目录',
+                    [MenuTypeEnum.PAGE]: `修改页面`,
+                    [MenuTypeEnum.FUNCTION_AREA]: `修改功能区域`,
+                  }[menuType],
+                );
                 setId(item._id);
                 open();
               }}
@@ -161,11 +167,23 @@ export function MenuList(props: MenuListProps) {
           fullWidth
           leftSection={<IconPlus />}
           onClick={() => {
-            setTitle('新增');
+            setTitle(
+              {
+                [MenuTypeEnum.DIRECTORY]: '新增目录',
+                [MenuTypeEnum.PAGE]: `新增页面`,
+                [MenuTypeEnum.FUNCTION_AREA]: `新增功能区域`,
+              }[menuType],
+            );
             open();
           }}
         >
-          新增
+          {
+            {
+              [MenuTypeEnum.DIRECTORY]: '新增目录',
+              [MenuTypeEnum.PAGE]: `新增页面`,
+              [MenuTypeEnum.FUNCTION_AREA]: `新增功能区域`,
+            }[menuType]
+          }
         </Button>
         <DragDropContext
           onDragEnd={({ destination, source }) => {
@@ -199,7 +217,7 @@ export function MenuList(props: MenuListProps) {
         <UpdataMenu
           menuType={menuType}
           parentData={parentData}
-          sort={state[state.length - 1]?.sort + 1 || 0}
+          sort={state.length}
           id={id}
           onSuccess={() => {
             close();

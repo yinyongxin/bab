@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom';
 import useQuery from './useQuery';
 import {
   authControllerSignIn,
-  AuthControllerSignInData,
   menusControllerGetAllByFilter,
   MenusResultDto,
   SignInDto,
@@ -32,12 +31,11 @@ const buildNavigationTree = (
   return list
     .filter((itemAuthMenu) => itemAuthMenu.parent === parent)
     .map((menu) => ({
-      key: menu.uniqueKey,
-      path: menu.path,
+      key: menu._id,
+      path: menu?.path || '',
       title: menu.name,
       translateKey: '',
       icon: menu.icon,
-      authority: [],
       subMenu: buildNavigationTree(list, menu._id),
     }));
 };
