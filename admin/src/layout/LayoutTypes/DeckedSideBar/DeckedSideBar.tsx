@@ -63,8 +63,7 @@ function DeckedSideBarContent() {
     setActiveMainLink(currentMainLink);
     setActiveSubLink(currentSubLink);
     setTitle(
-      navigationTree.find((item) => item.path === `/${currentMainLink}`)
-        ?.title || '',
+      navigationTree.find((item) => item.path === currentMainLink)?.title || '',
     );
   }, [location.pathname]);
 
