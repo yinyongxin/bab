@@ -91,7 +91,7 @@ export default () => {
     <>
       <Page
         title="人员角色"
-        description="人员角色"
+        description="管理人员角色"
         actions={[
           <Button
             key="add"
@@ -211,6 +211,15 @@ export default () => {
           if (initalValues) {
             setInitalValues(undefined);
           }
+        }}
+        styles={{
+          content: {
+            display: 'flex',
+            flexDirection: 'column',
+          },
+          body: {
+            flex: 1,
+          },
         }}
         title="菜单配置"
       >

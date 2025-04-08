@@ -13,6 +13,7 @@ import {
   getTreeExpandedState,
   Group,
   RenderTreeNodePayload,
+  ScrollArea,
   Stack,
   Tree,
   TreeNodeData,
@@ -28,6 +29,7 @@ import {
   IconListDetails,
 } from '@tabler/icons-react';
 import { useState } from 'react';
+
 const renderTreeNode = ({
   node,
   expanded,
@@ -90,9 +92,11 @@ const MenusCheck = (props: MenusCheckProps) => {
       body: {},
     });
     if (getAllMenusRes.data) {
-      setTreeData(buildMenusCheckTree(getAllMenusRes.data, ''));
+      const newTreeData = buildMenusCheckTree(getAllMenusRes.data, '');
+      setTreeData(newTreeData);
       if (roleData) {
         tree.setCheckedState(roleData?.menus || []);
+        tree.setExpandedState(getTreeExpandedState(newTreeData, '*'));
       }
     }
   };
@@ -137,24 +141,19 @@ const MenusCheck = (props: MenusCheckProps) => {
     }
   };
 
-  const tree = useTree({
-    initialExpandedState: getTreeExpandedState(treeData, '*'),
-    initialCheckedState: [],
-  });
+  const tree = useTree();
 
   return (
-    <Stack gap="md">
-      <Button
-        fullWidth
-        color="green"
-        size="md"
-        loading={saving}
-        onClick={() => {
-          updateRoleMenus();
-        }}
-      >
-        保存
-      </Button>
+    <Stack gap="md" h="100%">
+      <ScrollArea flex={1}>
+        <Tree
+          flex={1}
+          tree={tree}
+          data={treeData}
+          expandOnClick={false}
+          renderNode={renderTreeNode}
+        />
+      </ScrollArea>
       <ActionsGrid
         serverList={[
           {
@@ -171,14 +170,17 @@ const MenusCheck = (props: MenusCheckProps) => {
           },
         ]}
       />
-
-      <Tree
-        tree={tree}
-        data={treeData}
-        levelOffset={23}
-        expandOnClick={false}
-        renderNode={renderTreeNode}
-      />
+      <Button
+        fullWidth
+        color="green"
+        size="md"
+        loading={saving}
+        onClick={() => {
+          updateRoleMenus();
+        }}
+      >
+        保存
+      </Button>
     </Stack>
   );
 };
