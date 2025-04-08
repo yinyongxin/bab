@@ -198,7 +198,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     <Paper pos="relative" radius="md" flex={1} ref={ref} shadow="xs">
       <LoadingOverlay
         visible={loading}
-        zIndex={1000}
+        zIndex={50}
         loaderProps={{ type: 'bars' }}
       />
       <Flex direction="column" flex={1}>
