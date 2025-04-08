@@ -12,6 +12,7 @@ import {
 import { useDisclosure, useShallowEffect } from '@mantine/hooks';
 import { IconArrowLeft, IconReload } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
+import clsx from 'clsx';
 
 type PageProps = {
   children: React.ReactNode;
@@ -105,7 +106,7 @@ const Page = (props: PageProps) => {
               <ActionIcon
                 size="md"
                 variant="transparent"
-                loading={visible}
+                className={clsx({ spin: loading })}
                 onClick={reload}
               >
                 <IconReload />
