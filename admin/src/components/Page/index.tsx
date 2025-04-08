@@ -86,7 +86,7 @@ const Page = (props: PageProps) => {
           loaderProps={{ type: 'bars' }}
         />
       )}
-      <Stack px="xl" py="xl">
+      <Stack px="xl" pt="xl" pb="md">
         <Flex justify="space-between" align="center">
           <Group gap="sm" align="center">
             {showBack && (
@@ -126,17 +126,10 @@ const Page = (props: PageProps) => {
       <Box
         px="xl"
         flex={1}
-        style={{
-          overflow: 'hidden',
-        }}
       >
         {children}
       </Box>
-      {footer && (
-        <Box px="xl" pb="xl">
-          {footer}
-        </Box>
-      )}
+      {footer && <Box px="xl">{footer}</Box>}
     </Stack>
   );
 };

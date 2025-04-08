@@ -1,10 +1,13 @@
 import {
   ActionIcon,
-  Box,
+  Center,
   Divider,
   Flex,
+  Group,
   LoadingOverlay,
+  MantineSpacing,
   MantineStyleProps,
+  Menu,
   Pagination,
   PaginationProps,
   Paper,
@@ -13,11 +16,16 @@ import {
   TableProps,
   TableTdProps,
   TableThProps,
+  Tooltip,
 } from '@mantine/core';
 import { Key, useState } from 'react';
 import Empty from '../Empty/Empty';
 import classes from './TablePage.module.css';
-import { IconMaximize, IconMinimize } from '@tabler/icons-react';
+import {
+  IconMaximize,
+  IconMinimize,
+  IconSpacingVertical,
+} from '@tabler/icons-react';
 import { useFullscreen } from '@mantine/hooks';
 import clsx from 'clsx';
 
@@ -43,6 +51,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
   const { paginationProps, tableProps, dataList, rowkey, loading, title } =
     props;
   const [scrolled, setScrolled] = useState(false);
+  const [verticalSpacing, setVerticalSpacing] = useState<MantineSpacing>('xs');
   const { ref, toggle, fullscreen } = useFullscreen();
   const getTableHeader = () => {
     return (
@@ -102,49 +111,103 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
 
   const toolList = [
     {
-      key: 'fullscreen',
-      title: '全屏',
+      key: 'verticalSpacing',
       icon: (
-        <ActionIcon
-          key="fullscreen"
-          onClick={() => {
-            toggle();
-          }}
-          variant="subtle"
-        >
-          {fullscreen ? <IconMinimize /> : <IconMaximize />}
-        </ActionIcon>
+        <Menu key="verticalSpacing" shadow="md" width={100}>
+          <Menu.Target>
+            <Tooltip label="行间距">
+              <ActionIcon key="verticalSpacing" variant="subtle">
+                <IconSpacingVertical />
+              </ActionIcon>
+            </Tooltip>
+          </Menu.Target>
+
+          <Menu.Dropdown>
+            <Menu.Item
+              onClick={() => {
+                setVerticalSpacing('xs');
+              }}
+              bg={
+                verticalSpacing === 'xs' ? 'var(--mantine-primary-color-1)' : ''
+              }
+            >
+              <Center>xs</Center>
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                setVerticalSpacing('sm');
+              }}
+              bg={
+                verticalSpacing === 'sm' ? 'var(--mantine-primary-color-1)' : ''
+              }
+            >
+              <Center>sm</Center>
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                setVerticalSpacing('md');
+              }}
+              bg={
+                verticalSpacing === 'md' ? 'var(--mantine-primary-color-1)' : ''
+              }
+            >
+              <Center>md</Center>
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                setVerticalSpacing('lg');
+              }}
+              bg={
+                verticalSpacing === 'lg' ? 'var(--mantine-primary-color-1)' : ''
+              }
+            >
+              <Center>lg</Center>
+            </Menu.Item>
+            <Menu.Item
+              onClick={() => {
+                setVerticalSpacing('xl');
+              }}
+              bg={
+                verticalSpacing === 'xl' ? 'var(--mantine-primary-color-1)' : ''
+              }
+            >
+              <Center>xl</Center>
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
+      ),
+    },
+    {
+      key: 'fullscreen',
+      icon: (
+        <Tooltip key="fullscreen" label={fullscreen ? '取消全屏' : '全屏'}>
+          <ActionIcon
+            key="fullscreen"
+            onClick={() => {
+              toggle();
+            }}
+            variant="subtle"
+          >
+            {fullscreen ? <IconMinimize /> : <IconMaximize />}
+          </ActionIcon>
+        </Tooltip>
       ),
     },
   ];
   return (
-    <Paper
-      pos="relative"
-      radius="md"
-      h="100%"
-      flex={1}
-      style={{
-        overflow: 'hidden',
-      }}
-      ref={ref}
-    >
+    <Paper pos="relative" radius="md" flex={1} ref={ref}>
       <LoadingOverlay
         visible={loading}
         zIndex={1000}
         loaderProps={{ type: 'bars' }}
       />
-      <Flex
-        direction="column"
-        flex={1}
-        h="100%"
-        style={{
-          overflow: 'hidden',
-        }}
-      >
+      <Flex direction="column" flex={1}>
         <header>
           <Flex justify="space-between">
             {title ? title : <div />}
-            <Box p="sm">{toolList.map((tool) => tool.icon)}</Box>
+            <Group p="sm" gap="xs">
+              {toolList.map((tool) => tool.icon)}
+            </Group>
           </Flex>
         </header>
         <Divider />
@@ -154,7 +217,11 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
           onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
         >
           {/* <Table.ScrollContainer minWidth={500} type="native"> */}
-          <Table verticalSpacing="md" stickyHeader={false} {...tableProps}>
+          <Table
+            verticalSpacing={verticalSpacing}
+            stickyHeader={false}
+            {...tableProps}
+          >
             {getTableHeader()}
             {getTableBody()}
           </Table>

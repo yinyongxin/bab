@@ -1,6 +1,5 @@
 import {
   AppShell,
-  Box,
   Center,
   Code,
   Divider,
@@ -12,11 +11,11 @@ import {
 } from '@mantine/core';
 import NavbarLinksGroup from '../../NavbarLinksGroup/NavbarLinksGroup';
 import { UserButton } from '@/components/UserButton/UserButton';
-import Views from '../../Views';
 import appConfig from '@/configs/app.config';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronRight } from '@tabler/icons-react';
 import { getFilePath } from '@/utils';
+import { AddMain } from '../AppMain';
 
 export default function SimpleSideBar() {
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
@@ -72,11 +71,7 @@ export default function SimpleSideBar() {
           </Center>
         </UnstyledButton>
       </AppShell.Navbar>
-      <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))">
-        <Box>
-          <Views />
-        </Box>
-      </AppShell.Main>
+      <AddMain />
     </AppShell>
   );
 }

@@ -11,13 +11,13 @@ import {
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link, useLocation } from 'react-router-dom';
-import Views from '@/layout/Views';
 import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@/store';
 import FontIcons from '@/components/FontIcons';
 import { UserButton } from '@/components/UserButton/UserButton';
 import appConfig from '@/configs/app.config';
 import { getFilePath } from '@/utils';
+import { AddMain } from '../AppMain';
 
 function DeckedSideBarContent() {
   const [activeMainLink, setActiveMainLink] = useState('');
@@ -129,9 +129,7 @@ export default function DeckedSideBar() {
       <AppShell.Navbar>
         <DeckedSideBarContent />
       </AppShell.Navbar>
-      <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))">
-        <Views />
-      </AppShell.Main>
+      <AddMain />
     </AppShell>
   );
 }
