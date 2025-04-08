@@ -1,7 +1,9 @@
 import {
   menusControllerGetAllByFilter,
+  MenusResultDto,
   rolesControllerUpdateOne,
   RolesResultDto,
+  TreeMenuDataDto,
 } from '@/client';
 import { ActionsGrid } from '@/components/ActionsGrid/ActionsGrid';
 import FontIcons from '@/components/FontIcons';
@@ -19,20 +21,11 @@ import {
 import { useDisclosure, useShallowEffect } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
 import {
-  IconBuildingBank,
-  IconCashBanknote,
   IconCheck,
   IconChevronDown,
-  IconCoin,
-  IconCreditCard,
   IconExclamationCircle,
   IconListCheck,
   IconListDetails,
-  IconReceipt,
-  IconReceiptRefund,
-  IconReceiptTax,
-  IconRepeat,
-  IconReport,
 } from '@tabler/icons-react';
 import { useState } from 'react';
 const renderTreeNode = ({
@@ -69,6 +62,20 @@ const renderTreeNode = ({
     </Group>
   );
 };
+
+const buildMenusCheckTree = (
+  list: MenusResultDto[],
+  parent?: string,
+): TreeNodeData[] => {
+  return list
+    .filter((itemAuthMenu) => itemAuthMenu.parent === parent)
+    .map((menu) => ({
+      nodeProps: menu,
+      label: menu.name,
+      value: menu._id,
+      children: buildMenusCheckTree(list, menu._id),
+    }));
+};
 type MenusCheckProps = {
   roleData?: RolesResultDto;
   onSuccess?: (menus: string[]) => void;
@@ -77,31 +84,13 @@ const MenusCheck = (props: MenusCheckProps) => {
   const { roleData, onSuccess } = props;
   const [treeData, setTreeData] = useState<TreeNodeData[]>([]);
   const [saving, savingAition] = useDisclosure(false);
+
   const getAllMenus = async () => {
     const getAllMenusRes = await menusControllerGetAllByFilter({
       body: {},
     });
     if (getAllMenusRes.data) {
-      setTreeData(
-        getAllMenusRes.data
-          .filter((item) => !item.parent)
-          .map((item) => {
-            return {
-              nodeProps: item,
-              label: item.name,
-              value: item._id,
-              children: getAllMenusRes.data
-                .filter(({ parent }) => parent === item._id)
-                .map((child) => {
-                  return {
-                    nodeProps: child,
-                    label: child.name,
-                    value: child._id,
-                  };
-                }),
-            };
-          }),
-      );
+      setTreeData(buildMenusCheckTree(getAllMenusRes.data, ''));
       if (roleData) {
         tree.setCheckedState(roleData?.menus || []);
       }
@@ -110,6 +99,7 @@ const MenusCheck = (props: MenusCheckProps) => {
   useShallowEffect(() => {
     getAllMenus();
   }, []);
+
   const updateRoleMenus = async () => {
     if (!roleData) {
       return;
