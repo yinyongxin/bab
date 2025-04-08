@@ -9,7 +9,7 @@ import {
   ActionIcon,
   LoadingOverlay,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useShallowEffect } from '@mantine/hooks';
 import { IconArrowLeft, IconLoader, IconReload } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -23,6 +23,7 @@ type PageProps = {
   bodyTop?: React.ReactNode;
   style?: React.CSSProperties;
   onReload?: () => void | Promise<void>;
+  onInit?: () => void | Promise<void>;
   showLoading?: boolean;
   loading?: boolean;
   showBack?: boolean;
@@ -42,8 +43,38 @@ const Page = (props: PageProps) => {
     loading,
     showLoading,
     showBack,
+    onInit,
     ...rest
   } = props;
+
+  const init = async () => {
+    if (!onInit) {
+      return;
+    }
+    try {
+      open();
+      await onInit();
+    } finally {
+      close();
+    }
+  };
+
+  const reload = async () => {
+    if (!onReload) {
+      return;
+    }
+    try {
+      open();
+      await onReload();
+    } finally {
+      close();
+    }
+  };
+
+  useShallowEffect(() => {
+    init();
+  }, []);
+
   const navigate = useNavigate();
   return (
     <Box pos="relative" p="xl" {...rest}>
@@ -74,23 +105,17 @@ const Page = (props: PageProps) => {
                   {title}
                 </Title>
               )}
-              <ActionIcon
-                size="md"
-                variant="transparent"
-                loading={visible}
-                onClick={async () => {
-                  try {
-                    open();
-                    await onReload?.();
-                  } finally {
-                    setTimeout(() => {
-                      close();
-                    }, 1000);
-                  }
-                }}
-              >
-                <IconReload />
-              </ActionIcon>
+
+              {onReload && (
+                <ActionIcon
+                  size="md"
+                  variant="transparent"
+                  loading={visible}
+                  onClick={reload}
+                >
+                  <IconReload />
+                </ActionIcon>
+              )}
             </Group>
             {actions && <Group>{actions}</Group>}
           </Flex>
