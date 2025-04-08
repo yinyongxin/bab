@@ -3,14 +3,12 @@ import {
   Box,
   Divider,
   Flex,
-  Group,
   LoadingOverlay,
   MantineStyleProps,
   Pagination,
   PaginationProps,
   Paper,
   ScrollArea,
-  Stack,
   Table,
   TableProps,
   TableTdProps,
@@ -109,7 +107,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
       title: '全屏',
       icon: (
         <ActionIcon
-          key={'fullscreen'}
+          key="fullscreen"
           onClick={() => {
             toggle();
           }}

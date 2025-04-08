@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SLICE_BASE_NAME } from './constants';
 import { AdmintorsResultDto } from '@/client';
-import { extend } from 'dayjs';
 
 export interface UserState extends Partial<AdmintorsResultDto> {}
 

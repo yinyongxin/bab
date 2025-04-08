@@ -96,8 +96,8 @@ export class FilesController {
 
   @Delete('batchDelete')
   @ApiOperation({
-    description: '通过Ids删除文件',
-    summary: '通过Id删除文件',
+    description: '批量删除文件',
+    summary: '批量删除文件',
   })
   @ApiOkResponse({
     description: '删除成功',

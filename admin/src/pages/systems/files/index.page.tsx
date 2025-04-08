@@ -130,10 +130,10 @@ export default () => {
   return (
     <>
       <Page
-        // h="100vh"
-        // style={{
-        //   overflow: 'hidden',
-        // }}
+        h="100vh"
+        style={{
+          overflow: 'hidden',
+        }}
         title="文件管理"
         bodyTop={bodyTop()}
         onReload={async () => {

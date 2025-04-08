@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SLICE_BASE_NAME } from './constants';
-import { string } from 'prop-types';
 
 export interface AppConfigState {
   name: string;

@@ -5,13 +5,12 @@ import {
   Group,
   Stack,
   Box,
-  BoxComponentProps,
   ActionIcon,
   LoadingOverlay,
   StackProps,
 } from '@mantine/core';
 import { useDisclosure, useShallowEffect } from '@mantine/hooks';
-import { IconArrowLeft, IconLoader, IconReload } from '@tabler/icons-react';
+import { IconArrowLeft, IconReload } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 
 type PageProps = {
@@ -100,11 +99,7 @@ const Page = (props: PageProps) => {
                 <IconArrowLeft />
               </ActionIcon>
             )}
-            {title && (
-              <Title order={3} pt="4">
-                {title}
-              </Title>
-            )}
+            {title && <Title order={3}>{title}</Title>}
 
             {onReload && (
               <ActionIcon

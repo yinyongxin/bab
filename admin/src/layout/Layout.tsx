@@ -8,7 +8,6 @@ import { SpotlightActionData, Spotlight } from '@mantine/spotlight';
 import { IconSearch } from '@tabler/icons-react';
 import FontIcons from '../components/FontIcons';
 import { useNavigate } from 'react-router-dom';
-import { useShallowEffect } from '@mantine/hooks';
 import { client } from '@/client/client.gen';
 import { TOKEN_TYPE } from '@/constants/api.constant';
 import { MenuTypeEnum } from '@/client';

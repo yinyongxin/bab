@@ -1,7 +1,6 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, ComponentType } from 'react';
 import { setCurrentRouteKey, useAppDispatch } from '@/store';
 import { useLocation } from 'react-router-dom';
-import type { ComponentType } from 'react';
 
 export type AppRouteProps<T> = {
   component: ComponentType<T>;
