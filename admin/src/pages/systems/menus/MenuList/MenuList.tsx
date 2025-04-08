@@ -37,7 +37,7 @@ export function MenuList(props: MenuListProps) {
   const [state, handlers] = useListState<MenusResultDto>([]);
   const [id, setId] = useState('');
   const [title, setTitle] = useState('');
-  const getData = async () => {
+  const getData = async (resetChecked = true) => {
     const menuRes = await menusControllerGetAllByFilter({
       body: {
         parent: parentData?._id || '',
@@ -45,7 +45,7 @@ export function MenuList(props: MenuListProps) {
     });
     if (menuRes.data) {
       handlers.setState(menuRes.data);
-      if (!currentChecked) onChecked?.(menuRes.data[0]);
+      resetChecked && onChecked?.(menuRes.data[0]);
     }
   };
 
@@ -221,7 +221,7 @@ export function MenuList(props: MenuListProps) {
           id={id}
           onSuccess={() => {
             close();
-            getData();
+            getData(false);
           }}
         />
       </Modal>
