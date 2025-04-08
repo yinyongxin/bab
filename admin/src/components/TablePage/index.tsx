@@ -2,6 +2,7 @@ import {
   Divider,
   Flex,
   LoadingOverlay,
+  MantineStyleProps,
   Pagination,
   PaginationProps,
   Paper,
@@ -25,7 +26,7 @@ export type TablePageProps<D> = {
     thProps?: TableThProps;
     tdProps?: TableTdProps;
     prefix?: (values: D) => React.ReactNode;
-    width?: string | number;
+    width?: MantineStyleProps['w'];
   }[];
   dataList: D[];
   rowkey: keyof D;
@@ -41,18 +42,14 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     return (
       <Table.Thead
         className={clsx(classes.header, { [classes.scrolled]: scrolled })}
-        // bg="light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8))"
       >
         <Table.Tr>
           {props.columns.map((column) => {
             return (
               <Table.Th
                 key={`${column.title}`}
+                w={column.width}
                 {...column.thProps}
-                style={{
-                  width: column.width,
-                  ...column.thProps?.style,
-                }}
               >
                 {column.title}
               </Table.Th>
@@ -86,10 +83,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
               <Table.Td
                 key={`${data[rowkey]}-${column.title}`}
                 {...column.tdProps}
-                style={{
-                  width: column.width,
-                  ...column.thProps?.style,
-                }}
+                w={column.width}
               >
                 <>{tdContent}</>
               </Table.Td>
@@ -110,7 +104,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
       <LoadingOverlay
         visible={loading}
         zIndex={1000}
-        overlayProps={{ blur: 2 }}
+        loaderProps={{ type: 'bars' }}
       />
       <ScrollArea
         h="60vh"
