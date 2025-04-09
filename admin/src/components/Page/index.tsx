@@ -9,6 +9,7 @@ import {
   LoadingOverlay,
   StackProps,
   rgba,
+  rem,
 } from '@mantine/core';
 import {
   useDisclosure,
@@ -18,6 +19,8 @@ import {
 import { IconArrowLeft, IconReload } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
+import { useAppSelector } from '@/store';
+import { LayoutTypes } from '@/@types/layout';
 
 type PageProps = {
   children: React.ReactNode;
@@ -37,6 +40,7 @@ type PageProps = {
 
 const Page = (props: PageProps) => {
   const [visible, { open, close }] = useDisclosure(false);
+  const { layoutType } = useAppSelector((state) => state.appConfig);
   const {
     children,
     title,
@@ -82,6 +86,13 @@ const Page = (props: PageProps) => {
     init();
   }, []);
 
+  const stickyTop: Record<LayoutTypes, string> = {
+    [LayoutTypes.SimpleSideBar]: '0',
+    [LayoutTypes.DeckedSideBar]: '0',
+    [LayoutTypes.TopSide]: rem(60),
+    [LayoutTypes.Top]: rem(60),
+  };
+
   const navigate = useNavigate();
   return (
     <Stack pos="relative" gap="md" {...rest} pb="xl">
@@ -100,7 +111,7 @@ const Page = (props: PageProps) => {
         bg={
           scroll.y > 0 ? rgba('var(--mantine-color-body)', 0.2) : 'transparent'
         }
-        top={0}
+        top={stickyTop[layoutType]}
         style={{
           zIndex: 10,
           transition: 'background-color,box-shadow 0.2s ease-in-out',
