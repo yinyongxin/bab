@@ -22,7 +22,11 @@ const sideBars = {
     () => import('./NavbarLinksGroup/NavbarLinksGroup'),
   ),
   [LayoutTypes.DeckedSideBar]: lazy(
-    () => import('./LayoutTypes/DeckedSideBar/DeckedSideBar'),
+    () => import('./DeckedSideBar/DeckedSideBar'),
+  ),
+  [LayoutTypes.Top]: lazy(() => import('./NavbarLinksGroup/NavbarLinksGroup')),
+  [LayoutTypes.TopSide]: lazy(
+    () => import('./NavbarLinksGroup/NavbarLinksGroup'),
   ),
 };
 export default function BaseLayout() {

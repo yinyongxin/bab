@@ -112,7 +112,12 @@ function useAuth() {
           expireTime: 0,
         }),
       );
-      dispatch(setUser(userInfo));
+      dispatch(
+        setUser({
+          ...userInfo,
+          avatar: `${appConfig.fileBaseUrl}${userInfo.avatar}`,
+        }),
+      );
       const redirectUrl = query.get(REDIRECT_URL_KEY);
       navigate(redirectUrl ? redirectUrl : appConfig.authenticatedEntryPath);
       return {

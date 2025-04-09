@@ -17,6 +17,7 @@ import {
   useMantineColorScheme,
   Drawer,
   Modal,
+  MenuProps,
 } from '@mantine/core';
 import classes from './UserButton.module.css';
 import useAuth from '@/utils/hooks/useAuth';
@@ -28,9 +29,9 @@ import AppConfigSettings from '../AppConfigSettings/AppConfigSettings';
 
 type UserButtonProps = {
   children?: React.ReactNode;
-};
+} & MenuProps;
 export function UserButton(props: UserButtonProps) {
-  const { children } = props;
+  const { children, ...menuProps } = props;
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
@@ -40,7 +41,7 @@ export function UserButton(props: UserButtonProps) {
   const { signOut } = useAuth();
   return (
     <>
-      <Menu shadow="md" width={200} position="right-end">
+      <Menu shadow="md" width={200} position="right-end" {...menuProps}>
         <Menu.Target>{children}</Menu.Target>
 
         <Menu.Dropdown>

@@ -12,6 +12,7 @@ import {
   Stack,
   Title,
 } from '@mantine/core';
+import React from 'react';
 const CustomizePaper = (props: {
   checked: boolean;
   onClick: () => void;
@@ -59,11 +60,47 @@ const LayoutSetting = () => {
       {/* </Group> */}
     </Stack>
   );
-
-  const bothSide = (
-    <Grid.Col span={6}>
+  const typeObj: Record<LayoutTypes, React.ReactNode> = {
+    [LayoutTypes.SimpleSideBar]: (
       <Stack>
-        <AspectRatio ratio={16 / 9} bd="blue.5">
+        <AspectRatio ratio={16 / 9}>
+          <CustomizePaper
+            checked={layoutType === LayoutTypes.SimpleSideBar}
+            onClick={() => {
+              dispatch(setAppConfig({ layoutType: LayoutTypes.SimpleSideBar }));
+            }}
+          >
+            <Grid
+              h="100%"
+              gutter="0"
+              styles={{
+                inner: {
+                  height: '100%',
+                },
+              }}
+            >
+              <Grid.Col
+                span={3}
+                bg="light-dark(var(--mantine-primary-color-5), var(--mantine-primary-color-5))"
+              ></Grid.Col>
+              <Grid.Col
+                span={9}
+                bg="light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-9))"
+                p="xs"
+              >
+                {conent}
+              </Grid.Col>
+            </Grid>
+          </CustomizePaper>
+        </AspectRatio>
+        <Center>
+          <Title order={6}>侧边单栏</Title>
+        </Center>
+      </Stack>
+    ),
+    [LayoutTypes.DeckedSideBar]: (
+      <Stack>
+        <AspectRatio ratio={16 / 9}>
           <CustomizePaper
             checked={layoutType === LayoutTypes.DeckedSideBar}
             onClick={() => {
@@ -101,52 +138,16 @@ const LayoutSetting = () => {
           <Title order={6}>侧边双栏</Title>
         </Center>
       </Stack>
-    </Grid.Col>
-  );
-  const singleSide = (
-    <Grid.Col span={6}>
+    ),
+    [LayoutTypes.TopSide]: (
       <Stack>
         <AspectRatio ratio={16 / 9}>
           <CustomizePaper
-            checked={layoutType === LayoutTypes.SimpleSideBar}
+            checked={layoutType === LayoutTypes.TopSide}
             onClick={() => {
-              dispatch(setAppConfig({ layoutType: LayoutTypes.SimpleSideBar }));
+              dispatch(setAppConfig({ layoutType: LayoutTypes.TopSide }));
             }}
           >
-            <Grid
-              h="100%"
-              gutter="0"
-              styles={{
-                inner: {
-                  height: '100%',
-                },
-              }}
-            >
-              <Grid.Col
-                span={3}
-                bg="light-dark(var(--mantine-primary-color-5), var(--mantine-primary-color-5))"
-              ></Grid.Col>
-              <Grid.Col
-                span={9}
-                bg="light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-9))"
-                p="xs"
-              >
-                {conent}
-              </Grid.Col>
-            </Grid>
-          </CustomizePaper>
-        </AspectRatio>
-        <Center>
-          <Title order={6}>侧边单栏</Title>
-        </Center>
-      </Stack>
-    </Grid.Col>
-  );
-  const topSingleSide = (
-    <Grid.Col span={6}>
-      <Stack>
-        <AspectRatio ratio={16 / 9}>
-          <Paper h="100%" radius="xs" style={{ overflow: 'hidden' }}>
             <Stack h="100%" gap="0">
               <Box
                 flex={2}
@@ -175,19 +176,22 @@ const LayoutSetting = () => {
                 </Grid.Col>
               </Grid>
             </Stack>
-          </Paper>
+          </CustomizePaper>
         </AspectRatio>
         <Center>
           <Title order={6}>顶部&侧栏</Title>
         </Center>
       </Stack>
-    </Grid.Col>
-  );
-  const top = (
-    <Grid.Col span={6}>
+    ),
+    [LayoutTypes.Top]: (
       <Stack>
         <AspectRatio ratio={16 / 9}>
-          <Paper h="100%" radius="xs" style={{ overflow: 'hidden' }}>
+          <CustomizePaper
+            checked={layoutType === LayoutTypes.Top}
+            onClick={() => {
+              dispatch(setAppConfig({ layoutType: LayoutTypes.Top }));
+            }}
+          >
             <Stack h="100%" gap="0">
               <Box
                 flex={2}
@@ -212,21 +216,23 @@ const LayoutSetting = () => {
                 </Grid.Col>
               </Grid>
             </Stack>
-          </Paper>
+          </CustomizePaper>
         </AspectRatio>
         <Center>
-          <Title order={6}>顶部&侧栏</Title>
+          <Title order={6}>顶部</Title>
         </Center>
       </Stack>
-    </Grid.Col>
-  );
+    ),
+  };
+
   return (
     <Stack>
       <Grid>
-        {bothSide}
-        {singleSide}
-        {topSingleSide}
-        {top}
+        {Object.keys(typeObj).map((item) => (
+          <Grid.Col span={6}>
+            {typeObj[item as unknown as LayoutTypes]}
+          </Grid.Col>
+        ))}
       </Grid>
     </Stack>
   );

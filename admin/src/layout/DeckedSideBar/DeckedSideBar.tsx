@@ -6,11 +6,9 @@ import {
   Box,
   rem,
   Center,
-  AppShell,
   Image,
   Avatar,
-  Group,
-  Text,
+  AspectRatio,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link, useLocation } from 'react-router-dom';
@@ -20,7 +18,6 @@ import FontIcons from '@/components/FontIcons';
 import { UserButton } from '@/components/UserButton/UserButton';
 import appConfig from '@/configs/app.config';
 import { getFilePath } from '@/utils';
-import { IconChevronRight } from '@tabler/icons-react';
 
 export default function DeckedSideBar() {
   const [activeMainLink, setActiveMainLink] = useState('');
@@ -119,8 +116,13 @@ export default function DeckedSideBar() {
               </Tooltip>
             ))}
           </Box>
+
           <UserButton>
-            <Avatar src={getFilePath(user.avatar)} radius="md" />
+            <Box pb="md" w="100%">
+              <Center>
+                <Avatar src={user.avatar} radius="md" />
+              </Center>
+            </Box>
           </UserButton>
         </div>
         {subLinkList}
