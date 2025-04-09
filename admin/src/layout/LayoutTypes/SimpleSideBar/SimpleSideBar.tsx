@@ -19,17 +19,16 @@ import { useAppDispatch, useAppSelector } from '@/store';
 import { setAppConfig } from '@/store/slices/appConfig';
 export default function SimpleSideBar() {
   const appConfig = useAppSelector((state) => state.appConfig);
-  const { desktop } = appConfig;
   const dispatch = useAppDispatch();
   const toggleDesktop = () => {
     dispatch(
       setAppConfig({
-        desktop: !desktop,
+        desktop: !appConfig.desktop,
       }),
     );
   };
   return (
-    <AppShell.Navbar>
+    <>
       <AppShell.Section>
         <Group justify="space-between" gap="md" p="md">
           <Image
@@ -66,11 +65,11 @@ export default function SimpleSideBar() {
         <Center>
           <IconChevronRight
             style={{
-              transform: desktop ? 'rotate(180deg)' : 'rotate(0deg)',
+              transform: appConfig.desktop ? 'rotate(180deg)' : 'rotate(0deg)',
             }}
           />
         </Center>
       </UnstyledButton>
-    </AppShell.Navbar>
+    </>
   );
 }

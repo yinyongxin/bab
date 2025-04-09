@@ -17,7 +17,7 @@ export default function BaseLayout() {
 
   const SideBar = useMemo(() => {
     return sideBars[layoutType];
-  }, [layoutType]);
+  }, [layoutType, desktop]);
 
   return (
     <>

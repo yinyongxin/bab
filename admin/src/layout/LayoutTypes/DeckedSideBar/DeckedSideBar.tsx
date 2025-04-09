@@ -18,7 +18,7 @@ import { UserButton } from '@/components/UserButton/UserButton';
 import appConfig from '@/configs/app.config';
 import { getFilePath } from '@/utils';
 
-export function DeckedSideBarContent() {
+export default function DeckedSideBar() {
   const [activeMainLink, setActiveMainLink] = useState('');
   const [activeSubLink, setActiveSubLink] = useState('');
   const [title, setTitle] = useState('');
@@ -121,12 +121,3 @@ export function DeckedSideBarContent() {
     </nav>
   );
 }
-
-const DeckedSideBar = () => {
-  return (
-    <AppShell.Navbar>
-      <DeckedSideBarContent />
-    </AppShell.Navbar>
-  );
-};
-export default DeckedSideBar;
