@@ -54,10 +54,14 @@ const NavBarContent = () => {
           <LogoArea />
         </AppShell.Section>
       )}
-
-      <AppShell.Section grow component={ScrollArea}>
+      {layoutType !== LayoutTypes.DeckedSideBar ? (
+        <AppShell.Section grow component={ScrollArea}>
+          <Content />
+        </AppShell.Section>
+      ) : (
         <Content />
-      </AppShell.Section>
+      )}
+
       {layoutType === LayoutTypes.SimpleSideBar && (
         <AppShell.Section
           style={{
