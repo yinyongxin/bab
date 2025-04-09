@@ -15,12 +15,15 @@ import {
   UnstyledButton,
   useComputedColorScheme,
   useMantineColorScheme,
+  Drawer,
 } from '@mantine/core';
 import classes from './UserButton.module.css';
 import useAuth from '@/utils/hooks/useAuth';
 import { useAppSelector } from '@/store';
 import { getFilePath } from '@/utils';
 import { spotlight } from '@mantine/spotlight';
+import { useDisclosure } from '@mantine/hooks';
+import AppConfigSettings from '../AppConfigSettings';
 
 type UserButtonProps = {
   onlyShowAvatar?: boolean;
@@ -31,6 +34,7 @@ export function UserButton(props: UserButtonProps) {
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
   });
+  const [drawerOpened, drawerOpenedAction] = useDisclosure(false);
   const user = useAppSelector((state) => state.auth.user);
 
   const { signOut } = useAuth();
@@ -61,7 +65,12 @@ export function UserButton(props: UserButtonProps) {
 
         <Menu.Dropdown>
           <Menu.Label>功能</Menu.Label>
-          <Menu.Item leftSection={<IconSettings size={14} />}>设置</Menu.Item>
+          <Menu.Item
+            leftSection={<IconSettings size={14} />}
+            onClick={drawerOpenedAction.open}
+          >
+            设置
+          </Menu.Item>
           {/* <Menu.Item leftSection={<IconMessageCircle size={14} />}>
             Messages
           </Menu.Item>
@@ -105,6 +114,13 @@ export function UserButton(props: UserButtonProps) {
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
+      <Drawer
+        title="应用设置"
+        opened={drawerOpened}
+        onClose={drawerOpenedAction.close}
+      >
+        <AppConfigSettings />
+      </Drawer>
     </>
   );
 }
