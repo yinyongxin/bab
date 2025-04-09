@@ -100,8 +100,8 @@ export function MenuList(props: MenuListProps) {
           </Flex>
           <Flex align="center">
             <ActionIcon
-              size="xl"
-              variant="transparent"
+              size="md"
+              variant="subtle"
               onClick={(e) => {
                 e.stopPropagation();
                 setTitle(
@@ -118,8 +118,8 @@ export function MenuList(props: MenuListProps) {
               <IconEdit size="70%" />
             </ActionIcon>
             <ActionIcon
-              size="xl"
-              variant="transparent"
+              size="md"
+              variant="subtle"
               color="red"
               onClick={(e) => {
                 e.stopPropagation();

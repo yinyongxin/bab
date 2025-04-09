@@ -224,11 +224,11 @@ export default () => {
       render: (record) => {
         return (
           <>
-            <ActionIcon variant="transparent" color="green">
+            <ActionIcon variant="subtle" color="green">
               <IconEye style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
             <ActionIcon
-              variant="transparent"
+              variant="subtle"
               onClick={() => {
                 setTitle('编辑信息');
                 setInitalValues(record);
@@ -238,7 +238,7 @@ export default () => {
               <IconEdit style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
             <ActionIcon
-              variant="transparent"
+              variant="subtle"
               color="red"
               onClick={() => {
                 deleteById(record._id);

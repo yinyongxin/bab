@@ -226,7 +226,7 @@ export default () => {
                       )}
                     </CopyButton>
                     <Anchor href={getFilePath(record.path)} target="_blank">
-                      <ActionIcon variant="transparent" color="green">
+                      <ActionIcon variant="subtle" color="green">
                         <IconEye
                           style={{ width: '70%', height: '70%' }}
                           stroke={1.5}
@@ -259,7 +259,7 @@ export default () => {
                       accept={record.mimetype}
                     >
                       {(props) => (
-                        <ActionIcon {...props} variant="transparent">
+                        <ActionIcon {...props} variant="subtle">
                           <IconEdit
                             style={{ width: '70%', height: '70%' }}
                             stroke={1.5}
@@ -269,7 +269,7 @@ export default () => {
                     </FileButton>
 
                     <ActionIcon
-                      variant="transparent"
+                      variant="subtle"
                       color="red"
                       onClick={() => {
                         deleteById(record);
