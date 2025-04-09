@@ -55,7 +55,7 @@ const NavBarContent = () => {
         </AppShell.Section>
       )}
 
-      <AppShell.Section grow my="md" component={ScrollArea}>
+      <AppShell.Section grow component={ScrollArea}>
         <Content />
       </AppShell.Section>
       {layoutType === LayoutTypes.SimpleSideBar && (
