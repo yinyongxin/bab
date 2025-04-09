@@ -1,5 +1,6 @@
 import { Stack } from '@mantine/core';
-import FloatingTabs from './FloatingTabs';
+import FloatingTabs from '../FloatingTabs';
+import LayoutSetting from './LayoutSetting';
 
 const AppConfigSettings = () => {
   return (
@@ -9,14 +10,15 @@ const AppConfigSettings = () => {
           {
             label: '布局配置',
             value: 'layout',
+            content: <LayoutSetting />,
           },
           {
             label: '颜色配置',
             value: 'color',
+            content: 'color',
           },
         ]}
       />
-      <h1>App Config Settings</h1>
     </Stack>
   );
 };

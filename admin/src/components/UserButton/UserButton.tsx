@@ -16,6 +16,7 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
   Drawer,
+  Modal,
 } from '@mantine/core';
 import classes from './UserButton.module.css';
 import useAuth from '@/utils/hooks/useAuth';
@@ -23,7 +24,7 @@ import { useAppSelector } from '@/store';
 import { getFilePath } from '@/utils';
 import { spotlight } from '@mantine/spotlight';
 import { useDisclosure } from '@mantine/hooks';
-import AppConfigSettings from '../AppConfigSettings';
+import AppConfigSettings from '../AppConfigSettings/AppConfigSettings';
 
 type UserButtonProps = {
   onlyShowAvatar?: boolean;
@@ -34,7 +35,7 @@ export function UserButton(props: UserButtonProps) {
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
   });
-  const [drawerOpened, drawerOpenedAction] = useDisclosure(false);
+  const [drawerOpened, drawerOpenedAction] = useDisclosure(true);
   const user = useAppSelector((state) => state.auth.user);
 
   const { signOut } = useAuth();
@@ -116,8 +117,10 @@ export function UserButton(props: UserButtonProps) {
       </Menu>
       <Drawer
         title="应用设置"
+        position="right"
         opened={drawerOpened}
         onClose={drawerOpenedAction.close}
+        // centered
       >
         <AppConfigSettings />
       </Drawer>
