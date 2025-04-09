@@ -27,42 +27,21 @@ import { useDisclosure } from '@mantine/hooks';
 import AppConfigSettings from '../AppConfigSettings/AppConfigSettings';
 
 type UserButtonProps = {
-  onlyShowAvatar?: boolean;
+  children?: React.ReactNode;
 };
 export function UserButton(props: UserButtonProps) {
-  const { onlyShowAvatar = false } = props;
+  const { children } = props;
   const { setColorScheme } = useMantineColorScheme();
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
   });
-  const [drawerOpened, drawerOpenedAction] = useDisclosure(true);
-  const user = useAppSelector((state) => state.auth.user);
+  const [drawerOpened, drawerOpenedAction] = useDisclosure(false);
 
   const { signOut } = useAuth();
   return (
     <>
       <Menu shadow="md" width={200} position="right-end">
-        <Menu.Target>
-          <UnstyledButton className={classes.user}>
-            <Group>
-              <Avatar src={getFilePath(user.avatar)} radius="md" />
-              {!onlyShowAvatar && (
-                <>
-                  <div style={{ flex: 1 }}>
-                    <Text size="sm" fw={500}>
-                      {user.username}
-                    </Text>
-                    <Text c="dimmed" size="xs">
-                      {user.email}
-                    </Text>
-                  </div>
-
-                  <IconChevronRight size={14} stroke={1.5} />
-                </>
-              )}
-            </Group>
-          </UnstyledButton>
-        </Menu.Target>
+        <Menu.Target>{children}</Menu.Target>
 
         <Menu.Dropdown>
           <Menu.Label>功能</Menu.Label>
@@ -120,7 +99,6 @@ export function UserButton(props: UserButtonProps) {
         position="right"
         opened={drawerOpened}
         onClose={drawerOpenedAction.close}
-        // centered
       >
         <AppConfigSettings />
       </Drawer>

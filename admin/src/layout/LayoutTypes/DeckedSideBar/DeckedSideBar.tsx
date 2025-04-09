@@ -8,6 +8,9 @@ import {
   Center,
   AppShell,
   Image,
+  Avatar,
+  Group,
+  Text,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link, useLocation } from 'react-router-dom';
@@ -17,6 +20,7 @@ import FontIcons from '@/components/FontIcons';
 import { UserButton } from '@/components/UserButton/UserButton';
 import appConfig from '@/configs/app.config';
 import { getFilePath } from '@/utils';
+import { IconChevronRight } from '@tabler/icons-react';
 
 export default function DeckedSideBar() {
   const [activeMainLink, setActiveMainLink] = useState('');
@@ -24,7 +28,8 @@ export default function DeckedSideBar() {
   const [title, setTitle] = useState('');
   const location = useLocation();
   const { t } = useTranslation();
-  const { navigationTree = [] } = useAppSelector((state) => state.auth.menus);
+  const { menus, user } = useAppSelector((state) => state.auth);
+  const { navigationTree = [] } = menus;
 
   const subLinkList = useMemo(() => {
     const subMenus = (
@@ -114,7 +119,9 @@ export default function DeckedSideBar() {
               </Tooltip>
             ))}
           </Box>
-          <UserButton onlyShowAvatar />
+          <UserButton>
+            <Avatar src={getFilePath(user.avatar)} radius="md" />
+          </UserButton>
         </div>
         {subLinkList}
       </div>
