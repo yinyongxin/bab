@@ -23,7 +23,7 @@ const layouts: any = {
 
 export function Layout() {
   const { authenticated } = useAuth();
-  const layoutType = useAppSelector((state) => state.theme.currentLayout);
+  const layoutType = useAppSelector((state) => state.appConfig.layoutType);
   const navigate = useNavigate();
   const auth = useAppSelector((state) => state.auth);
   const { menus } = auth;
