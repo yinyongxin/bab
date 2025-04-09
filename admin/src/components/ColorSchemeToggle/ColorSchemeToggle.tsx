@@ -17,8 +17,8 @@ export function ColorSchemeToggle() {
       onClick={() =>
         setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
       }
-      variant="subtle"
-      size={42}
+      variant="light"
+      size="38"
       aria-label="Toggle color scheme"
     >
       <IconSun className={cx(classes.light)} stroke={1.5} />
