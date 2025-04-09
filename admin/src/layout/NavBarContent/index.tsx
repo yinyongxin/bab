@@ -50,7 +50,7 @@ const NavBarContent = () => {
         <AppShell.Section
           h={60}
           style={{
-            borderBottom: '1px solid var(--mantine-color-gray-2)',
+            borderBottom: '1px solid var(--mantine-color-default-border)',
           }}
         >
           <LogoArea />
@@ -67,7 +67,7 @@ const NavBarContent = () => {
       {layoutType === LayoutTypes.SimpleSideBar && (
         <AppShell.Section
           style={{
-            borderTop: '1px solid var(--mantine-color-gray-2)',
+            borderTop: '1px solid var(--mantine-color-default-border)',
           }}
         >
           <UserButton>
