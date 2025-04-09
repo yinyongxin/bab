@@ -1,5 +1,4 @@
 import {
-  IconChevronRight,
   IconLogout,
   IconMoon,
   IconSettings,
@@ -8,21 +7,14 @@ import {
   IconSearch,
 } from '@tabler/icons-react';
 import {
-  Avatar,
-  Group,
   Text,
   Menu,
-  UnstyledButton,
   useComputedColorScheme,
   useMantineColorScheme,
   Drawer,
-  Modal,
   MenuProps,
 } from '@mantine/core';
-import classes from './UserButton.module.css';
 import useAuth from '@/utils/hooks/useAuth';
-import { useAppSelector } from '@/store';
-import { getFilePath } from '@/utils';
 import { spotlight } from '@mantine/spotlight';
 import { useDisclosure } from '@mantine/hooks';
 import AppConfigSettings from '../AppConfigSettings/AppConfigSettings';

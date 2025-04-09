@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useMemo } from 'react';
+import { lazy, Suspense, useEffect, useMemo } from 'react';
 import useAuth from '@/utils/hooks/useAuth';
 import useLocale from '@/utils/hooks/useLocale';
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
@@ -7,6 +7,9 @@ import { client } from '@/client/client.gen';
 import { TOKEN_TYPE } from '@/constants/api.constant';
 import Views from './Views';
 import BaseLayout from './BaseLayout';
+const AppSpotlight = lazy(
+  () => import('../components/AppSpotlight/AppSpotlight'),
+);
 
 export function Layout() {
   const { authenticated } = useAuth();
@@ -21,7 +24,6 @@ export function Layout() {
       },
     });
   }, [session]);
-
   useLocale();
 
   const content = useMemo(() => {
@@ -41,6 +43,7 @@ export function Layout() {
         }
       >
         {content}
+        <AppSpotlight />
       </Suspense>
     </>
   );

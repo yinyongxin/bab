@@ -12,6 +12,7 @@ import '@mantine/core/styles.css';
 import '@mantine/dropzone/styles.css';
 import '@mantine/notifications/styles.css';
 import './App.css';
+
 /**
  * Spotlight
  * https://mantine.dev/x/spotlight/#installation

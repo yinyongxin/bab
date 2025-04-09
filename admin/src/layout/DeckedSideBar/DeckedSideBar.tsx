@@ -8,7 +8,6 @@ import {
   Center,
   Image,
   Avatar,
-  AspectRatio,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link, useLocation } from 'react-router-dom';
