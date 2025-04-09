@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Box,
   Center,
   Divider,
   Flex,
@@ -196,11 +197,6 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
   ];
   return (
     <Paper pos="relative" radius="md" flex={1} ref={ref} shadow="xs">
-      <LoadingOverlay
-        visible={loading}
-        zIndex={50}
-        loaderProps={{ type: 'bars' }}
-      />
       <Flex direction="column" flex={1}>
         <header>
           <Flex justify="space-between">
@@ -211,23 +207,38 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
           </Flex>
         </header>
         <Divider />
-        <ScrollArea
-          flex={1}
-          type="always"
-          onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
-        >
-          {/* <Table.ScrollContainer minWidth={500} type="native"> */}
-          <Table
-            verticalSpacing={verticalSpacing}
-            stickyHeader={false}
-            {...tableProps}
+        <Box pos="relative">
+          <LoadingOverlay
+            visible={loading}
+            zIndex={50}
+            loaderProps={{ type: 'bars' }}
+            overlayProps={{
+              blur: 2,
+            }}
+            // style={{
+            //   borderRadius: 'var(--mantine-radius-md)',
+            // }}
+          />
+
+          <ScrollArea
+            flex={1}
+            type="always"
+            onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
           >
-            {getTableHeader()}
-            {getTableBody()}
-          </Table>
-          {/* </Table.ScrollContainer> */}
-          {dataList.length === 0 && <Empty />}
-        </ScrollArea>
+            {/* <Table.ScrollContainer minWidth={500} type="native"> */}
+
+            <Table
+              verticalSpacing={verticalSpacing}
+              stickyHeader={false}
+              {...tableProps}
+            >
+              {getTableHeader()}
+              {getTableBody()}
+            </Table>
+            {/* </Table.ScrollContainer> */}
+            {dataList.length === 0 && <Empty />}
+          </ScrollArea>
+        </Box>
         {paginationProps?.total ? (
           <footer>
             <Divider />
