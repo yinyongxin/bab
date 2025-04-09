@@ -31,7 +31,9 @@ const sideBars = {
 const NavBarContent = () => {
   const { user } = useAppSelector((state) => state.auth);
   const { layoutType, desktop } = useAppSelector((state) => state.appConfig);
-
+  if (layoutType === LayoutTypes.Top) {
+    return null;
+  }
   const Content = sideBars[layoutType];
   const dispatch = useAppDispatch();
   const toggleDesktop = () => {

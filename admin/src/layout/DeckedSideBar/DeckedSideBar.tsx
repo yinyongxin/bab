@@ -119,7 +119,9 @@ export default function DeckedSideBar() {
           <UserButton>
             <Box pb="md" w="100%">
               <Center>
-                <Avatar src={user.avatar} radius="md" />
+                <UnstyledButton>
+                  <Avatar src={user.avatar} radius="md" />
+                </UnstyledButton>
               </Center>
             </Box>
           </UserButton>
