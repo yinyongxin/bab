@@ -17,9 +17,8 @@ import FontIcons from '@/components/FontIcons';
 import { UserButton } from '@/components/UserButton/UserButton';
 import appConfig from '@/configs/app.config';
 import { getFilePath } from '@/utils';
-import { AddMain } from '../AppMain';
 
-function DeckedSideBarContent() {
+export function DeckedSideBarContent() {
   const [activeMainLink, setActiveMainLink] = useState('');
   const [activeSubLink, setActiveSubLink] = useState('');
   const [title, setTitle] = useState('');
@@ -123,13 +122,11 @@ function DeckedSideBarContent() {
   );
 }
 
-export default function DeckedSideBar() {
+const DeckedSideBar = () => {
   return (
-    <AppShell navbar={{ width: 300, breakpoint: 'md' }}>
-      <AppShell.Navbar>
-        <DeckedSideBarContent />
-      </AppShell.Navbar>
-      <AddMain />
-    </AppShell>
+    <AppShell.Navbar>
+      <DeckedSideBarContent />
+    </AppShell.Navbar>
   );
-}
+};
+export default DeckedSideBar;

@@ -4,6 +4,7 @@ export * from './storeSetup';
 export * from './slices/auth';
 export * from './slices/base';
 export * from './slices/locale';
+export * from './slices/appConfig';
 export * from './rootReducer';
 export * from './hook';
 export default store;

@@ -1,3 +1,6 @@
+import { LayoutTypes } from '@/@types/layout';
+import { useAppDispatch, useAppSelector } from '@/store';
+import { setAppConfig } from '@/store/slices/appConfig';
 import {
   AspectRatio,
   Box,
@@ -9,8 +12,33 @@ import {
   Stack,
   Title,
 } from '@mantine/core';
+const CustomizePaper = (props: {
+  checked: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) => {
+  const { checked, onClick, children } = props;
+  return (
+    <Paper
+      h="100%"
+      onClick={onClick}
+      style={{
+        overflow: 'hidden',
+        ...(checked && {
+          outlineOffset: 4,
+          outline: '4px solid var(--mantine-primary-color-filled)',
+        }),
+      }}
+    >
+      {children}
+    </Paper>
+  );
+};
 
 const LayoutSetting = () => {
+  const appConfig = useAppSelector((state) => state.appConfig);
+  const { layoutType } = appConfig;
+  const dispatch = useAppDispatch();
   const conent = (
     <Stack h={'100%'} gap="xs">
       {/* <Group flex={1} w="100%"> */}
@@ -31,11 +59,17 @@ const LayoutSetting = () => {
       {/* </Group> */}
     </Stack>
   );
+
   const bothSide = (
     <Grid.Col span={6}>
       <Stack>
-        <AspectRatio ratio={16 / 9}>
-          <Paper h="100%" radius="sm" style={{ overflow: 'hidden' }}>
+        <AspectRatio ratio={16 / 9} bd="blue.5">
+          <CustomizePaper
+            checked={layoutType === LayoutTypes.DeckedSideBar}
+            onClick={() => {
+              dispatch(setAppConfig({ layoutType: LayoutTypes.DeckedSideBar }));
+            }}
+          >
             <Grid
               h="100%"
               gutter="0"
@@ -61,7 +95,7 @@ const LayoutSetting = () => {
                 {conent}
               </Grid.Col>
             </Grid>
-          </Paper>
+          </CustomizePaper>
         </AspectRatio>
         <Center>
           <Title order={6}>侧边双栏</Title>
@@ -73,7 +107,12 @@ const LayoutSetting = () => {
     <Grid.Col span={6}>
       <Stack>
         <AspectRatio ratio={16 / 9}>
-          <Paper h="100%" radius="sm" style={{ overflow: 'hidden' }}>
+          <CustomizePaper
+            checked={layoutType === LayoutTypes.SimpleSideBar}
+            onClick={() => {
+              dispatch(setAppConfig({ layoutType: LayoutTypes.SimpleSideBar }));
+            }}
+          >
             <Grid
               h="100%"
               gutter="0"
@@ -95,7 +134,7 @@ const LayoutSetting = () => {
                 {conent}
               </Grid.Col>
             </Grid>
-          </Paper>
+          </CustomizePaper>
         </AspectRatio>
         <Center>
           <Title order={6}>侧边单栏</Title>
@@ -107,7 +146,7 @@ const LayoutSetting = () => {
     <Grid.Col span={6}>
       <Stack>
         <AspectRatio ratio={16 / 9}>
-          <Paper h="100%" radius="sm" style={{ overflow: 'hidden' }}>
+          <Paper h="100%" radius="xs" style={{ overflow: 'hidden' }}>
             <Stack h="100%" gap="0">
               <Box
                 flex={2}
@@ -139,7 +178,44 @@ const LayoutSetting = () => {
           </Paper>
         </AspectRatio>
         <Center>
-          <Title order={6}>侧边单栏</Title>
+          <Title order={6}>顶部&侧栏</Title>
+        </Center>
+      </Stack>
+    </Grid.Col>
+  );
+  const top = (
+    <Grid.Col span={6}>
+      <Stack>
+        <AspectRatio ratio={16 / 9}>
+          <Paper h="100%" radius="xs" style={{ overflow: 'hidden' }}>
+            <Stack h="100%" gap="0">
+              <Box
+                flex={2}
+                w="100%"
+                bg="light-dark(var(--mantine-primary-color-5), var(--mantine-primary-color-5))"
+              ></Box>
+              <Grid
+                flex={10}
+                gutter="0"
+                styles={{
+                  inner: {
+                    height: '100%',
+                  },
+                }}
+              >
+                <Grid.Col
+                  span={12}
+                  bg="light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-9))"
+                  p="xs"
+                >
+                  {conent}
+                </Grid.Col>
+              </Grid>
+            </Stack>
+          </Paper>
+        </AspectRatio>
+        <Center>
+          <Title order={6}>顶部&侧栏</Title>
         </Center>
       </Stack>
     </Grid.Col>
@@ -150,6 +226,7 @@ const LayoutSetting = () => {
         {bothSide}
         {singleSide}
         {topSingleSide}
+        {top}
       </Grid>
     </Stack>
   );

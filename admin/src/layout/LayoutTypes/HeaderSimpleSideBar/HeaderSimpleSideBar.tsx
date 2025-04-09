@@ -15,7 +15,6 @@ import appConfig from '@/configs/app.config';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronRight } from '@tabler/icons-react';
 import { getFilePath } from '@/utils';
-import { AddMain } from '../AppMain';
 
 export default function HeaderSimpleSideBar() {
   const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
@@ -71,7 +70,6 @@ export default function HeaderSimpleSideBar() {
           </Center>
         </UnstyledButton>
       </AppShell.Navbar>
-      <AddMain />
     </AppShell>
   );
 }

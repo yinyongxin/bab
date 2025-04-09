@@ -15,63 +15,62 @@ import appConfig from '@/configs/app.config';
 import { useDisclosure } from '@mantine/hooks';
 import { IconChevronRight } from '@tabler/icons-react';
 import { getFilePath } from '@/utils';
-import { AddMain } from '../AppMain';
-
+import { useAppDispatch, useAppSelector } from '@/store';
+import { setAppConfig } from '@/store/slices/appConfig';
 export default function SimpleSideBar() {
-  const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
-
+  const appConfig = useAppSelector((state) => state.appConfig);
+  const { desktop } = appConfig;
+  const dispatch = useAppDispatch();
+  const toggleDesktop = () => {
+    dispatch(
+      setAppConfig({
+        desktop: !desktop,
+      }),
+    );
+  };
   return (
-    <AppShell
-      navbar={{
-        width: 300,
-        breakpoint: 'sm',
-        collapsed: { desktop: !desktopOpened },
-      }}
-    >
-      <AppShell.Navbar>
-        <AppShell.Section>
-          <Group justify="space-between" gap="md" p="md">
-            <Image
-              w="30"
-              h="30"
-              radius="sm"
-              alt="Logo"
-              src={getFilePath(appConfig.logo)}
-            />
-            <Title order={5} flex={1}>
-              {appConfig.name}
-            </Title>
-            <Code fw={700}>{appConfig.version}</Code>
-          </Group>
-        </AppShell.Section>
-        <Divider />
-        <AppShell.Section grow my="md" component={ScrollArea}>
-          <NavbarLinksGroup />
-        </AppShell.Section>
-        <Divider />
-        <AppShell.Section>
-          <UserButton />
-        </AppShell.Section>
-        <UnstyledButton
-          w="xl"
-          pos="absolute"
-          h="100%"
-          right="0"
-          style={{
-            transform: 'translateX(100%)',
-          }}
-          onClick={toggleDesktop}
-        >
-          <Center>
-            <IconChevronRight
-              style={{
-                transform: desktopOpened ? 'rotate(180deg)' : 'rotate(0deg)',
-              }}
-            />
-          </Center>
-        </UnstyledButton>
-      </AppShell.Navbar>
-      <AddMain />
-    </AppShell>
+    <AppShell.Navbar>
+      <AppShell.Section>
+        <Group justify="space-between" gap="md" p="md">
+          <Image
+            w="30"
+            h="30"
+            radius="sm"
+            alt="Logo"
+            src={getFilePath(appConfig.logo)}
+          />
+          <Title order={5} flex={1}>
+            {appConfig.name}
+          </Title>
+          <Code fw={700}>{appConfig.version}</Code>
+        </Group>
+      </AppShell.Section>
+      <Divider />
+      <AppShell.Section grow my="md" component={ScrollArea}>
+        <NavbarLinksGroup />
+      </AppShell.Section>
+      <Divider />
+      <AppShell.Section>
+        <UserButton />
+      </AppShell.Section>
+      <UnstyledButton
+        w="xl"
+        pos="absolute"
+        h="100%"
+        right="0"
+        style={{
+          transform: 'translateX(100%)',
+        }}
+        onClick={toggleDesktop}
+      >
+        <Center>
+          <IconChevronRight
+            style={{
+              transform: desktop ? 'rotate(180deg)' : 'rotate(0deg)',
+            }}
+          />
+        </Center>
+      </UnstyledButton>
+    </AppShell.Navbar>
   );
 }
