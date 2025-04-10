@@ -5,7 +5,7 @@ import { DefaultMantineColor, MantineTheme } from '@mantine/core';
 export interface AppThemeState extends Partial<MantineTheme> {}
 
 const initialState: AppThemeState = {
-  primaryColor: 'dark',
+  primaryColor: 'blue',
 };
 
 const appThemeSlice = createSlice({
