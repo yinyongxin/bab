@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SLICE_BASE_NAME } from '../auth/constants';
 import { LayoutTypes } from '@/@types/layout';
+import { DefaultMantineColor } from '@mantine/core';
 
 export interface AppConfigState {
   layoutType: LayoutTypes;

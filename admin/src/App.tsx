@@ -1,8 +1,7 @@
-import { MantineProvider } from '@mantine/core';
-import { theme } from './theme';
+import { MantineProvider, createTheme } from '@mantine/core';
 import { Layout } from '@/layout/Layout';
 import { Provider } from 'react-redux';
-import store, { persistor } from '@/store';
+import store, { persistor, useAppSelector } from '@/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { ModalsProvider } from '@mantine/modals';
@@ -18,19 +17,38 @@ import './App.css';
  * https://mantine.dev/x/spotlight/#installation
  */
 import '@mantine/spotlight/styles.css';
-export default function App() {
+import { useDidUpdate } from '@mantine/hooks';
+import { useMemo } from 'react';
+
+const AppContent = () => {
+  const { primaryColor } = useAppSelector((state) => state.appTheme);
+  useDidUpdate(() => {}, [primaryColor]);
+  const theme = useMemo(() => {
+    return createTheme({
+      /** Put your mantine theme override here */
+      // primaryColor: 'dark',
+      primaryColor,
+      defaultRadius: 'md',
+      cursorType: 'pointer',
+    });
+  }, [primaryColor]);
   return (
     <MantineProvider theme={theme}>
       <Notifications />
       <ModalsProvider>
-        <Provider store={store}>
-          <PersistGate loading={null} persistor={persistor}>
-            <BrowserRouter>
-              <Layout />
-            </BrowserRouter>
-          </PersistGate>
-        </Provider>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            <Layout />
+          </BrowserRouter>
+        </PersistGate>
       </ModalsProvider>
     </MantineProvider>
+  );
+};
+export default function App() {
+  return (
+    <Provider store={store}>
+      <AppContent />
+    </Provider>
   );
 }

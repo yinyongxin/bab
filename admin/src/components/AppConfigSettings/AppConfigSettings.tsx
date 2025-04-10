@@ -1,5 +1,5 @@
 import { SegmentedControl, Stack } from '@mantine/core';
-import FloatingTabs from '../FloatingTabs';
+import ColorSettings from './ColorSettings';
 import LayoutSetting from './LayoutSetting';
 import { useState } from 'react';
 
@@ -14,7 +14,7 @@ const AppConfigSettings = () => {
     {
       label: '颜色配置',
       value: 'color',
-      content: 'color',
+      content: <ColorSettings />,
     },
   ];
   return (

@@ -8,6 +8,7 @@ import base, { BaseState } from './slices/base';
 import locale, { LocaleState } from './slices/locale/localeSlice';
 // 导入 theme 模块及其状态类型
 import appConfig, { AppConfigState } from './slices/appConfig/appConfigSlice';
+import appTheme, { AppThemeState } from './slices/appTheme/appThemeSlice';
 
 // 定义根状态类型，包含所有子模块的状态
 export type RootState = {
@@ -15,6 +16,7 @@ export type RootState = {
   base: BaseState;
   locale: LocaleState;
   appConfig: AppConfigState;
+  appTheme: AppThemeState;
 };
 
 // 定义异步 reducer 的接口
@@ -28,6 +30,7 @@ const staticReducers = {
   base,
   locale,
   appConfig,
+  appTheme,
 };
 
 // 定义动态合并 reducer 的函数

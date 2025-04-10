@@ -23,7 +23,7 @@ const persistConfig = {
   key: PERSIST_STORE_NAME,
   keyPrefix: '',
   storage,
-  whitelist: ['auth', 'locale', 'appConfig'],
+  whitelist: ['auth', 'locale', 'appConfig', 'appTheme'],
 };
 
 // 定义自定义 store 接口，扩展了 Store 接口
