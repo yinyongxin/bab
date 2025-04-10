@@ -61,7 +61,6 @@ export function LinksGroup({ icon, name, path, children }: LinksGroupProps) {
           )}
         </Group>
       </UnstyledButton>
-      {String(opened)}
       {hasLinks ? (
         <Collapse in={opened || activeMainLink === path}>{items}</Collapse>
       ) : null}
