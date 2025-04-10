@@ -59,7 +59,7 @@
     );
   }
 
-  /* &[data-active] {
+  &[data-active] {
     &,
     &:hover {
       background-color: light-dark(
@@ -71,7 +71,7 @@
         var(--mantine-primary-color-filled)
       );
     }
-  } */
+  }
 
   &[data-dark-hover]:hover {
     background-color: light-dark(

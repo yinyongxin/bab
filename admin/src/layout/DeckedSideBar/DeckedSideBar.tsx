@@ -97,9 +97,9 @@ export default function DeckedSideBar() {
                   <UnstyledButton
                     onClick={() => handleMainLinkClick(link.path, link.name)}
                     className={classes.mainLink}
-                    data-active={!isDarkColor && (active || undefined)}
+                    data-active={(!isDarkColor && active) || undefined}
                     data-dark-hover={isDarkColor || undefined}
-                    data-dark-active={(active && isDarkColor) || undefined}
+                    data-dark-active={(isDarkColor && active) || undefined}
                   >
                     <FontIcons name={link.icon} style={{ fontSize: rem(18) }} />
                   </UnstyledButton>
