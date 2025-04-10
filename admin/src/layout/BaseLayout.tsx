@@ -4,7 +4,7 @@ import { AppShell, Drawer } from '@mantine/core';
 import HeaderContent from './HeaderContent/HeaderContent';
 import NavBarContent from './NavBarContent';
 import { LayoutTypes } from '@/@types/layout';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import LayoutContext from './LayoutContext';
 import { useLocation } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
@@ -16,6 +16,7 @@ export default function BaseLayout() {
   const [activeMainLink, setActiveMainLink] = useState('');
   const [appSettingsOpened, setAppSettingsAction] = useDisclosure(false);
   const location = useLocation();
+
   useEffect(() => {
     const currentPath = location.pathname.split('/');
     const currentMainLink = currentPath[1];
@@ -26,23 +27,45 @@ export default function BaseLayout() {
     setActiveSubLink(currentSubLink);
   }, [location.pathname]);
 
-  const showHeader = [
-    layoutType === LayoutTypes.Top,
-    layoutType === LayoutTypes.TopSide,
-  ].some((value) => value);
+  const appHeader = useMemo(() => {
+    const showHeader = [
+      layoutType === LayoutTypes.Top,
+      layoutType === LayoutTypes.TopSide,
+    ].some((value) => value);
+    if (showHeader) {
+      return {
+        content: (
+          <AppShell.Header>
+            <HeaderContent />
+          </AppShell.Header>
+        ),
+        option: {
+          height: 60,
+        },
+      };
+    }
+  }, [layoutType]);
+
+  const appNavBar = useMemo(() => {
+    const showNavbar = [layoutType !== LayoutTypes.Top].some((value) => value);
+    if (showNavbar) {
+      return {
+        content: (
+          <AppShell.Navbar>
+            <NavBarContent />
+          </AppShell.Navbar>
+        ),
+        option: {
+          width: 300,
+          breakpoint: 'md',
+          collapsed: { desktop: !desktop },
+        },
+      };
+    }
+  }, [layoutType]);
+
   const showNavbar = [layoutType !== LayoutTypes.Top].some((value) => value);
-  const navbar = showNavbar
-    ? {
-        width: 300,
-        breakpoint: 'md',
-        collapsed: { desktop: !desktop },
-      }
-    : undefined;
-  const header = showHeader
-    ? {
-        height: 60,
-      }
-    : undefined;
+
   return (
     <LayoutContext.Provider
       value={{
@@ -53,17 +76,9 @@ export default function BaseLayout() {
         openAppSettings: setAppSettingsAction.open,
       }}
     >
-      <AppShell navbar={navbar} header={header}>
-        {showHeader && (
-          <AppShell.Header>
-            <HeaderContent />
-          </AppShell.Header>
-        )}
-        {showNavbar && (
-          <AppShell.Navbar>
-            <NavBarContent />
-          </AppShell.Navbar>
-        )}
+      <AppShell navbar={appNavBar?.option} header={appHeader?.option}>
+        {appHeader?.content}
+        {appNavBar?.content}
         <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))">
           <Views />
         </AppShell.Main>

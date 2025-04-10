@@ -25,26 +25,26 @@ import {
 } from '@tabler/icons-react';
 import { useFullscreen } from '@mantine/hooks';
 import { spotlight } from '@mantine/spotlight';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import LayoutContext from '../LayoutContext';
 const HeaderContent = () => {
   const { user } = useAppSelector((state) => state.auth);
   const { layoutType } = useAppSelector((state) => state.appConfig);
   const { openAppSettings } = useContext(LayoutContext);
   const { toggle, fullscreen } = useFullscreen();
-  const getCenter = () => {
+  const center = useMemo(() => {
     if (layoutType === LayoutTypes.Top) {
       return <MegaMenu />;
     } else if (layoutType === LayoutTypes.TopSide) {
       return <SimpleMenu />;
     }
     return null;
-  };
+  }, [layoutType]);
   return (
     <Group h="100%" gap="xl">
       <LogoArea />
       <Box flex={1} h="100%">
-        {getCenter()}
+        {center}
       </Box>
       <Group
         justify="flex-end"
