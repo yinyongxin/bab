@@ -61,7 +61,7 @@ const HeaderContent = () => {
               <Text size="xs">⌘ K</Text>
             </Group>
           </Button>
-          <Tooltip key="fullscreen" label={fullscreen ? '取消全屏' : '全屏'}>
+          <Tooltip key="fullscreen" label="设置">
             <ActionIcon
               size="md"
               key="fullscreen"
