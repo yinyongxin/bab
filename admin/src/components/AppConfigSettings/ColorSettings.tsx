@@ -73,7 +73,7 @@ const ColorSettings = () => {
       <Grid>
         {colors.map((color) => {
           return (
-            <Grid.Col span={3}>
+            <Grid.Col span={3} key={color}>
               <Stack align="center" w="100%">
                 <Paper
                   w="100%"
