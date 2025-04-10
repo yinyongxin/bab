@@ -2,7 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SLICE_BASE_NAME } from './constants';
 import { AdmintorsResultDto } from '@/client';
 
-export interface UserState extends Partial<AdmintorsResultDto> {}
+export interface UserState
+  extends Omit<Partial<AdmintorsResultDto>, 'createdTime' | 'updatedTime'> {
+  createdTime?: string;
+  updatedTime?: string;
+}
 
 export const initialUserState: UserState = {
   username: '',

@@ -9,15 +9,14 @@ import {
   Text,
   ThemeIcon,
   Title,
-  UnstyledButton,
   useMantineTheme,
 } from '@mantine/core';
 import classes from './MegaMenu.module.css';
 import { useAppSelector } from '@/store';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { TreeMenuDataDto } from '@/client';
 import FontIcons from '@/components/FontIcons';
-import { useState, useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import LayoutContext from '@/layout/LayoutContext';
 
 export default function MegaMenu() {
@@ -27,7 +26,7 @@ export default function MegaMenu() {
 
   const getLinks = (navigation: TreeMenuDataDto) => {
     const { children } = navigation;
-    return children.map((item) => {
+    return children?.map((item) => {
       const active = activeSubLink === item.path;
       return (
         <Link
@@ -79,7 +78,7 @@ export default function MegaMenu() {
                 gap="xs"
                 c={active ? 'var(--mantine-primary-color-5)' : undefined}
               >
-                <FontIcons name={navigation.icon} size={18}></FontIcons>
+                <FontIcons name={navigation.icon} size={18} />
                 <Title order={5} mr={5}>
                   {navigation.name}
                 </Title>

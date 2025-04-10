@@ -45,7 +45,13 @@ const updateMenus = async (menus: string[], dispatch: AppThunkDispatch) => {
   });
   /** 有权限的菜单 */
   const authMenus =
-    allMenus.data?.filter((menu) => menus.includes(menu._id)) || [];
+    allMenus.data
+      ?.map((item) => ({
+        ...item,
+        createdTime: undefined as unknown as Date,
+        updatedTime: undefined as unknown as Date,
+      }))
+      ?.filter((menu) => menus.includes(menu._id)) || [];
   /** 导航菜单 */
   const navigationMenus = authMenus.filter(
     ({ menuType }) => menuType !== MenuTypeEnum.FUNCTION_AREA,
@@ -98,6 +104,8 @@ function useAuth() {
         setUser({
           ...userInfo,
           avatar: `${appConfig.fileBaseUrl}${userInfo.avatar}`,
+          createdTime: userInfo.createdTime.toString(),
+          updatedTime: userInfo.updatedTime.toString(),
         }),
       );
       const redirectUrl = query.get(REDIRECT_URL_KEY);
