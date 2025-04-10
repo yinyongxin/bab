@@ -1,6 +1,7 @@
 import { IconChevronDown } from '@tabler/icons-react';
 import {
   Anchor,
+  Box,
   Divider,
   Group,
   HoverCard,
@@ -8,6 +9,7 @@ import {
   Text,
   ThemeIcon,
   Title,
+  UnstyledButton,
   useMantineTheme,
 } from '@mantine/core';
 import classes from './MegaMenu.module.css';
@@ -27,9 +29,6 @@ export default function MegaMenu() {
     const { children } = navigation;
     return children.map((item) => {
       const active = activeSubLink === item.path;
-      console.log('activeSubLink', activeSubLink);
-      console.log(' item.path', item.path);
-      console.log('active', active);
       return (
         <Link
           to={`/${navigation.path}/${item.path}`}
@@ -73,7 +72,7 @@ export default function MegaMenu() {
           withinPortal
         >
           <HoverCard.Target>
-            <Link to={navigation.path || '/'} className={classes.link}>
+            <Box className={classes.link}>
               <Group
                 align="center"
                 gap="xs"
@@ -85,7 +84,7 @@ export default function MegaMenu() {
                 </Title>
                 <IconChevronDown size={16} />
               </Group>
-            </Link>
+            </Box>
           </HoverCard.Target>
 
           <HoverCard.Dropdown style={{ overflow: 'hidden' }}>

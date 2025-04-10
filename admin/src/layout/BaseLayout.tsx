@@ -16,8 +16,10 @@ export default function BaseLayout() {
   useEffect(() => {
     const currentPath = location.pathname.split('/');
     const currentMainLink = currentPath[1];
+    if (activeMainLink !== currentMainLink) {
+      setActiveMainLink(currentMainLink);
+    }
     const currentSubLink = currentPath[2];
-    setActiveMainLink(currentMainLink);
     setActiveSubLink(currentSubLink);
   }, [location.pathname]);
 
