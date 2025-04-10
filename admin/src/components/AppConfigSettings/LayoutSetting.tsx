@@ -7,7 +7,6 @@ import {
   Center,
   Flex,
   Grid,
-  Group,
   Paper,
   Stack,
   Title,
@@ -41,23 +40,21 @@ const LayoutSetting = () => {
   const { layoutType } = appConfig;
   const dispatch = useAppDispatch();
   const conent = (
-    <Stack h={'100%'} gap="xs">
-      {/* <Group flex={1} w="100%"> */}
+    <Stack h="100%" gap="xs">
       <Flex flex={1} gap="xs">
         <Paper
           bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-gray-8))"
           flex={1}
-        ></Paper>
+        />
         <Paper
           bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-gray-8))"
           flex={1}
-        ></Paper>
+        />
       </Flex>
       <Paper
         bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-gray-8))"
         flex={1}
-      ></Paper>
-      {/* </Group> */}
+      />
     </Stack>
   );
   const typeObj: Record<LayoutTypes, React.ReactNode> = {
@@ -82,7 +79,7 @@ const LayoutSetting = () => {
               <Grid.Col
                 span={3}
                 bg="light-dark(var(--mantine-primary-color-5), var(--mantine-primary-color-5))"
-              ></Grid.Col>
+              />
               <Grid.Col
                 span={9}
                 bg="light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-9))"
@@ -119,11 +116,11 @@ const LayoutSetting = () => {
               <Grid.Col
                 span={1}
                 bg="light-dark(var(--mantine-primary-color-5), var(--mantine-primary-color-5))"
-              ></Grid.Col>
+              />
               <Grid.Col
                 span={2}
                 bg="light-dark(var(--mantine-primary-color-3), var(--mantine-primary-color-7))"
-              ></Grid.Col>
+              />
               <Grid.Col
                 span={9}
                 bg="light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-9))"
@@ -153,7 +150,7 @@ const LayoutSetting = () => {
                 flex={2}
                 w="100%"
                 bg="light-dark(var(--mantine-primary-color-5), var(--mantine-primary-color-5))"
-              ></Box>
+              />
               <Grid
                 flex={10}
                 gutter="0"
@@ -166,7 +163,7 @@ const LayoutSetting = () => {
                 <Grid.Col
                   span={3}
                   bg="light-dark(var(--mantine-primary-color-3), var(--mantine-primary-color-7))"
-                ></Grid.Col>
+                />
                 <Grid.Col
                   span={9}
                   bg="light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-9))"
@@ -197,7 +194,7 @@ const LayoutSetting = () => {
                 flex={2}
                 w="100%"
                 bg="light-dark(var(--mantine-primary-color-5), var(--mantine-primary-color-5))"
-              ></Box>
+              />
               <Grid
                 flex={10}
                 gutter="0"
@@ -229,7 +226,7 @@ const LayoutSetting = () => {
     <Stack>
       <Grid>
         {Object.keys(typeObj).map((item) => (
-          <Grid.Col span={6}>
+          <Grid.Col span={6} key={item}>
             {typeObj[item as unknown as LayoutTypes]}
           </Grid.Col>
         ))}
