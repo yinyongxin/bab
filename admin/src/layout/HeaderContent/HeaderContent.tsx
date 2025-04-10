@@ -6,7 +6,6 @@ import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeTog
 import { LayoutTypes } from '@/@types/layout';
 import MegaMenu from './MegaMenu/MegaMenu';
 import SimpleMenu from './SimpleMenu/SimpleMenu';
-
 const HeaderContent = () => {
   const { user } = useAppSelector((state) => state.auth);
   const { layoutType } = useAppSelector((state) => state.appConfig);

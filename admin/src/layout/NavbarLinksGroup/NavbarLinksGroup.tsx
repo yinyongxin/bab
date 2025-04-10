@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IconChevronRight } from '@tabler/icons-react';
 import {
   Box,
@@ -13,29 +13,16 @@ import FontIcons from '@/components/FontIcons';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '@/store';
 import { TreeMenuDataDto } from '@/client';
+import LayoutContext from '../LayoutContext';
 
 interface LinksGroupProps extends TreeMenuDataDto {
   initiallyOpened?: boolean;
 }
 
-export function LinksGroup({
-  icon,
-  name,
-  path,
-  initiallyOpened,
-  children,
-}: LinksGroupProps) {
+export function LinksGroup({ icon, name, path, children }: LinksGroupProps) {
+  const { activeSubLink, activeMainLink } = useContext(LayoutContext);
   const hasLinks = Array.isArray(children);
-  const [opened, setOpened] = useState(initiallyOpened || false);
-  const [activeSubLink, setActiveSubLink] = useState('');
-  const location = useLocation();
-  useEffect(() => {
-    const currentPath = location.pathname.split('/');
-    const currentMainLink = currentPath[1];
-    const currentSubLink = currentPath[2];
-    setOpened(currentMainLink === path);
-    setActiveSubLink(currentSubLink);
-  }, [location.pathname]);
+  const [opened, setOpened] = useState(activeMainLink === path || false);
 
   const items = (hasLinks ? children : []).map((link) => (
     <Link

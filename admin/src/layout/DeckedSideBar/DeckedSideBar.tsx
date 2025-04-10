@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import {
   UnstyledButton,
   Tooltip,
@@ -17,13 +17,12 @@ import FontIcons from '@/components/FontIcons';
 import { UserButton } from '@/components/UserButton/UserButton';
 import appConfig from '@/configs/app.config';
 import { getFilePath } from '@/utils';
+import LayoutContext from '../LayoutContext';
 
 export default function DeckedSideBar() {
-  const [activeMainLink, setActiveMainLink] = useState('');
-  const [activeSubLink, setActiveSubLink] = useState('');
+  const { activeMainLink, setActiveMainLink, activeSubLink } =
+    useContext(LayoutContext);
   const [title, setTitle] = useState('');
-  const location = useLocation();
-  const { t } = useTranslation();
   const { menus, user } = useAppSelector((state) => state.auth);
   const { navigationTree = [] } = menus;
 
@@ -56,15 +55,10 @@ export default function DeckedSideBar() {
   }, [activeMainLink, activeSubLink, title]);
 
   useEffect(() => {
-    const currentPath = location.pathname.split('/');
-    const currentMainLink = currentPath[1];
-    const currentSubLink = currentPath[2];
-    setActiveMainLink(currentMainLink);
-    setActiveSubLink(currentSubLink);
     const title =
-      navigationTree.find((item) => item.path === currentMainLink)?.name || '';
+      navigationTree.find((item) => item.path === activeMainLink)?.name || '';
     setTitle(title);
-  }, [location.pathname]);
+  }, [activeMainLink]);
 
   const handleMainLinkClick = (mainLink?: string, title?: string) => {
     if (mainLink && title) {

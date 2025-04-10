@@ -15,21 +15,13 @@ import { useAppSelector } from '@/store';
 import { Link, useLocation } from 'react-router-dom';
 import { TreeMenuDataDto } from '@/client';
 import FontIcons from '@/components/FontIcons';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import LayoutContext from '@/layout/LayoutContext';
 
 export default function MegaMenu() {
   const { navigationTree } = useAppSelector((state) => state.auth.menus);
   const theme = useMantineTheme();
-  const [activeSubLink, setActiveSubLink] = useState('');
-  const [activeMainLink, setActiveMainLink] = useState('');
-  const location = useLocation();
-  useEffect(() => {
-    const currentPath = location.pathname.split('/');
-    const currentMainLink = currentPath[1];
-    const currentSubLink = currentPath[2];
-    setActiveMainLink(currentMainLink);
-    setActiveSubLink(currentSubLink);
-  }, [location.pathname]);
+  const { activeSubLink, activeMainLink } = useContext(LayoutContext);
 
   const getLinks = (navigation: TreeMenuDataDto) => {
     const { children } = navigation;

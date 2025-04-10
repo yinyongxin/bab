@@ -1,32 +1,26 @@
-import { useEffect, useState } from 'react';
-import { Button, Group, Title, UnstyledButton } from '@mantine/core';
+import { useContext, useState } from 'react';
+import { Group, Title, UnstyledButton } from '@mantine/core';
 import FontIcons from '@/components/FontIcons';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '@/store';
 import classes from './SimpleMenu.module.css';
+import LayoutContext from '@/layout/LayoutContext';
 
 export default function SimpleMenu() {
   const { navigationTree } = useAppSelector((state) => state.auth.menus);
-  const [active, setActive] = useState(navigationTree[0]._id);
-  const [activeMainLink, setActiveMainLink] = useState('');
-  const location = useLocation();
-  useEffect(() => {
-    const currentPath = location.pathname.split('/');
-    const currentMainLink = currentPath[1];
-    setActiveMainLink(currentMainLink);
-  }, [location.pathname]);
+  const { activeSubLink, setActiveMainLink } = useContext(LayoutContext);
 
   const items = navigationTree.map((link) => {
     return (
       <UnstyledButton
         key={link._id}
         className={classes.link}
-        onClick={() => setActive(link._id)}
-        data-active={link._id === active || undefined}
-        component={Link}
-        to={`/${link.path}`}
+        onClick={() => {
+          setActiveMainLink(link.path || '');
+        }}
+        data-active={link.path === activeSubLink || undefined}
       >
-        <Group gap={'xs'}>
+        <Group gap={'xs'} px="md" py="xs">
           <FontIcons name={link.icon} size={18} />
           <Title order={6}>{link.name}</Title>
         </Group>
