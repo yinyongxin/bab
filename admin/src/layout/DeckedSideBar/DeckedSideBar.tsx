@@ -26,6 +26,8 @@ export default function DeckedSideBar() {
   const { menus, user } = useAppSelector((state) => state.auth);
   const { navigationTree = [] } = menus;
   const theme = useMantineTheme();
+  const isDarkColor =
+    theme.primaryColor === 'dark' || theme.primaryColor === 'gray';
   const subLinkList = useMemo(() => {
     const subMenus = (
       navigationTree.find((linkItem) => linkItem.path === activeMainLink)
@@ -83,8 +85,7 @@ export default function DeckedSideBar() {
           <Box style={{ overflowY: 'auto', flex: 1 }} py="md">
             {navigationTree.map((link, index) => {
               const active = link.path === activeMainLink;
-              const isDarkColor =
-                theme.primaryColor === 'dark' || theme.primaryColor === 'gray';
+
               return (
                 <Tooltip
                   key={index}

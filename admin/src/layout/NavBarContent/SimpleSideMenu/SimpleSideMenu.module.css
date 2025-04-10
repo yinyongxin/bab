@@ -16,15 +16,49 @@
   border-radius: var(--mantine-radius-default);
   font-weight: 500;
 
-  @mixin hover {
+  &:hover {
     background-color: light-dark(
       var(--mantine-primary-color-light),
       var(--mantine-primary-color-light)
     );
-    color: light-dark(var(--mantine-primary-color-filled), var(--mantine-color-white));
+    color: light-dark(
+      var(--mantine-primary-color-filled),
+      var(--mantine-color-white)
+    );
 
     .linkIcon {
-      color: light-dark(var(--mantine-primary-color-filled), var(--mantine-color-white));
+      color: light-dark(
+        var(--mantine-primary-color-filled),
+        var(--mantine-color-white)
+      );
+    }
+  }
+  &[data-dark-hover] {
+    &:hover {
+      background-color: light-dark(
+        var(--mantine-primary-color-light),
+        var(--mantine-primary-color-5)
+      );
+    }
+  }
+
+  &[data-dark-active] {
+    & {
+      background-color: light-dark(
+        var(--mantine-primary-color-light),
+        var(--mantine-primary-color-5)
+      );
+      color: light-dark(
+        var(--mantine-primary-color-filled),
+        var(--mantine-color-white)
+      );
+
+      .linkIcon {
+        color: light-dark(
+          var(--mantine-primary-color-filled),
+          var(--mantine-color-white)
+        );
+      }
     }
   }
 
@@ -35,10 +69,16 @@
         var(--mantine-primary-color-light),
         var(--mantine-primary-color-light)
       );
-      color: light-dark(var(--mantine-primary-color-filled), var(--mantine-color-white));
+      color: light-dark(
+        var(--mantine-primary-color-filled),
+        var(--mantine-color-white)
+      );
 
       .linkIcon {
-        color: light-dark(var(--mantine-primary-color-filled), var(--mantine-color-white));
+        color: light-dark(
+          var(--mantine-primary-color-filled),
+          var(--mantine-color-white)
+        );
       }
     }
   }
