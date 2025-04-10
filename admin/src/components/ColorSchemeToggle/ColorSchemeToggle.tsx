@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Tooltip,
   useComputedColorScheme,
   useMantineColorScheme,
 } from '@mantine/core';
@@ -13,16 +14,18 @@ export function ColorSchemeToggle() {
   });
 
   return (
-    <ActionIcon
-      onClick={() =>
-        setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
-      }
-      variant="light"
-      size="38"
-      aria-label="Toggle color scheme"
-    >
-      <IconSun className={cx(classes.light)} stroke={1.5} />
-      <IconMoon className={cx(classes.dark)} stroke={1.5} />
-    </ActionIcon>
+    <Tooltip label="切换颜色模式">
+      <ActionIcon
+        onClick={() =>
+          setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
+        }
+        size="md"
+        variant="subtle"
+        aria-label="切换颜色模式"
+      >
+        <IconSun className={cx(classes.light)} stroke={1.5} />
+        <IconMoon className={cx(classes.dark)} stroke={1.5} />
+      </ActionIcon>
+    </Tooltip>
   );
 }
