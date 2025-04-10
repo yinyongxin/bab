@@ -44,7 +44,7 @@ export default function BaseLayout() {
         },
       };
     }
-  }, [layoutType]);
+  }, [layoutType, desktop]);
 
   const appNavBar = useMemo(() => {
     const showNavbar = [layoutType !== LayoutTypes.Top].some((value) => value);
@@ -62,7 +62,7 @@ export default function BaseLayout() {
         },
       };
     }
-  }, [layoutType]);
+  }, [layoutType, desktop]);
 
   return (
     <LayoutContext.Provider

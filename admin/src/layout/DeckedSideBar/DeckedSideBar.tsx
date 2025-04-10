@@ -8,6 +8,7 @@ import {
   Center,
   Image,
   Avatar,
+  useMantineTheme,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link } from 'react-router-dom';
@@ -24,7 +25,7 @@ export default function DeckedSideBar() {
   const [title, setTitle] = useState('');
   const { menus, user } = useAppSelector((state) => state.auth);
   const { navigationTree = [] } = menus;
-
+  const theme = useMantineTheme();
   const subLinkList = useMemo(() => {
     const subMenus = (
       navigationTree.find((linkItem) => linkItem.path === activeMainLink)
@@ -80,23 +81,30 @@ export default function DeckedSideBar() {
             />
           </Center>
           <Box style={{ overflowY: 'auto', flex: 1 }} py="md">
-            {navigationTree.map((link, index) => (
-              <Tooltip
-                key={index}
-                label={link.name}
-                position="right"
-                withArrow
-                transitionProps={{ duration: 0 }}
-              >
-                <UnstyledButton
-                  onClick={() => handleMainLinkClick(link.path, link.name)}
-                  className={classes.mainLink}
-                  data-active={link.path === activeMainLink || undefined}
+            {navigationTree.map((link, index) => {
+              const active = link.path === activeMainLink;
+              const isDarkColor =
+                theme.primaryColor === 'dark' || theme.primaryColor === 'gray';
+              return (
+                <Tooltip
+                  key={index}
+                  label={link.name}
+                  position="right"
+                  withArrow
+                  transitionProps={{ duration: 0 }}
                 >
-                  <FontIcons name={link.icon} style={{ fontSize: rem(18) }} />
-                </UnstyledButton>
-              </Tooltip>
-            ))}
+                  <UnstyledButton
+                    onClick={() => handleMainLinkClick(link.path, link.name)}
+                    className={classes.mainLink}
+                    data-active={!isDarkColor && (active || undefined)}
+                    data-dark-hover={isDarkColor || undefined}
+                    data-dark-active={(active && isDarkColor) || undefined}
+                  >
+                    <FontIcons name={link.icon} style={{ fontSize: rem(18) }} />
+                  </UnstyledButton>
+                </Tooltip>
+              );
+            })}
           </Box>
 
           <UserButton>

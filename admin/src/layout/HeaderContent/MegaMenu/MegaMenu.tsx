@@ -73,16 +73,12 @@ export default function MegaMenu() {
         >
           <HoverCard.Target>
             <Box className={classes.link}>
-              <Group
-                align="center"
-                gap="xs"
-                c={active ? 'var(--mantine-primary-color-5)' : undefined}
-              >
+              <Group align="center" gap="xs">
                 <FontIcons name={navigation.icon} size={18} />
                 <Title order={5} mr={5}>
                   {navigation.name}
                 </Title>
-                <IconChevronDown size={16} />
+                {active && <IconChevronDown size={16} />}
               </Group>
             </Box>
           </HoverCard.Target>
