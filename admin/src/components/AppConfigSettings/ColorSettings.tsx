@@ -10,8 +10,7 @@ import {
   useMantineTheme,
   DefaultMantineColor,
 } from '@mantine/core';
-import { IconBrightnessAuto, IconSun } from '@tabler/icons-react';
-import { V } from 'vitest/dist/chunks/reporters.d.CqBhtcTq';
+import { IconBrightnessAuto, IconMoon, IconSun } from '@tabler/icons-react';
 
 const ColorSettings = () => {
   const { colorScheme, setColorScheme } = useMantineColorScheme();
@@ -47,7 +46,7 @@ const ColorSettings = () => {
               onClick={() => setColorScheme('dark')}
             >
               <Center h="80">
-                <IconSun size={38} />
+                <IconMoon size={38} />
               </Center>
             </Paper>
             <Title order={6}>浅色模式</Title>

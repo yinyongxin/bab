@@ -1,6 +1,6 @@
 import Views from '@/layout/Views';
 import { useAppSelector } from '@/store';
-import { AppShell, Drawer } from '@mantine/core';
+import { AppShell, Drawer, ScrollArea } from '@mantine/core';
 import HeaderContent from './HeaderContent/HeaderContent';
 import NavBarContent from './NavBarContent';
 import { LayoutTypes } from '@/@types/layout';
@@ -64,8 +64,6 @@ export default function BaseLayout() {
     }
   }, [layoutType]);
 
-  const showNavbar = [layoutType !== LayoutTypes.Top].some((value) => value);
-
   return (
     <LayoutContext.Provider
       value={{
@@ -88,6 +86,7 @@ export default function BaseLayout() {
         position="right"
         opened={appSettingsOpened}
         onClose={setAppSettingsAction.close}
+        scrollAreaComponent={ScrollArea.Autosize}
       >
         <AppConfigSettings />
       </Drawer>
