@@ -33,7 +33,7 @@ export default function MegaMenu() {
         <Link
           to={`/${navigation.path}/${item.path}`}
           className={classes.subLink}
-          key={item.name}
+          key={item._id}
           data-active={active || undefined}
         >
           <Group wrap="nowrap" align="flex-start">
@@ -65,6 +65,7 @@ export default function MegaMenu() {
     if (hasChildren) {
       return (
         <HoverCard
+          key={navigation._id}
           width={600}
           position="bottom"
           radius="md"

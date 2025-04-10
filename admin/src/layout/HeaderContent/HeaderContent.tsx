@@ -5,7 +5,6 @@ import {
   Center,
   Group,
   Tooltip,
-  UnstyledButton,
   rem,
   Text,
   Button,
@@ -61,10 +60,9 @@ const HeaderContent = () => {
               <Text size="xs">⌘ K</Text>
             </Group>
           </Button>
-          <Tooltip key="fullscreen" label="设置">
+          <Tooltip label="设置">
             <ActionIcon
               size="md"
-              key="fullscreen"
               onClick={() => {
                 openAppSettings();
               }}
@@ -73,10 +71,9 @@ const HeaderContent = () => {
               <IconSettings />
             </ActionIcon>
           </Tooltip>
-          <Tooltip key="fullscreen" label={fullscreen ? '取消全屏' : '全屏'}>
+          <Tooltip label={fullscreen ? '取消全屏' : '全屏'}>
             <ActionIcon
               size="md"
-              key="fullscreen"
               onClick={() => {
                 toggle();
               }}
