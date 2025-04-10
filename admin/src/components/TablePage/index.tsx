@@ -19,7 +19,7 @@ import {
   TableThProps,
   Tooltip,
 } from '@mantine/core';
-import { Key, useState } from 'react';
+import { Key, useRef, useState } from 'react';
 import Empty from '../Empty/Empty';
 import classes from './TablePage.module.css';
 import {
@@ -53,7 +53,23 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     props;
   const [scrolled, setScrolled] = useState(false);
   const [verticalSpacing, setVerticalSpacing] = useState<MantineSpacing>('md');
-  const { ref, toggle, fullscreen } = useFullscreen();
+  const [fullscreen, setFullscreen] = useState<boolean>(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const toggle = () => {
+    if (!ref.current) {
+      return;
+    }
+    if (!fullscreen) {
+      ref.current.style.position = 'fixed';
+      ref.current.style.inset = '0';
+      ref.current.style.zIndex = '102';
+    } else {
+      ref.current.style.position = 'relative';
+      ref.current.style.inset = 'unset';
+      ref.current.style.zIndex = 'unset';
+    }
+    setFullscreen(!fullscreen);
+  };
   const getTableHeader = () => {
     return (
       <Table.Thead
