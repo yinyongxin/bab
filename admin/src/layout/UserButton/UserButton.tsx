@@ -28,7 +28,7 @@ export function UserButton(props: UserButtonProps) {
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
   });
-  const { openAppSettingsAction } = useContext(LayoutContext);
+  const { openAppSettings } = useContext(LayoutContext);
 
   const { signOut } = useAuth();
   return (
@@ -40,7 +40,7 @@ export function UserButton(props: UserButtonProps) {
           <Menu.Label>功能</Menu.Label>
           <Menu.Item
             leftSection={<IconSettings size={14} />}
-            onClick={openAppSettingsAction}
+            onClick={openAppSettings}
           >
             设置
           </Menu.Item>

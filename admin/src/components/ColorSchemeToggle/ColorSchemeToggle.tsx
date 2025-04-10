@@ -23,8 +23,8 @@ export function ColorSchemeToggle() {
         variant="subtle"
         aria-label="切换颜色模式"
       >
-        <IconSun className={cx(classes.light)} stroke={1.5} />
-        <IconMoon className={cx(classes.dark)} stroke={1.5} />
+        <IconSun className={cx(classes.light)} size={26} />
+        <IconMoon className={cx(classes.dark)} size={26} />
       </ActionIcon>
     </Tooltip>
   );

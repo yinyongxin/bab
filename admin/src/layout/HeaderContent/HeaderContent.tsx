@@ -5,7 +5,10 @@ import {
   Center,
   Group,
   Tooltip,
+  UnstyledButton,
   rem,
+  Text,
+  Button,
 } from '@mantine/core';
 import LogoArea from '../LogoArea';
 import { UserButton } from '@/layout/UserButton/UserButton';
@@ -14,12 +17,20 @@ import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeTog
 import { LayoutTypes } from '@/@types/layout';
 import MegaMenu from './MegaMenu/MegaMenu';
 import SimpleMenu from './SimpleMenu/SimpleMenu';
-import { IconMinimize, IconMaximize, IconSearch } from '@tabler/icons-react';
+import {
+  IconMinimize,
+  IconMaximize,
+  IconSearch,
+  IconSettings,
+} from '@tabler/icons-react';
 import { useFullscreen } from '@mantine/hooks';
 import { spotlight } from '@mantine/spotlight';
+import { useContext } from 'react';
+import LayoutContext from '../LayoutContext';
 const HeaderContent = () => {
   const { user } = useAppSelector((state) => state.auth);
   const { layoutType } = useAppSelector((state) => state.appConfig);
+  const { openAppSettings } = useContext(LayoutContext);
   const { toggle, fullscreen } = useFullscreen();
   const getCenter = () => {
     if (layoutType === LayoutTypes.Top) {
@@ -44,14 +55,22 @@ const HeaderContent = () => {
         w={rem(300)}
       >
         <Group gap="xs" mr="sm">
-          <Tooltip key="fullscreen" label="搜索 ⌘K">
+          <Button variant="light" px="sm" onClick={spotlight.open}>
+            <Group>
+              <IconSearch size="16" />
+              <Text size="xs">⌘ K</Text>
+            </Group>
+          </Button>
+          <Tooltip key="fullscreen" label={fullscreen ? '取消全屏' : '全屏'}>
             <ActionIcon
               size="md"
-              key="spotlight"
-              onClick={spotlight.open}
+              key="fullscreen"
+              onClick={() => {
+                openAppSettings();
+              }}
               variant="subtle"
             >
-              <IconSearch />
+              <IconSettings />
             </ActionIcon>
           </Tooltip>
           <Tooltip key="fullscreen" label={fullscreen ? '取消全屏' : '全屏'}>

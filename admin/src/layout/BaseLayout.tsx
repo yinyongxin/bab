@@ -50,7 +50,7 @@ export default function BaseLayout() {
         setActiveSubLink,
         activeMainLink,
         setActiveMainLink,
-        openAppSettingsAction: setAppSettingsAction.open,
+        openAppSettings: setAppSettingsAction.open,
       }}
     >
       <AppShell navbar={navbar} header={header}>
