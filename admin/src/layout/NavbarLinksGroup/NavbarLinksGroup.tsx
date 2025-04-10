@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { IconChevronRight } from '@tabler/icons-react';
 import {
   Box,
@@ -10,7 +10,7 @@ import {
 } from '@mantine/core';
 import classes from './NavbarLinksGroup.module.css';
 import FontIcons from '@/components/FontIcons';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '@/store';
 import { TreeMenuDataDto } from '@/client';
 import LayoutContext from '../LayoutContext';
