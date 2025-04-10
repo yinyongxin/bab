@@ -1,7 +1,7 @@
 import Views from '@/layout/Views';
 import { useAppSelector } from '@/store';
 import { AppShell } from '@mantine/core';
-import HeaderArea from './HeaderArea/HeaderArea';
+import HeaderContent from './HeaderContent/HeaderContent';
 import NavBarContent from './NavBarContent';
 import { LayoutTypes } from '@/@types/layout';
 
@@ -29,7 +29,7 @@ export default function BaseLayout() {
       <AppShell navbar={navbar} header={header}>
         {showHeader && (
           <AppShell.Header>
-            <HeaderArea />
+            <HeaderContent />
           </AppShell.Header>
         )}
         {showNavbar && (

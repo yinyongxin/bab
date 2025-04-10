@@ -24,9 +24,7 @@ const sideBars = {
     () => import('../DeckedSideBar/DeckedSideBar'),
   ),
   [LayoutTypes.Top]: lazy(() => import('../NavbarLinksGroup/NavbarLinksGroup')),
-  [LayoutTypes.TopSide]: lazy(
-    () => import('../NavbarLinksGroup/NavbarLinksGroup'),
-  ),
+  [LayoutTypes.TopSide]: lazy(() => import('./SimpleSideMenu/SimpleSideMenu')),
 };
 const NavBarContent = () => {
   const { user } = useAppSelector((state) => state.auth);

@@ -5,17 +5,20 @@ import { useAppSelector } from '@/store';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { LayoutTypes } from '@/@types/layout';
 import MegaMenu from './MegaMenu/MegaMenu';
+import SimpleMenu from './SimpleMenu/SimpleMenu';
 
-const HeaderArea = () => {
+const HeaderContent = () => {
   const { user } = useAppSelector((state) => state.auth);
   const { layoutType } = useAppSelector((state) => state.appConfig);
   const getCenter = () => {
     if (layoutType === LayoutTypes.Top) {
       return <MegaMenu />;
+    } else if (layoutType === LayoutTypes.TopSide) {
+      return <SimpleMenu />;
     }
   };
   return (
-    <Group h="100%">
+    <Group h="100%" gap="xl">
       <LogoArea />
       <Box flex={1} h="100%">
         {getCenter()}
@@ -32,4 +35,4 @@ const HeaderArea = () => {
   );
 };
 
-export default HeaderArea;
+export default HeaderContent;
