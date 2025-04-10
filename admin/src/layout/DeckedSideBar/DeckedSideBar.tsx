@@ -30,7 +30,7 @@ export default function DeckedSideBar() {
   const subLinkList = useMemo(() => {
     const subMenus = (
       navigationTree.find((linkItem) => linkItem.path === activeMainLink)
-        ?.subMenu || []
+        ?.children || []
     ).filter((subLinkItem) => !subLinkItem.isHide);
     return (
       <div className={classes.main}>
@@ -47,9 +47,7 @@ export default function DeckedSideBar() {
               data-active={subMenuItem.path === activeSubLink || undefined}
               key={subIndex}
             >
-              {subMenuItem.translateKey
-                ? t(subMenuItem.translateKey)
-                : subMenuItem.title}
+              {subMenuItem.name}
             </Link>
           ))}
         </div>
@@ -63,18 +61,16 @@ export default function DeckedSideBar() {
     const currentSubLink = currentPath[2];
     setActiveMainLink(currentMainLink);
     setActiveSubLink(currentSubLink);
-    setTitle(
-      navigationTree.find((item) => item.path === currentMainLink)?.title || '',
-    );
+    const title =
+      navigationTree.find((item) => item.path === currentMainLink)?.name || '';
+    setTitle(title);
   }, [location.pathname]);
 
-  const handleMainLinkClick = (
-    mainLink: string,
-    title: string,
-    translateKey: string,
-  ) => {
-    setActiveMainLink(mainLink);
-    setTitle(translateKey ? t(translateKey) : title);
+  const handleMainLinkClick = (mainLink?: string, title?: string) => {
+    if (mainLink && title) {
+      setActiveMainLink(mainLink);
+      setTitle(title);
+    }
   };
 
   return (
@@ -94,19 +90,13 @@ export default function DeckedSideBar() {
             {navigationTree.map((link, index) => (
               <Tooltip
                 key={index}
-                label={link.translateKey ? t(link.translateKey) : link.title}
+                label={link.name}
                 position="right"
                 withArrow
                 transitionProps={{ duration: 0 }}
               >
                 <UnstyledButton
-                  onClick={() =>
-                    handleMainLinkClick(
-                      link.path,
-                      link.title,
-                      link.translateKey,
-                    )
-                  }
+                  onClick={() => handleMainLinkClick(link.path, link.name)}
                   className={classes.mainLink}
                   data-active={link.path === activeMainLink || undefined}
                 >

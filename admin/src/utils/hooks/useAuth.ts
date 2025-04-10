@@ -20,28 +20,11 @@ import {
   TreeMenuDataDto,
 } from '@/client';
 import { setMenus } from '@/store/slices/auth/menusSlice';
-import { NavigationTree } from '@/@types/navigation';
 
 type Status = 'success' | 'failed';
-// 递归构建导航树
-const buildNavigationTree = (
-  list: MenusResultDto[],
-  parent?: string,
-): NavigationTree[] => {
-  return list
-    .filter((itemAuthMenu) => itemAuthMenu.parent === parent)
-    .map((menu) => ({
-      key: menu._id,
-      path: menu?.path || '',
-      title: menu.name,
-      translateKey: '',
-      icon: menu.icon,
-      isHide: menu.isHide,
-      subMenu: buildNavigationTree(list, menu._id),
-    }));
-};
 
-const buildAuthMenusTree = (
+// 递归构建树
+const buildMenusTree = (
   list: MenusResultDto[],
   parent?: string,
 ): TreeMenuDataDto[] => {
@@ -49,7 +32,7 @@ const buildAuthMenusTree = (
     .filter((itemAuthMenu) => itemAuthMenu.parent === parent)
     .map((menu) => ({
       ...menu,
-      children: buildAuthMenusTree(list, menu._id),
+      children: buildMenusTree(list, menu._id),
     }));
 };
 
@@ -63,16 +46,15 @@ const updateMenus = async (menus: string[], dispatch: AppThunkDispatch) => {
   /** 有权限的菜单 */
   const authMenus =
     allMenus.data?.filter((menu) => menus.includes(menu._id)) || [];
+  /** 导航菜单 */
+  const navigationMenus = authMenus.filter(
+    ({ menuType }) => menuType !== MenuTypeEnum.FUNCTION_AREA,
+  );
   dispatch(
     setMenus({
       list: authMenus,
-      tree: buildAuthMenusTree(authMenus, ''),
-      navigationTree: buildNavigationTree(
-        authMenus.filter(
-          ({ menuType }) => menuType !== MenuTypeEnum.FUNCTION_AREA,
-        ),
-        '',
-      ),
+      tree: buildMenusTree(authMenus, ''),
+      navigationTree: buildMenusTree(navigationMenus, ''),
     }),
   );
 };

@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SLICE_BASE_NAME } from './constants';
 import { MenusResultDto, TreeMenuDataDto } from '@/client';
-import { NavigationTree } from '@/@types/navigation';
 
 export interface MenusState {
   tree?: TreeMenuDataDto[];
   list: MenusResultDto[];
-  navigationTree: NavigationTree[];
+  navigationTree: TreeMenuDataDto[];
 }
 
 const initialState: MenusState = {

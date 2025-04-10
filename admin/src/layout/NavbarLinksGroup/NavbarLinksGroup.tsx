@@ -10,22 +10,22 @@ import {
 } from '@mantine/core';
 import classes from './NavbarLinksGroup.module.css';
 import FontIcons from '@/components/FontIcons';
-import { NavigationTree } from '@/@types/navigation';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '@/store';
+import { TreeMenuDataDto } from '@/client';
 
-interface LinksGroupProps extends NavigationTree {
+interface LinksGroupProps extends TreeMenuDataDto {
   initiallyOpened?: boolean;
 }
 
 export function LinksGroup({
   icon,
-  title,
+  name,
   path,
   initiallyOpened,
-  subMenu,
+  children,
 }: LinksGroupProps) {
-  const hasLinks = Array.isArray(subMenu);
+  const hasLinks = Array.isArray(children);
   const [opened, setOpened] = useState(initiallyOpened || false);
   const [activeSubLink, setActiveSubLink] = useState('');
   const location = useLocation();
@@ -37,14 +37,14 @@ export function LinksGroup({
     setActiveSubLink(currentSubLink);
   }, [location.pathname]);
 
-  const items = (hasLinks ? subMenu : []).map((link) => (
+  const items = (hasLinks ? children : []).map((link) => (
     <Link
-      key={link.key}
+      key={link._id}
       to={`/${path}/${link.path}`}
       className={classes.link}
       data-active={link.path === activeSubLink || undefined}
     >
-      {link.title}
+      {link.name}
     </Link>
   ));
 
@@ -59,7 +59,7 @@ export function LinksGroup({
             <ThemeIcon variant="light" size={32}>
               <FontIcons name={icon || ''} style={{ fontSize: rem(18) }} />
             </ThemeIcon>
-            <Box ml="md">{title}</Box>
+            <Box ml="md">{name}</Box>
           </Box>
           {hasLinks && (
             <IconChevronRight
@@ -78,7 +78,7 @@ export function LinksGroup({
 
 const NavbarLinksGroup = () => {
   const { navigationTree = [] } = useAppSelector((state) => state.auth.menus);
-  return navigationTree.map((item) => <LinksGroup {...item} key={item.key} />);
+  return navigationTree.map((item) => <LinksGroup {...item} key={item._id} />);
 };
 
 export default NavbarLinksGroup;
