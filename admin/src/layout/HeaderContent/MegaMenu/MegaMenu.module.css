@@ -16,9 +16,11 @@
 
   /* @mixin hover { */
   &:hover {
-    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+    background-color: light-dark(
+      var(--mantine-primary-color-light),
+      var(--mantine-primary-color-light)
+    );
   }
-
 }
 
 .subLink {
@@ -27,10 +29,16 @@
   border-radius: var(--mantine-radius-md);
   text-decoration: none;
   color: unset;
-  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-7)
+  );
 
   @mixin hover {
-    background-color: light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-8));
+    background-color: light-dark(
+      var(--mantine-color-gray-1),
+      var(--mantine-color-dark-8)
+    );
   }
 
   &[data-active] {
@@ -40,9 +48,13 @@
 }
 
 .dropdownFooter {
-  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-6)
+  );
   margin: calc(var(--mantine-spacing-md) * -1);
   margin-top: var(--mantine-spacing-sm);
   padding: var(--mantine-spacing-md);
-  border-top: 1px solid light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));
+  border-top: 1px solid
+    light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));
 }

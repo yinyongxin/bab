@@ -77,7 +77,7 @@ export default function BaseLayout() {
       <AppShell navbar={appNavBar?.option} header={appHeader?.option}>
         {appHeader?.content}
         {appNavBar?.content}
-        <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))">
+        <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))">
           <Views />
         </AppShell.Main>
       </AppShell>
