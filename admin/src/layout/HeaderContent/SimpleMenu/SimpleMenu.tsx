@@ -1,15 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Button, Group } from '@mantine/core';
+import { Button, Group, Title, UnstyledButton } from '@mantine/core';
 import FontIcons from '@/components/FontIcons';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector } from '@/store';
-
-const links = [
-  { link: '/about', label: 'Features' },
-  { link: '/pricing', label: 'Pricing' },
-  { link: '/learn', label: 'Learn' },
-  { link: '/community', label: 'Community' },
-];
+import classes from './SimpleMenu.module.css';
 
 export default function SimpleMenu() {
   const { navigationTree } = useAppSelector((state) => state.auth.menus);
@@ -24,14 +18,19 @@ export default function SimpleMenu() {
 
   const items = navigationTree.map((link) => {
     return (
-      <Button
+      <UnstyledButton
         key={link._id}
-        leftSection={<FontIcons name={link.icon} size={18} />}
-        // variant={active === link._id ? 'fill' : 'transparent'}
+        className={classes.link}
         onClick={() => setActive(link._id)}
+        data-active={link._id === active || undefined}
+        component={Link}
+        to={`/${link.path}`}
       >
-        {link.name}
-      </Button>
+        <Group gap={'xs'}>
+          <FontIcons name={link.icon} size={18} />
+          <Title order={6}>{link.name}</Title>
+        </Group>
+      </UnstyledButton>
     );
   });
 

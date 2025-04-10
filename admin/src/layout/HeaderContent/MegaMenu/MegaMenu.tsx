@@ -1,38 +1,20 @@
-import {
-  IconBook,
-  IconChartPie3,
-  IconChevronDown,
-  IconCode,
-  IconCoin,
-  IconFingerprint,
-  IconNotification,
-} from '@tabler/icons-react';
+import { IconChevronDown } from '@tabler/icons-react';
 import {
   Anchor,
-  Box,
-  Burger,
-  Button,
-  Center,
-  Collapse,
   Divider,
-  Drawer,
   Group,
   HoverCard,
-  ScrollArea,
   SimpleGrid,
   Text,
   ThemeIcon,
   Title,
-  UnstyledButton,
   useMantineTheme,
 } from '@mantine/core';
-import { useDisclosure } from '@mantine/hooks';
 import classes from './MegaMenu.module.css';
 import { useAppSelector } from '@/store';
 import { Link, useLocation } from 'react-router-dom';
 import { TreeMenuDataDto } from '@/client';
 import FontIcons from '@/components/FontIcons';
-import path from 'path';
 import { useState, useEffect } from 'react';
 
 export default function MegaMenu() {
