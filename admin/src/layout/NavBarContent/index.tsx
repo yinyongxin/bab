@@ -1,5 +1,5 @@
 import { LayoutTypes } from '@/@types/layout';
-import { UserButton } from '@/components/UserButton/UserButton';
+import { UserButton } from '@/layout/UserButton/UserButton';
 import { setAppConfig, useAppDispatch, useAppSelector } from '@/store';
 import { getFilePath } from '@/utils';
 import {
@@ -41,6 +41,29 @@ const NavBarContent = () => {
       }),
     );
   };
+  const foldAreaShow =
+    layoutType === LayoutTypes.SimpleSideBar ||
+    layoutType === LayoutTypes.DeckedSideBar;
+  const foldArea = foldAreaShow && (
+    <UnstyledButton
+      w="xl"
+      pos="absolute"
+      h="100%"
+      right="0"
+      style={{
+        transform: 'translateX(100%)',
+      }}
+      onClick={toggleDesktop}
+    >
+      <Center>
+        <IconChevronRight
+          style={{
+            transform: desktop ? 'rotate(180deg)' : 'rotate(0deg)',
+          }}
+        />
+      </Center>
+    </UnstyledButton>
+  );
 
   return (
     <>
@@ -87,26 +110,7 @@ const NavBarContent = () => {
           </UserButton>
         </AppShell.Section>
       )}
-      {layoutType === LayoutTypes.SimpleSideBar && (
-        <UnstyledButton
-          w="xl"
-          pos="absolute"
-          h="100%"
-          right="0"
-          style={{
-            transform: 'translateX(100%)',
-          }}
-          onClick={toggleDesktop}
-        >
-          <Center>
-            <IconChevronRight
-              style={{
-                transform: desktop ? 'rotate(180deg)' : 'rotate(0deg)',
-              }}
-            />
-          </Center>
-        </UnstyledButton>
-      )}
+      {foldArea}
     </>
   );
 };

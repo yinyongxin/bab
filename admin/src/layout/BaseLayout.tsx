@@ -1,17 +1,20 @@
 import Views from '@/layout/Views';
 import { useAppSelector } from '@/store';
-import { AppShell } from '@mantine/core';
+import { AppShell, Drawer } from '@mantine/core';
 import HeaderContent from './HeaderContent/HeaderContent';
 import NavBarContent from './NavBarContent';
 import { LayoutTypes } from '@/@types/layout';
 import { useEffect, useState } from 'react';
 import LayoutContext from './LayoutContext';
 import { useLocation } from 'react-router-dom';
+import { useDisclosure } from '@mantine/hooks';
+import AppConfigSettings from '@/components/AppConfigSettings/AppConfigSettings';
 
 export default function BaseLayout() {
   const { desktop, layoutType } = useAppSelector((state) => state.appConfig);
   const [activeSubLink, setActiveSubLink] = useState('');
   const [activeMainLink, setActiveMainLink] = useState('');
+  const [appSettingsOpened, setAppSettingsAction] = useDisclosure(false);
   const location = useLocation();
   useEffect(() => {
     const currentPath = location.pathname.split('/');
@@ -47,6 +50,7 @@ export default function BaseLayout() {
         setActiveSubLink,
         activeMainLink,
         setActiveMainLink,
+        openAppSettingsAction: setAppSettingsAction.open,
       }}
     >
       <AppShell navbar={navbar} header={header}>
@@ -64,6 +68,14 @@ export default function BaseLayout() {
           <Views />
         </AppShell.Main>
       </AppShell>
+      <Drawer
+        title="应用设置"
+        position="right"
+        opened={appSettingsOpened}
+        onClose={setAppSettingsAction.close}
+      >
+        <AppConfigSettings />
+      </Drawer>
     </LayoutContext.Provider>
   );
 }

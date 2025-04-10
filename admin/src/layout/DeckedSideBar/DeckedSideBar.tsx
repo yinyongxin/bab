@@ -13,7 +13,7 @@ import classes from './DeckedSideBar.module.css';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '@/store';
 import FontIcons from '@/components/FontIcons';
-import { UserButton } from '@/components/UserButton/UserButton';
+import { UserButton } from '@/layout/UserButton/UserButton';
 import appConfig from '@/configs/app.config';
 import { getFilePath } from '@/utils';
 import LayoutContext from '../LayoutContext';

@@ -11,13 +11,12 @@ import {
   Menu,
   useComputedColorScheme,
   useMantineColorScheme,
-  Drawer,
   MenuProps,
 } from '@mantine/core';
 import useAuth from '@/utils/hooks/useAuth';
 import { spotlight } from '@mantine/spotlight';
-import { useDisclosure } from '@mantine/hooks';
-import AppConfigSettings from '../AppConfigSettings/AppConfigSettings';
+import { useContext } from 'react';
+import LayoutContext from '../LayoutContext';
 
 type UserButtonProps = {
   children?: React.ReactNode;
@@ -25,10 +24,11 @@ type UserButtonProps = {
 export function UserButton(props: UserButtonProps) {
   const { children, ...menuProps } = props;
   const { setColorScheme } = useMantineColorScheme();
+
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
   });
-  const [drawerOpened, drawerOpenedAction] = useDisclosure(false);
+  const { openAppSettingsAction } = useContext(LayoutContext);
 
   const { signOut } = useAuth();
   return (
@@ -40,7 +40,7 @@ export function UserButton(props: UserButtonProps) {
           <Menu.Label>功能</Menu.Label>
           <Menu.Item
             leftSection={<IconSettings size={14} />}
-            onClick={drawerOpenedAction.open}
+            onClick={openAppSettingsAction}
           >
             设置
           </Menu.Item>
@@ -87,14 +87,6 @@ export function UserButton(props: UserButtonProps) {
           </Menu.Item>
         </Menu.Dropdown>
       </Menu>
-      <Drawer
-        title="应用设置"
-        position="right"
-        opened={drawerOpened}
-        onClose={drawerOpenedAction.close}
-      >
-        <AppConfigSettings />
-      </Drawer>
     </>
   );
 }

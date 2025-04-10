@@ -1,6 +1,6 @@
 import { Avatar, Box, Center, Group, rem } from '@mantine/core';
 import LogoArea from '../LogoArea';
-import { UserButton } from '@/components/UserButton/UserButton';
+import { UserButton } from '@/layout/UserButton/UserButton';
 import { useAppSelector } from '@/store';
 import { ColorSchemeToggle } from '@/components/ColorSchemeToggle/ColorSchemeToggle';
 import { LayoutTypes } from '@/@types/layout';
