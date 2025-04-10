@@ -22,7 +22,7 @@ interface LinksGroupProps extends TreeMenuDataDto {
 export function LinksGroup({ icon, name, path, children }: LinksGroupProps) {
   const { activeSubLink, activeMainLink } = useContext(LayoutContext);
   const hasLinks = Array.isArray(children);
-  const [opened, setOpened] = useState(activeMainLink === path || false);
+  const [opened, setOpened] = useState(false);
 
   const items = (hasLinks ? children : []).map((link) => (
     <Link
@@ -53,12 +53,18 @@ export function LinksGroup({ icon, name, path, children }: LinksGroupProps) {
               className={classes.chevron}
               stroke={1.5}
               size={16}
-              style={{ transform: opened ? 'rotate(-90deg)' : 'none' }}
+              style={{
+                transform:
+                  opened || activeMainLink === path ? 'rotate(-90deg)' : 'none',
+              }}
             />
           )}
         </Group>
       </UnstyledButton>
-      {hasLinks ? <Collapse in={opened}>{items}</Collapse> : null}
+      {String(opened)}
+      {hasLinks ? (
+        <Collapse in={opened || activeMainLink === path}>{items}</Collapse>
+      ) : null}
     </>
   );
 }

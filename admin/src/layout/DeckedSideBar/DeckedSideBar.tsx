@@ -10,8 +10,7 @@ import {
   Avatar,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
-import { Link, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '@/store';
 import FontIcons from '@/components/FontIcons';
 import { UserButton } from '@/components/UserButton/UserButton';

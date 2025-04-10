@@ -8,7 +8,8 @@ import LayoutContext from '@/layout/LayoutContext';
 
 export default function SimpleMenu() {
   const { navigationTree } = useAppSelector((state) => state.auth.menus);
-  const { activeSubLink, setActiveMainLink } = useContext(LayoutContext);
+  // const [active, setActive] = useState(false);
+  const { activeMainLink, setActiveMainLink } = useContext(LayoutContext);
 
   const items = navigationTree.map((link) => {
     return (
@@ -18,7 +19,7 @@ export default function SimpleMenu() {
         onClick={() => {
           setActiveMainLink(link.path || '');
         }}
-        data-active={link.path === activeSubLink || undefined}
+        data-active={link.path === activeMainLink || undefined}
       >
         <Group gap={'xs'} px="md" py="xs">
           <FontIcons name={link.icon} size={18} />
