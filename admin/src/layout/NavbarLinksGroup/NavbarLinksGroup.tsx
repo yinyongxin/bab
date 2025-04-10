@@ -23,7 +23,6 @@ export function LinksGroup({ icon, name, path, children }: LinksGroupProps) {
   const { activeSubLink, activeMainLink } = useContext(LayoutContext);
   const hasLinks = Array.isArray(children);
   const [opened, setOpened] = useState(false);
-
   const items = (hasLinks ? children : []).map((link) => (
     <Link
       key={link._id}

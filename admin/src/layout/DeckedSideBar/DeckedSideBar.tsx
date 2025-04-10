@@ -8,7 +8,6 @@ import {
   Center,
   Image,
   Avatar,
-  useMantineTheme,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link } from 'react-router-dom';
@@ -25,9 +24,6 @@ export default function DeckedSideBar() {
   const [title, setTitle] = useState('');
   const { menus, user } = useAppSelector((state) => state.auth);
   const { navigationTree = [] } = menus;
-  const theme = useMantineTheme();
-  const isDarkColor =
-    theme.primaryColor === 'dark' || theme.primaryColor === 'gray';
   const subLinkList = useMemo(() => {
     const subMenus = (
       navigationTree.find((linkItem) => linkItem.path === activeMainLink)
@@ -97,9 +93,7 @@ export default function DeckedSideBar() {
                   <UnstyledButton
                     onClick={() => handleMainLinkClick(link.path, link.name)}
                     className={classes.mainLink}
-                    data-active={(!isDarkColor && active) || undefined}
-                    data-dark-hover={isDarkColor || undefined}
-                    data-dark-active={(isDarkColor && active) || undefined}
+                    data-active={active || undefined}
                   >
                     <FontIcons name={link.icon} style={{ fontSize: rem(18) }} />
                   </UnstyledButton>
