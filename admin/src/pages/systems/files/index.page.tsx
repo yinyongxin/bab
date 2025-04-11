@@ -44,6 +44,7 @@ import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 
 export default () => {
   const [appConfig] = useAppConfig();
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<FilesPaginationResultDto>({
     list: [],
     pageNo: 1,
@@ -55,6 +56,7 @@ export default () => {
     pageNo?: number;
     pageSize?: number;
   }) => {
+    setLoading(true);
     const { pageNo = data.pageNo, pageSize = data.pageSize } = {
       ...pagination,
     };
@@ -70,6 +72,7 @@ export default () => {
     if (!getDirsRes.error) {
       setData(getDirsRes.data);
     }
+    setLoading(false);
   };
 
   useShallowEffect(() => {
@@ -167,6 +170,7 @@ export default () => {
         ]}
       >
         <TablePage
+          loading={loading}
           columns={[
             {
               title: '文件名',
