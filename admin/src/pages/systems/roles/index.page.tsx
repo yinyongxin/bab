@@ -28,11 +28,13 @@ import {
   IconLayoutSidebarInactive,
   IconTrash,
 } from '@tabler/icons-react';
-import { getFilePath, getPageTotal } from '@/utils';
+import { getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 import MenusCheck from './MenusCheck';
+import useTools from '@/utils/hooks/useTools';
 
 export default () => {
+  const { getFilePath } = useTools();
   const [opened, { open, close }] = useDisclosure(false);
   const [drawerOpened, drawerOpenedAition] = useDisclosure(false);
   const [title, setTitle] = useState('');

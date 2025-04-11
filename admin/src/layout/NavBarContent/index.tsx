@@ -1,7 +1,6 @@
 import { LayoutTypes } from '@/@types/layout';
 import { UserButton } from '@/layout/UserButton/UserButton';
 import { useAppSelector } from '@/store';
-import { getFilePath } from '@/utils';
 import {
   AppShell,
   ScrollArea,
@@ -16,6 +15,7 @@ import { IconChevronRight } from '@tabler/icons-react';
 import { lazy, useContext } from 'react';
 import LogoArea from '../LogoArea';
 import LayoutContext from '../LayoutContext';
+import useTools from '@/utils/hooks/useTools';
 
 const sideBars = {
   [LayoutTypes.SimpleSideBar]: lazy(
@@ -28,6 +28,7 @@ const sideBars = {
   [LayoutTypes.TopSide]: lazy(() => import('./SimpleSideMenu/SimpleSideMenu')),
 };
 const NavBarContent = () => {
+  const { getFilePath } = useTools();
   const { user } = useAppSelector((state) => state.auth);
   const { desktop, setDesktop } = useContext(LayoutContext);
   const { layoutType } = useAppSelector((state) => state.appConfig);

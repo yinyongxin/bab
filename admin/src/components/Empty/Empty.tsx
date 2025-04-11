@@ -1,5 +1,5 @@
 import useAppConfig from '@/store/hook/useAppConfig';
-import { getFilePath } from '@/utils';
+import useTools from '@/utils/hooks/useTools';
 import { Box, Flex, Image } from '@mantine/core';
 type EmptyProps = {
   text?: string;
@@ -7,6 +7,7 @@ type EmptyProps = {
 };
 
 const Empty = (props: EmptyProps) => {
+  const { getFilePath } = useTools();
   const [appConfig] = useAppConfig();
   const { text = '未找到任何资源', children } = props;
   return (

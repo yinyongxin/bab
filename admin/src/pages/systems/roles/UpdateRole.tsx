@@ -24,13 +24,14 @@ import {
   rolesControllerUpdateOne,
 } from '@/client';
 import { notifications } from '@mantine/notifications';
-import { getFilePath } from '@/utils';
+import useTools from '@/utils/hooks/useTools';
 
 type UpdateRoleProps = {
   onSuccess: () => void;
   initalValues?: RolesResultDto;
 };
 function UpdateRole(props: UpdateRoleProps) {
+  const { getFilePath } = useTools();
   const { onSuccess, initalValues } = props;
   const isAdding = !initalValues;
   const isEditing = initalValues && initalValues._id;

@@ -34,12 +34,14 @@ import {
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import UpdateManager from './UpdateManager';
-import { getFilePath, getPageTotal } from '@/utils';
+import { getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 import { sexIcons } from './common';
 import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
+import useTools from '@/utils/hooks/useTools';
 
 export default () => {
+  const { getFilePath } = useTools();
   const [opened, { open, close }] = useDisclosure(false);
   const [loading, loadingAction] = useDisclosure(false);
   const [title, setTitle] = useState('');
@@ -282,7 +284,7 @@ export default () => {
           <DateRangeSelect
             key="DataRangerSelect"
             defaultValue="all"
-            toDate={true}
+            toDate
             onChange={(value) => {
               setFilterParams({
                 createdTimeRange: value,

@@ -28,18 +28,19 @@ import {
   AdmintorsCreateBodyDto,
   AdmintorsPageItemDto,
   AdmintorsUpdateDto,
-  filesControllerUploadFile,
 } from '@/client';
 import useRoleOptions from '@/utils/hooks/useRoleOptions';
 import { notifications } from '@mantine/notifications';
-import { getFilePath, uploadFile } from '@/utils';
+import { uploadFile } from '@/utils';
 import { sexIcons } from './common';
+import useTools from '@/utils/hooks/useTools';
 
 type UpdateManagerProps = {
   onSuccess: () => void;
   initalValues?: AdmintorsPageItemDto;
 };
 function UpdateManager(props: UpdateManagerProps) {
+  const { getFilePath } = useTools();
   const { onSuccess, initalValues } = props;
   const [roleOptions] = useRoleOptions();
   const isAdding = !initalValues;

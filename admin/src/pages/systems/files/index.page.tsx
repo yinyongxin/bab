@@ -1,5 +1,4 @@
 import {
-  AdmintorsFilterDto,
   FilesPaginationResultDto,
   FilesQueryFilterDto,
   FilesResultDto,
@@ -36,13 +35,15 @@ import {
   IconUpload,
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
-import { getFilePath, getPageTotal, uploadFile } from '@/utils';
+import { getPageTotal, uploadFile } from '@/utils';
 import { modals } from '@mantine/modals';
 import { FileMIMEOptions } from './constants';
 import useAppConfig from '@/store/hook/useAppConfig';
 import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
+import useTools from '@/utils/hooks/useTools';
 
 export default () => {
+  const { getFilePath } = useTools();
   const [appConfig] = useAppConfig();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<FilesPaginationResultDto>({
@@ -146,7 +147,7 @@ export default () => {
           <DateRangeSelect
             key="DataRangerSelect"
             defaultValue="all"
-            toDate={true}
+            toDate
             onChange={(range) => {
               setFilterParams({
                 createdTimeRange: range,

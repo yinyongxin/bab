@@ -1,11 +1,12 @@
 import { LayoutTypes } from '@/@types/layout';
 import useAppConfig from '@/store/hook/useAppConfig';
-import { getFilePath } from '@/utils';
 import { Image, Code, Group, Title, Burger } from '@mantine/core';
 import { useContext, useMemo } from 'react';
 import LayoutContext from '../LayoutContext';
+import useTools from '@/utils/hooks/useTools';
 
 const LogoArea = () => {
+  const { getFilePath } = useTools();
   const [appConfig] = useAppConfig();
   const { desktop, setDesktop } = useContext(LayoutContext);
   const burger = useMemo(() => {

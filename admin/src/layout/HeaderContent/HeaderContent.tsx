@@ -61,7 +61,7 @@ const HeaderContent = () => {
             px="sm"
             onClick={spotlight.open}
           >
-            <Group w={'100%'} justify="space-between">
+            <Group w="100%" justify="space-between">
               <IconSearch size="16" />
               <Text size="xs">⌘ K</Text>
             </Group>

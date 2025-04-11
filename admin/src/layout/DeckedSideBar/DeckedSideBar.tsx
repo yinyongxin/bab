@@ -14,11 +14,12 @@ import { Link } from 'react-router-dom';
 import { useAppSelector } from '@/store';
 import FontIcons from '@/components/FontIcons';
 import { UserButton } from '@/layout/UserButton/UserButton';
-import { getFilePath } from '@/utils';
 import LayoutContext from '../LayoutContext';
 import useAppConfig from '@/store/hook/useAppConfig';
+import useTools from '@/utils/hooks/useTools';
 
 export default function DeckedSideBar() {
+  const { getFilePath } = useTools();
   const [appConfig] = useAppConfig();
   const { activeMainLink, setActiveMainLink, activeSubLink } =
     useContext(LayoutContext);
