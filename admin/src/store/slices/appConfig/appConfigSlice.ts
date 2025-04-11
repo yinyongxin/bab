@@ -5,7 +5,7 @@ import { LayoutTypes } from '@/@types/layout';
 export interface AppConfigState {
   layoutType: LayoutTypes;
   contentWidth: number;
-  desktop: boolean;
+
   apiPrefix: string;
   authenticatedEntryPath: string;
   unAuthenticatedEntryPath: string;
@@ -21,7 +21,6 @@ export interface AppConfigState {
 const initialState: AppConfigState = {
   layoutType: LayoutTypes.DeckedSideBar,
   contentWidth: 100,
-  desktop: true,
   name: 'Admin',
   version: '1.0.0',
   logo: '/image/png/2025040622/0b444c0d-5c82-41ee-a41b-e077d9ac8f4f.png',

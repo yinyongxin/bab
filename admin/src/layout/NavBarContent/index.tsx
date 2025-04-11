@@ -1,6 +1,6 @@
 import { LayoutTypes } from '@/@types/layout';
 import { UserButton } from '@/layout/UserButton/UserButton';
-import { setAppConfig, useAppDispatch, useAppSelector } from '@/store';
+import { useAppSelector } from '@/store';
 import { getFilePath } from '@/utils';
 import {
   AppShell,
@@ -13,8 +13,9 @@ import {
   Center,
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
-import { lazy } from 'react';
+import { lazy, useContext } from 'react';
 import LogoArea from '../LogoArea';
+import LayoutContext from '../LayoutContext';
 
 const sideBars = {
   [LayoutTypes.SimpleSideBar]: lazy(
@@ -28,18 +29,14 @@ const sideBars = {
 };
 const NavBarContent = () => {
   const { user } = useAppSelector((state) => state.auth);
-  const { layoutType, desktop } = useAppSelector((state) => state.appConfig);
+  const { desktop, setDesktop } = useContext(LayoutContext);
+  const { layoutType } = useAppSelector((state) => state.appConfig);
   if (layoutType === LayoutTypes.Top) {
     return null;
   }
   const Content = sideBars[layoutType];
-  const dispatch = useAppDispatch();
   const toggleDesktop = () => {
-    dispatch(
-      setAppConfig({
-        desktop: !desktop,
-      }),
-    );
+    setDesktop(!desktop);
   };
   const foldAreaShow =
     layoutType === LayoutTypes.SimpleSideBar ||

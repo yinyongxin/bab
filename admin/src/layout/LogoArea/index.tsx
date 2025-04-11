@@ -1,28 +1,25 @@
 import { LayoutTypes } from '@/@types/layout';
-import { setAppConfig, useAppDispatch, useAppSelector } from '@/store';
 import useAppConfig from '@/store/hook/useAppConfig';
 import { getFilePath } from '@/utils';
 import { Image, Code, Group, Title, Burger } from '@mantine/core';
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
+import LayoutContext from '../LayoutContext';
 
 const LogoArea = () => {
-  const [appConfig, updateAppConfig] = useAppConfig();
+  const [appConfig] = useAppConfig();
+  const { desktop, setDesktop } = useContext(LayoutContext);
   const burger = useMemo(() => {
     if (appConfig.layoutType === LayoutTypes.TopSide) {
       return (
         <Burger
-          opened={appConfig.desktop}
-          onClick={() =>
-            updateAppConfig({
-              desktop: !appConfig.desktop,
-            })
-          }
+          opened={desktop}
+          onClick={() => setDesktop(!desktop)}
           aria-label="Toggle navigation"
         />
       );
     }
     return null;
-  }, [appConfig.desktop, appConfig.layoutType]);
+  }, [desktop, appConfig.layoutType]);
   return (
     <Group justify="space-between" align="center" h="100%" px="md" w={300}>
       {burger}

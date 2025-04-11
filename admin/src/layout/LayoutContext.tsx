@@ -6,6 +6,8 @@ type BaseLayoutContextType = {
   activeMainLink: string;
   setActiveMainLink: (value: string) => void;
   openAppSettings: () => void;
+  desktop: boolean;
+  setDesktop: (value: boolean) => void;
 };
 
 const baseLayoutContext = {
@@ -14,6 +16,8 @@ const baseLayoutContext = {
   activeMainLink: '',
   setActiveMainLink: () => {},
   openAppSettings: () => {},
+  desktop: true,
+  setDesktop: () => {},
 };
 
 const LayoutContext = createContext<BaseLayoutContextType>(baseLayoutContext);

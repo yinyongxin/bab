@@ -1,5 +1,4 @@
 import Views from '@/layout/Views';
-import { useAppSelector } from '@/store';
 import { AppShell, Box, Drawer, Flex, ScrollArea } from '@mantine/core';
 import HeaderContent from './HeaderContent/HeaderContent';
 import NavBarContent from './NavBarContent';
@@ -13,8 +12,9 @@ import useAppConfig from '@/store/hook/useAppConfig';
 
 export default function BaseLayout() {
   const [appConfig] = useAppConfig();
-  const { desktop, layoutType } = appConfig;
+  const { layoutType } = appConfig;
   const [activeSubLink, setActiveSubLink] = useState('');
+  const [desktop, setDesktop] = useState(true);
   const [activeMainLink, setActiveMainLink] = useState('');
   const [appSettingsOpened, setAppSettingsAction] = useDisclosure(false);
   const location = useLocation();
@@ -74,6 +74,8 @@ export default function BaseLayout() {
         activeMainLink,
         setActiveMainLink,
         openAppSettings: setAppSettingsAction.open,
+        desktop,
+        setDesktop,
       }}
     >
       <AppShell navbar={appNavBar?.option} header={appHeader?.option}>
