@@ -5,7 +5,6 @@ import { LayoutTypes } from '@/@types/layout';
 export interface AppConfigState {
   layoutType: LayoutTypes;
   contentWidth: number;
-
   apiPrefix: string;
   authenticatedEntryPath: string;
   unAuthenticatedEntryPath: string;

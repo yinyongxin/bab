@@ -7,8 +7,8 @@ import LayoutContext from '@/layout/LayoutContext';
 
 export default function SimpleMenu() {
   const { navigationTree } = useAppSelector((state) => state.auth.menus);
-  // const [active, setActive] = useState(false);
-  const { activeMainLink, setActiveMainLink } = useContext(LayoutContext);
+  const { activeMainLink, setActiveMainLink, setDesktop } =
+    useContext(LayoutContext);
 
   const items = navigationTree.map((link) => {
     return (
@@ -17,6 +17,7 @@ export default function SimpleMenu() {
         className={classes.link}
         onClick={() => {
           setActiveMainLink(link.path || '');
+          setDesktop(true);
         }}
         data-active={link.path === activeMainLink || undefined}
       >
