@@ -64,10 +64,21 @@ export class FilesService {
     pagination: PaginationDto,
     filter: FilesQueryFilterDto,
   ) {
+    const { createdTimeRange, ...rest } = filter;
+    const getRange = () => {
+      if (createdTimeRange) {
+        return {
+          createdTime: {
+            $gte: new Date(createdTimeRange?.[0]),
+            $lte: new Date(createdTimeRange?.[1]),
+          },
+        };
+      }
+    };
     const queryPaginationRes = await queryPagination(
       this.filesModel,
       pagination,
-      filter,
+      { ...rest, ...getRange() },
     );
 
     return {

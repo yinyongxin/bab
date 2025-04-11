@@ -7,7 +7,7 @@ export const publicRoutes: Routes = [...authRoute];
 const modules = import.meta.glob<{
   // default: ComponentType<JSX.Element>;
   default: ComponentType<Record<string, unknown>>;
-}>('../../pages/**/index.page.tsx', {
+}>('../../pages/**/*.page.tsx', {
   // import: 'default',
 });
 
@@ -16,7 +16,7 @@ export const protectedRoutes = [
   {
     key: 'managers',
     path: '/systems/managers',
-    component: lazy(modules['../../pages/systems/managers/index.page.tsx']),
+    component: lazy(modules['../../pages/systems/managers/managers.page.tsx']),
   },
   {
     key: 'roles',

@@ -50,8 +50,8 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
       data={dateRangeSelectData}
       value={value ? value.value : null}
       onChange={(_value, option) => {
-        setValue(option);
         if (option) {
+          setValue(option);
           const range = dateRangeSelectData
             .find(
               (dateRangeSelectDataItem) =>

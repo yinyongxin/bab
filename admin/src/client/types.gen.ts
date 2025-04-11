@@ -214,14 +214,6 @@ export type UpdateResDto = {
 
 export type AdmintorsFilterDto = {
   /**
-   * 创建日期
-   */
-  createdTime?: Date;
-  /**
-   * 更新日期
-   */
-  updatedTime?: Date;
-  /**
    * 管理人员名称
    */
   username?: string;
@@ -718,18 +710,6 @@ export type FilesUploadDto = {
 
 export type FilesQueryFilterDto = {
   /**
-   * 删除时间
-   */
-  deletedTime?: Date;
-  /**
-   * 创建日期
-   */
-  createdTime?: Date;
-  /**
-   * 更新日期
-   */
-  updatedTime?: Date;
-  /**
    * 原始文件名
    */
   originalname?: string;
@@ -749,6 +729,14 @@ export type FilesQueryFilterDto = {
    * 文件路径
    */
   path?: string;
+  /**
+   * 创建时间范围
+   */
+  readonly createdTimeRange?: Array<Date>;
+  /**
+   * 更新时间范围
+   */
+  readonly updatedTimeRange?: Array<Date>;
 };
 
 export type FilesResultDto = {

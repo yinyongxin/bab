@@ -6,6 +6,7 @@ import {
   PickType,
 } from '@nestjs/swagger';
 import { PaginationResultDto, Result_idDto } from 'src/dtos';
+import { DateTimeRangeDto } from 'src/dtos';
 import { Files } from 'src/mongo/base/files';
 
 export class FilesResultDto extends IntersectionType(
@@ -56,7 +57,10 @@ export class QueryDirsFilterDto {
   dirPath?: string;
 }
 
-export class FilesQueryFilterDto extends PartialType(Files) {}
+export class FilesQueryFilterDto extends IntersectionType(
+  PartialType(OmitType(Files, ['deletedTime', 'createdTime', 'updatedTime'])),
+  DateTimeRangeDto,
+) {}
 
 export class FilesPaginationResultDto extends PaginationResultDto {
   @ApiProperty({

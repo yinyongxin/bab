@@ -1,5 +1,7 @@
 import {
+  AdmintorsFilterDto,
   FilesPaginationResultDto,
+  FilesQueryFilterDto,
   FilesResultDto,
   filesControllerBatchDelete,
   filesControllerGetPaginationList,
@@ -38,6 +40,7 @@ import { getFilePath, getPageTotal, uploadFile } from '@/utils';
 import { modals } from '@mantine/modals';
 import { FileMIMEOptions } from './constants';
 import useAppConfig from '@/store/hook/useAppConfig';
+import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 
 export default () => {
   const [appConfig] = useAppConfig();
@@ -47,7 +50,7 @@ export default () => {
     pageSize: 10,
     total: 0,
   });
-  const [fileMIMEChecked, setFileMIMEChecked] = useState<string>();
+  const [filterParams, setFilterParams] = useState<FilesQueryFilterDto>({});
   const getData = async (pagination?: {
     pageNo?: number;
     pageSize?: number;
@@ -61,7 +64,7 @@ export default () => {
         pageSize,
       },
       body: {
-        mimetype: fileMIMEChecked,
+        ...filterParams,
       },
     });
     if (!getDirsRes.error) {
@@ -71,7 +74,7 @@ export default () => {
 
   useShallowEffect(() => {
     getData();
-  }, [fileMIMEChecked]);
+  }, [filterParams]);
 
   const deleteById = async (record: FilesResultDto) => {
     modals.openConfirmModal({
@@ -102,9 +105,9 @@ export default () => {
           </Title>
           <Group>
             <Chip
-              checked={!fileMIMEChecked}
+              checked={!filterParams.mimetype}
               onClick={() => {
-                setFileMIMEChecked(undefined);
+                setFilterParams({ ...filterParams, mimetype: undefined });
               }}
             >
               全部
@@ -113,9 +116,9 @@ export default () => {
               return (
                 <Chip
                   key={item.value}
-                  checked={fileMIMEChecked === item.value}
+                  checked={filterParams.mimetype === item.value}
                   onClick={() => {
-                    setFileMIMEChecked(item.value);
+                    setFilterParams({ ...filterParams, mimetype: item.value });
                   }}
                 >
                   {item.label}
@@ -137,13 +140,23 @@ export default () => {
           await getData();
         }}
         actions={[
+          <DateRangeSelect
+            key="DataRangerSelect"
+            defaultValue="all"
+            toDate={true}
+            onChange={(range) => {
+              setFilterParams({
+                createdTimeRange: range,
+              });
+            }}
+          />,
           <FileButton
             key="upload"
             onChange={async (file) => {
               await uploadFile(file);
               getData();
             }}
-            accept={fileMIMEChecked}
+            accept={filterParams.mimetype}
           >
             {(props) => (
               <Button {...props} leftSection={<IconUpload size={14} />}>
