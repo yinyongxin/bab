@@ -570,8 +570,8 @@ export const filesControllerGetPaginationList = <
 };
 
 /**
- * 通过Id删除文件
- * 通过Ids删除文件
+ * 批量删除文件
+ * 批量删除文件
  */
 export const filesControllerBatchDelete = <
   ThrowOnError extends boolean = false,

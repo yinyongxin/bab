@@ -77,8 +77,13 @@ export class AdmintorsService {
   }
 
   async getPageList(pagination: PaginationDto, filter: AdmintorsFilterDto) {
+    const { createRenge, updateRenge, ...rest } = filter;
+    console.log(createRenge, 'createRenge');
+    console.log(updateRenge, 'updateRenge');
+
+    // 构建聚合管道
     const [res] = await this.userModel.aggregate([
-      { $match: toFuzzyParams(filter) },
+      { $match: toFuzzyParams(rest) },
       { $sort: { createdTime: -1 } },
       {
         $facet: {

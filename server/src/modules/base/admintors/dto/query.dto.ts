@@ -1,6 +1,8 @@
-import { OmitType, PartialType } from '@nestjs/swagger';
+import { OmitType, PartialType, IntersectionType } from '@nestjs/swagger';
 import { Admintors } from '../../../../mongo/base';
+import { DateTimeRangeDto } from 'src/dtos';
 
-export class AdmintorsFilterDto extends PartialType(
-  OmitType(Admintors, ['password', 'deletedTime']),
+export class AdmintorsFilterDto extends IntersectionType(
+  PartialType(OmitType(Admintors, ['password', 'deletedTime'])),
+  DateTimeRangeDto,
 ) {}

@@ -28,6 +28,19 @@ export const SexEnum = {
   FEMALE: 'Female',
 } as const;
 
+/**
+ * 状态
+ */
+export type AdmintorStatusEnum = 'Open' | 'Close';
+
+/**
+ * 状态
+ */
+export const AdmintorStatusEnum = {
+  OPEN: 'Open',
+  CLOSE: 'Close',
+} as const;
+
 export type AdmintorsResultDto = {
   /**
    * 创建日期
@@ -68,7 +81,7 @@ export type AdmintorsResultDto = {
   /**
    * 状态
    */
-  status: 'Open' | 'Close';
+  status: AdmintorStatusEnum;
   /**
    * 唯一值
    */
@@ -173,7 +186,7 @@ export type AdmintorsUpdateDto = {
   /**
    * 状态
    */
-  status?: 'Open' | 'Close';
+  status?: AdmintorStatusEnum;
 };
 
 export type UpdateResDto = {
@@ -239,7 +252,15 @@ export type AdmintorsFilterDto = {
   /**
    * 状态
    */
-  status?: 'Open' | 'Close';
+  status?: AdmintorStatusEnum;
+  /**
+   * 创建时间范围
+   */
+  readonly createRenge?: Array<Date>;
+  /**
+   * 更新时间范围
+   */
+  readonly updateRenge?: Array<Date>;
 };
 
 export type RolesResultDto = {
@@ -309,7 +330,7 @@ export type AdmintorsPageItemDto = {
   /**
    * 状态
    */
-  status: 'Open' | 'Close';
+  status: AdmintorStatusEnum;
   /**
    * 唯一值
    */

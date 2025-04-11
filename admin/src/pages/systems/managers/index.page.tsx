@@ -1,5 +1,6 @@
 import {
   AdmintorPaginationResultDto,
+  AdmintorsFilterDto,
   AdmintorsPageItemDto,
   AdmintorsResultDto,
   admintorsControllerDeleteByIds,
@@ -36,6 +37,7 @@ import UpdateManager from './UpdateManager';
 import { getFilePath, getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 import { sexIcons } from './common';
+import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 
 export default () => {
   const [opened, { open, close }] = useDisclosure(false);
@@ -43,6 +45,7 @@ export default () => {
   const [title, setTitle] = useState('');
   const [data, setData] = useState<AdmintorPaginationResultDto>();
   const [initalValues, setInitalValues] = useState<AdmintorsPageItemDto>();
+  const [filterParams, setFilterParams] = useState<AdmintorsFilterDto>({});
   const getData = async (params: { pageNo: number }) => {
     try {
       loadingAction.open();
@@ -52,7 +55,9 @@ export default () => {
           pageNo,
           pageSize: 10,
         },
-        body: {},
+        body: {
+          ...filterParams,
+        },
       });
 
       setData(res.data);
@@ -60,6 +65,13 @@ export default () => {
       loadingAction.close();
     }
   };
+  useEffect(() => {
+    if (filterParams) {
+      getData({
+        pageNo: 1,
+      });
+    }
+  }, [filterParams]);
 
   const updateStatus = async (
     params: Pick<AdmintorsResultDto, '_id' | 'status'>,
@@ -258,6 +270,19 @@ export default () => {
         title="管理人员"
         description="欢迎使用管理员管理页面！"
         actions={[
+          <DateRangeSelect
+            key="DataRangerSelect"
+            defaultValue="all"
+            toDate={true}
+            onChange={(value) => {
+              if (value) {
+                setFilterParams({
+                  createRenge: value,
+                });
+                console.log(value);
+              }
+            }}
+          />,
           <Button
             key="add"
             onClick={() => {

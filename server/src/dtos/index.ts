@@ -123,3 +123,35 @@ export class ErrorResultDto {
   })
   statusCode: number;
 }
+
+export class DateTimeRangeDto {
+  @ApiProperty({
+    required: false,
+    description: '创建时间范围',
+    type: 'array',
+    readOnly: true,
+    minLength: 2,
+    maxLength: 2,
+    items: {
+      readOnly: true,
+      type: 'string',
+      format: 'date-time',
+    },
+  })
+  createRenge: [string, string];
+
+  @ApiProperty({
+    required: false,
+    description: '更新时间范围',
+    type: 'array',
+    readOnly: true,
+    minLength: 2,
+    maxLength: 2,
+    items: {
+      readOnly: true,
+      type: 'string',
+      format: 'date-time',
+    },
+  })
+  updateRenge: [string, string];
+}
