@@ -43,13 +43,18 @@ export default () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [loading, loadingAction] = useDisclosure(false);
   const [title, setTitle] = useState('');
-  const [data, setData] = useState<AdmintorPaginationResultDto>();
+  const [data, setData] = useState<AdmintorPaginationResultDto>({
+    list: [],
+    pageNo: 1,
+    pageSize: 10,
+    total: 0,
+  });
   const [initalValues, setInitalValues] = useState<AdmintorsPageItemDto>();
   const [filterParams, setFilterParams] = useState<AdmintorsFilterDto>({});
-  const getData = async (params: { pageNo: number }) => {
+  const getData = async (params?: { pageNo?: number }) => {
     try {
       loadingAction.open();
-      const { pageNo } = params;
+      const { pageNo = data.pageNo } = params || {};
       const res = await admintorsControllerGetPageList({
         query: {
           pageNo,
@@ -59,8 +64,9 @@ export default () => {
           ...filterParams,
         },
       });
-
-      setData(res.data);
+      if (res.data) {
+        setData(res.data);
+      }
     } finally {
       loadingAction.close();
     }
@@ -269,18 +275,18 @@ export default () => {
       <Page
         title="管理人员"
         description="欢迎使用管理员管理页面！"
+        onReload={() => {
+          getData();
+        }}
         actions={[
           <DateRangeSelect
             key="DataRangerSelect"
             defaultValue="all"
             toDate={true}
             onChange={(value) => {
-              if (value) {
-                setFilterParams({
-                  createRenge: value,
-                });
-                console.log(value);
-              }
+              setFilterParams({
+                createdTimeRange: value,
+              });
             }}
           />,
           <Button

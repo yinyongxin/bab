@@ -256,11 +256,11 @@ export type AdmintorsFilterDto = {
   /**
    * 创建时间范围
    */
-  readonly createRenge?: Array<Date>;
+  readonly createdTimeRange?: Array<Date>;
   /**
    * 更新时间范围
    */
-  readonly updateRenge?: Array<Date>;
+  readonly updatedTimeRange?: Array<Date>;
 };
 
 export type RolesResultDto = {

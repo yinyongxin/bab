@@ -77,13 +77,26 @@ export class AdmintorsService {
   }
 
   async getPageList(pagination: PaginationDto, filter: AdmintorsFilterDto) {
-    const { createRenge, updateRenge, ...rest } = filter;
-    console.log(createRenge, 'createRenge');
-    console.log(updateRenge, 'updateRenge');
+    const { createdTimeRange, ...rest } = filter;
+    const getRange = () => {
+      if (createdTimeRange) {
+        return {
+          createdTime: {
+            $gte: new Date(createdTimeRange?.[0]),
+            $lte: new Date(createdTimeRange?.[1]),
+          },
+        };
+      }
+    };
 
     // 构建聚合管道
     const [res] = await this.userModel.aggregate([
-      { $match: toFuzzyParams(rest) },
+      {
+        $match: {
+          ...toFuzzyParams(rest),
+          ...getRange(),
+        },
+      },
       { $sort: { createdTime: -1 } },
       {
         $facet: {

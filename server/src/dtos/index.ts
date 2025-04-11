@@ -138,7 +138,7 @@ export class DateTimeRangeDto {
       format: 'date-time',
     },
   })
-  createRenge: [string, string];
+  createdTimeRange?: [string, string];
 
   @ApiProperty({
     required: false,
@@ -153,5 +153,5 @@ export class DateTimeRangeDto {
       format: 'date-time',
     },
   })
-  updateRenge: [string, string];
+  updatedTimeRange?: [string, string];
 }

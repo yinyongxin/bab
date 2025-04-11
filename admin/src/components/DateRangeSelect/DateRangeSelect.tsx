@@ -62,7 +62,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
             }) as unknown as T extends true
             ? [Date, Date]
             : (typeof dateRangeSelectData)[number]['range'];
-          onChange?.(range);
+          onChange?.(range.length > 0 ? range : undefined);
         }
       }}
     />
