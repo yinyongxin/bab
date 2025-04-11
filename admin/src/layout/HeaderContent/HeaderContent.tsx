@@ -54,8 +54,14 @@ const HeaderContent = () => {
         w={rem(300)}
       >
         <Group flex={1} gap="xs" mr="sm">
-          <Button flex={1} variant="light" px="sm" onClick={spotlight.open}>
-            <Group>
+          <Button
+            flex={1}
+            styles={{ inner: { width: '100%' }, label: { width: '100%' } }}
+            variant="light"
+            px="sm"
+            onClick={spotlight.open}
+          >
+            <Group w={'100%'} justify="space-between">
               <IconSearch size="16" />
               <Text size="xs">⌘ K</Text>
             </Group>
