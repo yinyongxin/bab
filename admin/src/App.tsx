@@ -10,14 +10,9 @@ import { Notifications } from '@mantine/notifications';
 import '@mantine/core/styles.css';
 import '@mantine/dropzone/styles.css';
 import '@mantine/notifications/styles.css';
+import '@mantine/spotlight/styles.css';
 import './App.css';
 
-/**
- * Spotlight
- * https://mantine.dev/x/spotlight/#installation
- */
-import '@mantine/spotlight/styles.css';
-import { useDidUpdate } from '@mantine/hooks';
 import { useMemo } from 'react';
 
 const AppContent = () => {
