@@ -40,7 +40,7 @@ import { toNumber } from 'lodash';
 })
 @Controller('admintors')
 export class AdmintorsController {
-  constructor(private readonly usersService: AdmintorsService) {}
+  constructor(private readonly admintorsService: AdmintorsService) {}
 
   @Put('addOne')
   @ApiOperation({
@@ -52,7 +52,7 @@ export class AdmintorsController {
     type: AdmintorsResultDto,
   })
   async addOne(@Body() body: AdmintorsCreateBodyDto) {
-    const res = await this.usersService.addOne(body);
+    const res = await this.admintorsService.addOne(body);
     return res;
   }
 
@@ -66,7 +66,7 @@ export class AdmintorsController {
     type: IntersectionType(UpdateResDto, DeleteResDto),
   })
   async deleteByIds(@Body() body: DeleteIdsDto) {
-    const res = await this.usersService.deleteByIds(body.ids);
+    const res = await this.admintorsService.deleteByIds(body.ids);
     return res;
   }
 
@@ -83,7 +83,7 @@ export class AdmintorsController {
     @Query() query: QueryIdDto,
     @Body() body: AdmintorsUpdateDto,
   ) {
-    const res = await this.usersService.updateOne(query.id, body);
+    const res = await this.admintorsService.updateOne(query.id, body);
     return res;
   }
 
@@ -97,7 +97,7 @@ export class AdmintorsController {
     type: AdmintorsResultDto,
   })
   async findById(@Query() query: QueryIdDto) {
-    const res = await this.usersService.findById(query.id);
+    const res = await this.admintorsService.findById(query.id);
     return res;
   }
 
@@ -114,7 +114,7 @@ export class AdmintorsController {
     @Query() pagination: PaginationDto,
     @Body() body: AdmintorsFilterDto,
   ) {
-    const res = await this.usersService.getPageList(
+    const res = await this.admintorsService.getPageList(
       {
         pageNo: toNumber(pagination.pageNo),
         pageSize: toNumber(pagination.pageSize),

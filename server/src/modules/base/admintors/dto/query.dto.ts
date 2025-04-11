@@ -3,6 +3,13 @@ import { Admintors } from '../../../../mongo/base';
 import { DateTimeRangeDto } from 'src/dtos';
 
 export class AdmintorsFilterDto extends IntersectionType(
-  PartialType(OmitType(Admintors, ['password', 'deletedTime'])),
+  PartialType(
+    OmitType(Admintors, [
+      'password',
+      'deletedTime',
+      'createdTime',
+      'updatedTime',
+    ]),
+  ),
   DateTimeRangeDto,
 ) {}
