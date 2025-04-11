@@ -4,6 +4,7 @@ import { LayoutTypes } from '@/@types/layout';
 
 export interface AppConfigState {
   layoutType: LayoutTypes;
+  contentWidth: number;
   desktop: boolean;
   apiPrefix: string;
   authenticatedEntryPath: string;
@@ -19,6 +20,7 @@ export interface AppConfigState {
 
 const initialState: AppConfigState = {
   layoutType: LayoutTypes.DeckedSideBar,
+  contentWidth: 100,
   desktop: true,
   name: 'Admin',
   version: '1.0.0',

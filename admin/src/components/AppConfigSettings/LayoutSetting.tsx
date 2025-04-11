@@ -1,13 +1,16 @@
 import { LayoutTypes } from '@/@types/layout';
 import { useAppDispatch, useAppSelector } from '@/store';
+import useAppConfig from '@/store/hook/useAppConfig';
 import { setAppConfig } from '@/store/slices/appConfig';
 import {
   AspectRatio,
   Box,
   Center,
+  Divider,
   Flex,
   Grid,
   Paper,
+  Slider,
   Stack,
   Title,
 } from '@mantine/core';
@@ -36,7 +39,8 @@ const CustomizePaper = (props: {
 };
 
 const LayoutSetting = () => {
-  const appConfig = useAppSelector((state) => state.appConfig);
+  const [appConfig, updateAppConfig] = useAppConfig();
+
   const { layoutType } = appConfig;
   const dispatch = useAppDispatch();
   const conent = (
@@ -231,6 +235,25 @@ const LayoutSetting = () => {
           </Grid.Col>
         ))}
       </Grid>
+      <Divider />
+      <Title order={5}>内容宽度</Title>
+      <Slider
+        my="md"
+        value={appConfig.contentWidth}
+        onChange={(value) => {
+          updateAppConfig({
+            contentWidth: value,
+          });
+        }}
+        size="md"
+        labelAlwaysOn
+        label={(val) => val / 2 + 50 + '%'}
+        labelTransitionProps={{ duration: 0 }}
+        marks={[
+          { value: 0, label: '50%' },
+          { value: 100, label: '100%' },
+        ]}
+      />
     </Stack>
   );
 };

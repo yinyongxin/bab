@@ -1,5 +1,5 @@
-import { ScrollArea, SegmentedControl, Stack } from '@mantine/core';
-import ColorSettings from './ColorSettings';
+import { SegmentedControl, Stack } from '@mantine/core';
+import AppearanceSettings from './AppearanceSettings';
 import LayoutSetting from './LayoutSetting';
 import { useState } from 'react';
 
@@ -12,14 +12,14 @@ const AppConfigSettings = () => {
       content: <LayoutSetting />,
     },
     {
-      label: '颜色',
-      value: 'color',
-      content: <ColorSettings />,
+      label: '外观',
+      value: 'appearance',
+      content: <AppearanceSettings />,
     },
     {
       label: '其他',
       value: 'other',
-      content: <ColorSettings />,
+      content: <AppearanceSettings />,
     },
   ];
   return (

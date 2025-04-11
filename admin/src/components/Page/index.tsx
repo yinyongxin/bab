@@ -21,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { useAppSelector } from '@/store';
 import { LayoutTypes } from '@/@types/layout';
+import useAppConfig from '@/store/hook/useAppConfig';
 
 type PageProps = {
   children: React.ReactNode;
@@ -40,7 +41,8 @@ type PageProps = {
 
 const Page = (props: PageProps) => {
   const [visible, { open, close }] = useDisclosure(false);
-  const { layoutType } = useAppSelector((state) => state.appConfig);
+  const [appConfig] = useAppConfig();
+  const { layoutType } = appConfig;
   const {
     children,
     title,
@@ -157,9 +159,11 @@ const Page = (props: PageProps) => {
         {headerBottom}
       </Stack>
       {bodyTop && <Box px="xl">{bodyTop}</Box>}
-      <Box px="xl" flex={1}>
-        {children}
-      </Box>
+      <Stack align="center" w="100%" px="xl">
+        <Box flex={1} w={appConfig.contentWidth / 2 + 50 + '%'}>
+          {children}
+        </Box>
+      </Stack>
       {footer && <Box px="xl">{footer}</Box>}
     </Stack>
   );

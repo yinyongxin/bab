@@ -1,4 +1,9 @@
-import { setPrimaryColor, useAppDispatch } from '@/store';
+import {
+  setDefaultRadius,
+  setPrimaryColor,
+  useAppDispatch,
+  useAppSelector,
+} from '@/store';
 import {
   Center,
   ColorSwatch,
@@ -9,10 +14,15 @@ import {
   useMantineColorScheme,
   useMantineTheme,
   DefaultMantineColor,
+  Divider,
+  Slider,
+  Space,
 } from '@mantine/core';
 import { IconBrightnessAuto, IconMoon, IconSun } from '@tabler/icons-react';
+import { sizeMarks } from './constants';
 
-const ColorSettings = () => {
+const AppearanceSettings = () => {
+  const { defaultRadius } = useAppSelector((state) => state.appTheme);
   const { colorScheme, setColorScheme } = useMantineColorScheme();
   const theme = useMantineTheme();
   const dispatch = useAppDispatch();
@@ -68,6 +78,7 @@ const ColorSettings = () => {
           </Stack>
         </Grid.Col>
       </Grid>
+      <Divider />
       <Title order={5}>主题颜色</Title>
       <Grid>
         {colors.map((color) => {
@@ -92,8 +103,24 @@ const ColorSettings = () => {
           );
         })}
       </Grid>
+      <Divider />
+      <Title order={5}>默认圆角</Title>
+      <Slider
+        label={(val) => sizeMarks.find((mark) => mark.value === val)!.label}
+        step={25}
+        defaultValue={
+          sizeMarks.find((item) => item.label === defaultRadius)?.value
+        }
+        onChange={(val) => {
+          const newRadius = sizeMarks.find((item) => item.value === val)!.label;
+          dispatch(setDefaultRadius(newRadius));
+        }}
+        value={sizeMarks.find((item) => item.label === defaultRadius)?.value}
+        marks={sizeMarks}
+      />
+      <Space h="xl" />
     </Stack>
   );
 };
 
-export default ColorSettings;
+export default AppearanceSettings;

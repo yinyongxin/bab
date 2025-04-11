@@ -1,11 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SLICE_BASE_NAME } from '../auth/constants';
-import { DefaultMantineColor, MantineTheme } from '@mantine/core';
+import {
+  DefaultMantineColor,
+  MantineRadius,
+  MantineTheme,
+} from '@mantine/core';
 
 export interface AppThemeState extends Partial<MantineTheme> {}
 
 const initialState: AppThemeState = {
   primaryColor: 'blue',
+  defaultRadius: 'md',
+  cursorType: 'pointer',
 };
 
 const appThemeSlice = createSlice({
@@ -18,8 +24,12 @@ const appThemeSlice = createSlice({
     ) {
       state.primaryColor = action.payload;
     },
+
+    setDefaultRadius(state, action: PayloadAction<MantineRadius>) {
+      state.defaultRadius = action.payload;
+    },
   },
 });
 
-export const { setPrimaryColor } = appThemeSlice.actions;
+export const { setPrimaryColor, setDefaultRadius } = appThemeSlice.actions;
 export default appThemeSlice.reducer;

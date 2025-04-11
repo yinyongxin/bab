@@ -212,7 +212,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     },
   ];
   return (
-    <Paper pos="relative" radius="md" flex={1} ref={ref} shadow="xs">
+    <Paper pos="relative" flex={1} ref={ref} shadow="xs">
       <Flex direction="column" flex={1}>
         <header>
           <Flex justify="space-between">

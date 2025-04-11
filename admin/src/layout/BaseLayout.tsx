@@ -1,6 +1,6 @@
 import Views from '@/layout/Views';
 import { useAppSelector } from '@/store';
-import { AppShell, Drawer, ScrollArea } from '@mantine/core';
+import { AppShell, Box, Drawer, Flex, ScrollArea } from '@mantine/core';
 import HeaderContent from './HeaderContent/HeaderContent';
 import NavBarContent from './NavBarContent';
 import { LayoutTypes } from '@/@types/layout';
@@ -9,9 +9,11 @@ import LayoutContext from './LayoutContext';
 import { useLocation } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 import AppConfigSettings from '@/components/AppConfigSettings/AppConfigSettings';
+import useAppConfig from '@/store/hook/useAppConfig';
 
 export default function BaseLayout() {
-  const { desktop, layoutType } = useAppSelector((state) => state.appConfig);
+  const [appConfig] = useAppConfig();
+  const { desktop, layoutType } = appConfig;
   const [activeSubLink, setActiveSubLink] = useState('');
   const [activeMainLink, setActiveMainLink] = useState('');
   const [appSettingsOpened, setAppSettingsAction] = useDisclosure(false);
@@ -78,7 +80,11 @@ export default function BaseLayout() {
         {appHeader?.content}
         {appNavBar?.content}
         <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))">
-          <Views />
+          <Flex direction="column" align="center">
+            <Box flex={1} w="100%">
+              <Views />
+            </Box>
+          </Flex>
         </AppShell.Main>
       </AppShell>
       <Drawer

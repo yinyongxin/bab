@@ -21,17 +21,10 @@ import { useDidUpdate } from '@mantine/hooks';
 import { useMemo } from 'react';
 
 const AppContent = () => {
-  const { primaryColor } = useAppSelector((state) => state.appTheme);
-  useDidUpdate(() => {}, [primaryColor]);
+  const appTheme = useAppSelector((state) => state.appTheme);
   const theme = useMemo(() => {
-    return createTheme({
-      /** Put your mantine theme override here */
-      // primaryColor: 'dark',
-      primaryColor,
-      defaultRadius: 'md',
-      cursorType: 'pointer',
-    });
-  }, [primaryColor]);
+    return createTheme(appTheme);
+  }, [appTheme]);
   return (
     <MantineProvider theme={theme}>
       <Notifications />
