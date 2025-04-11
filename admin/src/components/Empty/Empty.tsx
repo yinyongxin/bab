@@ -1,4 +1,4 @@
-import appConfig from '@/configs/app.config';
+import useAppConfig from '@/store/hook/useAppConfig';
 import { getFilePath } from '@/utils';
 import { Box, Flex, Image } from '@mantine/core';
 type EmptyProps = {
@@ -7,6 +7,7 @@ type EmptyProps = {
 };
 
 const Empty = (props: EmptyProps) => {
+  const [appConfig] = useAppConfig();
   const { text = '未找到任何资源', children } = props;
   return (
     <Box h="100%" py={100}>

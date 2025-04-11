@@ -2,10 +2,11 @@ import { Button, Container, Group, Text, Title } from '@mantine/core';
 import { Illustration } from './Illustration';
 import classes from './nothingFound.module.css';
 import { Link } from 'react-router-dom';
-import appConfig from '@/configs/app.config';
+import useAppConfig from '@/store/hook/useAppConfig';
 
-const { authenticatedEntryPath } = appConfig;
 export default function NothingFound() {
+  const [appConfig] = useAppConfig();
+  const { authenticatedEntryPath } = appConfig;
   return (
     <Container className={classes.root}>
       <div className={classes.inner}>

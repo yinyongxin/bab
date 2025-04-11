@@ -7,7 +7,6 @@ import {
   AppThunkDispatch,
   initialUserState,
 } from '@/store';
-import appConfig from '@/configs/app.config';
 import { REDIRECT_URL_KEY } from '@/constants/app.constant';
 import { useNavigate } from 'react-router-dom';
 import useQuery from './useQuery';
@@ -20,6 +19,7 @@ import {
   TreeMenuDataDto,
 } from '@/client';
 import { setMenus } from '@/store/slices/auth/menusSlice';
+import useAppConfig from '@/store/hook/useAppConfig';
 
 type Status = 'success' | 'failed';
 
@@ -66,6 +66,7 @@ const updateMenus = async (menus: string[], dispatch: AppThunkDispatch) => {
 };
 
 function useAuth() {
+  const [appConfig] = useAppConfig();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { token, signedIn } = useAppSelector((state) => state.auth.session);

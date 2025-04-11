@@ -1,5 +1,4 @@
 import { Suspense } from 'react';
-import appConfig from '@/configs/app.config';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import {
   errorRoutes,
@@ -10,9 +9,11 @@ import ProtectedRoute from '@/route/ProtectedRoute';
 import AppRoute from '@/route/AppRoute';
 import PublicRoute from '@/route/PublicRoute';
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
+import useAppConfig from '@/store/hook/useAppConfig';
 
-const { authenticatedEntryPath } = appConfig;
 const AllRoutes = () => {
+  const [appConfig] = useAppConfig();
+  const { authenticatedEntryPath } = appConfig;
   return (
     <Routes>
       <Route path="/" element={<ProtectedRoute />}>

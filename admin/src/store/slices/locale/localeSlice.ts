@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import appConfig from '@/configs/app.config';
 
 export type LocaleState = {
   currentLang: string;
 };
 
 const initialState: LocaleState = {
-  currentLang: appConfig.locale,
+  currentLang: 'cn',
 };
 
 export const localeSlice = createSlice({

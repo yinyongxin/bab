@@ -34,12 +34,13 @@ import {
   IconUpload,
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
-import appConfig from '@/configs/app.config';
 import { getFilePath, getPageTotal, uploadFile } from '@/utils';
 import { modals } from '@mantine/modals';
 import { FileMIMEOptions } from './constants';
+import useAppConfig from '@/store/hook/useAppConfig';
 
 export default () => {
+  const [appConfig] = useAppConfig();
   const [data, setData] = useState<FilesPaginationResultDto>({
     list: [],
     pageNo: 1,
