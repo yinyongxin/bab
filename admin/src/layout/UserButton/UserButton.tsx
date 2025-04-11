@@ -5,6 +5,8 @@ import {
   IconSun,
   IconUser,
   IconSearch,
+  IconMinimize,
+  IconMaximize,
 } from '@tabler/icons-react';
 import {
   Text,
@@ -12,11 +14,13 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
   MenuProps,
+  UnstyledButton,
 } from '@mantine/core';
 import useAuth from '@/utils/hooks/useAuth';
 import { spotlight } from '@mantine/spotlight';
 import { useContext } from 'react';
 import LayoutContext from '../LayoutContext';
+import { useFullscreen } from '@mantine/hooks';
 
 type UserButtonProps = {
   children?: React.ReactNode;
@@ -24,7 +28,7 @@ type UserButtonProps = {
 export function UserButton(props: UserButtonProps) {
   const { children, ...menuProps } = props;
   const { setColorScheme } = useMantineColorScheme();
-
+  const { toggle, fullscreen } = useFullscreen();
   const computedColorScheme = useComputedColorScheme('light', {
     getInitialValueInEffect: true,
   });
@@ -44,6 +48,20 @@ export function UserButton(props: UserButtonProps) {
           >
             设置
           </Menu.Item>
+          <Menu.Item
+            leftSection={
+              fullscreen ? (
+                <IconMinimize size={14} />
+              ) : (
+                <IconMaximize size={14} />
+              )
+            }
+            onClick={() => {
+              toggle();
+            }}
+          >
+            {fullscreen ? '取消全屏' : '全屏'}
+          </Menu.Item>
           {/* <Menu.Item leftSection={<IconMessageCircle size={14} />}>
             Messages
           </Menu.Item>
@@ -56,9 +74,11 @@ export function UserButton(props: UserButtonProps) {
                 <IconMoon size={14} stroke={1.5} />
               )
             }
-            onClick={() =>
-              setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')
-            }
+            onClick={(e) => {
+              setColorScheme(
+                computedColorScheme === 'light' ? 'dark' : 'light',
+              );
+            }}
           >
             {computedColorScheme === 'light' ? '深色模式' : '浅色模式'}
           </Menu.Item>
