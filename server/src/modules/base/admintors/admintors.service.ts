@@ -7,9 +7,12 @@ import {
   AdmintorsUpdateDto,
 } from './dto';
 import { Admintors } from '../../../mongo/base';
-import { toFuzzyParams } from '../../../mongo/tools';
 import { PaginationDto } from '../../../dtos';
-import { deleteByIds } from '../../../mongo/tools';
+import {
+  deleteByIds,
+  getDateTimeRange,
+  toFuzzyParams,
+} from '../../../mongo/tools';
 
 @Injectable()
 export class AdmintorsService {
@@ -77,25 +80,17 @@ export class AdmintorsService {
   }
 
   async getPageList(pagination: PaginationDto, filter: AdmintorsFilterDto) {
-    const { createdTimeRange, ...rest } = filter;
-    const getRange = () => {
-      if (createdTimeRange) {
-        return {
-          createdTime: {
-            $gte: new Date(createdTimeRange?.[0]),
-            $lte: new Date(createdTimeRange?.[1]),
-          },
-        };
-      }
+    const { dateTimeRange, fuzzyFields, ...fields } = filter;
+    console.log(filter, 'filter');
+    const match = {
+      ...fields,
+      ...toFuzzyParams(fuzzyFields),
+      ...getDateTimeRange(dateTimeRange),
     };
-
     // 构建聚合管道
     const [res] = await this.userModel.aggregate([
       {
-        $match: {
-          ...toFuzzyParams(rest),
-          ...getRange(),
-        },
+        $match: match,
       },
       { $sort: { createdTime: -1 } },
       {

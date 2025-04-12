@@ -212,19 +212,37 @@ export type UpdateResDto = {
   matchedCount?: number;
 };
 
-export type AdmintorsFilterDto = {
+export type DateTimeRangeDto = {
+  /**
+   * 创建时间范围
+   */
+  readonly createdTime?: Array<Date>;
+  /**
+   * 更新时间范围
+   */
+  readonly updatedTime?: Array<Date>;
+};
+
+export type PickTypeClass = {
   /**
    * 管理人员名称
    */
-  username?: string;
-  /**
-   * 头像
-   */
-  avatar?: string;
+  username: string;
   /**
    * 姓名
    */
   name?: string;
+  /**
+   * 邮箱
+   */
+  email: string;
+};
+
+export type AdmintorsFilterDto = {
+  /**
+   * 头像
+   */
+  avatar?: string;
   /**
    * 角色
    */
@@ -238,21 +256,17 @@ export type AdmintorsFilterDto = {
    */
   phone?: string;
   /**
-   * 邮箱
-   */
-  email?: string;
-  /**
    * 状态
    */
   status?: AdmintorStatusEnum;
   /**
-   * 创建时间范围
+   * 时间范围
    */
-  readonly createdTimeRange?: Array<Date>;
+  dateTimeRange?: DateTimeRangeDto;
   /**
-   * 更新时间范围
+   * 模糊查询字段
    */
-  readonly updatedTimeRange?: Array<Date>;
+  fuzzyFields?: PickTypeClass;
 };
 
 export type RolesResultDto = {
@@ -710,14 +724,6 @@ export type FilesUploadDto = {
 
 export type FilesQueryFilterDto = {
   /**
-   * 原始文件名
-   */
-  originalname?: string;
-  /**
-   * 唯一文件名
-   */
-  uniquedName?: string;
-  /**
    * 文件类型
    */
   mimetype?: string;
@@ -730,13 +736,13 @@ export type FilesQueryFilterDto = {
    */
   path?: string;
   /**
-   * 创建时间范围
+   * 时间范围
    */
-  readonly createdTimeRange?: Array<Date>;
+  dateTimeRange?: DateTimeRangeDto;
   /**
-   * 更新时间范围
+   * 模糊查询字段
    */
-  readonly updatedTimeRange?: Array<Date>;
+  fuzzyFields?: PickTypeClass;
 };
 
 export type FilesResultDto = {
@@ -800,7 +806,7 @@ export type FilesBatchDeleteDto = {
   fileList: Array<FilesResultDto>;
 };
 
-export type PickTypeClass = {
+export type FileInfo = {
   /**
    * 文件路径
    */
@@ -813,7 +819,7 @@ export type PickTypeClass = {
 
 export type FileUpdateDto = {
   file: Blob | File;
-  fileInfo: PickTypeClass;
+  fileInfo: FileInfo;
 };
 
 export type AuthControllerSignInData = {

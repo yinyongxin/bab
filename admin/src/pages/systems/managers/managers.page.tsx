@@ -36,9 +36,12 @@ import { useEffect, useState } from 'react';
 import UpdateManager from './UpdateManager';
 import { getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
-import { sexIcons } from './common';
 import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 import useTools from '@/utils/hooks/useTools';
+import { sexOptions, sexOptionsObj } from '@/constants/options';
+import AppSelect from '@/components/AppSelect';
+import Filter from '@/components/Filter/Filter';
+import { useForm } from '@mantine/form';
 
 export default () => {
   const { getFilePath } = useTools();
@@ -51,6 +54,13 @@ export default () => {
     pageSize: 10,
     total: 0,
   });
+  const form = useForm<AdmintorsFilterDto>({
+    initialValues: {
+      sex: undefined,
+    },
+    validate: {},
+  });
+
   const [initalValues, setInitalValues] = useState<AdmintorsPageItemDto>();
   const [filterParams, setFilterParams] = useState<AdmintorsFilterDto>({});
   const getData = async (params?: { pageNo?: number }) => {
@@ -167,14 +177,7 @@ export default () => {
     {
       title: '性别',
       dataKey: 'sex',
-      render: ({ sex }) => {
-        return (
-          <Group gap="xs">
-            {sex && sexIcons[sex]}
-            <Text>{sex === 'Male' ? '男' : '女'}</Text>
-          </Group>
-        );
-      },
+      optionsObj: sexOptionsObj,
     },
     {
       title: '状态',
@@ -240,7 +243,7 @@ export default () => {
     },
     {
       title: '操作',
-      width: 110,
+      width: 120,
       render: (record) => {
         return (
           <>
@@ -287,10 +290,33 @@ export default () => {
             toDate
             onChange={(value) => {
               setFilterParams({
-                createdTimeRange: value,
+                dateTimeRange: { createdTime: value },
               });
             }}
           />,
+          <Filter
+            onConfirm={(e, close) =>
+              form.onSubmit(async (values) => {
+                setFilterParams((state) => ({
+                  ...state,
+                  ...values,
+                }));
+                close();
+              })(e)
+            }
+            onCancel={() => {
+              form.setValues({
+                sex: filterParams.sex,
+              });
+            }}
+          >
+            <AppSelect
+              clearable
+              inputProps={form.getInputProps('sex')}
+              data={sexOptions}
+              plaseholder="性别"
+            />
+          </Filter>,
           <Button
             key="add"
             onClick={() => {

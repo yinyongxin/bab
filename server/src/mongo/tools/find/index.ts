@@ -1,17 +1,24 @@
 import dayjs from 'dayjs';
 import { Model } from 'mongoose';
-import { PaginationDto } from 'src/dtos';
+import { DateTimeRangeDto, PaginationDto } from 'src/dtos';
 
 /**
  * 将字符串文本的数据变为模糊查询
  * 不是字符串的字段返回
  */
 export const toFuzzyParams = <D = Record<string, unknown>, K = keyof D>(
-  data: D,
+  data?: D,
   fieldNames?: (keyof D)[],
 ): D => {
   const newParams: D = {} as D;
+  if (!data) {
+    return newParams;
+  }
   const names = fieldNames || (Object.keys(data) as K[]);
+
+  if (!names.length) {
+    return newParams;
+  }
 
   names.forEach((name) => {
     const value = data[name];
@@ -30,6 +37,25 @@ export const toFuzzyParams = <D = Record<string, unknown>, K = keyof D>(
   });
 
   return newParams;
+};
+
+export const getDateTimeRange = (dateTimeRangeDto?: DateTimeRangeDto) => {
+  const range = {};
+  if (!dateTimeRangeDto) {
+    return range;
+  }
+  for (const key in dateTimeRangeDto) {
+    if (dateTimeRangeDto.hasOwnProperty(key)) {
+      const value = dateTimeRangeDto[key];
+      if (value) {
+        range[key] = {
+          $gte: new Date(value[0]),
+          $lte: new Date(value[1]),
+        };
+      }
+    }
+  }
+  return range;
 };
 
 export const queryPagination = async <

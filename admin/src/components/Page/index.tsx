@@ -19,9 +19,9 @@ import {
 import { IconArrowLeft, IconReload } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
-import { useAppSelector } from '@/store';
 import { LayoutTypes } from '@/@types/layout';
 import useAppConfig from '@/store/hook/useAppConfig';
+import { Fragment } from 'react/jsx-runtime';
 
 type PageProps = {
   children: React.ReactNode;
@@ -149,7 +149,13 @@ const Page = (props: PageProps) => {
               </ActionIcon>
             )}
           </Group>
-          {actions && <Group>{actions}</Group>}
+          {actions && (
+            <Group>
+              {actions.map((action, index) => (
+                <Fragment key={index}>{action}</Fragment>
+              ))}
+            </Group>
+          )}
         </Flex>
         {description && (
           <Text lineClamp={2} c="dimmed">
@@ -160,7 +166,7 @@ const Page = (props: PageProps) => {
       </Stack>
       {bodyTop && <Box px="xl">{bodyTop}</Box>}
       <Stack align="center" w="100%" px="xl">
-        <Box flex={1} w={appConfig.contentWidth / 2 + 50 + '%'}>
+        <Box flex={1} w={`${appConfig.contentWidth / 2 + 50}%`}>
           {children}
         </Box>
       </Stack>

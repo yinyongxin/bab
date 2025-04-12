@@ -1,6 +1,6 @@
 import { ComboboxItem, Select } from '@mantine/core';
 import { IconCalendarCog } from '@tabler/icons-react';
-import dayjs, { Dayjs, extend } from 'dayjs';
+import dayjs from 'dayjs';
 import { useState } from 'react';
 const dateRangeSelectData = [
   { value: 'all', label: '全部', range: [] },
@@ -46,6 +46,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
   const [value, setValue] = useState<ComboboxItem>(defaultRange);
   return (
     <Select
+      checkIconPosition="right"
       leftSection={<IconCalendarCog size={14} />}
       data={dateRangeSelectData}
       value={value ? value.value : null}
@@ -65,6 +66,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
           onChange?.(range.length > 0 ? range : undefined);
         }
       }}
+      comboboxProps={{ shadow: 'md' }}
     />
   );
 }

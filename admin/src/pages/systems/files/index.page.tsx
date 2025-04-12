@@ -150,7 +150,7 @@ export default () => {
             toDate
             onChange={(range) => {
               setFilterParams({
-                createdTimeRange: range,
+                dateTimeRange: { createdTime: range },
               });
             }}
           />,

@@ -19,11 +19,13 @@ export class FileUploadDto {
   file: any;
 }
 
+class FileInfo extends PickType(FilesResultDto, ['path', '_id']) {}
+
 export class FileUpdateDto {
   @ApiProperty({ type: 'string', format: 'binary' })
   file: any;
   @ApiProperty({
-    type: PickType(FilesResultDto, ['path', '_id']),
+    type: FileInfo,
     format: 'binary',
   })
   fileInfo: any;
@@ -48,19 +50,29 @@ export class FilesUploadSuccessResultDto {
   })
   urls: string[];
 }
-
-export class QueryDirsFilterDto {
+export class FilesQueryFilterDto extends PartialType(
+  OmitType(Files, [
+    'deletedTime',
+    'createdTime',
+    'updatedTime',
+    'originalname',
+    'uniquedName',
+  ]),
+) {
   @ApiProperty({
     required: false,
-    description: '路径',
+    description: '时间范围',
+    type: DateTimeRangeDto,
   })
-  dirPath?: string;
-}
+  dateTimeRange?: DateTimeRangeDto;
 
-export class FilesQueryFilterDto extends IntersectionType(
-  PartialType(OmitType(Files, ['deletedTime', 'createdTime', 'updatedTime'])),
-  DateTimeRangeDto,
-) {}
+  @ApiProperty({
+    required: false,
+    description: '模糊查询字段',
+    type: PickType(Files, ['originalname', 'uniquedName']),
+  })
+  fuzzyFields?: Pick<Files, 'originalname' | 'uniquedName'>;
+}
 
 export class FilesPaginationResultDto extends PaginationResultDto {
   @ApiProperty({

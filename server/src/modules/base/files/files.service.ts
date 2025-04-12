@@ -12,7 +12,12 @@ import { Files } from '../../../mongo/base/files';
 import { InjectModel } from '@nestjs/mongoose';
 import { randomUUID } from 'crypto';
 import { PaginationDto } from 'src/dtos';
-import { deleteByIds, queryPagination } from 'src/mongo/tools';
+import {
+  deleteByIds,
+  getDateTimeRange,
+  queryPagination,
+  toFuzzyParams,
+} from 'src/mongo/tools';
 
 @Injectable()
 export class FilesService {
@@ -64,21 +69,15 @@ export class FilesService {
     pagination: PaginationDto,
     filter: FilesQueryFilterDto,
   ) {
-    const { createdTimeRange, ...rest } = filter;
-    const getRange = () => {
-      if (createdTimeRange) {
-        return {
-          createdTime: {
-            $gte: new Date(createdTimeRange?.[0]),
-            $lte: new Date(createdTimeRange?.[1]),
-          },
-        };
-      }
-    };
+    const { dateTimeRange, fuzzyFields, ...fields } = filter;
     const queryPaginationRes = await queryPagination(
       this.filesModel,
       pagination,
-      { ...rest, ...getRange() },
+      {
+        ...fields,
+        ...toFuzzyParams(fuzzyFields),
+        ...getDateTimeRange(dateTimeRange),
+      },
     );
 
     return {

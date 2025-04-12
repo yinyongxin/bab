@@ -112,7 +112,7 @@ export class AdmintorsController {
   })
   async getPageList(
     @Query() pagination: PaginationDto,
-    @Body() body: AdmintorsFilterDto,
+    @Body() body?: AdmintorsFilterDto,
   ) {
     const res = await this.admintorsService.getPageList(
       {

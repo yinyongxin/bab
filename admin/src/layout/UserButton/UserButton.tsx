@@ -14,7 +14,6 @@ import {
   useComputedColorScheme,
   useMantineColorScheme,
   MenuProps,
-  UnstyledButton,
 } from '@mantine/core';
 import useAuth from '@/utils/hooks/useAuth';
 import { spotlight } from '@mantine/spotlight';
@@ -37,7 +36,14 @@ export function UserButton(props: UserButtonProps) {
   const { signOut } = useAuth();
   return (
     <>
-      <Menu shadow="md" width={200} position="right-end" {...menuProps}>
+      <Menu
+        shadow="md"
+        width={200}
+        position="right-end"
+        withOverlay
+        overlayProps={{ blur: '8px' }}
+        {...menuProps}
+      >
         <Menu.Target>{children}</Menu.Target>
 
         <Menu.Dropdown>
@@ -74,7 +80,7 @@ export function UserButton(props: UserButtonProps) {
                 <IconMoon size={14} stroke={1.5} />
               )
             }
-            onClick={(e) => {
+            onClick={() => {
               setColorScheme(
                 computedColorScheme === 'light' ? 'dark' : 'light',
               );

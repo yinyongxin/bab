@@ -27,19 +27,23 @@ import {
   IconMinimize,
   IconSpacingVertical,
 } from '@tabler/icons-react';
-import { useFullscreen } from '@mantine/hooks';
 import clsx from 'clsx';
+import { Option } from '@/@types';
+
+type Column<D = any, O extends string | number | symbol = any> = {
+  title: React.ReactNode;
+  dataKey?: keyof D;
+  render?: (values: D) => React.ReactNode;
+  thProps?: TableThProps;
+  tdProps?: TableTdProps;
+  prefix?: (values: D) => React.ReactNode;
+  width?: MantineStyleProps['w'];
+  options?: Option<O>[];
+  optionsObj?: Record<O, Option<O>>;
+};
 
 export type TablePageProps<D> = {
-  columns: {
-    title: React.ReactNode;
-    dataKey?: keyof D;
-    render?: (values: D) => React.ReactNode;
-    thProps?: TableThProps;
-    tdProps?: TableTdProps;
-    prefix?: (values: D) => React.ReactNode;
-    width?: MantineStyleProps['w'];
-  }[];
+  columns: Column<D>[];
   dataList: D[];
   rowkey: keyof D;
   paginationProps?: PaginationProps;
@@ -102,13 +106,23 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
               tdContent = column.render(data);
             } else if (column.dataKey) {
               tdContent = data[column.dataKey];
+              if (column.options) {
+                tdContent = column.options.find(
+                  (option) => option.value === data[column.dataKey as keyof D],
+                )?.renderContent;
+              } else if (column.optionsObj) {
+                tdContent =
+                  column.optionsObj[data[column.dataKey as keyof D]]
+                    ?.renderContent;
+              }
             }
+
             if (column.prefix) {
               tdContent = (
-                <Flex align="center" gap="xs">
+                <>
                   {column.prefix(data)}
                   <>{tdContent}</>
-                </Flex>
+                </>
               );
             }
             return (
