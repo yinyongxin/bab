@@ -37,10 +37,10 @@ import {
 import dayjs from 'dayjs';
 import { getPageTotal, uploadFile } from '@/utils';
 import { modals } from '@mantine/modals';
-import { FileMIMEOptions } from './constants';
 import useAppConfig from '@/store/hook/useAppConfig';
 import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 import useTools from '@/utils/hooks/useTools';
+import { fileMIMEOptions } from '@/constants/options';
 
 export default () => {
   const { getFilePath } = useTools();
@@ -116,7 +116,7 @@ export default () => {
             >
               全部
             </Chip>
-            {FileMIMEOptions.map((item) => {
+            {fileMIMEOptions.map((item) => {
               return (
                 <Chip
                   key={item.value}

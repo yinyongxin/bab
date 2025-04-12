@@ -6,3 +6,10 @@ export type Option<K = string> = {
   icon?: ReactNode;
   renderContent?: ReactNode;
 };
+
+export type FilterType<D = unknown> = {
+  name: keyof D;
+  options: Option<any>[];
+  optionsObj: Record<any, Option<any>>;
+  placeholder: string;
+};

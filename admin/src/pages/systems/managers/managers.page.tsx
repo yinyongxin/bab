@@ -20,6 +20,10 @@ import {
   Switch,
   Title,
   Group,
+  Stack,
+  rem,
+  Chip,
+  CloseButton,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import {
@@ -40,9 +44,17 @@ import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 import useTools from '@/utils/hooks/useTools';
 import { sexOptions, sexOptionsObj } from '@/constants/options';
 import AppSelect from '@/components/AppSelect';
-import Filter from '@/components/Filter/Filter';
 import { useForm } from '@mantine/form';
-
+import { FilterType } from '@/@types';
+import Filter from '@/components/Filter/Filter';
+const filters: FilterType<AdmintorsFilterDto>[] = [
+  {
+    name: 'sex',
+    options: sexOptions,
+    optionsObj: sexOptionsObj,
+    placeholder: '请选择性别',
+  },
+];
 export default () => {
   const { getFilePath } = useTools();
   const [opened, { open, close }] = useDisclosure(false);
@@ -55,9 +67,7 @@ export default () => {
     total: 0,
   });
   const form = useForm<AdmintorsFilterDto>({
-    initialValues: {
-      sex: undefined,
-    },
+    initialValues: {},
     validate: {},
   });
 
@@ -275,6 +285,52 @@ export default () => {
     },
   ];
 
+  const headerBottom = () => {
+    const filterLength = Object.values(filterParams || {}).filter(
+      Boolean,
+    ).length;
+    if (!filterLength) {
+      return null;
+    }
+    return (
+      <Stack>
+        <Flex gap="md">
+          <Title order={6} lh={rem(28)} textWrap="nowrap">
+            筛选条件:
+          </Title>
+          {filters.map((item) => {
+            if (item.optionsObj) {
+              const value = filterParams[item.name];
+              return (
+                <Chip
+                  variant="light"
+                  checked
+                  icon={
+                    <CloseButton
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setFilterParams({
+                          sex: undefined,
+                        });
+                        form.setFieldValue('sex', undefined);
+                      }}
+                      variant="transparent"
+                    />
+                  }
+                >
+                  <Group ml="sm">
+                    {item.optionsObj[value as string].renderContent}
+                  </Group>
+                </Chip>
+              );
+            }
+            return null;
+          })}
+        </Flex>
+      </Stack>
+    );
+  };
+
   return (
     <>
       <Page
@@ -283,6 +339,7 @@ export default () => {
         onReload={() => {
           getData();
         }}
+        headerBottom={headerBottom()}
         actions={[
           <DateRangeSelect
             key="DataRangerSelect"
@@ -310,12 +367,19 @@ export default () => {
               });
             }}
           >
-            <AppSelect
-              clearable
-              inputProps={form.getInputProps('sex')}
-              data={sexOptions}
-              plaseholder="性别"
-            />
+            {filters.map((item) => {
+              if (item.options) {
+                return (
+                  <AppSelect
+                    clearable
+                    inputProps={form.getInputProps(item.name)}
+                    data={item.options}
+                    plaseholder={item.placeholder}
+                  />
+                );
+              }
+              return null;
+            })}
           </Filter>,
           <Button
             key="add"
