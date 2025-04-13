@@ -9,7 +9,7 @@ import {
   ComboboxProps,
   CloseButton,
   Stack,
-  Text
+  Text,
 } from '@mantine/core';
 import { GetInputPropsReturnType } from '@mantine/form/lib/types';
 import { useDidUpdate } from '@mantine/hooks';
@@ -26,6 +26,7 @@ type AppSelectProps = ComboboxProps & {
   name?: string;
   onChange?: (value?: string) => void;
   label?: string;
+  leftSection?: React.ReactNode;
 };
 const AppSelect = (props: AppSelectProps) => {
   const {
@@ -37,6 +38,7 @@ const AppSelect = (props: AppSelectProps) => {
     clearable,
     objData,
     label,
+    leftSection,
     ...rest
   } = props;
   const combobox = useCombobox({
@@ -118,8 +120,13 @@ const AppSelect = (props: AppSelectProps) => {
     >
       <Combobox.Target>
         <Stack gap="0">
-          {label && <Text component='label' size='sm' lh='md'>{label}</Text>}
+          {label && (
+            <Text component="label" size="sm" lh="md">
+              {label}
+            </Text>
+          )}
           <InputBase
+            leftSection={leftSection}
             name={name}
             component="button"
             type="button"

@@ -19,6 +19,7 @@ function useFilter<P extends Record<string, unknown | undefined>>(
     let input = (
       <TextInput
         {...form.getInputProps(item.name)}
+        leftSection={item.icon}
         label={item.label}
         placeholder={item.placeholder}
       />
@@ -26,6 +27,7 @@ function useFilter<P extends Record<string, unknown | undefined>>(
     if (item.options || item.optionsObj) {
       input = (
         <AppSelect
+        leftSection={item.icon}
           label={item.label}
           clearable
           inputProps={form.getInputProps(item.name)}

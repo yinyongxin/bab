@@ -29,8 +29,10 @@ import {
   IconClock24,
   IconEdit,
   IconEye,
+  IconGenderBigender,
   IconPhone,
   IconTrash,
+  IconUser,
   IconX,
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
@@ -68,19 +70,25 @@ export default () => {
         placeholder: '请选择性别',
         label: '性别',
         defaultValue: undefined,
+        icon: <IconGenderBigender size={16} />,
       },
       {
         name: 'username',
         label: '用户名',
         defaultValue: undefined,
+        icon: <IconUser size={16} />,
       },
     ],
     {
       onDelete: (values) => {
-        setFilterParams((state) => ({
-          ...state,
-          ...values,
-        }));
+        const { username, ...rest } = values;
+        setFilterParams((state) => {
+          return {
+            ...state,
+            ...rest,
+            fuzzyFields: { username },
+          };
+        });
       },
     },
   );
@@ -342,17 +350,12 @@ export default () => {
                   return {
                     ...state,
                     ...rest,
-                    fuzzyFields: { username: values.username },
+                    fuzzyFields: { username },
                   };
                 });
                 close();
               })(e)
             }
-            onCancel={() => {
-              filter.form.setValues({
-                sex: filterParams.sex,
-              });
-            }}
           >
             <Stack gap="sm">{filter.inputArea}</Stack>
           </Filter>,

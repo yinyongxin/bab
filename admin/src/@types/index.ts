@@ -14,4 +14,5 @@ export type FilterType<D = Record<string, unknown>, O = Option<any>> = {
   optionsObj?: Record<any, O>;
   placeholder?: string;
   defaultValue?: D[keyof D];
+  icon?: ReactNode
 };
