@@ -22,8 +22,6 @@ import {
   Group,
   Stack,
   rem,
-  Chip,
-  CloseButton,
 } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import {
@@ -43,18 +41,8 @@ import { modals } from '@mantine/modals';
 import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 import useTools from '@/utils/hooks/useTools';
 import { sexOptions, sexOptionsObj } from '@/constants/options';
-import AppSelect from '@/components/AppSelect';
-import { useForm } from '@mantine/form';
-import { FilterType } from '@/@types';
 import Filter from '@/components/Filter/Filter';
-const filters: FilterType<AdmintorsFilterDto>[] = [
-  {
-    name: 'sex',
-    options: sexOptions,
-    optionsObj: sexOptionsObj,
-    placeholder: '请选择性别',
-  },
-];
+import useFilter from '@/utils/hooks/useFilter';
 export default () => {
   const { getFilePath } = useTools();
   const [opened, { open, close }] = useDisclosure(false);
@@ -66,10 +54,28 @@ export default () => {
     pageSize: 10,
     total: 0,
   });
-  const form = useForm<AdmintorsFilterDto>({
-    initialValues: {},
-    validate: {},
-  });
+  const filter = useFilter<AdmintorsFilterDto>(
+    {
+      initialValues: {},
+      validate: {},
+    },
+    [
+      {
+        name: 'sex',
+        options: sexOptions,
+        placeholder: '请选择性别',
+        defaultValue: undefined,
+      },
+    ],
+    {
+      onDelete: (values) => {
+        setFilterParams((state) => ({
+          ...state,
+          ...values,
+        }));
+      },
+    },
+  );
 
   const [initalValues, setInitalValues] = useState<AdmintorsPageItemDto>();
   const [filterParams, setFilterParams] = useState<AdmintorsFilterDto>({});
@@ -95,9 +101,7 @@ export default () => {
   };
   useEffect(() => {
     if (filterParams) {
-      getData({
-        pageNo: 1,
-      });
+      getData();
     }
   }, [filterParams]);
 
@@ -286,9 +290,7 @@ export default () => {
   ];
 
   const headerBottom = () => {
-    const filterLength = Object.values(filterParams || {}).filter(
-      Boolean,
-    ).length;
+    const filterLength = filter.selccted.filter(Boolean).length;
     if (!filterLength) {
       return null;
     }
@@ -298,34 +300,7 @@ export default () => {
           <Title order={6} lh={rem(28)} textWrap="nowrap">
             筛选条件:
           </Title>
-          {filters.map((item) => {
-            if (item.optionsObj) {
-              const value = filterParams[item.name];
-              return (
-                <Chip
-                  variant="light"
-                  checked
-                  icon={
-                    <CloseButton
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setFilterParams({
-                          sex: undefined,
-                        });
-                        form.setFieldValue('sex', undefined);
-                      }}
-                      variant="transparent"
-                    />
-                  }
-                >
-                  <Group ml="sm">
-                    {item.optionsObj[value as string].renderContent}
-                  </Group>
-                </Chip>
-              );
-            }
-            return null;
-          })}
+          {filter.selccted}
         </Flex>
       </Stack>
     );
@@ -353,7 +328,7 @@ export default () => {
           />,
           <Filter
             onConfirm={(e, close) =>
-              form.onSubmit(async (values) => {
+              filter.form.onSubmit(async (values) => {
                 setFilterParams((state) => ({
                   ...state,
                   ...values,
@@ -362,24 +337,12 @@ export default () => {
               })(e)
             }
             onCancel={() => {
-              form.setValues({
+              filter.form.setValues({
                 sex: filterParams.sex,
               });
             }}
           >
-            {filters.map((item) => {
-              if (item.options) {
-                return (
-                  <AppSelect
-                    clearable
-                    inputProps={form.getInputProps(item.name)}
-                    data={item.options}
-                    plaseholder={item.placeholder}
-                  />
-                );
-              }
-              return null;
-            })}
+            {filter.inputArea}
           </Filter>,
           <Button
             key="add"

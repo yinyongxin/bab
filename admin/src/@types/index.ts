@@ -7,9 +7,11 @@ export type Option<K = string> = {
   renderContent?: ReactNode;
 };
 
-export type FilterType<D = unknown> = {
+export type FilterType<D = Record<string, unknown>, O = Option<any>> = {
   name: keyof D;
-  options: Option<any>[];
-  optionsObj: Record<any, Option<any>>;
-  placeholder: string;
+  options?: O[];
+  optionsObj?: Record<any, O>;
+  label?: string;
+  placeholder?: string;
+  defaultValue?: D[keyof D];
 };

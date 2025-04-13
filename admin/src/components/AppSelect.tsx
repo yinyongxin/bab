@@ -16,7 +16,8 @@ import { IconCheck } from '@tabler/icons-react';
 import { useState } from 'react';
 
 type AppSelectProps = ComboboxProps & {
-  data: Option<string>[];
+  data?: Option<string>[];
+  objData?: Record<string, Option<string>>;
   plaseholder?: string;
   clearable?: boolean;
   inputProps?: GetInputPropsReturnType;
@@ -24,25 +25,57 @@ type AppSelectProps = ComboboxProps & {
   onChange?: (value?: string) => void;
 };
 const AppSelect = (props: AppSelectProps) => {
-  const { data, plaseholder, name, onChange, inputProps, clearable, ...rest } =
-    props;
+  const {
+    data,
+    plaseholder,
+    name,
+    onChange,
+    inputProps,
+    clearable,
+    objData,
+    ...rest
+  } = props;
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
 
   const [value, setValue] = useState<string | undefined>(inputProps?.value);
-  const valueRender = data.find((item) => item.value === value)?.renderContent;
+  const valueRender = () => {
+    if (!value) {
+      return <Input.Placeholder>{plaseholder}</Input.Placeholder>;
+    }
+    if (data) {
+      return data.find((item) => item.value === value)?.renderContent;
+    } else if (objData) {
+      return objData[value]?.renderContent;
+    }
+  };
 
-  const options = data.map((item) => (
-    <Combobox.Option value={item.value} key={item.value}>
-      <Group w="100%">
-        <Box flex={1}>{item.renderContent}</Box>
-        {value === item.value && (
-          <IconCheck color="var(--mantine-primary-color-filled)" />
-        )}
-      </Group>
-    </Combobox.Option>
-  ));
+  const optionsRender = () => {
+    if (data) {
+      return data?.map((item) => (
+        <Combobox.Option value={item.value} key={item.value}>
+          <Group w="100%">
+            <Box flex={1}>{item.renderContent}</Box>
+            {value === item.value && (
+              <IconCheck color="var(--mantine-primary-color-filled)" />
+            )}
+          </Group>
+        </Combobox.Option>
+      ));
+    } else if (objData) {
+      return Object.keys(objData).map((key) => (
+        <Combobox.Option value={key} key={key}>
+          <Group w="100%">
+            <Box flex={1}>{objData[key].renderContent}</Box>
+            {value === key && (
+              <IconCheck color="var(--mantine-primary-color-filled)" />
+            )}
+          </Group>
+        </Combobox.Option>
+      ));
+    }
+  };
 
   const getRightSection = () => {
     if (!value) {
@@ -91,12 +124,12 @@ const AppSelect = (props: AppSelectProps) => {
             combobox.toggleDropdown();
           }}
         >
-          {valueRender || <Input.Placeholder>{plaseholder}</Input.Placeholder>}
+          {valueRender()}
         </InputBase>
       </Combobox.Target>
 
       <Combobox.Dropdown>
-        <Combobox.Options>{options}</Combobox.Options>
+        <Combobox.Options>{optionsRender()}</Combobox.Options>
       </Combobox.Dropdown>
     </Combobox>
   );
