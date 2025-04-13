@@ -268,7 +268,7 @@ export default () => {
       width: 120,
       render: (record) => {
         return (
-          <>
+          <div>
             <ActionIcon variant="subtle" color="green">
               <IconEye style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
@@ -291,7 +291,7 @@ export default () => {
             >
               <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
             </ActionIcon>
-          </>
+          </div>
         );
       },
     },

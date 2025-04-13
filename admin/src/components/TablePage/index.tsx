@@ -119,10 +119,10 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
 
             if (column.prefix) {
               tdContent = (
-                <>
+                <Group align="center" gap="xs">
                   {column.prefix(data)}
                   <>{tdContent}</>
-                </>
+                </Group>
               );
             }
             return (
