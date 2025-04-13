@@ -1,5 +1,5 @@
 import Views from '@/layout/Views';
-import { AppShell, Box, Drawer, Flex, ScrollArea } from '@mantine/core';
+import { AppShell, Drawer, ScrollArea } from '@mantine/core';
 import HeaderContent from './HeaderContent/HeaderContent';
 import NavBarContent from './NavBarContent';
 import { LayoutTypes } from '@/@types/layout';
@@ -82,11 +82,7 @@ export default function BaseLayout() {
         {appHeader?.content}
         {appNavBar?.content}
         <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))">
-          <Flex direction="column" align="center">
-            <Box flex={1} w="100%">
-              <Views />
-            </Box>
-          </Flex>
+          <Views />
         </AppShell.Main>
       </AppShell>
       <Drawer

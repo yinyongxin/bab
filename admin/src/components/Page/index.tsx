@@ -165,9 +165,9 @@ const Page = (props: PageProps) => {
         {headerBottom}
       </Stack>
       {bodyTop && <Box px="xl">{bodyTop}</Box>}
-      <Stack align="center" px="xl" w={`${appConfig.contentWidth / 2 + 50}%`}>
+      <Box px="xl" w={`${appConfig.contentWidth / 2 + 50}%`}>
         {children}
-      </Stack>
+      </Box>
       {footer && <Box px="xl">{footer}</Box>}
     </Stack>
   );

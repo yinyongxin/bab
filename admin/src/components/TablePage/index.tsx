@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Box,
   Center,
   Divider,
   Flex,
@@ -227,55 +226,61 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     },
   ];
   return (
-    <Paper pos="relative" flex={1} ref={ref} shadow="xs" w="inherit">
-      <Flex direction="column" flex={1}>
-        <header>
-          <Flex justify="space-between">
-            {title ? title : <div />}
-            <Group p="sm" gap="xs">
-              {toolList.map((tool) => tool.icon)}
-            </Group>
-          </Flex>
-        </header>
-        <Divider />
-        <Stack pos="relative" flex={1}>
-          <LoadingOverlay
-            visible={loading}
-            zIndex={50}
-            loaderProps={{ type: 'bars' }}
-            overlayProps={{
-              blur: 2,
-            }}
-          />
+    <Paper
+      pos="relative"
+      flex={1}
+      ref={ref}
+      shadow="xs"
+      w="inherit"
+      style={{ display: 'flex', flexDirection: 'column' }}
+    >
+      <header>
+        <Flex justify="space-between">
+          {title ? title : <div />}
+          <Group p="sm" gap="xs">
+            {toolList.map((tool) => tool.icon)}
+          </Group>
+        </Flex>
+      </header>
+      <Divider />
+      <Stack pos="relative" flex={1} style={{ overflow: 'auto' }}>
+        <LoadingOverlay
+          visible={loading}
+          zIndex={50}
+          loaderProps={{ type: 'bars' }}
+          overlayProps={{
+            blur: 2,
+          }}
+        />
 
-          <ScrollArea
-            flex={1}
-            type="always"
-            onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+        <ScrollArea
+          style={{ overflow: 'hidden' }}
+          flex={1}
+          type="always"
+          onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+        >
+          {/* <Table.ScrollContainer minWidth={500} type="native"> */}
+
+          <Table
+            verticalSpacing={verticalSpacing}
+            stickyHeader={false}
+            {...tableProps}
           >
-            {/* <Table.ScrollContainer minWidth={500} type="native"> */}
-
-            <Table
-              verticalSpacing={verticalSpacing}
-              stickyHeader={false}
-              {...tableProps}
-            >
-              {getTableHeader()}
-              {getTableBody()}
-            </Table>
-            {/* </Table.ScrollContainer> */}
-            {dataList.length === 0 && <Empty />}
-          </ScrollArea>
-        </Stack>
-        {paginationProps?.total ? (
-          <footer>
-            <Divider />
-            <Flex justify="flex-end" p="md">
-              <Pagination {...paginationProps} />
-            </Flex>
-          </footer>
-        ) : null}
-      </Flex>
+            {getTableHeader()}
+            {getTableBody()}
+          </Table>
+          {/* </Table.ScrollContainer> */}
+          {dataList.length === 0 && <Empty />}
+        </ScrollArea>
+      </Stack>
+      {paginationProps?.total ? (
+        <footer>
+          <Divider />
+          <Flex justify="flex-end" p="md">
+            <Pagination {...paginationProps} />
+          </Flex>
+        </footer>
+      ) : null}
     </Paper>
   );
 }
