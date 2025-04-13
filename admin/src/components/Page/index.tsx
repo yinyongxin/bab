@@ -165,10 +165,8 @@ const Page = (props: PageProps) => {
         {headerBottom}
       </Stack>
       {bodyTop && <Box px="xl">{bodyTop}</Box>}
-      <Stack align="center" w="100%" px="xl">
-        <Box flex={1} w={`${appConfig.contentWidth / 2 + 50}%`}>
-          {children}
-        </Box>
+      <Stack align="center" px="xl" w={`${appConfig.contentWidth / 2 + 50}%`}>
+        {children}
       </Stack>
       {footer && <Box px="xl">{footer}</Box>}
     </Stack>

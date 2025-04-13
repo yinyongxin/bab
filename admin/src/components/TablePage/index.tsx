@@ -13,6 +13,7 @@ import {
   PaginationProps,
   Paper,
   ScrollArea,
+  Stack,
   Table,
   TableProps,
   TableTdProps,
@@ -226,7 +227,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
     },
   ];
   return (
-    <Paper pos="relative" flex={1} ref={ref} shadow="xs">
+    <Paper pos="relative" flex={1} ref={ref} shadow="xs" w="inherit">
       <Flex direction="column" flex={1}>
         <header>
           <Flex justify="space-between">
@@ -237,7 +238,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
           </Flex>
         </header>
         <Divider />
-        <Box pos="relative">
+        <Stack pos="relative" flex={1}>
           <LoadingOverlay
             visible={loading}
             zIndex={50}
@@ -245,9 +246,6 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
             overlayProps={{
               blur: 2,
             }}
-            // style={{
-            //   borderRadius: 'var(--mantine-radius-md)',
-            // }}
           />
 
           <ScrollArea
@@ -268,7 +266,7 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
             {/* </Table.ScrollContainer> */}
             {dataList.length === 0 && <Empty />}
           </ScrollArea>
-        </Box>
+        </Stack>
         {paginationProps?.total ? (
           <footer>
             <Divider />

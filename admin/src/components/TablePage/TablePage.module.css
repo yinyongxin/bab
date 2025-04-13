@@ -1,8 +1,8 @@
 .header {
   position: sticky;
   top: 0;
-  background-color: rgba('var(--mantine-color-body)', 0.2);
-
+  background-color: var(--mantine-color-body);
+  /* backdrop-filter: blur(4px); */
   transition: box-shadow 150ms ease;
 
   &::after {
