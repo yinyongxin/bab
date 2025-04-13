@@ -24,7 +24,7 @@ export function ColorSchemeToggle() {
         aria-label="切换颜色模式"
       >
         <IconSun className={cx(classes.light)} size={26} />
-        <IconMoon className={cx(classes.dark)} size={26} />
+        <IconMoon className={cx(classes.dark)} size={24} />
       </ActionIcon>
     </Tooltip>
   );
