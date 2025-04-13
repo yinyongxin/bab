@@ -8,6 +8,8 @@ import {
   useCombobox,
   ComboboxProps,
   CloseButton,
+  Stack,
+  Text
 } from '@mantine/core';
 import { GetInputPropsReturnType } from '@mantine/form/lib/types';
 import { useDidUpdate } from '@mantine/hooks';
@@ -18,21 +20,23 @@ import { useState } from 'react';
 type AppSelectProps = ComboboxProps & {
   data?: Option<string>[];
   objData?: Record<string, Option<string>>;
-  plaseholder?: string;
+  placeholder?: string;
   clearable?: boolean;
   inputProps?: GetInputPropsReturnType;
   name?: string;
   onChange?: (value?: string) => void;
+  label?: string;
 };
 const AppSelect = (props: AppSelectProps) => {
   const {
     data,
-    plaseholder,
+    placeholder,
     name,
     onChange,
     inputProps,
     clearable,
     objData,
+    label,
     ...rest
   } = props;
   const combobox = useCombobox({
@@ -42,7 +46,7 @@ const AppSelect = (props: AppSelectProps) => {
   const [value, setValue] = useState<string | undefined>(inputProps?.value);
   const valueRender = () => {
     if (!value) {
-      return <Input.Placeholder>{plaseholder}</Input.Placeholder>;
+      return <Input.Placeholder>{placeholder}</Input.Placeholder>;
     }
     if (data) {
       return data.find((item) => item.value === value)?.renderContent;
@@ -113,19 +117,22 @@ const AppSelect = (props: AppSelectProps) => {
       {...rest}
     >
       <Combobox.Target>
-        <InputBase
-          name={name}
-          component="button"
-          type="button"
-          pointer
-          rightSection={getRightSection()}
-          onClick={(e) => {
-            e.stopPropagation();
-            combobox.toggleDropdown();
-          }}
-        >
-          {valueRender()}
-        </InputBase>
+        <Stack gap="0">
+          {label && <Text component='label' size='sm' lh='md'>{label}</Text>}
+          <InputBase
+            name={name}
+            component="button"
+            type="button"
+            pointer
+            rightSection={getRightSection()}
+            onClick={(e) => {
+              e.stopPropagation();
+              combobox.toggleDropdown();
+            }}
+          >
+            {valueRender()}
+          </InputBase>
+        </Stack>
       </Combobox.Target>
 
       <Combobox.Dropdown>

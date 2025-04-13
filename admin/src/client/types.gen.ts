@@ -223,11 +223,11 @@ export type DateTimeRangeDto = {
   readonly updatedTime?: Array<Date>;
 };
 
-export type PickTypeClass = {
+export type AdmintorsFilterFuzzyFieldsDto = {
   /**
    * 管理人员名称
    */
-  username: string;
+  username?: string;
   /**
    * 姓名
    */
@@ -235,7 +235,7 @@ export type PickTypeClass = {
   /**
    * 邮箱
    */
-  email: string;
+  email?: string;
 };
 
 export type AdmintorsFilterDto = {
@@ -266,7 +266,7 @@ export type AdmintorsFilterDto = {
   /**
    * 模糊查询字段
    */
-  fuzzyFields?: PickTypeClass;
+  fuzzyFields?: AdmintorsFilterFuzzyFieldsDto;
 };
 
 export type RolesResultDto = {
@@ -720,6 +720,17 @@ export type FileUploadSuccessResultDto = {
 
 export type FilesUploadDto = {
   files: Array<Blob | File>;
+};
+
+export type PickTypeClass = {
+  /**
+   * 原始文件名
+   */
+  originalname: string;
+  /**
+   * 唯一文件名
+   */
+  uniquedName: string;
 };
 
 export type FilesQueryFilterDto = {

@@ -41,13 +41,13 @@ export const AdmintorsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     username: {
       type: 'string',
@@ -353,7 +353,7 @@ export const DateTimeRangeDtoSchema = {
   },
 } as const;
 
-export const PickTypeClassSchema = {
+export const AdmintorsFilterFuzzyFieldsDtoSchema = {
   type: 'object',
   properties: {
     username: {
@@ -372,7 +372,6 @@ export const PickTypeClassSchema = {
       example: '',
     },
   },
-  required: ['username', 'email'],
 } as const;
 
 export const AdmintorsFilterDtoSchema = {
@@ -426,7 +425,7 @@ export const AdmintorsFilterDtoSchema = {
       description: '模糊查询字段',
       allOf: [
         {
-          $ref: '#/components/schemas/PickTypeClass',
+          $ref: '#/components/schemas/AdmintorsFilterFuzzyFieldsDto',
         },
       ],
     },
@@ -440,13 +439,13 @@ export const RolesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     name: {
       type: 'string',
@@ -486,13 +485,13 @@ export const AdmintorsPageItemDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     username: {
       type: 'string',
@@ -628,7 +627,7 @@ export const RolesUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     name: {
       type: 'string',
@@ -663,13 +662,13 @@ export const RolesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     name: {
       type: 'string',
@@ -796,13 +795,13 @@ export const MenusResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     name: {
       type: 'string',
@@ -875,7 +874,7 @@ export const MenusUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     name: {
       type: 'string',
@@ -941,13 +940,13 @@ export const TreeMenuDataDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     name: {
       type: 'string',
@@ -1029,13 +1028,13 @@ export const MenusQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     name: {
       type: 'string',
@@ -1124,6 +1123,23 @@ export const FilesUploadDtoSchema = {
   required: ['files'],
 } as const;
 
+export const PickTypeClassSchema = {
+  type: 'object',
+  properties: {
+    originalname: {
+      type: 'string',
+      description: '原始文件名',
+      example: 'image/jpeg',
+    },
+    uniquedName: {
+      type: 'string',
+      description: '唯一文件名',
+      example: 'uniqueName',
+    },
+  },
+  required: ['originalname', 'uniquedName'],
+} as const;
+
 export const FilesQueryFilterDtoSchema = {
   type: 'object',
   properties: {
@@ -1168,13 +1184,13 @@ export const FilesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744459016991,
+      default: 1744514830564,
     },
     originalname: {
       type: 'string',

@@ -54,7 +54,9 @@ export default () => {
     pageSize: 10,
     total: 0,
   });
-  const filter = useFilter<AdmintorsFilterDto>(
+  const filter = useFilter<
+    AdmintorsFilterDto & AdmintorsFilterDto['fuzzyFields']
+  >(
     {
       initialValues: {},
       validate: {},
@@ -64,6 +66,12 @@ export default () => {
         name: 'sex',
         options: sexOptions,
         placeholder: '请选择性别',
+        label: '性别',
+        defaultValue: undefined,
+      },
+      {
+        name: 'username',
+        label: '用户名',
         defaultValue: undefined,
       },
     ],
@@ -329,10 +337,14 @@ export default () => {
           <Filter
             onConfirm={(e, close) =>
               filter.form.onSubmit(async (values) => {
-                setFilterParams((state) => ({
-                  ...state,
-                  ...values,
-                }));
+                const { username, ...rest } = values;
+                setFilterParams((state) => {
+                  return {
+                    ...state,
+                    ...rest,
+                    fuzzyFields: { username: values.username },
+                  };
+                });
                 close();
               })(e)
             }
@@ -342,7 +354,7 @@ export default () => {
               });
             }}
           >
-            {filter.inputArea}
+            <Stack gap="sm">{filter.inputArea}</Stack>
           </Filter>,
           <Button
             key="add"

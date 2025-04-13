@@ -2,6 +2,9 @@ import { OmitType, PickType, ApiProperty, PartialType } from '@nestjs/swagger';
 import { Admintors } from '../../../../mongo/base';
 import { DateTimeRangeDto } from 'src/dtos';
 
+class AdmintorsFilterFuzzyFieldsDto extends PartialType(
+  PickType(Admintors, ['name', 'username', 'email']),
+) {}
 export class AdmintorsFilterDto extends PartialType(
   OmitType(Admintors, [
     'password',
@@ -23,7 +26,7 @@ export class AdmintorsFilterDto extends PartialType(
   @ApiProperty({
     required: false,
     description: '模糊查询字段',
-    type: PickType(Admintors, ['name', 'username', 'email']),
+    type: AdmintorsFilterFuzzyFieldsDto,
   })
-  fuzzyFields?: Pick<Admintors, 'name' | 'username' | 'email'>;
+  fuzzyFields?: Partial<Pick<Admintors, 'name' | 'username' | 'email'>>;
 }

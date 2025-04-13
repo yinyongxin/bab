@@ -8,10 +8,10 @@ export type Option<K = string> = {
 };
 
 export type FilterType<D = Record<string, unknown>, O = Option<any>> = {
+  label?: string;
   name: keyof D;
   options?: O[];
   optionsObj?: Record<any, O>;
-  label?: string;
   placeholder?: string;
   defaultValue?: D[keyof D];
 };
