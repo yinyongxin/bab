@@ -8,6 +8,7 @@ import {
   rem,
   Text,
   Button,
+  UnstyledButton,
 } from '@mantine/core';
 import LogoArea from '../LogoArea';
 import { UserButton } from '@/layout/UserButton/UserButton';
@@ -80,7 +81,9 @@ const HeaderContent = () => {
       </Group>
       <UserButton position="bottom-end">
         <Center h="100%">
-          <Avatar src={user.avatar} size="md" radius="md" />
+          <UnstyledButton>
+            <Avatar src={user.avatar} size="md" radius="md" />
+          </UnstyledButton>
         </Center>
       </UserButton>
     </>
