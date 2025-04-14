@@ -243,7 +243,21 @@ export default () => {
               });
             }}
             color="teal"
-            thumbIcon={admintorsStatusOptionsObj[status].icon}
+            thumbIcon={
+              status === 'Open' ? (
+                <IconCheck
+                  size={12}
+                  color="var(--mantine-color-teal-6)"
+                  stroke={3}
+                />
+              ) : (
+                <IconX
+                  size={12}
+                  color="var(--mantine-color-red-6)"
+                  stroke={3}
+                />
+              )
+            }
           />
         );
       },
