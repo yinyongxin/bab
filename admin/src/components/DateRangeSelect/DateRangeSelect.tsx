@@ -146,7 +146,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
             setValue('all');
             setInputType(val);
           }}
-          mb={'sm'}
+          mb="sm"
           size="xs"
           fullWidth
           data={[
@@ -166,8 +166,10 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
               range?.[1] && new Date(range?.[1].toDate()),
             ]}
             onChange={(val) => {
-              const newRange = val.map((item) => item && dayjs(item));
-              setRange(newRange);
+              setRange([
+                val[0] && dayjs(val[0]).startOf('day'),
+                val[1] && dayjs(val[1]).endOf('day'),
+              ]);
             }}
           />
         )}
