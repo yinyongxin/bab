@@ -61,7 +61,7 @@ export default function BaseLayout() {
         option: {
           width: 300,
           breakpoint: 'md',
-          collapsed: { desktop: !desktop, mobile: desktop },
+          collapsed: { desktop: !desktop },
         },
       };
     }
