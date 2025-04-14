@@ -125,6 +125,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
               <Combobox.Chevron />
             ) : (
               <CloseButton
+                size="sm"
                 onClick={() => {
                   setValue('all');
                   setRange([]);
