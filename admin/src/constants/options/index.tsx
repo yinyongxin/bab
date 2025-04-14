@@ -1,6 +1,11 @@
-import { SexEnum } from '@/client';
+import { AdmintorStatusEnum, SexEnum } from '@/client';
 import { Option } from '@/@types';
-import { IconGenderFemale, IconGenderMale } from '@tabler/icons-react';
+import {
+  IconGenderFemale,
+  IconGenderMale,
+  IconLock,
+  IconLockOpen,
+} from '@tabler/icons-react';
 import { Group, Text } from '@mantine/core';
 
 function convertToObject<T = any>(arr: Option<T>[]) {
@@ -51,6 +56,35 @@ export const sexOptions: Option<SexEnum>[] = [
 ];
 
 export const sexOptionsObj = convertToObject(sexOptions);
+
+export const admintorsStatusOptions: Option<AdmintorStatusEnum>[] = [
+  {
+    label: '开启',
+    value: AdmintorStatusEnum.OPEN,
+    icon: sexIcons.Male,
+    renderContent: (
+      <Group gap="xs">
+        <IconLockOpen color="green" {...iconProps} />
+        <Text>开启</Text>
+      </Group>
+    ),
+  },
+  {
+    label: '关闭',
+    value: AdmintorStatusEnum.CLOSE,
+    icon: sexIcons.Female,
+    renderContent: (
+      <Group gap="xs">
+        <IconLock color="red" {...iconProps} />
+        <Text>关闭</Text>
+      </Group>
+    ),
+  },
+];
+
+export const admintorsStatusOptionsObj = convertToObject(
+  admintorsStatusOptions,
+);
 
 const imageMIMEOptions = [
   {

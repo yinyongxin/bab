@@ -27,7 +27,7 @@ function useFilter<P extends Record<string, unknown | undefined>>(
     if (item.options || item.optionsObj) {
       input = (
         <AppSelect
-        leftSection={item.icon}
+          leftSection={item.icon}
           label={item.label}
           clearable
           inputProps={form.getInputProps(item.name)}
@@ -73,9 +73,8 @@ function useFilter<P extends Record<string, unknown | undefined>>(
           />
         }
       >
-        <Group pl="xs" gap="xs">
+        <Group pl="xs" gap="0">
           {item.label && <Text>{item.label}：</Text>}
-
           <>{renderContent}</>
         </Group>
       </Chip>

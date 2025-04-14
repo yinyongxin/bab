@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-export type Option<K = string> = {
+export type Option<K = string | boolean> = {
   label: string;
   value: K;
   icon?: ReactNode;
@@ -14,5 +14,5 @@ export type FilterType<D = Record<string, unknown>, O = Option<any>> = {
   optionsObj?: Record<any, O>;
   placeholder?: string;
   defaultValue?: D[keyof D];
-  icon?: ReactNode
+  icon?: ReactNode;
 };

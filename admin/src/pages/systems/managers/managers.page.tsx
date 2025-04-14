@@ -30,6 +30,7 @@ import {
   IconEdit,
   IconEye,
   IconGenderBigender,
+  IconLockAccess,
   IconPhone,
   IconTrash,
   IconUser,
@@ -42,7 +43,11 @@ import { getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 import useTools from '@/utils/hooks/useTools';
-import { sexOptions, sexOptionsObj } from '@/constants/options';
+import {
+  admintorsStatusOptions,
+  sexOptions,
+  sexOptionsObj,
+} from '@/constants/options';
 import Filter from '@/components/Filter/Filter';
 import useFilter from '@/utils/hooks/useFilter';
 export default () => {
@@ -71,6 +76,14 @@ export default () => {
         label: '性别',
         defaultValue: undefined,
         icon: <IconGenderBigender size={16} />,
+      },
+      {
+        name: 'status',
+        options: admintorsStatusOptions,
+        placeholder: '请选择状态',
+        label: '状态',
+        defaultValue: undefined,
+        icon: <IconLockAccess size={16} />,
       },
       {
         name: 'username',
