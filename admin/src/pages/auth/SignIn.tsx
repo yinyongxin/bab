@@ -93,7 +93,7 @@ export default function SignIn() {
               size="md"
             />
             <Button loading={loading} type="submit" fullWidth mt="xl" size="md">
-              Login
+              登录
             </Button>
             {/*<Text ta="center" mt="md">*/}
             {/*  Don&apos;t have an account?{' '}*/}

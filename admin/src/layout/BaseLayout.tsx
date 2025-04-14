@@ -1,5 +1,5 @@
 import Views from '@/layout/Views';
-import { AppShell, Drawer, ScrollArea } from '@mantine/core';
+import { AppShell, Drawer, ScrollArea, UnstyledButton } from '@mantine/core';
 import HeaderContent from './HeaderContent/HeaderContent';
 import NavBarContent from './NavBarContent';
 import { LayoutTypes } from '@/@types/layout';
@@ -9,6 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 import AppConfigSettings from '@/components/AppConfigSettings/AppConfigSettings';
 import useAppConfig from '@/store/hook/useAppConfig';
+import NavbarLinksGroup from './NavbarLinksGroup/NavbarLinksGroup';
 
 export default function BaseLayout() {
   const [appConfig] = useAppConfig();
@@ -60,7 +61,7 @@ export default function BaseLayout() {
         option: {
           width: 300,
           breakpoint: 'md',
-          collapsed: { desktop: !desktop },
+          collapsed: { desktop: !desktop, mobile: desktop },
         },
       };
     }

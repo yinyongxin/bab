@@ -9,33 +9,33 @@ const LogoArea = () => {
   const { getFilePath } = useTools();
   const [appConfig] = useAppConfig();
   const { desktop, setDesktop } = useContext(LayoutContext);
-  const burger = useMemo(() => {
-    if (appConfig.layoutType === LayoutTypes.TopSide) {
-      return (
-        <Burger
-          opened={desktop}
-          onClick={() => setDesktop(!desktop)}
-          aria-label="Toggle navigation"
-        />
-      );
-    }
-    return null;
-  }, [desktop, appConfig.layoutType]);
+  const showBurger = appConfig.layoutType === LayoutTypes.TopSide;
+  const logo = (
+    <Image
+      w="30"
+      h="30"
+      radius="sm"
+      alt="Logo"
+      src={getFilePath(appConfig.logo)}
+    />
+  );
   return (
-    <Group justify="space-between" align="center" h="100%" px="md" w={300}>
-      {burger}
-      <Image
-        w="30"
-        h="30"
-        radius="sm"
-        alt="Logo"
-        src={getFilePath(appConfig.logo)}
-      />
-      <Title order={5} flex={1}>
-        {appConfig.name}
-      </Title>
-      <Code fw={700}>{appConfig.version}</Code>
-    </Group>
+    <>
+      <Group justify="space-between" align="center" h="100%" px="md" w={300}>
+        {showBurger && (
+          <Burger
+            opened={!desktop}
+            onClick={() => setDesktop(!desktop)}
+            aria-label="Toggle navigation"
+          />
+        )}
+        {logo}
+        <Title order={5} flex={1}>
+          {appConfig.name}
+        </Title>
+        <Code fw={700}>{appConfig.version}</Code>
+      </Group>
+    </>
   );
 };
 

@@ -10,12 +10,14 @@ import {
   Avatar,
   Text,
   Center,
+  Box,
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import { lazy, useContext } from 'react';
 import LogoArea from '../LogoArea';
 import LayoutContext from '../LayoutContext';
 import useTools from '@/utils/hooks/useTools';
+import NavbarLinksGroup from '../NavbarLinksGroup/NavbarLinksGroup';
 
 const sideBars = {
   [LayoutTypes.SimpleSideBar]: lazy(

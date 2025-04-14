@@ -39,12 +39,59 @@ const HeaderContent = () => {
     }
     return null;
   }, [layoutType]);
+  const rightContent = (
+    <>
+      <Group flex={1} gap="xs" mr="sm">
+        <Button
+          flex={1}
+          styles={{ inner: { width: '100%' }, label: { width: '100%' } }}
+          variant="light"
+          px="sm"
+          onClick={spotlight.open}
+        >
+          <Group w="100%" justify="space-between">
+            <IconSearch size="16" />
+            <Text size="xs">⌘ K</Text>
+          </Group>
+        </Button>
+        <Tooltip label="设置">
+          <ActionIcon
+            size="md"
+            onClick={() => {
+              openAppSettings();
+            }}
+            variant="subtle"
+          >
+            <IconSettings />
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip label={fullscreen ? '取消全屏' : '全屏'}>
+          <ActionIcon
+            size="md"
+            onClick={() => {
+              toggle();
+            }}
+            variant="subtle"
+          >
+            {fullscreen ? <IconMinimize /> : <IconMaximize />}
+          </ActionIcon>
+        </Tooltip>
+        <ColorSchemeToggle />
+      </Group>
+      <UserButton position="bottom-end">
+        <Center h="100%">
+          <Avatar src={user.avatar} size="md" radius="md" />
+        </Center>
+      </UserButton>
+    </>
+  );
   return (
-    <Group h="100%" gap="xl">
+    <Group h="100%" gap="xl" justify="space-between">
       <LogoArea />
       <Box flex={1} h="100%">
         {center}
       </Box>
+
       <Group
         justify="flex-end"
         mr="md"
@@ -53,48 +100,7 @@ const HeaderContent = () => {
         align="center"
         w={rem(300)}
       >
-        <Group flex={1} gap="xs" mr="sm">
-          <Button
-            flex={1}
-            styles={{ inner: { width: '100%' }, label: { width: '100%' } }}
-            variant="light"
-            px="sm"
-            onClick={spotlight.open}
-          >
-            <Group w="100%" justify="space-between">
-              <IconSearch size="16" />
-              <Text size="xs">⌘ K</Text>
-            </Group>
-          </Button>
-          <Tooltip label="设置">
-            <ActionIcon
-              size="md"
-              onClick={() => {
-                openAppSettings();
-              }}
-              variant="subtle"
-            >
-              <IconSettings />
-            </ActionIcon>
-          </Tooltip>
-          <Tooltip label={fullscreen ? '取消全屏' : '全屏'}>
-            <ActionIcon
-              size="md"
-              onClick={() => {
-                toggle();
-              }}
-              variant="subtle"
-            >
-              {fullscreen ? <IconMinimize /> : <IconMaximize />}
-            </ActionIcon>
-          </Tooltip>
-          <ColorSchemeToggle />
-        </Group>
-        <UserButton position="bottom-end">
-          <Center h="100%">
-            <Avatar src={user.avatar} size="md" radius="md" />
-          </Center>
-        </UserButton>
+        {rightContent}
       </Group>
     </Group>
   );
