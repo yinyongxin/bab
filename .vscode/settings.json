@@ -1,8 +1,12 @@
 {
-  "cSpell.words": [
-    "Lucide",
-    "maxlength"
-  ],
-  "IDX.aI.enableInlineCompletion": true,
-  "IDX.aI.enableCodebaseIndexing": true
+	"cSpell.words": ["Lucide", "maxlength"],
+	"IDX.aI.enableInlineCompletion": true,
+	"IDX.aI.enableCodebaseIndexing": true,
+	"cssVariables.lookupFiles": [
+		"**/*.css",
+		"**/*.scss",
+		"**/*.sass",
+		"**/*.less",
+		"/admin/node_modules/@mantine/core/styles.css"
+	]
 }

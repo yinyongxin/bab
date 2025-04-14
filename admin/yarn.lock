@@ -10475,7 +10475,7 @@ __metadata:
     lottie-web: "npm:^5.12.2"
     mantine-form-yup-resolver: "npm:^2.0.0"
     postcss: "npm:^8.4.35"
-    postcss-preset-mantine: "npm:1.13.0"
+    postcss-preset-mantine: "npm:^1.17.0"
     postcss-simple-vars: "npm:^7.0.1"
     prettier: "npm:^3.2.5"
     prop-types: "npm:^15.8.1"
@@ -11529,15 +11529,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-preset-mantine@npm:1.13.0":
-  version: 1.13.0
-  resolution: "postcss-preset-mantine@npm:1.13.0"
+"postcss-preset-mantine@npm:^1.17.0":
+  version: 1.17.0
+  resolution: "postcss-preset-mantine@npm:1.17.0"
   dependencies:
     postcss-mixins: "npm:^9.0.4"
     postcss-nested: "npm:^6.0.1"
   peerDependencies:
     postcss: ">=8.0.0"
-  checksum: 10c0/750c9b0b8350320ec5ddf77a4a8cdf4c88ce41609ca7d4648afd5d7feedfe4e6d778a84e722233ed99f7487de7558c7b9cd3a25f92be2460ec5d4cd26e23ceb2
+  checksum: 10c0/9410196f8c9b6389f376abe04b732b92179859b195d1422d02e94e46fca1503272b553993727af396cddc6c094a162d73a9a8fd1f85bd3ac2c41135c9365210a
   languageName: node
   linkType: hard
 
