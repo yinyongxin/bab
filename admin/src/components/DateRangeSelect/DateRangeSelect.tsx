@@ -1,14 +1,16 @@
 import {
+  CloseButton,
   Combobox,
   ComboboxItem,
   Input,
   InputBase,
+  SegmentedControl,
   Select,
   rem,
   useCombobox,
 } from '@mantine/core';
+import { DatePicker } from '@mantine/dates';
 import { IconCalendarCog } from '@tabler/icons-react';
-import { time } from 'console';
 import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 const dateRangeSelectData = [
@@ -54,23 +56,30 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
   const defaultRange = dateRangeSelectData.find(
     (dateRangeSelectDataItem) => dateRangeSelectDataItem.value === defaultValue,
   );
-  const [range, setRange] = useState<Dayjs[]>(defaultRange?.range || []);
+  const [range, setRange] = useState<(Dayjs | null)[]>(
+    defaultRange?.range || [],
+  );
   const [value, setValue] = useState<string | null>(defaultValue);
+  const [inputType, setInputType] = useState('presets');
 
+  const validValueLength = range.filter((item) => item).length;
   useEffect(() => {
-    const option = dateRangeSelectData.find((item) => item.value === value);
-    if (option) {
-      setRange(option.range);
-      const range = option?.range.map((item) =>
-        toDate ? item.toDate() : item,
+    if (validValueLength === 0) {
+      onChange?.(undefined);
+    } else if (validValueLength > 1) {
+      const newRange = range.map((item) =>
+        toDate ? item?.toDate() : item,
       ) as unknown as T extends true
         ? [Date, Date]
         : (typeof dateRangeSelectData)[number]['range'];
-      onChange?.(range.length > 0 ? range : undefined);
+      onChange?.(newRange);
     }
-  }, [value]);
+  }, [range]);
 
   const getValueRender = () => {
+    if (inputType === 'customize') {
+      return range.map((item) => item?.format('YYYY-MM-DD')).join('至');
+    }
     const option = dateRangeSelectData.find((item) => item.value === value);
     return `${option?.label}`;
   };
@@ -96,19 +105,33 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
       store={combobox}
       onOptionSubmit={(val) => {
         setValue(val);
+        const option = dateRangeSelectData.find((item) => item.value === value);
+        if (option) {
+          setRange(option.range);
+        }
         combobox.closeDropdown();
       }}
       shadow="md"
     >
       <Combobox.Target>
         <InputBase
-          w={rem(200)}
+          miw={rem(226)}
           leftSection={<IconCalendarCog size={14} />}
           component="button"
           type="button"
           pointer
-          rightSection={<Combobox.Chevron />}
-          rightSectionPointerEvents="none"
+          rightSection={
+            validValueLength === 0 ? (
+              <Combobox.Chevron />
+            ) : (
+              <CloseButton
+                onClick={() => {
+                  setValue('all');
+                  setRange([]);
+                }}
+              />
+            )
+          }
           onClick={() => combobox.toggleDropdown()}
         >
           {getValueRender() || <Input.Placeholder>选择日期</Input.Placeholder>}
@@ -116,7 +139,37 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
       </Combobox.Target>
 
       <Combobox.Dropdown>
-        <Combobox.Options>{options}</Combobox.Options>
+        <SegmentedControl
+          value={inputType}
+          onChange={(val) => {
+            setValue('all');
+            setInputType(val);
+          }}
+          mb={'sm'}
+          size="xs"
+          fullWidth
+          data={[
+            { label: '预设', value: 'presets' },
+            { label: '自定义', value: 'customize' },
+          ]}
+        />
+        {inputType === 'presets' && (
+          <Combobox.Options>{options}</Combobox.Options>
+        )}
+        {inputType === 'customize' && (
+          <DatePicker
+            size="xs"
+            type="range"
+            value={[
+              range?.[0] && new Date(range?.[0].toDate()),
+              range?.[1] && new Date(range?.[1].toDate()),
+            ]}
+            onChange={(val) => {
+              const newRange = val.map((item) => item && dayjs(item));
+              setRange(newRange);
+            }}
+          />
+        )}
       </Combobox.Dropdown>
     </Combobox>
   );
