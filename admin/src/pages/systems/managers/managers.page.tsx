@@ -1,5 +1,6 @@
 import {
   AdmintorPaginationResultDto,
+  AdmintorStatusEnum,
   AdmintorsFilterDto,
   AdmintorsPageItemDto,
   AdmintorsResultDto,
@@ -45,6 +46,7 @@ import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 import useTools from '@/utils/hooks/useTools';
 import {
   admintorsStatusOptions,
+  admintorsStatusOptionsObj,
   sexOptions,
   sexOptionsObj,
 } from '@/constants/options';
@@ -232,25 +234,14 @@ export default () => {
             onClick={() => {
               updateStatus({
                 _id,
-                status: status === 'Open' ? 'Close' : 'Open',
+                status:
+                  status === 'Open'
+                    ? AdmintorStatusEnum.CLOSE
+                    : AdmintorStatusEnum.OPEN,
               });
             }}
             color="teal"
-            thumbIcon={
-              status === 'Open' ? (
-                <IconCheck
-                  size={12}
-                  color="var(--mantine-color-teal-6)"
-                  stroke={3}
-                />
-              ) : (
-                <IconX
-                  size={12}
-                  color="var(--mantine-color-red-6)"
-                  stroke={3}
-                />
-              )
-            }
+            thumbIcon={admintorsStatusOptionsObj[status].icon}
           />
         );
       },
