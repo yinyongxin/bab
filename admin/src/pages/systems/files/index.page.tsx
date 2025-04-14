@@ -24,7 +24,7 @@ import {
 } from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
-import TablePage from '@/components/TablePage';
+import TablePagination from '@/components/TablePagination';
 import {
   IconCheck,
   IconClock24,
@@ -170,7 +170,7 @@ export default () => {
           </FileButton>,
         ]}
       >
-        <TablePage
+        <TablePagination
           loading={loading}
           columns={[
             {

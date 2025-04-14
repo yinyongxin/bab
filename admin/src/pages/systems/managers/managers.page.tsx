@@ -9,7 +9,9 @@ import {
   admintorsControllerUpdateOne,
 } from '@/client';
 import Page from '@/components/Page';
-import TablePage, { TablePageProps } from '@/components/TablePage';
+import TablePagination, {
+  TablePaginationProps,
+} from '@/components/TablePagination';
 import {
   ActionIcon,
   Avatar,
@@ -195,7 +197,7 @@ export default () => {
     });
   };
 
-  const columns: TablePageProps<AdmintorsPageItemDto>['columns'] = [
+  const columns: TablePaginationProps<AdmintorsPageItemDto>['columns'] = [
     {
       title: '管理员',
       render(values) {
@@ -374,7 +376,7 @@ export default () => {
           </Button>,
         ]}
       >
-        <TablePage<AdmintorsPageItemDto>
+        <TablePagination<AdmintorsPageItemDto>
           loading={loading}
           columns={columns}
           dataList={data?.list || []}

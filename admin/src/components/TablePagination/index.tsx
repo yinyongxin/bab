@@ -21,7 +21,7 @@ import {
 } from '@mantine/core';
 import { Key, useRef, useState } from 'react';
 import Empty from '../Empty/Empty';
-import classes from './TablePage.module.css';
+import classes from './TablePagination.module.css';
 import {
   IconMaximize,
   IconMinimize,
@@ -42,7 +42,7 @@ type Column<D = any, O extends string | number | symbol = any> = {
   optionsObj?: Record<O, Option<O>>;
 };
 
-export type TablePageProps<D> = {
+export type TablePaginationProps<D> = {
   columns: Column<D>[];
   dataList: D[];
   rowkey: keyof D;
@@ -52,7 +52,9 @@ export type TablePageProps<D> = {
   title?: React.ReactNode;
 };
 
-function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
+function TablePagination<D = Record<string, any>>(
+  props: TablePaginationProps<D>,
+) {
   const { paginationProps, tableProps, dataList, rowkey, loading, title } =
     props;
   const [scrolled, setScrolled] = useState(false);
@@ -285,4 +287,4 @@ function TablePage<D = Record<string, any>>(props: TablePageProps<D>) {
   );
 }
 
-export default TablePage;
+export default TablePagination;
