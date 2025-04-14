@@ -72,6 +72,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
         ? [Date, Date]
         : (typeof dateRangeSelectData)[number]['range'];
       onChange?.(newRange);
+      combobox.closeDropdown();
     }
   }, [range]);
 
@@ -107,7 +108,6 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
         if (option) {
           setRange(option.range);
         }
-        combobox.closeDropdown();
       }}
       shadow="md"
     >
