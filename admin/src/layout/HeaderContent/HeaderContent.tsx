@@ -27,9 +27,10 @@ import { useFullscreen } from '@mantine/hooks';
 import { spotlight } from '@mantine/spotlight';
 import { useContext, useMemo } from 'react';
 import LayoutContext from '../LayoutContext';
+import useAppConfig from '@/store/hook/useAppConfig';
 const HeaderContent = () => {
   const { user } = useAppSelector((state) => state.auth);
-  const { layoutType } = useAppSelector((state) => state.appConfig);
+  const [{ layoutType }] = useAppConfig();
   const { openAppSettings } = useContext(LayoutContext);
   const { toggle, fullscreen } = useFullscreen();
   const center = useMemo(() => {
