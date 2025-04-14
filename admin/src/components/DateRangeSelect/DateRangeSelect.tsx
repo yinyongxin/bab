@@ -1,7 +1,16 @@
-import { ComboboxItem, Select } from '@mantine/core';
+import {
+  Combobox,
+  ComboboxItem,
+  Input,
+  InputBase,
+  Select,
+  rem,
+  useCombobox,
+} from '@mantine/core';
 import { IconCalendarCog } from '@tabler/icons-react';
-import dayjs from 'dayjs';
-import { useState } from 'react';
+import { time } from 'console';
+import dayjs, { Dayjs } from 'dayjs';
+import { useEffect, useState } from 'react';
 const dateRangeSelectData = [
   { value: 'all', label: '全部', range: [] },
   {
@@ -24,7 +33,7 @@ const dateRangeSelectData = [
     label: '本年',
     range: [dayjs().startOf('year'), dayjs().endOf('year')],
   },
-] as const;
+];
 
 type DataRangeSelect<T> = {
   onChange?: (
@@ -37,37 +46,79 @@ type DataRangeSelect<T> = {
 };
 
 function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
+  const combobox = useCombobox({
+    onDropdownClose: () => combobox.resetSelectedOption(),
+  });
+
   const { onChange, defaultValue, toDate = false } = props;
-  const defaultRange =
-    dateRangeSelectData.find(
-      (dateRangeSelectDataItem) =>
-        dateRangeSelectDataItem.value === defaultValue,
-    ) || dateRangeSelectData[0];
-  const [value, setValue] = useState<ComboboxItem>(defaultRange);
-  return (
-    <Select
-      checkIconPosition="right"
-      leftSection={<IconCalendarCog size={14} />}
-      data={dateRangeSelectData}
-      value={value ? value.value : null}
-      onChange={(_value, option) => {
-        if (option) {
-          setValue(option);
-          const range = dateRangeSelectData
-            .find(
-              (dateRangeSelectDataItem) =>
-                dateRangeSelectDataItem.value === option.value,
-            )
-            ?.range.map((item) => {
-              return toDate ? item.toDate() : item;
-            }) as unknown as T extends true
-            ? [Date, Date]
-            : (typeof dateRangeSelectData)[number]['range'];
-          onChange?.(range.length > 0 ? range : undefined);
+  const defaultRange = dateRangeSelectData.find(
+    (dateRangeSelectDataItem) => dateRangeSelectDataItem.value === defaultValue,
+  );
+  const [range, setRange] = useState<Dayjs[]>(defaultRange?.range || []);
+  const [value, setValue] = useState<string | null>(defaultValue);
+
+  useEffect(() => {
+    const option = dateRangeSelectData.find((item) => item.value === value);
+    if (option) {
+      setRange(option.range);
+      const range = option?.range.map((item) =>
+        toDate ? item.toDate() : item,
+      ) as unknown as T extends true
+        ? [Date, Date]
+        : (typeof dateRangeSelectData)[number]['range'];
+      onChange?.(range.length > 0 ? range : undefined);
+    }
+  }, [value]);
+
+  const getValueRender = () => {
+    const option = dateRangeSelectData.find((item) => item.value === value);
+    return `${option?.label}`;
+  };
+  const options = dateRangeSelectData.map((item) => {
+    const rangeRender = item?.range.map((item) => item.format('YYYY-MM-DD'));
+    return (
+      <Combobox.Option
+        value={item.value}
+        key={item.value}
+        bg={
+          item.value === value
+            ? 'var(--mantine-primary-color-light)'
+            : 'transparent'
         }
+      >
+        {item.label}
+      </Combobox.Option>
+    );
+  });
+
+  return (
+    <Combobox
+      store={combobox}
+      onOptionSubmit={(val) => {
+        setValue(val);
+        combobox.closeDropdown();
       }}
-      comboboxProps={{ shadow: 'md' }}
-    />
+      shadow="md"
+    >
+      <Combobox.Target>
+        <InputBase
+          w={rem(200)}
+          leftSection={<IconCalendarCog size={14} />}
+          component="button"
+          type="button"
+          pointer
+          rightSection={<Combobox.Chevron />}
+          rightSectionPointerEvents="none"
+          onClick={() => combobox.toggleDropdown()}
+        >
+          {getValueRender() || <Input.Placeholder>选择日期</Input.Placeholder>}
+        </InputBase>
+      </Combobox.Target>
+
+      <Combobox.Dropdown>
+        <Combobox.Options>{options}</Combobox.Options>
+      </Combobox.Dropdown>
+    </Combobox>
   );
 }
 

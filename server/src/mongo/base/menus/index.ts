@@ -22,7 +22,6 @@ export class Menus extends BaseDocument {
    * 菜单唯一键
    */
   @Prop({
-    unique: true,
     required: false,
     minlength: 1,
     maxlength: 100,

@@ -33,4 +33,9 @@ export const protectedRoutes = [
     path: '/systems/files',
     component: lazy(modules['../../pages/systems/files/index.page.tsx']),
   },
+  {
+    key: 'files',
+    path: '/systems/settings',
+    component: lazy(modules['../../pages/systems/settings/settings.page.tsx']),
+  },
 ];

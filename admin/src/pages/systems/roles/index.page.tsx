@@ -4,7 +4,7 @@ import {
   rolesControllerDeleteByIds,
   rolesControllerGetPageList,
 } from '@/client';
-import Page from '@/components/Page';
+import Page from '@/components/Page/Page';
 import {
   Button,
   Text,

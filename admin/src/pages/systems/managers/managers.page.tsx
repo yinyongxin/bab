@@ -8,7 +8,7 @@ import {
   admintorsControllerGetPageList,
   admintorsControllerUpdateOne,
 } from '@/client';
-import Page from '@/components/Page';
+import Page from '@/components/Page/Page';
 import TablePagination, {
   TablePaginationProps,
 } from '@/components/TablePagination';

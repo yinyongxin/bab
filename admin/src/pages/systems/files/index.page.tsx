@@ -6,7 +6,7 @@ import {
   filesControllerGetPaginationList,
   filesControllerUpdateFile,
 } from '@/client';
-import Page from '@/components/Page';
+import Page from '@/components/Page/Page';
 import {
   Stack,
   Title,

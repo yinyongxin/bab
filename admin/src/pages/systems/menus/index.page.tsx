@@ -1,4 +1,4 @@
-import Page from '@/components/Page';
+import Page from '@/components/Page/Page';
 import { Grid } from '@mantine/core';
 import { useState } from 'react';
 import { MenuList } from './MenuList/MenuList';

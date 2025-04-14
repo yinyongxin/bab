@@ -13,15 +13,19 @@ import {
 } from '@mantine/core';
 import {
   useDisclosure,
+  useDocumentTitle,
   useShallowEffect,
   useWindowScroll,
 } from '@mantine/hooks';
 import { IconArrowLeft, IconReload } from '@tabler/icons-react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 import { LayoutTypes } from '@/@types/layout';
 import useAppConfig from '@/store/hook/useAppConfig';
 import { Fragment } from 'react/jsx-runtime';
+import { useAppSelector } from '@/store';
+import { ReactNode, useMemo } from 'react';
+import { MenuTypeEnum } from '@/client';
 
 type PageProps = {
   children: React.ReactNode;
@@ -37,6 +41,7 @@ type PageProps = {
   showLoading?: boolean;
   loading?: boolean;
   showBack?: boolean;
+  tabs?: React.ReactNode;
 } & StackProps;
 
 const Page = (props: PageProps) => {
@@ -56,8 +61,20 @@ const Page = (props: PageProps) => {
     showLoading,
     showBack,
     onInit,
+    tabs,
     ...rest
   } = props;
+
+  const { list } = useAppSelector((state) => state.auth.menus);
+  const location = useLocation();
+  const defaultInfo = useMemo(() => {
+    const pageList = list.filter((item) => item.menuType === MenuTypeEnum.PAGE);
+    const currentPath = location.pathname.split('/');
+    const currentSubLink = currentPath[2];
+    return pageList.find((item) => item.path === currentSubLink);
+  }, [list]);
+
+  useDocumentTitle(title || '');
 
   const init = async () => {
     if (!onInit) {
@@ -96,6 +113,72 @@ const Page = (props: PageProps) => {
   };
 
   const navigate = useNavigate();
+
+  const titleRender = () => {
+    let text = defaultInfo?.name;
+    if (title) {
+      text = title;
+    }
+    return <Title order={3}>{text}</Title>;
+  };
+
+  const reloadBtnRender = () => {
+    if (!onReload) {
+      return null;
+    }
+    return (
+      <ActionIcon
+        size="md"
+        variant="transparent"
+        className={clsx({ spin: loading })}
+        onClick={reload}
+      >
+        <IconReload />
+      </ActionIcon>
+    );
+  };
+
+  const actionsRender = () => {
+    if (!actions || actions.length === 0) {
+      return;
+    }
+    return (
+      <Group>
+        {actions.map((action, index) => (
+          <Fragment key={index}>{action}</Fragment>
+        ))}
+      </Group>
+    );
+  };
+
+  const backBtnRender = () => {
+    if (!showBack) {
+      return null;
+    }
+    return (
+      <ActionIcon
+        size="md"
+        variant="gradient"
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        <IconArrowLeft />
+      </ActionIcon>
+    );
+  };
+
+  const descriptionRender = () => {
+    let text: ReactNode = defaultInfo?.description;
+    if (description) {
+      text = description;
+    }
+    return (
+      <Text lineClamp={2} c="dimmed">
+        {text}
+      </Text>
+    );
+  };
   return (
     <Stack pos="relative" gap="md" {...rest} pb="xl">
       {(showLoading || loading) && (
@@ -108,7 +191,7 @@ const Page = (props: PageProps) => {
       <Stack
         px="xl"
         pt="xl"
-        pb="md"
+        pb={tabs ? 0 : 'md'}
         pos="sticky"
         bg={
           scroll.y > 0 ? rgba('var(--mantine-color-body)', 0.2) : 'transparent'
@@ -125,44 +208,15 @@ const Page = (props: PageProps) => {
       >
         <Flex justify="space-between" align="center">
           <Group gap="sm" align="center">
-            {showBack && (
-              <ActionIcon
-                size="md"
-                variant="gradient"
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                <IconArrowLeft />
-              </ActionIcon>
-            )}
-            {title && <Title order={3}>{title}</Title>}
-
-            {onReload && (
-              <ActionIcon
-                size="md"
-                variant="transparent"
-                className={clsx({ spin: loading })}
-                onClick={reload}
-              >
-                <IconReload />
-              </ActionIcon>
-            )}
+            {backBtnRender()}
+            {titleRender()}
+            {reloadBtnRender()}
           </Group>
-          {actions && (
-            <Group>
-              {actions.map((action, index) => (
-                <Fragment key={index}>{action}</Fragment>
-              ))}
-            </Group>
-          )}
+          {actionsRender()}
         </Flex>
-        {description && (
-          <Text lineClamp={2} c="dimmed">
-            {description}
-          </Text>
-        )}
+        {descriptionRender()}
         {headerBottom}
+        {tabs}
       </Stack>
       {bodyTop && <Box px="xl">{bodyTop}</Box>}
       <Box px="xl" w={`${appConfig.contentWidth / 2 + 50}%`}>
