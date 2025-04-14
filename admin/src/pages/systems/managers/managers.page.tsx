@@ -91,6 +91,7 @@ export default () => {
       {
         name: 'username',
         label: '用户名',
+        placeholder: '输入用户名模糊搜索',
         defaultValue: undefined,
         icon: <IconUser size={16} />,
       },

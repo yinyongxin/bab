@@ -16,7 +16,7 @@ const Settings = () => {
   );
   return (
     <Page tabs={tabs}>
-      <Paper h="2000"></Paper>
+      <Paper h="2000">{activeTab}</Paper>
     </Page>
   );
 };
