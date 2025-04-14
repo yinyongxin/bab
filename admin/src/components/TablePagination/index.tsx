@@ -257,7 +257,7 @@ function TablePagination<D = Record<string, any>>(
         <ScrollArea
           style={{ overflow: 'hidden' }}
           flex={1}
-          type="always"
+          type='auto'
           onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
         >
           {/* <Table.ScrollContainer minWidth={500} type="native"> */}

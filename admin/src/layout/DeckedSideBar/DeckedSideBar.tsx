@@ -81,7 +81,7 @@ export default function DeckedSideBar() {
               src={getFilePath(appConfig.logo)}
             />
           </Center>
-          <ScrollArea.Autosize flex={1} py="md">
+          <ScrollArea.Autosize flex={1} style={{ overflow: 'auto' }} py="md">
             {navigationTree.map((link, index) => {
               const active = link.path === activeMainLink;
               return (
@@ -89,8 +89,8 @@ export default function DeckedSideBar() {
                   key={index}
                   label={link.name}
                   position="right"
+                  offset={12}
                   withArrow
-                  transitionProps={{ duration: 0 }}
                 >
                   <UnstyledButton
                     onClick={() => handleMainLinkClick(link.path, link.name)}
