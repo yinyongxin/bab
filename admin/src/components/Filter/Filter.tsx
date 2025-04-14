@@ -47,7 +47,7 @@ const Filter = (props: FilterProps) => {
           <Group>
             <Button
               type="submit"
-              leftSection={<IconCheck size={16} />}
+              leftSection={<IconCheck size={18} />}
               flex={4}
               onClick={() => {
                 setOpened(false);
@@ -57,7 +57,7 @@ const Filter = (props: FilterProps) => {
               确定
             </Button>
             <Button
-              leftSection={<IconX size={16} />}
+              leftSection={<IconX size={18} />}
               flex={2}
               onClick={() => {
                 onCancel?.();
