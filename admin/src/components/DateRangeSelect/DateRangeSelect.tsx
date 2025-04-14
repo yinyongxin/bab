@@ -54,6 +54,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
   const defaultRange = dateRangeSelectData.find(
     (dateRangeSelectDataItem) => dateRangeSelectDataItem.value === defaultValue,
   );
+
   const [range, setRange] = useState<(Dayjs | null)[]>(
     defaultRange?.range || [],
   );
@@ -102,7 +103,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
       store={combobox}
       onOptionSubmit={(val) => {
         setValue(val);
-        const option = dateRangeSelectData.find((item) => item.value === value);
+        const option = dateRangeSelectData.find((item) => item.value === val);
         if (option) {
           setRange(option.range);
         }
@@ -130,7 +131,9 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
               />
             )
           }
-          onClick={() => combobox.toggleDropdown()}
+          onClick={() => {
+            combobox.toggleDropdown();
+          }}
         >
           {getValueRender() || <Input.Placeholder>选择日期</Input.Placeholder>}
         </InputBase>
