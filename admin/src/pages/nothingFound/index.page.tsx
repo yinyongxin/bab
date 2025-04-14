@@ -19,7 +19,7 @@ export default function NothingFound() {
             ta="center"
             className={classes.description}
           >
-            您试图打开的页面不存在。您可能已经误解了 地址或页面已移至另一个URL。
+            您试图打开的页面不存在。您可能已经忘记了地址或页面已移至另一个URL。
           </Text>
           <Group justify="center">
             <Link to={authenticatedEntryPath}>
