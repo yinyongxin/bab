@@ -1,11 +1,9 @@
 import {
   CloseButton,
   Combobox,
-  ComboboxItem,
   Input,
   InputBase,
   SegmentedControl,
-  Select,
   rem,
   useCombobox,
 } from '@mantine/core';
@@ -84,7 +82,6 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
     return `${option?.label}`;
   };
   const options = dateRangeSelectData.map((item) => {
-    const rangeRender = item?.range.map((item) => item.format('YYYY-MM-DD'));
     return (
       <Combobox.Option
         value={item.value}
