@@ -233,7 +233,6 @@ function TablePagination<D = Record<string, any>>(
       flex={1}
       ref={ref}
       shadow="xs"
-      w="inherit"
       style={{ display: 'flex', flexDirection: 'column' }}
     >
       <header>

@@ -219,7 +219,7 @@ const Page = (props: PageProps) => {
         {tabs}
       </Stack>
       {bodyTop && <Box px="xl">{bodyTop}</Box>}
-      <Box px="xl" w={`${appConfig.contentWidth / 2 + 50}%`}>
+      <Box px="xl" w={`${appConfig.contentWidth / 2 + 50}%`} m="0 auto">
         {children}
       </Box>
       {footer && <Box px="xl">{footer}</Box>}
