@@ -24,7 +24,7 @@ const LogoArea = () => {
       <Group justify="space-between" align="center" h="100%" px="md" w={300}>
         {showBurger && (
           <Burger
-            opened={!desktop}
+            opened={desktop}
             onClick={() => setDesktop(!desktop)}
             aria-label="Toggle navigation"
           />
