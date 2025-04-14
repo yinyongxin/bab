@@ -93,8 +93,6 @@ export default () => {
   return (
     <>
       <Page
-        title="人员角色"
-        description="管理人员角色"
         actions={[
           <Button
             key="add"

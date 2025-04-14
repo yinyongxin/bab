@@ -17,7 +17,6 @@ export default () => {
       style={{
         height: '100%',
       }}
-      title="菜单管理"
     >
       <Grid>
         <Grid.Col span={4}>

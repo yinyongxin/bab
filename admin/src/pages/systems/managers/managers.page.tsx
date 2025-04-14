@@ -48,7 +48,6 @@ import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 import useTools from '@/utils/hooks/useTools';
 import {
   admintorsStatusOptions,
-  admintorsStatusOptionsObj,
   sexOptions,
   sexOptionsObj,
 } from '@/constants/options';
@@ -345,8 +344,6 @@ export default () => {
   return (
     <>
       <Page
-        title="管理人员"
-        description="欢迎使用管理员管理页面！"
         onReload={() => {
           getData();
         }}
