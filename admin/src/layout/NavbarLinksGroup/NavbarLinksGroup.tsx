@@ -6,6 +6,7 @@ import {
   Group,
   rem,
   ThemeIcon,
+  Title,
   UnstyledButton,
 } from '@mantine/core';
 import classes from './NavbarLinksGroup.module.css';
@@ -42,10 +43,10 @@ export function LinksGroup({ icon, name, path, children }: LinksGroupProps) {
       >
         <Group justify="space-between" gap={0}>
           <Box style={{ display: 'flex', alignItems: 'center' }}>
-            <ThemeIcon variant="light" size={32}>
-              <FontIcons name={icon || ''} style={{ fontSize: rem(18) }} />
+            <ThemeIcon variant="light" size={rem(36)}>
+              <FontIcons name={icon || ''} style={{ fontSize: rem(24) }} />
             </ThemeIcon>
-            <Box ml="md">{name}</Box>
+            <Title ml="md" order={6}>{name}</Title>
           </Box>
           {hasLinks && (
             <IconChevronRight

@@ -42,7 +42,7 @@
   margin-bottom: var(--mantine-spacing-sm);
   width: rem(44px);
   height: rem(44px);
-  border-radius: var(--mantine-radius-md);
+  border-radius: var(--mantine-radius-default);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -108,8 +108,8 @@
 .link {
   display: block;
   text-decoration: none;
-  border-top-right-radius: var(--mantine-radius-md);
-  border-bottom-right-radius: var(--mantine-radius-md);
+  border-top-right-radius: var(--mantine-radius-default);
+  border-bottom-right-radius: var(--mantine-radius-default);
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   padding: 0 var(--mantine-spacing-md);
   font-size: var(--mantine-font-size-sm);
