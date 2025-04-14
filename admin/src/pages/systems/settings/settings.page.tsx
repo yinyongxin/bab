@@ -8,7 +8,8 @@ const Settings = () => {
     <Tabs value={activeTab} onChange={setActiveTab}>
       <Tabs.List>
         <Tabs.Tab value="base">基本设置</Tabs.Tab>
-        <Tabs.Tab value="app">APP设置</Tabs.Tab>
+        <Tabs.Tab value="app">APP端设置</Tabs.Tab>
+        <Tabs.Tab value="pc">PC端设置</Tabs.Tab>
         <Tabs.Tab value="admin">管理端设置</Tabs.Tab>
         <Tabs.Tab value="backend">后端设置</Tabs.Tab>
       </Tabs.List>

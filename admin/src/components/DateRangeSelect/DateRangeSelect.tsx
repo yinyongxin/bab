@@ -65,6 +65,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
   useEffect(() => {
     if (validValueLength === 0) {
       onChange?.(undefined);
+      combobox.closeDropdown();
     } else if (validValueLength > 1) {
       const newRange = range.map((item) =>
         toDate ? item?.toDate() : item,
