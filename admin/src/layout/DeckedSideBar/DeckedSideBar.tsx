@@ -8,6 +8,7 @@ import {
   Center,
   Image,
   Avatar,
+  ScrollArea,
 } from '@mantine/core';
 import classes from './DeckedSideBar.module.css';
 import { Link } from 'react-router-dom';
@@ -80,10 +81,9 @@ export default function DeckedSideBar() {
               src={getFilePath(appConfig.logo)}
             />
           </Center>
-          <Box style={{ overflowY: 'auto', flex: 1 }} py="md">
+          <ScrollArea.Autosize flex={1} py="md">
             {navigationTree.map((link, index) => {
               const active = link.path === activeMainLink;
-
               return (
                 <Tooltip
                   key={index}
@@ -97,12 +97,12 @@ export default function DeckedSideBar() {
                     className={classes.mainLink}
                     data-active={active || undefined}
                   >
-                    <FontIcons name={link.icon} style={{ fontSize: rem(18) }} />
+                    <FontIcons name={link.icon} style={{ fontSize: rem(24) }} />
                   </UnstyledButton>
                 </Tooltip>
               );
             })}
-          </Box>
+          </ScrollArea.Autosize>
 
           <UserButton>
             <Box pb="md" w="100%">

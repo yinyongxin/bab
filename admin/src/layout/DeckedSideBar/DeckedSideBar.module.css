@@ -46,7 +46,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: light-dark(var(--mantine-color-dark), var(--mantine-color-light));
+  color: light-dark(var(--mantine-color-dark-5), var(--mantine-color-light));
 
   &:hover {
     background-color: light-dark(
