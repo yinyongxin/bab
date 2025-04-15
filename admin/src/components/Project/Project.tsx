@@ -4,6 +4,7 @@ import Thumbnail from './Thumbnail';
 import { useForm, hasLength } from '@mantine/form';
 import BaseInfo from './BaseInfo';
 import Detail from './Detail';
+import Tag from './Tag';
 
 const Projcet = () => {
   const form = useForm({
@@ -31,6 +32,7 @@ const Projcet = () => {
         <Stack>
           <Thumbnail />
           <Classification />
+          <Tag /> 
         </Stack>
       </Grid.Col>
     </Grid>

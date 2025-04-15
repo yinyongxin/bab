@@ -17,7 +17,7 @@ const groceries = [
   '🥕 Carrots',
   '🍫 Chocolate',
 ];
-const Classification = () => {
+const Tag = () => {
   const [search, setSearch] = useState('');
   const [selectedItem, setSelectedItem] = useState<string[]>([]);
   const combobox = useCombobox({
@@ -50,7 +50,7 @@ const Classification = () => {
     <Card>
       <Card.Section withBorder inheritPadding py="md">
         <Group justify="space-between">
-          <Title order={4}>分类</Title>
+          <Title order={4}>标签</Title>
           <Combobox
             store={combobox}
             width={250}
@@ -67,7 +67,7 @@ const Classification = () => {
                 onClick={() => combobox.toggleDropdown()}
                 variant="subtle"
               >
-                <Text>添加分类</Text>
+                <Text>添加标签</Text>
               </Button>
             </Combobox.Target>
 
@@ -103,4 +103,4 @@ const Classification = () => {
   );
 };
 
-export default Classification;
+export default Tag;
