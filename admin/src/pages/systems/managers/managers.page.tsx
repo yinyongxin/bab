@@ -273,7 +273,11 @@ export default () => {
                 <Badge
                   key={role._id}
                   variant="gradient"
-                  gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+                  gradient={{
+                    from: 'var(--mantine-primary-color-filled)',
+                    to: 'cyan',
+                    deg: 90,
+                  }}
                 >
                   {role.name}
                 </Badge>
