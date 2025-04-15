@@ -1,5 +1,5 @@
 import Views from '@/layout/Views';
-import { AppShell, Drawer, ScrollArea, UnstyledButton } from '@mantine/core';
+import { AppShell, Drawer, ScrollArea } from '@mantine/core';
 import HeaderContent from './HeaderContent/HeaderContent';
 import NavBarContent from './NavBarContent';
 import { LayoutTypes } from '@/@types/layout';
@@ -9,7 +9,6 @@ import { useLocation } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 import AppConfigSettings from '@/components/AppConfigSettings/AppConfigSettings';
 import useAppConfig from '@/store/hook/useAppConfig';
-import NavbarLinksGroup from './NavbarLinksGroup/NavbarLinksGroup';
 
 export default function BaseLayout() {
   const [appConfig] = useAppConfig();
@@ -82,7 +81,7 @@ export default function BaseLayout() {
       <AppShell navbar={appNavBar?.option} header={appHeader?.option}>
         {appHeader?.content}
         {appNavBar?.content}
-        <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6))">
+        <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))">
           <Views />
         </AppShell.Main>
       </AppShell>
