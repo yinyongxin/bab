@@ -47,7 +47,7 @@ const Classification = () => {
   //   </>
   // );
   return (
-    <Card>
+    <Card shadow='sm'>
       <Card.Section inheritPadding py="md">
         <Group justify="space-between">
           <Title order={4}>分类</Title>

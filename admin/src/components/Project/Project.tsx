@@ -21,21 +21,20 @@ const Projcet = () => {
   });
 
   return (
-    <Grid>
+    <Grid gutter="xl">
       <Grid.Col span={8}>
-        <Stack>
+        <Stack gap="xl">
           <BaseInfo form={form} />
           <Detail form={form} />
           <Pricing form={form} />
-
         </Stack>
       </Grid.Col>
 
       <Grid.Col span={4}>
-        <Stack>
+        <Stack gap="xl">
           <Thumbnail />
           <Classification />
-          <Tag /> 
+          <Tag />
         </Stack>
       </Grid.Col>
     </Grid>

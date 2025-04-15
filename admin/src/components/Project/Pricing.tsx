@@ -6,7 +6,7 @@ type PricingType = {
 const Pricing = (props: PricingType) => {
   const { form } = props;
   return (
-    <Card>
+    <Card shadow='sm'>
       <Card.Section inheritPadding py="md">
         <Title order={4}>价格</Title>
       </Card.Section>

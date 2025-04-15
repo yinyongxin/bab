@@ -47,7 +47,7 @@ const Tag = () => {
   //   </>
   // );
   return (
-    <Card>
+    <Card shadow='sm'>
       <Card.Section inheritPadding py="md">
         <Group justify="space-between">
           <Title order={4}>标签</Title>

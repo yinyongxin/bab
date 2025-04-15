@@ -16,7 +16,7 @@ const Thumbnail = () => {
     );
   });
   return (
-    <Card>
+    <Card shadow='sm'>
       <Card.Section inheritPadding py="md">
         <Title order={4}>产品缩略图</Title>
       </Card.Section>

@@ -7,7 +7,7 @@ type DetailType = {
 const Detail = (props: DetailType) => {
   const { form } = props;
   return (
-    <Card>
+    <Card shadow='sm'>
       <Card.Section inheritPadding py="md">
         <Title order={4}>详情</Title>
       </Card.Section>
