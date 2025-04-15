@@ -7,7 +7,7 @@ const BaseInfo = (props: BaseInfoType) => {
   const { form } = props;
   return (
     <Card>
-      <Card.Section withBorder inheritPadding py="md">
+      <Card.Section  inheritPadding py="md">
         <Title order={4}>基本信息</Title>
       </Card.Section>
       <Card.Section inheritPadding py="md">

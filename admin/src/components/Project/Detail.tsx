@@ -8,7 +8,7 @@ const Detail = (props: DetailType) => {
   const { form } = props;
   return (
     <Card>
-      <Card.Section withBorder inheritPadding py="md">
+      <Card.Section inheritPadding py="md">
         <Title order={4}>详情</Title>
       </Card.Section>
       <Card.Section inheritPadding py="md">

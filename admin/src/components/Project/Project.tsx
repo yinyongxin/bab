@@ -5,6 +5,7 @@ import { useForm, hasLength } from '@mantine/form';
 import BaseInfo from './BaseInfo';
 import Detail from './Detail';
 import Tag from './Tag';
+import Pricing from './Pricing';
 
 const Projcet = () => {
   const form = useForm({
@@ -25,6 +26,8 @@ const Projcet = () => {
         <Stack>
           <BaseInfo form={form} />
           <Detail form={form} />
+          <Pricing form={form} />
+
         </Stack>
       </Grid.Col>
 

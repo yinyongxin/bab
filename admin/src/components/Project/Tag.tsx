@@ -48,7 +48,7 @@ const Tag = () => {
   // );
   return (
     <Card>
-      <Card.Section withBorder inheritPadding py="md">
+      <Card.Section inheritPadding py="md">
         <Group justify="space-between">
           <Title order={4}>标签</Title>
           <Combobox

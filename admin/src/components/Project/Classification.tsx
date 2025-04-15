@@ -48,7 +48,7 @@ const Classification = () => {
   // );
   return (
     <Card>
-      <Card.Section withBorder inheritPadding py="md">
+      <Card.Section inheritPadding py="md">
         <Group justify="space-between">
           <Title order={4}>分类</Title>
           <Combobox
