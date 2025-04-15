@@ -6,6 +6,9 @@ import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
+import Image from '@tiptap/extension-image';
+import { useCallback } from 'react';
+import { IconPhoto } from '@tabler/icons-react';
 type AppRichTextDditorProps = {
   value?: string;
 };
@@ -19,10 +22,19 @@ const AppRichTextDditor = (props: AppRichTextDditorProps) => {
       Superscript,
       SubScript,
       Highlight,
+      Image,
       TextAlign.configure({ types: ['heading', 'paragraph'] }),
     ],
     content: value,
   });
+
+  const addImage = useCallback(() => {
+    const url = window.prompt('URL');
+
+    if (url) {
+      editor?.chain().focus().setImage({ src: url }).run();
+    }
+  }, [editor]);
   return (
     <RichTextEditor editor={editor}>
       <RichTextEditor.Toolbar>
@@ -50,16 +62,23 @@ const AppRichTextDditor = (props: AppRichTextDditorProps) => {
           <RichTextEditor.Superscript />
         </RichTextEditor.ControlsGroup>
         <RichTextEditor.ControlsGroup>
+          <RichTextEditor.AlignLeft />
+          <RichTextEditor.AlignCenter />
+          <RichTextEditor.AlignJustify />
+          <RichTextEditor.AlignRight />
+        </RichTextEditor.ControlsGroup>
+        <RichTextEditor.ControlsGroup>
           <RichTextEditor.Link />
           <RichTextEditor.Unlink />
         </RichTextEditor.ControlsGroup>
         <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Blockquote />
-          <RichTextEditor.Hr />
-          <RichTextEditor.BulletList />
-          <RichTextEditor.OrderedList />
-          <RichTextEditor.Subscript />
-          <RichTextEditor.Superscript />
+          <RichTextEditor.Control
+            onClick={() => addImage()}
+            aria-label="添加图片"
+            title="添加图片"
+          >
+            <IconPhoto stroke={1.5} size={16} />
+          </RichTextEditor.Control>
         </RichTextEditor.ControlsGroup>
         <RichTextEditor.ControlsGroup>
           <RichTextEditor.Undo />
