@@ -41,13 +41,13 @@ export const AdmintorsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     username: {
       type: 'string',
@@ -439,13 +439,13 @@ export const RolesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     name: {
       type: 'string',
@@ -485,13 +485,13 @@ export const AdmintorsPageItemDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     username: {
       type: 'string',
@@ -627,7 +627,7 @@ export const RolesUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     name: {
       type: 'string',
@@ -662,13 +662,13 @@ export const RolesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     name: {
       type: 'string',
@@ -741,11 +741,6 @@ export const MenusCreateBodyDtoSchema = {
       description: '菜单名称',
       example: 'menuName',
     },
-    uniqueKey: {
-      type: 'string',
-      description: '菜单唯一键',
-      example: 'uniqueKey',
-    },
     description: {
       type: 'string',
       description: '菜单名称',
@@ -753,7 +748,7 @@ export const MenusCreateBodyDtoSchema = {
     },
     path: {
       type: 'string',
-      description: '菜单路径',
+      description: '菜单路径&功能区域标识',
       example: '',
     },
     sort: {
@@ -785,7 +780,7 @@ export const MenusCreateBodyDtoSchema = {
       description: '是否隐藏',
     },
   },
-  required: ['name', 'sort', 'menuType', 'isHide'],
+  required: ['name', 'path', 'sort', 'menuType', 'isHide'],
 } as const;
 
 export const MenusResultDtoSchema = {
@@ -795,23 +790,18 @@ export const MenusResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     name: {
       type: 'string',
       description: '菜单名称',
       example: 'menuName',
-    },
-    uniqueKey: {
-      type: 'string',
-      description: '菜单唯一键',
-      example: 'uniqueKey',
     },
     description: {
       type: 'string',
@@ -820,7 +810,7 @@ export const MenusResultDtoSchema = {
     },
     path: {
       type: 'string',
-      description: '菜单路径',
+      description: '菜单路径&功能区域标识',
       example: '',
     },
     sort: {
@@ -860,6 +850,7 @@ export const MenusResultDtoSchema = {
     'createdTime',
     'updatedTime',
     'name',
+    'path',
     'sort',
     'menuType',
     'isHide',
@@ -874,17 +865,12 @@ export const MenusUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     name: {
       type: 'string',
       description: '菜单名称',
       example: 'menuName',
-    },
-    uniqueKey: {
-      type: 'string',
-      description: '菜单唯一键',
-      example: 'uniqueKey',
     },
     description: {
       type: 'string',
@@ -893,7 +879,7 @@ export const MenusUpdateDtoSchema = {
     },
     path: {
       type: 'string',
-      description: '菜单路径',
+      description: '菜单路径&功能区域标识',
       example: '',
     },
     sort: {
@@ -940,23 +926,18 @@ export const TreeMenuDataDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     name: {
       type: 'string',
       description: '菜单名称',
       example: 'menuName',
-    },
-    uniqueKey: {
-      type: 'string',
-      description: '菜单唯一键',
-      example: 'uniqueKey',
     },
     description: {
       type: 'string',
@@ -965,7 +946,7 @@ export const TreeMenuDataDtoSchema = {
     },
     path: {
       type: 'string',
-      description: '菜单路径',
+      description: '菜单路径&功能区域标识',
       example: '',
     },
     sort: {
@@ -1013,6 +994,7 @@ export const TreeMenuDataDtoSchema = {
     'createdTime',
     'updatedTime',
     'name',
+    'path',
     'sort',
     'menuType',
     'isHide',
@@ -1028,23 +1010,18 @@ export const MenusQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     name: {
       type: 'string',
       description: '菜单名称',
       example: 'menuName',
-    },
-    uniqueKey: {
-      type: 'string',
-      description: '菜单唯一键',
-      example: 'uniqueKey',
     },
     description: {
       type: 'string',
@@ -1053,7 +1030,7 @@ export const MenusQueryDtoSchema = {
     },
     path: {
       type: 'string',
-      description: '菜单路径',
+      description: '菜单路径&功能区域标识',
       example: '',
     },
     sort: {
@@ -1184,13 +1161,13 @@ export const FilesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744514830564,
+      default: 1744682027477,
     },
     originalname: {
       type: 'string',

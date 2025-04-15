@@ -50,12 +50,7 @@ function UpdataMenu(props: UpdataMenuProps) {
   const form = useForm<MenusCreateBodyDto>({
     initialValues: {
       name: '',
-      ...(isFunctionArea && {
-        uniqueKey: '',
-      }),
-      ...(!isFunctionArea && {
-        path: '',
-      }),
+      path: '',
       isHide: false,
       sort,
       icon: 'icons',
@@ -130,12 +125,7 @@ function UpdataMenu(props: UpdataMenuProps) {
         description: values.description,
         isHide: values.isHide,
         menuType: values.menuType || menuType,
-        ...(!isFunctionArea && {
-          path: values.path,
-        }),
-        ...(isFunctionArea && {
-          uniqueKey: values.uniqueKey,
-        }),
+        path: values.path,
       },
     });
     if (updateAdmintor?.error) {
@@ -225,42 +215,34 @@ function UpdataMenu(props: UpdataMenuProps) {
               }
             />
           </Grid.Col>
-          {isFunctionArea && (
-            <Grid.Col span={12}>
-              <TextInput
-                {...form.getInputProps('uniqueKey')}
-                label="功能区域标识"
-                placeholder="填写功能区域标识"
-              />
-            </Grid.Col>
-          )}
 
-          {!isFunctionArea && (
-            <Grid.Col span={12}>
-              <TextInput
-                {...form.getInputProps('path')}
-                leftSection={<IconLink size={14} />}
-                label={
-                  {
-                    [MenuTypeEnum.DIRECTORY]: '填写目录路径',
-                    [MenuTypeEnum.PAGE]: '填写页面路径',
-                  }[menuType]
-                }
-                description={
-                  {
-                    [MenuTypeEnum.DIRECTORY]: `/${form.values.path}`,
-                    [MenuTypeEnum.PAGE]: `/${parentData?.path}/${form.values.path}`,
-                  }[menuType]
-                }
-                placeholder={
-                  {
-                    [MenuTypeEnum.DIRECTORY]: '填写目录路径',
-                    [MenuTypeEnum.PAGE]: '填写页面路径',
-                  }[menuType]
-                }
-              />
-            </Grid.Col>
-          )}
+          <Grid.Col span={12}>
+            <TextInput
+              {...form.getInputProps('path')}
+              leftSection={<IconLink size={14} />}
+              label={
+                {
+                  [MenuTypeEnum.DIRECTORY]: '填写目录路径',
+                  [MenuTypeEnum.PAGE]: '填写页面路径',
+                  [MenuTypeEnum.FUNCTION_AREA]: '填写功能区路径',
+                }[menuType]
+              }
+              description={
+                {
+                  [MenuTypeEnum.DIRECTORY]: `/${form.values.path}`,
+                  [MenuTypeEnum.PAGE]: `/${parentData?.path}/${form.values.path}`,
+                  [MenuTypeEnum.FUNCTION_AREA]: `/${parentData?.path}/${form.values.path}`,
+                }[menuType]
+              }
+              placeholder={
+                {
+                  [MenuTypeEnum.DIRECTORY]: '填写目录路径',
+                  [MenuTypeEnum.PAGE]: '填写页面路径',
+                  [MenuTypeEnum.FUNCTION_AREA]: '填写功能区路径',
+                }[menuType]
+              }
+            />
+          </Grid.Col>
           <Grid.Col span={12}>
             <Textarea
               {...form.getInputProps('description')}
@@ -268,7 +250,7 @@ function UpdataMenu(props: UpdataMenuProps) {
               placeholder="填写描述"
             />
           </Grid.Col>
-          {isPage && (
+          {!isFunctionArea && (
             <Grid.Col span={12}>
               <Switch
                 {...form.getInputProps('isHide')}

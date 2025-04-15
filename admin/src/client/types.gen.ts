@@ -474,17 +474,13 @@ export type MenusCreateBodyDto = {
    */
   name: string;
   /**
-   * 菜单唯一键
-   */
-  uniqueKey?: string;
-  /**
    * 菜单名称
    */
   description?: string;
   /**
-   * 菜单路径
+   * 菜单路径&功能区域标识
    */
-  path?: string;
+  path: string;
   /**
    * 用作菜单排序
    */
@@ -521,17 +517,13 @@ export type MenusResultDto = {
    */
   name: string;
   /**
-   * 菜单唯一键
-   */
-  uniqueKey?: string;
-  /**
    * 菜单名称
    */
   description?: string;
   /**
-   * 菜单路径
+   * 菜单路径&功能区域标识
    */
-  path?: string;
+  path: string;
   /**
    * 用作菜单排序
    */
@@ -568,15 +560,11 @@ export type MenusUpdateDto = {
    */
   name?: string;
   /**
-   * 菜单唯一键
-   */
-  uniqueKey?: string;
-  /**
    * 菜单名称
    */
   description?: string;
   /**
-   * 菜单路径
+   * 菜单路径&功能区域标识
    */
   path?: string;
   /**
@@ -619,17 +607,13 @@ export type TreeMenuDataDto = {
    */
   name: string;
   /**
-   * 菜单唯一键
-   */
-  uniqueKey?: string;
-  /**
    * 菜单名称
    */
   description?: string;
   /**
-   * 菜单路径
+   * 菜单路径&功能区域标识
    */
-  path?: string;
+  path: string;
   /**
    * 用作菜单排序
    */
@@ -674,15 +658,11 @@ export type MenusQueryDto = {
    */
   name?: string;
   /**
-   * 菜单唯一键
-   */
-  uniqueKey?: string;
-  /**
    * 菜单名称
    */
   description?: string;
   /**
-   * 菜单路径
+   * 菜单路径&功能区域标识
    */
   path?: string;
   /**

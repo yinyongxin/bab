@@ -19,22 +19,6 @@ export class Menus extends BaseDocument {
   name: string;
 
   /**
-   * 菜单唯一键
-   */
-  @Prop({
-    required: false,
-    minlength: 1,
-    maxlength: 100,
-  })
-  // swagger
-  @ApiProperty({
-    required: false,
-    description: '菜单唯一键',
-    example: 'uniqueKey',
-  })
-  uniqueKey: string;
-
-  /**
    * 菜单描述
    */
   @Prop({
@@ -51,17 +35,17 @@ export class Menus extends BaseDocument {
   description: string;
 
   /**
-   * 菜单路径
+   * 菜单路径&功能区域标识
    */
   @Prop({
     unique: true,
-    required: false,
+    required: true,
     default: '',
   })
   // swagger
   @ApiProperty({
-    required: false,
-    description: '菜单路径',
+    required: true,
+    description: '菜单路径&功能区域标识',
     example: '',
   })
   path: string;
