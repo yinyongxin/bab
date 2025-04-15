@@ -36,7 +36,7 @@ export const sexOptions: Option<SexEnum>[] = [
     value: 'Male',
     icon: sexIcons.Male,
     renderContent: (
-      <Group gap="xs">
+      <Group gap="2">
         {sexIcons.Male}
         <Text>男</Text>
       </Group>
@@ -47,7 +47,7 @@ export const sexOptions: Option<SexEnum>[] = [
     value: 'Female',
     icon: sexIcons.Female,
     renderContent: (
-      <Group gap="xs">
+      <Group gap="2">
         {sexIcons.Female}
         <Text>女</Text>
       </Group>

@@ -3,6 +3,7 @@ import AppSelect from '@/components/AppSelect';
 import { Chip, CloseButton, Group, TextInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { UseFormInput } from '@mantine/form/lib/types';
+import { IconX } from '@tabler/icons-react';
 import { ReactNode } from 'react';
 import { Fragment } from 'react/jsx-runtime';
 
@@ -62,19 +63,27 @@ function useFilter<P extends Record<string, unknown | undefined>>(
         variant="light"
         checked
         icon={
-          <CloseButton
-            size="sm"
+          <IconX
+            size={16}
+            color="red"
             onClick={(e) => {
               e.stopPropagation();
               form.setValues({ [item.name]: undefined } as P);
               onDelete?.({ [item.name]: undefined } as P);
             }}
-            variant="transparent"
           />
         }
       >
-        <Group pl="xs" gap="0">
-          {item.label && <Text>{item.label}：</Text>}
+        <Group gap="0">
+          {item.label && (
+            <Text
+              size="sm"
+              c="light-dark(var(--mantine-color-dark-5), var(--mantine-color-dark-1))"
+              lh="normal"
+            >
+              {item.label}：
+            </Text>
+          )}
           <>{renderContent}</>
         </Group>
       </Chip>

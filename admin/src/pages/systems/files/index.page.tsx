@@ -21,6 +21,7 @@ import {
   CopyButton,
   Tooltip,
   rem,
+  Badge,
 } from '@mantine/core';
 import { useShallowEffect } from '@mantine/hooks';
 import { useState } from 'react';
@@ -191,6 +192,20 @@ export default () => {
             {
               title: '文件类型',
               dataKey: 'mimetype',
+              render: ({ mimetype }) => {
+                return (
+                  <Badge
+                    variant="gradient"
+                    gradient={{
+                      from: 'var(--mantine-primary-color-filled)',
+                      to: 'cyan',
+                      deg: 90,
+                    }}
+                  >
+                    {mimetype}
+                  </Badge>
+                );
+              },
             },
             {
               title: '文件大小',
