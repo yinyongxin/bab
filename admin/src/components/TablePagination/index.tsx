@@ -29,6 +29,7 @@ import {
 } from '@tabler/icons-react';
 import clsx from 'clsx';
 import { Option } from '@/@types';
+import { getPageTotal } from '@/utils';
 
 type Column<D = any, O extends string | number | symbol = any> = {
   title: React.ReactNode;
@@ -46,6 +47,12 @@ export type TablePaginationProps<D> = {
   columns: Column<D>[];
   dataList: D[];
   rowkey: keyof D;
+  pagination?: {
+    pageNo: number;
+    pageSize: number;
+    total: number;
+    onChange: (value: number) => void;
+  };
   paginationProps?: PaginationProps;
   tableProps?: TableProps;
   loading?: boolean;
@@ -55,8 +62,15 @@ export type TablePaginationProps<D> = {
 function TablePagination<D = Record<string, any>>(
   props: TablePaginationProps<D>,
 ) {
-  const { paginationProps, tableProps, dataList, rowkey, loading, title } =
-    props;
+  const {
+    paginationProps,
+    pagination,
+    tableProps,
+    dataList,
+    rowkey,
+    loading,
+    title,
+  } = props;
   const [scrolled, setScrolled] = useState(false);
   const [verticalSpacing, setVerticalSpacing] = useState<MantineSpacing>('md');
   const [fullscreen, setFullscreen] = useState<boolean>(false);
@@ -227,6 +241,25 @@ function TablePagination<D = Record<string, any>>(
       ),
     },
   ];
+
+  const paginationRender = () => {
+    if (!pagination) {
+      return null;
+    }
+    return (
+      <footer>
+        <Divider />
+        <Flex justify="flex-end" p="md">
+          <Pagination
+            total={getPageTotal(pagination?.total, pagination?.pageSize)}
+            value={pagination?.pageNo}
+            onChange={pagination?.onChange}
+            {...paginationProps}
+          />
+        </Flex>
+      </footer>
+    );
+  };
   return (
     <Paper
       pos="relative"
@@ -257,7 +290,7 @@ function TablePagination<D = Record<string, any>>(
         <ScrollArea
           style={{ overflow: 'hidden' }}
           flex={1}
-          type='auto'
+          type="auto"
           onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
         >
           {/* <Table.ScrollContainer minWidth={500} type="native"> */}
@@ -274,14 +307,7 @@ function TablePagination<D = Record<string, any>>(
           {dataList.length === 0 && <Empty />}
         </ScrollArea>
       </Stack>
-      {paginationProps?.total ? (
-        <footer>
-          <Divider />
-          <Flex justify="flex-end" p="md">
-            <Pagination {...paginationProps} />
-          </Flex>
-        </footer>
-      ) : null}
+      {paginationRender()}
     </Paper>
   );
 }

@@ -320,12 +320,13 @@ export default () => {
           ]}
           dataList={data?.list || []}
           rowkey="_id"
-          paginationProps={{
-            total: getPageTotal(data?.total, data?.pageSize),
-            value: data?.pageNo,
-            onChange(value) {
+          pagination={{
+            pageNo: data?.pageNo || 1,
+            pageSize: data?.pageSize || 10,
+            total: data?.total || 0,
+            onChange: (page) => {
               getData({
-                pageNo: value,
+                pageNo: page,
               });
             },
           }}
