@@ -16,9 +16,9 @@ const BaseInfo = (props: BaseInfoType) => {
             withAsterisk
             size="md"
             {...form.getInputProps('name')}
-            label="项目名称"
-            description="项目名称是唯一的，不可重复的，请确保项目名称的唯一性"
-            placeholder="请输入项目名称"
+            label="产品名称"
+            description="产品名称是唯一的，不可重复的，请确保产品名称的唯一性"
+            placeholder="请输入产品名称"
           />
           <Textarea
             withAsterisk

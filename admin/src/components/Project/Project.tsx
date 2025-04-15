@@ -13,7 +13,7 @@ const Projcet = () => {
       detail: 'asdfasfasfsf',
     },
     validate: {
-      name: hasLength({ min: 1 }, '项目名称不能为空'),
+      name: hasLength({ min: 1 }, '产品名称不能为空'),
       description: hasLength({ min: 1 }, '项目描述不能为空'),
     },
   });
