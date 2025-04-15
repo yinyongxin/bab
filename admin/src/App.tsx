@@ -21,7 +21,7 @@ import { useMemo } from 'react';
 const AppContent = () => {
   const appTheme = useAppSelector((state) => state.appTheme);
   const theme = useMemo(() => {
-    return createTheme(appTheme);
+    return createTheme({ ...appTheme });
   }, [appTheme]);
   return (
     <MantineProvider theme={theme}>

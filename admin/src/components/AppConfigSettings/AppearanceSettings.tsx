@@ -83,7 +83,7 @@ const AppearanceSettings = () => {
       <Grid>
         {colors.map((color) => {
           return (
-            <Grid.Col span={3} key={color}>
+            <Grid.Col span={2} key={color}>
               <Stack align="center" w="100%">
                 <Paper
                   w="100%"
@@ -93,7 +93,7 @@ const AppearanceSettings = () => {
                   }
                   onClick={() => dispatch(setPrimaryColor(color))}
                 >
-                  <Center h="80">
+                  <Center h="50">
                     <ColorSwatch color={theme.colors[color][5]} />
                   </Center>
                 </Paper>
