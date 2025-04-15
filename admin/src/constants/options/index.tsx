@@ -7,23 +7,8 @@ import {
   IconLockOpen,
 } from '@tabler/icons-react';
 import { Group, Text } from '@mantine/core';
-
-function convertToObject<T = any>(arr: Option<T>[]) {
-  return arr.reduce(
-    (acc, cur) => {
-      acc[cur.value] = cur;
-      return acc;
-    },
-    //@ts-ignore
-    {} as Record<T, Option<T>>,
-  );
-}
-
-const iconProps = {
-  stroke: 1.5,
-  opacity: 0.6,
-  size: 18,
-};
+import { convertToObject } from '@/utils';
+import { iconProps } from './base';
 
 export const sexIcons: Record<SexEnum, React.ReactNode> = {
   Male: <IconGenderMale color="blue" {...iconProps} />,

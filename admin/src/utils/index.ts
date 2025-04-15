@@ -1,4 +1,6 @@
 import { filesControllerUploadFile } from '@/client';
+import { Option } from '@/@types';
+
 export const getFilePath = (path?: string) => {
   if (!path) {
     return '';
@@ -33,3 +35,14 @@ export const uploadFile = async (file?: File | null) => {
   });
   return res.data;
 };
+
+export function convertToObject<T = any>(arr: Option<T>[]) {
+  return arr.reduce(
+    (acc, cur) => {
+      acc[cur.value] = cur;
+      return acc;
+    },
+    //@ts-ignore
+    {} as Record<T, Option<T>>,
+  );
+}
