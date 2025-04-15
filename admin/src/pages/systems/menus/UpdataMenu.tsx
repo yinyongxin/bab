@@ -11,7 +11,7 @@ import {
   LoadingOverlay,
   Switch,
 } from '@mantine/core';
-import { hasLength, useForm } from '@mantine/form';
+import { hasLength, isNotEmpty, useForm } from '@mantine/form';
 import {
   IconCheck,
   IconExclamationCircle,
@@ -58,15 +58,10 @@ function UpdataMenu(props: UpdataMenuProps) {
       description: '',
     },
     validate: {
-      icon: hasLength({ min: 1 }, '头像不能为空'),
-      name: hasLength({ min: 1 }, '用户名不能为空'),
-      description: hasLength({ min: 1 }, '描述不能为空'),
-      ...(!isFunctionArea && {
-        path: hasLength({ min: 1 }, '路径不能为空'),
-      }),
-      ...(isFunctionArea && {
-        uniqueKey: hasLength({ min: 1 }, '唯一标识不能为空'),
-      }),
+      icon: isNotEmpty('头像不能为空'),
+      name: isNotEmpty('用户名不能为空'),
+      description: isNotEmpty('描述不能为空'),
+      path: isNotEmpty('路径不能为空'),
     },
   });
   const getDetail = async (id: string) => {
@@ -197,6 +192,7 @@ function UpdataMenu(props: UpdataMenuProps) {
           </Grid.Col>
           <Grid.Col span={12}>
             <TextInput
+              withAsterisk
               {...form.getInputProps('name')}
               leftSection={<IconTextCaption size={14} />}
               label={
@@ -218,6 +214,7 @@ function UpdataMenu(props: UpdataMenuProps) {
 
           <Grid.Col span={12}>
             <TextInput
+              withAsterisk
               {...form.getInputProps('path')}
               leftSection={<IconLink size={14} />}
               label={
@@ -245,6 +242,7 @@ function UpdataMenu(props: UpdataMenuProps) {
           </Grid.Col>
           <Grid.Col span={12}>
             <Textarea
+              withAsterisk
               {...form.getInputProps('description')}
               label="描述"
               placeholder="填写描述"
@@ -261,7 +259,7 @@ function UpdataMenu(props: UpdataMenuProps) {
           )}
         </Grid>
         <Flex justify="space-between" align="center" mt="md">
-          <Text c="dimmed">填写完信息后点击确定保存</Text>
+          <Text c="dimmed">填写完信息后点击保存</Text>
           <Button type="submit">保存</Button>
         </Flex>
       </form>
