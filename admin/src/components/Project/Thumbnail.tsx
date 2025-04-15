@@ -18,7 +18,7 @@ const Thumbnail = () => {
   return (
     <Card>
       <Card.Section withBorder inheritPadding py="md">
-        <Title order={4}>产品封面</Title>
+        <Title order={4}>产品缩略图</Title>
       </Card.Section>
       <Card.Section inheritPadding py="md">
         <Dropzone
@@ -40,7 +40,7 @@ const Thumbnail = () => {
               <Dropzone.Accept>
                 <IconUpload
                   size={52}
-                  color="var(--mantine-color-blue-6)"
+                  color="var(--mantine-primary-color-filled)"
                   stroke={1.5}
                 />
               </Dropzone.Accept>
