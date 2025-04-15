@@ -1,5 +1,5 @@
 import { LayoutTypes } from '@/@types/layout';
-import { useAppDispatch, useAppSelector } from '@/store';
+import { useAppDispatch } from '@/store';
 import useAppConfig from '@/store/hook/useAppConfig';
 import { setAppConfig } from '@/store/slices/appConfig';
 import {
@@ -237,23 +237,27 @@ const LayoutSetting = () => {
       </Grid>
       <Divider />
       <Title order={5}>内容宽度</Title>
-      <Slider
-        my="md"
-        value={appConfig.contentWidth}
-        onChange={(value) => {
-          updateAppConfig({
-            contentWidth: value,
-          });
-        }}
-        size="md"
-        labelAlwaysOn
-        label={(val) => val / 2 + 50 + '%'}
-        labelTransitionProps={{ duration: 0 }}
-        marks={[
-          { value: 0, label: '50%' },
-          { value: 100, label: '100%' },
-        ]}
-      />
+      <Center>
+        <Slider
+          my="md"
+          px="md"
+          value={appConfig.contentWidth}
+          onChange={(value) => {
+            updateAppConfig({
+              contentWidth: value,
+            });
+          }}
+          w="98%"
+          size="md"
+          labelAlwaysOn
+          label={(val) => `${val / 2 + 50}%`}
+          labelTransitionProps={{ duration: 0 }}
+          marks={[
+            { value: 0, label: '50%' },
+            { value: 100, label: '100%' },
+          ]}
+        />
+      </Center>
     </Stack>
   );
 };
