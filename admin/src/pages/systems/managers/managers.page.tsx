@@ -45,14 +45,14 @@ import UpdateManager from './UpdateManager';
 import { getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
-import useTools from '@/utils/hooks/useTools';
+import useTools from '@/hooks/useTools';
 import {
   admintorsStatusOptions,
   sexOptions,
   sexOptionsObj,
 } from '@/constants/options';
 import Filter from '@/components/Filter/Filter';
-import useFilter from '@/utils/hooks/useFilter';
+import useFilter from '@/hooks/useFilter';
 export default () => {
   const { getFilePath } = useTools();
   const [opened, { open, close }] = useDisclosure(false);

@@ -3,7 +3,7 @@ import useAppConfig from '@/store/hook/useAppConfig';
 import { Image, Code, Group, Title, Burger } from '@mantine/core';
 import { useContext, useMemo } from 'react';
 import LayoutContext from '../LayoutContext';
-import useTools from '@/utils/hooks/useTools';
+import useTools from '@/hooks/useTools';
 
 const LogoArea = () => {
   const { getFilePath } = useTools();

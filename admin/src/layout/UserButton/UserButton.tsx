@@ -15,7 +15,7 @@ import {
   useMantineColorScheme,
   MenuProps,
 } from '@mantine/core';
-import useAuth from '@/utils/hooks/useAuth';
+import useAuth from '@/hooks/useAuth';
 import { spotlight } from '@mantine/spotlight';
 import { useContext } from 'react';
 import LayoutContext from '../LayoutContext';

@@ -24,7 +24,7 @@ import {
   rolesControllerUpdateOne,
 } from '@/client';
 import { notifications } from '@mantine/notifications';
-import useTools from '@/utils/hooks/useTools';
+import useTools from '@/hooks/useTools';
 
 type UpdateRoleProps = {
   onSuccess: () => void;

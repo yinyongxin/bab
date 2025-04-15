@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo } from 'react';
-import useAuth from '@/utils/hooks/useAuth';
-import useLocale from '@/utils/hooks/useLocale';
+import useAuth from '@/hooks/useAuth';
+import useLocale from '@/hooks/useLocale';
 import LoadingScreen from '@/components/LoadingScreen/LoadingScreen';
 import { useAppSelector } from '@/store';
 import { client } from '@/client/client.gen';

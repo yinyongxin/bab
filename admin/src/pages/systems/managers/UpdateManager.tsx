@@ -29,11 +29,11 @@ import {
   AdmintorsPageItemDto,
   AdmintorsUpdateDto,
 } from '@/client';
-import useRoleOptions from '@/utils/hooks/useRoleOptions';
+import useRoleOptions from '@/hooks/useRoleOptions';
 import { notifications } from '@mantine/notifications';
 import { uploadFile } from '@/utils';
 import { sexIcons } from './common';
-import useTools from '@/utils/hooks/useTools';
+import useTools from '@/hooks/useTools';
 
 type UpdateManagerProps = {
   onSuccess: () => void;

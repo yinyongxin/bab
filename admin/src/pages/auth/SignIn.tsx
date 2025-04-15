@@ -10,7 +10,7 @@ import {
 import classes from './SignIn.module.css';
 import * as yup from 'yup';
 import { useForm, yupResolver } from '@mantine/form';
-import useAuth from '@/utils/hooks/useAuth';
+import useAuth from '@/hooks/useAuth';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconExclamationCircle } from '@tabler/icons-react';
 

@@ -1,5 +1,5 @@
 import useAppConfig from '@/store/hook/useAppConfig';
-import useTools from '@/utils/hooks/useTools';
+import useTools from '@/hooks/useTools';
 import { Box, Flex, Image } from '@mantine/core';
 type EmptyProps = {
   text?: string;

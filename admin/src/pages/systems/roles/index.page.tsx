@@ -31,7 +31,7 @@ import {
 import { getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 import MenusCheck from './MenusCheck';
-import useTools from '@/utils/hooks/useTools';
+import useTools from '@/hooks/useTools';
 
 export default () => {
   const { getFilePath } = useTools();

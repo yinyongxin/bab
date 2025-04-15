@@ -40,7 +40,7 @@ import { getPageTotal, uploadFile } from '@/utils';
 import { modals } from '@mantine/modals';
 import useAppConfig from '@/store/hook/useAppConfig';
 import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
-import useTools from '@/utils/hooks/useTools';
+import useTools from '@/hooks/useTools';
 import { fileMIMEOptions } from '@/constants/options';
 
 export default () => {

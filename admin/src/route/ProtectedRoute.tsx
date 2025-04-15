@@ -1,6 +1,6 @@
 import { REDIRECT_URL_KEY } from '@/constants/app.constant';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import useAuth from '@/utils/hooks/useAuth';
+import useAuth from '@/hooks/useAuth';
 import useAppConfig from '@/store/hook/useAppConfig';
 
 const ProtectedRoute = () => {

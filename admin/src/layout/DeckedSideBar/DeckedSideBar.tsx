@@ -17,7 +17,7 @@ import FontIcons from '@/components/FontIcons';
 import { UserButton } from '@/layout/UserButton/UserButton';
 import LayoutContext from '../LayoutContext';
 import useAppConfig from '@/store/hook/useAppConfig';
-import useTools from '@/utils/hooks/useTools';
+import useTools from '@/hooks/useTools';
 
 export default function DeckedSideBar() {
   const { getFilePath } = useTools();
