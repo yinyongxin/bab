@@ -6,6 +6,7 @@ import BaseInfo from './BaseInfo';
 import Detail from './Detail';
 import Tag from './Tag';
 import Pricing from './Pricing';
+import Variation from './Variation';
 
 const Projcet = () => {
   const form = useForm({
@@ -26,6 +27,7 @@ const Projcet = () => {
         <Stack gap="xl">
           <BaseInfo form={form} />
           <Detail form={form} />
+          <Variation />
           <Pricing form={form} />
         </Stack>
       </Grid.Col>
