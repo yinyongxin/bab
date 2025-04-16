@@ -18,39 +18,32 @@ const options = [
     _id: 'color',
     name: '颜色',
     unit: '',
-    image: '',
     standardsType: 'color',
-    defaultValue: '',
   },
   {
     _id: '长',
     name: '长',
     unit: 'cm',
-    image: '',
     standardsType: 'number',
-    defaultValue: 0,
   },
   {
     _id: '宽',
     name: '宽',
     unit: 'cm',
-    image: '',
     standardsType: 'number',
-    defaultValue: 0,
   },
   {
     _id: '高',
     name: '高',
     unit: 'cm',
-    image: '',
     standardsType: 'number',
   },
   {
-    _id: '大小',
-    name: '大小',
+    _id: '尺寸',
+    name: '尺寸',
     unit: '',
-    image: '',
-    standardsType: 'number',
+    standardsType: 'select',
+    options: ['S', 'M', 'L'],
   },
   {
     _id: '材质',
@@ -71,7 +64,7 @@ const Variation = () => {
       color: (
         <ColorInput
           size="md"
-          value={mapValue.value as string}
+          value={(mapValue.value as string) || ''}
           onChange={(val) => {
             map.set(mapKey, { ...mapValue, value: val });
           }}
@@ -80,7 +73,7 @@ const Variation = () => {
       number: (
         <NumberInput
           size="md"
-          value={mapValue.value}
+          value={(mapValue.value as number) || 0}
           onChange={(val) => {
             map.set(mapKey, { ...mapValue, value: val });
           }}
@@ -90,13 +83,65 @@ const Variation = () => {
       string: (
         <TextInput
           size="md"
-          value={mapValue.value}
+          value={(mapValue.value as string) || ''}
           onChange={(val) => {
             map.set(mapKey, { ...mapValue, value: val.target.value });
           }}
         />
       ),
+      select: (
+        <Select
+          data={mapValue.options}
+          onChange={(val) => {
+            map.set(mapKey, { ...mapValue, value: val ? val : '' });
+          }}
+        />
+      ),
     }[mapValue.standardsType];
+  };
+
+  const output = () => {
+    const data = Array.from(map.entries()).map(([key, mapValue]) => {
+      return mapValue;
+    });
+
+    // 收集各规格的值
+    const specifications = data.reduce((accumulator, item) => {
+      const index = accumulator.findIndex((spec) => spec[0]._id === item._id);
+
+      if (index >= 0) {
+        accumulator[index].push(item); // 将颜色值添加到数组中
+      } else {
+        accumulator.push([item]); // 创建新的数组并添加颜色值
+      }
+      return accumulator;
+    }, [] as Itme[][]);
+
+    // 递归生成规格组合
+    const generateCombinations = (
+      data: Itme[][],
+      prefix: Itme[] = [],
+      index: number = 0,
+      result: Itme[][] = [],
+    ) => {
+      // 当当前索引等于数据长度时，将当前组合添加到结果数组中
+      if (index === data.length) {
+        result.push(prefix);
+        return result; // 返回生成的结果
+      }
+
+      const currentSpec = data[index]; // 获取当前规格
+
+      currentSpec.forEach((value) => {
+        // 为每个值创建新的组合
+        generateCombinations(data, [...prefix, value], index + 1, result); // 递归进入下一规格
+      });
+
+      return result; // 返回生成的结果
+    };
+    const result = generateCombinations(specifications);
+
+    console.log('result', result);
   };
 
   const rows = Array.from(map.entries()).map(([key, mapValue]) => (
@@ -116,7 +161,6 @@ const Variation = () => {
             if (option) {
               map.set(key, {
                 ...option,
-                value: option?.defaultValue,
               });
             }
           }}
@@ -149,6 +193,9 @@ const Variation = () => {
         <Group justify="space-between" align="center">
           <Title order={4}>规格</Title>
           <Button leftSection={<IconPlus />} variant="subtle" onClick={add}>
+            <Text>添加规格</Text>
+          </Button>
+          <Button leftSection={<IconPlus />} variant="subtle" onClick={output}>
             <Text>添加规格</Text>
           </Button>
         </Group>
