@@ -13,9 +13,9 @@ import {
 } from '@mantine/core';
 import { useMap } from '@mantine/hooks';
 import { IconPlus, IconTrash } from '@tabler/icons-react';
-import { useEffect } from 'react';
-import { generateCombinations } from './fns';
+import { useEffect, useRef, useState } from 'react';
 import { StandardsItem, StandardsTypeEnum } from './types';
+import { UseFormReturnType } from '@mantine/form';
 
 const options: StandardsItem[] = [
   {
@@ -50,7 +50,7 @@ const options: StandardsItem[] = [
     _id: '尺寸',
     name: '尺寸',
     unit: '',
-    standardsType: StandardsTypeEnum.NUMBER,
+    standardsType: StandardsTypeEnum.SELECT,
     options: ['S', 'M', 'L'],
     value: '',
   },
@@ -63,11 +63,48 @@ const options: StandardsItem[] = [
   },
 ];
 type VariationProps = {
-  onChange?: (value: StandardsItem[][]) => void;
+  form: UseFormReturnType<any>;
 };
 const Variation = (props: VariationProps) => {
-  const { onChange } = props;
-  const map = useMap<number, StandardsItem>([[Date.now(), options[0]]]);
+  const { form } = props;
+  const ref = useRef({
+    isInited: false,
+  });
+  const value = (form.values.variationList || []) as StandardsItem[][];
+  const map = useMap<number, StandardsItem>([]);
+
+  useEffect(() => {
+    if (ref.current.isInited) {
+      return;
+    }
+    if (value.length === 0) {
+      return;
+    }
+    value.flat().forEach((item, index) => {
+      map.set(index, item);
+    });
+    ref.current.isInited = true;
+  }, [value]);
+
+  const getSpecifications = () => {
+    const data = Array.from(map.entries()).map(([_key, mapValue]) => {
+      return mapValue;
+    });
+
+    // 收集各规格的值
+    return data.reduce((accumulator, item) => {
+      const index = accumulator.findIndex((spec) => spec[0]._id === item._id);
+
+      if (index >= 0) {
+        accumulator[index].push(item); // 将颜色值添加到数组中
+      } else {
+        accumulator.push([item]); // 创建新的数组并添加颜色值
+      }
+      return accumulator;
+    }, [] as StandardsItem[][]);
+  };
+  const onChange = form.getInputProps('variationList').onChange;
+
   const inputsRender = (mapKey: number, mapValue: StandardsItem) => {
     return {
       [StandardsTypeEnum.COLOR]: (
@@ -76,6 +113,8 @@ const Variation = (props: VariationProps) => {
           value={(mapValue.value as string) || ''}
           onChange={(val) => {
             map.set(mapKey, { ...mapValue, value: val });
+            const specifications = getSpecifications();
+            onChange?.(specifications);
           }}
         />
       ),
@@ -85,6 +124,8 @@ const Variation = (props: VariationProps) => {
           value={(mapValue.value as number) || 0}
           onChange={(val) => {
             map.set(mapKey, { ...mapValue, value: val });
+            const specifications = getSpecifications();
+            onChange?.(specifications);
           }}
           suffix={mapValue.unit}
         />
@@ -95,37 +136,24 @@ const Variation = (props: VariationProps) => {
           value={(mapValue.value as string) || ''}
           onChange={(val) => {
             map.set(mapKey, { ...mapValue, value: val.target.value });
+            const specifications = getSpecifications();
+            onChange?.(specifications);
           }}
         />
       ),
       [StandardsTypeEnum.SELECT]: (
         <Select
+          value={(mapValue.value as string) || ''}
           data={mapValue.options}
           onChange={(val) => {
             map.set(mapKey, { ...mapValue, value: val ? val : '' });
+            const specifications = getSpecifications();
+            onChange?.(specifications);
           }}
         />
       ),
     }[mapValue.standardsType];
   };
-  useEffect(() => {
-    const data = Array.from(map.entries()).map(([_key, mapValue]) => {
-      return mapValue;
-    });
-
-    // 收集各规格的值
-    const specifications = data.reduce((accumulator, item) => {
-      const index = accumulator.findIndex((spec) => spec[0]._id === item._id);
-
-      if (index >= 0) {
-        accumulator[index].push(item); // 将颜色值添加到数组中
-      } else {
-        accumulator.push([item]); // 创建新的数组并添加颜色值
-      }
-      return accumulator;
-    }, [] as StandardsItem[][]);
-    onChange?.(specifications);
-  }, [map]);
 
   const rows = Array.from(map.entries()).map(([key, mapValue]) => (
     <Table.Tr key={key}>
@@ -145,6 +173,8 @@ const Variation = (props: VariationProps) => {
               map.set(key, {
                 ...option,
               });
+              const specifications = getSpecifications();
+              onChange?.(specifications);
             }
           }}
         ></Select>
@@ -169,6 +199,8 @@ const Variation = (props: VariationProps) => {
 
   const add = () => {
     map.set(Date.now(), options[0]);
+    const specifications = getSpecifications();
+    onChange?.(specifications);
   };
   return (
     <Card shadow="sm">

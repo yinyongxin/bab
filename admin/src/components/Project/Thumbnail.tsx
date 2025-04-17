@@ -1,9 +1,12 @@
 import { Card, Title, Stack, Center, Text, Image } from '@mantine/core';
 import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { UseFormReturnType } from '@mantine/form';
 import { IconUpload, IconX, IconPhoto } from '@tabler/icons-react';
 import { useState } from 'react';
-
-const Thumbnail = () => {
+type ThumbnailProps = {
+  form: UseFormReturnType<any>;
+};
+const Thumbnail = (props: ThumbnailProps) => {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);
@@ -16,7 +19,7 @@ const Thumbnail = () => {
     );
   });
   return (
-    <Card shadow='sm'>
+    <Card shadow="sm">
       <Card.Section inheritPadding py="md">
         <Title order={4}>产品缩略图</Title>
       </Card.Section>
