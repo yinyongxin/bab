@@ -187,7 +187,11 @@ const Variation = (props: VariationProps) => {
           <ActionIcon
             size="input-md"
             variant="light"
-            onClick={() => map.delete(key)}
+            onClick={() => {
+              map.delete(key);
+              const specifications = getSpecifications();
+              onChange?.(specifications);
+            }}
             color="red"
           >
             <IconTrash stroke={1.5} size={18} />
