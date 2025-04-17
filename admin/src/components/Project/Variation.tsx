@@ -13,7 +13,7 @@ import {
 } from '@mantine/core';
 import { useMap } from '@mantine/hooks';
 import { IconPlus, IconTrash } from '@tabler/icons-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { StandardsItem, StandardsTypeEnum } from './types';
 import { UseFormReturnType } from '@mantine/form';
 
@@ -177,7 +177,7 @@ const Variation = (props: VariationProps) => {
               onChange?.(specifications);
             }
           }}
-        ></Select>
+        />
       </Table.Td>
       <Table.Td>
         <>{inputsRender(key, mapValue)}</>

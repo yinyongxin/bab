@@ -1,7 +1,7 @@
 import { StandardsItem } from './types';
 
 // 递归生成规格组合
-export const generateCombinations = (
+export const getGenerateCombinations = (
   data: StandardsItem[][],
   prefix: StandardsItem[] = [],
   index: number = 0,
@@ -17,7 +17,7 @@ export const generateCombinations = (
 
   currentSpec.forEach((value) => {
     // 为每个值创建新的组合
-    generateCombinations(data, [...prefix, value], index + 1, result); // 递归进入下一规格
+    getGenerateCombinations(data, [...prefix, value], index + 1, result); // 递归进入下一规格
   });
 
   return result; // 返回生成的结果

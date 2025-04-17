@@ -29,7 +29,7 @@ const initialState: AppConfigState = {
   unAuthenticatedEntryPath: '/sign-in',
   locale: 'cn',
   // fileBaseUrl: 'http://localhost:3000',
-  fileBaseUrl: 'https://1w5389fi-qld598c7-mfwp5ekb5vw8.vcb3.mcprev.cn/',
+  fileBaseUrl: 'https://fantastic-trout-ppxx6g5xvxj3q5-3000.app.github.dev',
   dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
 };
 

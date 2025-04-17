@@ -8,6 +8,7 @@ import Tag from './Tag';
 import Pricing from './Pricing';
 import Variation from './Variation';
 import { useEffect } from 'react';
+import Inventory from './Inventory';
 
 const Projcet = () => {
   const form = useForm({
@@ -16,6 +17,7 @@ const Projcet = () => {
       description: '',
       detail: 'asdfasfasfsf',
       variationList: [],
+      inventoryList: [],
     },
     validate: {
       name: hasLength({ min: 1 }, '产品名称不能为空'),
@@ -71,6 +73,7 @@ const Projcet = () => {
           <Thumbnail form={form} />
           <Classification />
           <Tag />
+          <Inventory form={form} />
         </Stack>
       </Grid.Col>
     </Grid>
