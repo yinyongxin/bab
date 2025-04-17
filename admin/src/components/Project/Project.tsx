@@ -10,7 +10,7 @@ import Variation from './Variation';
 import { useEffect } from 'react';
 import Inventory from './Inventory';
 
-const Projcet = () => {
+const Project = () => {
   const form = useForm({
     initialValues: {
       name: '',
@@ -79,4 +79,4 @@ const Projcet = () => {
     </Grid>
   );
 };
-export default Projcet;
+export default Project;
