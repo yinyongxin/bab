@@ -13,21 +13,10 @@ import {
 } from '@mantine/core';
 import { useMap } from '@mantine/hooks';
 import { IconPlus, IconTrash } from '@tabler/icons-react';
+import { useEffect } from 'react';
+import { generateCombinations } from './fns';
+import { StandardsItem, StandardsTypeEnum } from './types';
 
-enum StandardsTypeEnum {
-  COLOR,
-  NUMBER,
-  TEXT,
-  SELECT,
-}
-type StandardsItem = {
-  _id: string;
-  name: string;
-  unit: string;
-  standardsType: StandardsTypeEnum;
-  value: string | number;
-  options?: string[];
-};
 const options: StandardsItem[] = [
   {
     _id: 'color',
@@ -73,7 +62,11 @@ const options: StandardsItem[] = [
     value: '',
   },
 ];
-const Variation = () => {
+type VariationProps = {
+  onChange?: (value: StandardsItem[][]) => void;
+};
+const Variation = (props: VariationProps) => {
+  const { onChange } = props;
   const map = useMap<number, StandardsItem>([[Date.now(), options[0]]]);
   const inputsRender = (mapKey: number, mapValue: StandardsItem) => {
     return {
@@ -115,9 +108,8 @@ const Variation = () => {
       ),
     }[mapValue.standardsType];
   };
-
-  const output = () => {
-    const data = Array.from(map.entries()).map(([key, mapValue]) => {
+  useEffect(() => {
+    const data = Array.from(map.entries()).map(([_key, mapValue]) => {
       return mapValue;
     });
 
@@ -132,33 +124,8 @@ const Variation = () => {
       }
       return accumulator;
     }, [] as StandardsItem[][]);
-
-    // 递归生成规格组合
-    const generateCombinations = (
-      data: StandardsItem[][],
-      prefix: StandardsItem[] = [],
-      index: number = 0,
-      result: StandardsItem[][] = [],
-    ) => {
-      // 当当前索引等于数据长度时，将当前组合添加到结果数组中
-      if (index === data.length) {
-        result.push(prefix);
-        return result; // 返回生成的结果
-      }
-
-      const currentSpec = data[index]; // 获取当前规格
-
-      currentSpec.forEach((value) => {
-        // 为每个值创建新的组合
-        generateCombinations(data, [...prefix, value], index + 1, result); // 递归进入下一规格
-      });
-
-      return result; // 返回生成的结果
-    };
-    const result = generateCombinations(specifications);
-
-    console.log('result', result);
-  };
+    onChange?.(specifications);
+  }, [map]);
 
   const rows = Array.from(map.entries()).map(([key, mapValue]) => (
     <Table.Tr key={key}>
@@ -209,9 +176,6 @@ const Variation = () => {
         <Group justify="space-between" align="center">
           <Title order={4}>规格</Title>
           <Button leftSection={<IconPlus />} variant="subtle" onClick={add}>
-            <Text>添加规格</Text>
-          </Button>
-          <Button leftSection={<IconPlus />} variant="subtle" onClick={output}>
             <Text>添加规格</Text>
           </Button>
         </Group>
