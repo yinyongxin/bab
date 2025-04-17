@@ -13,55 +13,71 @@ import {
 } from '@mantine/core';
 import { useMap } from '@mantine/hooks';
 import { IconPlus, IconTrash } from '@tabler/icons-react';
-const options = [
+
+enum StandardsTypeEnum {
+  COLOR,
+  NUMBER,
+  TEXT,
+  SELECT,
+}
+type StandardsItem = {
+  _id: string;
+  name: string;
+  unit: string;
+  standardsType: StandardsTypeEnum;
+  value: string | number;
+  options?: string[];
+};
+const options: StandardsItem[] = [
   {
     _id: 'color',
     name: '颜色',
     unit: '',
-    standardsType: 'color',
+    standardsType: StandardsTypeEnum.COLOR,
+    value: '',
   },
   {
     _id: '长',
     name: '长',
     unit: 'cm',
-    standardsType: 'number',
+    standardsType: StandardsTypeEnum.NUMBER,
+    value: 0,
   },
   {
     _id: '宽',
     name: '宽',
     unit: 'cm',
-    standardsType: 'number',
+    standardsType: StandardsTypeEnum.NUMBER,
+    value: 0,
   },
   {
     _id: '高',
     name: '高',
     unit: 'cm',
-    standardsType: 'number',
+    standardsType: StandardsTypeEnum.NUMBER,
+    value: 0,
   },
   {
     _id: '尺寸',
     name: '尺寸',
     unit: '',
-    standardsType: 'select',
+    standardsType: StandardsTypeEnum.NUMBER,
     options: ['S', 'M', 'L'],
+    value: '',
   },
   {
     _id: '材质',
     name: '材质',
     unit: '',
-    image: '',
-    standardsType: 'string',
+    standardsType: StandardsTypeEnum.SELECT,
+    value: '',
   },
 ];
-type Itme = (typeof options)[0];
-type MapItme = Itme & {
-  value?: number | string;
-};
 const Variation = () => {
-  const map = useMap<number, MapItme>([[Date.now(), options[0]]]);
-  const inputsRender = (mapKey: number, mapValue: MapItme) => {
+  const map = useMap<number, StandardsItem>([[Date.now(), options[0]]]);
+  const inputsRender = (mapKey: number, mapValue: StandardsItem) => {
     return {
-      color: (
+      [StandardsTypeEnum.COLOR]: (
         <ColorInput
           size="md"
           value={(mapValue.value as string) || ''}
@@ -70,7 +86,7 @@ const Variation = () => {
           }}
         />
       ),
-      number: (
+      [StandardsTypeEnum.NUMBER]: (
         <NumberInput
           size="md"
           value={(mapValue.value as number) || 0}
@@ -80,7 +96,7 @@ const Variation = () => {
           suffix={mapValue.unit}
         />
       ),
-      string: (
+      [StandardsTypeEnum.TEXT]: (
         <TextInput
           size="md"
           value={(mapValue.value as string) || ''}
@@ -89,7 +105,7 @@ const Variation = () => {
           }}
         />
       ),
-      select: (
+      [StandardsTypeEnum.SELECT]: (
         <Select
           data={mapValue.options}
           onChange={(val) => {
@@ -115,14 +131,14 @@ const Variation = () => {
         accumulator.push([item]); // 创建新的数组并添加颜色值
       }
       return accumulator;
-    }, [] as Itme[][]);
+    }, [] as StandardsItem[][]);
 
     // 递归生成规格组合
     const generateCombinations = (
-      data: Itme[][],
-      prefix: Itme[] = [],
+      data: StandardsItem[][],
+      prefix: StandardsItem[] = [],
       index: number = 0,
-      result: Itme[][] = [],
+      result: StandardsItem[][] = [],
     ) => {
       // 当当前索引等于数据长度时，将当前组合添加到结果数组中
       if (index === data.length) {
