@@ -9,8 +9,13 @@ import Pricing from './Pricing';
 import Variation from './Variation';
 import { useEffect } from 'react';
 import Inventory from './Inventory';
-
-const Project = () => {
+type ProjectProps = {
+  id?: string;
+};
+const Project = (props: ProjectProps) => {
+  const { id } = props;
+  const isEdit = !!id;
+  const isCreate = !id;
   const form = useForm({
     initialValues: {
       name: '',

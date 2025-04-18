@@ -42,7 +42,6 @@ import {
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import UpdateManager from './UpdateManager';
-import { getPageTotal } from '@/utils';
 import { modals } from '@mantine/modals';
 import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 import useTools from '@/hooks/useTools';

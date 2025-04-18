@@ -1,45 +1,60 @@
-import { Card, Group, NumberInput, Pill, Stack, Title } from '@mantine/core';
+import {
+  Badge,
+  Card,
+  ColorSwatch,
+  Group,
+  NumberInput,
+  Stack,
+  Text,
+  Title,
+} from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
-import { StandardsItem } from './types';
-import { useEffect, useMemo } from 'react';
-import { useMap } from '@mantine/hooks';
-import { generateCombinations, getGenerateCombinations } from './fns';
+import { StandardsItem, StandardsTypeEnum } from './types';
 type InventoryProps = {
   form: UseFormReturnType<any>;
 };
 const Inventory = (props: InventoryProps) => {
   const { form } = props;
-  const { inventoryList, variationList } = form.values;
-  const map = useMap<string, [StandardsItem[], number]>([]);
+  const inventoryList: {
+    variations: StandardsItem[];
+    value: number;
+  }[] = form.values.inventoryList;
 
-  useEffect(() => {
-    map.clear();
-    // 生成所有组合
-    const generateCombinations = getGenerateCombinations(variationList).filter(
-      // 过滤掉没有值的组合
-      (variation) => !variation.some((item) => !item.value),
-    );
-    // 生成库存列表
-    generateCombinations.forEach((item: StandardsItem[]) => {
-      const key = item.map((i) => `${i._id}-${i.value}`).join('-');
-      const isHas = map.has(key);
-      if (isHas) {
-        map.set(key, map.get(key) as [StandardsItem[], number]);
-      } else {
-        map.set(key, [item, 0]);
-      }
-    });
-  }, [variationList]);
   const rows = (
     <Stack gap="md">
-      {Array.from(map.entries()).map(([key, [inventorys, value]]) => (
-        <Stack gap="xs" key={key}>
-          <NumberInput value={value} />
-          <Pill.Group>
-            {inventorys.map((item) => (
-              <Pill>{item.value}</Pill>
-            ))}
-          </Pill.Group>
+      {inventoryList.map(({ variations, value }, index) => (
+        <Stack gap="xs" key={index}>
+          <NumberInput
+            value={value}
+            onChange={() => {
+              const newValue = value + 1;
+              // form.setFieldValue(`inventoryList.${index}`, {
+              //   variations,
+              //   value: newValue,
+              // });
+            }}
+          />
+          <Group>
+            {variations.map((item) => {
+              const isColor = item.standardsType === StandardsTypeEnum.COLOR;
+              if (isColor) {
+                return <ColorSwatch color={item.value} />;
+              }
+              return (
+                <Badge size="lg" w="auto" variant="light" key={item._id}>
+                  <Group gap="sm">
+                    <Text c="dimmed" size="sm">
+                      {item.name}
+                    </Text>
+                    <Group gap="2">
+                      <Text>{item.value}</Text>
+                      {item.unit && <Text>{item.unit}</Text>}
+                    </Group>
+                  </Group>
+                </Badge>
+              );
+            })}
+          </Group>
         </Stack>
       ))}
     </Stack>

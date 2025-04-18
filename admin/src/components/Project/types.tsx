@@ -10,6 +10,6 @@ export type StandardsItem = {
   name: string;
   unit: string;
   standardsType: StandardsTypeEnum;
-  value: string | number;
+  value: string;
   options?: string[];
 };

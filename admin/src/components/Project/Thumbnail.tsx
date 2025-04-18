@@ -7,6 +7,7 @@ type ThumbnailProps = {
   form: UseFormReturnType<any>;
 };
 const Thumbnail = (props: ThumbnailProps) => {
+  const { form } = props;
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const previews = files.map((file, index) => {
     const imageUrl = URL.createObjectURL(file);

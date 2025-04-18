@@ -16,6 +16,7 @@ import { IconPlus, IconTrash } from '@tabler/icons-react';
 import { useEffect, useRef } from 'react';
 import { StandardsItem, StandardsTypeEnum } from './types';
 import { UseFormReturnType } from '@mantine/form';
+import { getGenerateCombinations } from './fns';
 
 const options: StandardsItem[] = [
   {
@@ -30,21 +31,21 @@ const options: StandardsItem[] = [
     name: '长',
     unit: 'cm',
     standardsType: StandardsTypeEnum.NUMBER,
-    value: 0,
+    value: '0',
   },
   {
     _id: '宽',
     name: '宽',
     unit: 'cm',
     standardsType: StandardsTypeEnum.NUMBER,
-    value: 0,
+    value: '0',
   },
   {
     _id: '高',
     name: '高',
     unit: 'cm',
     standardsType: StandardsTypeEnum.NUMBER,
-    value: 0,
+    value: '0',
   },
   {
     _id: '尺寸',
@@ -70,21 +71,8 @@ const Variation = (props: VariationProps) => {
   const ref = useRef({
     isInited: false,
   });
-  const value = (form.values.variationList || []) as StandardsItem[][];
-  const map = useMap<number, StandardsItem>([]);
 
-  useEffect(() => {
-    if (ref.current.isInited) {
-      return;
-    }
-    if (value.length === 0) {
-      return;
-    }
-    value.flat().forEach((item, index) => {
-      map.set(index, item);
-    });
-    ref.current.isInited = true;
-  }, [value]);
+  const map = useMap<number, StandardsItem>([]);
 
   const getSpecifications = () => {
     const data = Array.from(map.entries()).map(([_key, mapValue]) => {
@@ -103,7 +91,51 @@ const Variation = (props: VariationProps) => {
       return accumulator;
     }, [] as StandardsItem[][]);
   };
-  const onChange = form.getInputProps('variationList').onChange;
+
+  const onChange = () => {
+    const data = getSpecifications();
+    form.setFieldValue('variationList', data);
+    const effectiveData = data.filter(
+      // 过滤掉没有值的组合
+      (variation) => !variation.some((item) => !item.value),
+    );
+    const inventoryList: {
+      variations: StandardsItem[];
+      value: number;
+    }[] = form.values.inventoryList || [];
+    const newInventoryList = getGenerateCombinations(effectiveData)?.map(
+      (item) => {
+        // 找到默认值
+        const defaultValue =
+          inventoryList.find((inventory) =>
+            inventory.variations.every(
+              (variation) =>
+                variation._id === item[0]._id &&
+                variation.value === item[0].value,
+            ),
+          )?.value || 0;
+        return {
+          variations: item,
+          value: defaultValue,
+        };
+      },
+    );
+    form.setFieldValue('inventoryList', newInventoryList);
+  };
+  useEffect(() => {
+    if (ref.current.isInited) {
+      return;
+    }
+    const value = (form.values.variationList || []) as StandardsItem[][];
+    if (value.length === 0) {
+      return;
+    }
+    value.flat().forEach((item, index) => {
+      map.set(index, item);
+    });
+    onChange();
+    ref.current.isInited = true;
+  }, [form.values.variationList]);
 
   const inputsRender = (mapKey: number, mapValue: StandardsItem) => {
     return {
@@ -113,19 +145,18 @@ const Variation = (props: VariationProps) => {
           value={(mapValue.value as string) || ''}
           onChange={(val) => {
             map.set(mapKey, { ...mapValue, value: val });
-            const specifications = getSpecifications();
-            onChange?.(specifications);
+            onChange();
           }}
         />
       ),
       [StandardsTypeEnum.NUMBER]: (
         <NumberInput
           size="md"
-          value={(mapValue.value as number) || 0}
+          value={mapValue.value || ''}
           onChange={(val) => {
-            map.set(mapKey, { ...mapValue, value: val });
-            const specifications = getSpecifications();
-            onChange?.(specifications);
+            map.set(mapKey, { ...mapValue, value: val.toString() });
+
+            onChange();
           }}
           suffix={mapValue.unit}
         />
@@ -136,8 +167,7 @@ const Variation = (props: VariationProps) => {
           value={(mapValue.value as string) || ''}
           onChange={(val) => {
             map.set(mapKey, { ...mapValue, value: val.target.value });
-            const specifications = getSpecifications();
-            onChange?.(specifications);
+            onChange();
           }}
         />
       ),
@@ -147,8 +177,7 @@ const Variation = (props: VariationProps) => {
           data={mapValue.options}
           onChange={(val) => {
             map.set(mapKey, { ...mapValue, value: val ? val : '' });
-            const specifications = getSpecifications();
-            onChange?.(specifications);
+            onChange();
           }}
         />
       ),
@@ -173,8 +202,8 @@ const Variation = (props: VariationProps) => {
               map.set(key, {
                 ...option,
               });
-              const specifications = getSpecifications();
-              onChange?.(specifications);
+
+              onChange();
             }
           }}
         />
@@ -189,8 +218,7 @@ const Variation = (props: VariationProps) => {
             variant="light"
             onClick={() => {
               map.delete(key);
-              const specifications = getSpecifications();
-              onChange?.(specifications);
+              onChange();
             }}
             color="red"
           >
@@ -203,8 +231,7 @@ const Variation = (props: VariationProps) => {
 
   const add = () => {
     map.set(Date.now(), options[0]);
-    const specifications = getSpecifications();
-    onChange?.(specifications);
+    onChange();
   };
   return (
     <Card shadow="sm">
