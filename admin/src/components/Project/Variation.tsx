@@ -95,10 +95,12 @@ const Variation = (props: VariationProps) => {
   const onChange = () => {
     const data = getSpecifications();
     form.setFieldValue('variationList', data);
-    const effectiveData = data.filter(
-      // 过滤掉没有值的组合
-      (variation) => !variation.some((item) => !item.value),
-    );
+    const effectiveData = data
+      .map(
+        // 过滤掉没有值的组合
+        (variation) => variation.filter((item) => item.value),
+      )
+      .filter((item) => item.length > 0);
     const inventoryList: {
       variations: StandardsItem[];
       value: number;
@@ -106,17 +108,20 @@ const Variation = (props: VariationProps) => {
     const newInventoryList = getGenerateCombinations(effectiveData)?.map(
       (item) => {
         // 找到默认值
-        const defaultValue =
-          inventoryList.find((inventory) =>
-            inventory.variations.every(
-              (variation) =>
-                variation._id === item[0]._id &&
-                variation.value === item[0].value,
-            ),
-          )?.value || 0;
+        const defaultValue = inventoryList.find((inventory) => {
+          return (
+            inventory.variations.length === item.length &&
+            inventory.variations.every((variation) => {
+              return (
+                item.find((i) => i._id === variation._id)?.value ===
+                variation.value
+              );
+            })
+          );
+        })?.value;
         return {
           variations: item,
-          value: defaultValue,
+          value: defaultValue || 0,
         };
       },
     );

@@ -28,10 +28,10 @@ const Inventory = (props: InventoryProps) => {
             value={value}
             onChange={() => {
               const newValue = value + 1;
-              // form.setFieldValue(`inventoryList.${index}`, {
-              //   variations,
-              //   value: newValue,
-              // });
+              form.setFieldValue(`inventoryList.${index}`, {
+                variations,
+                value: newValue,
+              });
             }}
           />
           <Group>
