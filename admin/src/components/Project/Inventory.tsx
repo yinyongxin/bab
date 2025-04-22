@@ -25,12 +25,12 @@ const Inventory = (props: InventoryProps) => {
       {inventoryList.map(({ variations, value }, index) => (
         <Stack gap="xs" key={index}>
           <NumberInput
+            min={0}
             value={value}
-            onChange={() => {
-              const newValue = value + 1;
+            onChange={(val) => {
               form.setFieldValue(`inventoryList.${index}`, {
                 variations,
-                value: newValue,
+                value: val,
               });
             }}
           />

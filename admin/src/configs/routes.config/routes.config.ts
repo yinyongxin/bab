@@ -45,4 +45,11 @@ export const protectedRoutes = [
       modules['../../pages/projects/addProject/addProject.page.tsx'],
     ),
   },
+  {
+    key: 'classification',
+    path: '/projects/classification',
+    component: lazy(
+      modules['../../pages/projects/classification/classification.page.tsx'],
+    ),
+  },
 ];

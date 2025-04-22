@@ -5,24 +5,29 @@ import { useForm, hasLength } from '@mantine/form';
 import BaseInfo from './BaseInfo';
 import Detail from './Detail';
 import Tag from './Tag';
-import Pricing from './Pricing';
+import Pricing from './Pricing/Pricing';
 import Variation from './Variation';
 import { useEffect } from 'react';
 import Inventory from './Inventory';
+import { ProjectType, DiscountTypeEnum } from './types';
 type ProjectProps = {
   id?: string;
 };
+
 const Project = (props: ProjectProps) => {
   const { id } = props;
   const isEdit = !!id;
   const isCreate = !id;
-  const form = useForm({
+  const form = useForm<ProjectType>({
     initialValues: {
       name: '',
       description: '',
       detail: 'asdfasfasfsf',
       variationList: [],
       inventoryList: [],
+      price: 0,
+      discount: 0,
+      discountType: DiscountTypeEnum.NONE,
     },
     validate: {
       name: hasLength({ min: 1 }, '产品名称不能为空'),
@@ -54,7 +59,8 @@ const Project = (props: ProjectProps) => {
             value: 'S',
           },
         ],
-      ] as any,
+      ],
+      discountType: DiscountTypeEnum.NONE,
     });
   }, []);
 
