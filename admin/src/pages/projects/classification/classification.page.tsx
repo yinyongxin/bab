@@ -1,5 +1,4 @@
 import Page from '@/components/Page/Page';
-import Projcet from '@/components/Project/Project';
 import { Button } from '@mantine/core';
 import { IconPlus } from '@tabler/icons-react';
 
