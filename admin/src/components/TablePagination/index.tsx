@@ -31,9 +31,12 @@ import clsx from 'clsx';
 import { Option } from '@/@types';
 import { getPageTotal } from '@/utils';
 
-type Column<D = any, O extends string | number | symbol = any> = {
+type Column<
+  D = Record<string, any>,
+  O extends string | number | symbol = any,
+> = {
   title: React.ReactNode;
-  dataKey?: keyof D;
+  dataKey?: keyof D | 'action';
   render?: (values: D) => React.ReactNode;
   thProps?: TableThProps;
   tdProps?: TableTdProps;
@@ -43,7 +46,7 @@ type Column<D = any, O extends string | number | symbol = any> = {
   optionsObj?: Record<O, Option<O>>;
 };
 
-export type TablePaginationProps<D> = {
+export type TablePaginationProps<D = Record<string, any>> = {
   columns: Column<D>[];
   dataList: D[];
   rowkey: keyof D;
@@ -118,8 +121,8 @@ function TablePagination<D = Record<string, any>>(
         <Table.Tr key={data[rowkey] as Key}>
           {props.columns.map((column) => {
             let tdContent;
-            if (column.render) {
-              tdContent = column.render(data);
+            if (column.render || column.dataKey === 'action') {
+              tdContent = column.render?.(data);
             } else if (column.dataKey) {
               tdContent = data[column.dataKey];
               if (column.options) {
