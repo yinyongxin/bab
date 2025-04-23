@@ -8,6 +8,7 @@ import {
   Overlay,
 } from '@mantine/core';
 import { useHover } from '@mantine/hooks';
+import { modals } from '@mantine/modals';
 import { IconEye } from '@tabler/icons-react';
 type AppImageProps = Omit<ImageProps, 'radius'> & {
   preview?: boolean;
@@ -22,6 +23,29 @@ const AppImage = (props: AppImageProps) => {
     ...imageProps
   } = props;
   const { hovered, ref } = useHover();
+
+  const imagetPreview = () => {
+    modals.open({
+      fullScreen: true,
+      withCloseButton: true,
+      lockScroll: true,
+      styles: {
+        content: {
+          display: 'flex',
+          flexDirection: 'column',
+          backgroundColor: 'transparent',
+        },
+        body: {
+          flex: 1,
+          overflow: 'hidden',
+        },
+        header: {
+          backgroundColor: 'transparent',
+        },
+      },
+      children: <Image h="100%" fit="contain" src={imageProps.src} />,
+    });
+  };
   return (
     <Box
       ref={ref}
@@ -42,7 +66,7 @@ const AppImage = (props: AppImageProps) => {
       {preview && hovered && (
         <Overlay backgroundOpacity={0.3} blur={4} radius={radius}>
           <Center h="100%">
-            <ActionIcon variant="transparent">
+            <ActionIcon variant="transparent" onClick={imagetPreview}>
               <IconEye color="light-dark(var(--mantine-color-white), var(--mantine-color-white))" />
             </ActionIcon>
           </Center>
