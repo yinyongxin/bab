@@ -38,9 +38,13 @@ const AppImage = (props: AppImageProps) => {
         body: {
           flex: 1,
           overflow: 'hidden',
+          padding: 'var(--mantine-spacing-md)',
         },
         header: {
           backgroundColor: 'transparent',
+          position: 'absolute',
+          top: 0,
+          right: 0,
         },
       },
       children: <Image h="100%" fit="contain" src={imageProps.src} />,
