@@ -45,10 +45,13 @@ type Column<
   options?: Option<O>[];
   optionsObj?: Record<O, Option<O>>;
 };
+type DataListItemType<D> = D & {
+  children?: DataListItemType<D>[];
+};
 
 export type TablePaginationProps<D = Record<string, any>> = {
   columns: Column<D>[];
-  dataList: D[];
+  dataList: DataListItemType<D>[];
   rowkey: keyof D;
   pagination?: {
     pageNo: number;
@@ -114,50 +117,63 @@ function TablePagination<D = Record<string, any>>(
       </Table.Thead>
     );
   };
-
-  const getTableBody = () => (
-    <Table.Tbody>
-      {dataList.map((data) => (
-        <Table.Tr key={data[rowkey] as Key}>
-          {props.columns.map((column) => {
-            let tdContent;
-            if (column.render || column.dataKey === 'action') {
-              tdContent = column.render?.(data);
-            } else if (column.dataKey) {
-              tdContent = data[column.dataKey];
-              if (column.options) {
-                tdContent = column.options.find(
-                  (option) => option.value === data[column.dataKey as keyof D],
-                )?.renderContent;
-              } else if (column.optionsObj) {
-                tdContent =
-                  column.optionsObj[data[column.dataKey as keyof D]]
-                    ?.renderContent;
+  const getBody = (list: DataListItemType<D>[]) => {
+    return list.map((data) => {
+      const trChildren: React.ReactNode[] =
+        data.children && data.children.length > 0 ? getBody(data.children) : [];
+      return (
+        <>
+          <Table.Tr key={data[rowkey] as Key}>
+            {props.columns.map((column) => {
+              let tdContent;
+              if (column.render || column.dataKey === 'action') {
+                tdContent = column.render?.(data);
+              } else if (column.dataKey) {
+                tdContent = data[column.dataKey];
+                if (column.options) {
+                  tdContent = column.options.find(
+                    (option) =>
+                      option.value === data[column.dataKey as keyof D],
+                  )?.renderContent;
+                } else if (column.optionsObj) {
+                  tdContent =
+                    column.optionsObj[data[column.dataKey as keyof D]]
+                      ?.renderContent;
+                }
               }
-            }
 
-            if (column.prefix) {
-              tdContent = (
-                <Group align="center" gap="xs">
-                  {column.prefix(data)}
+              if (column.prefix) {
+                tdContent = (
+                  <Group align="center" gap="xs">
+                    {column.prefix(data)}
+                    <>{tdContent}</>
+                  </Group>
+                );
+              }
+              return (
+                <Table.Td
+                  key={`${data[rowkey]}-${column.title}`}
+                  {...column.tdProps}
+                  w={column.width}
+                >
                   <>{tdContent}</>
-                </Group>
+                </Table.Td>
               );
-            }
-            return (
-              <Table.Td
-                key={`${data[rowkey]}-${column.title}`}
-                {...column.tdProps}
-                w={column.width}
-              >
-                <>{tdContent}</>
-              </Table.Td>
-            );
-          })}
-        </Table.Tr>
-      ))}
-    </Table.Tbody>
-  );
+            })}
+          </Table.Tr>
+          {trChildren}
+        </>
+      );
+    });
+  };
+
+  const getTableBody = () => {
+    if (!dataList || dataList.length === 0) {
+      return null;
+    }
+
+    return <Table.Tbody>{getBody(dataList)}</Table.Tbody>;
+  };
 
   const toolList = [
     {

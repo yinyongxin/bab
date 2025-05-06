@@ -24,16 +24,16 @@ const Classification = () => {
         rowkey="_id"
         columns={[
           {
-            title: '分类名称',
-            dataKey: 'name',
-          },
-          {
             title: '分类图片',
             dataKey: 'picture',
             width: 80,
             render: ({ picture }) => {
               return <AppImage src={picture} w={40} h={40} />;
             },
+          },
+          {
+            title: '分类名称',
+            dataKey: 'name',
           },
           {
             title: '分类描述',
@@ -83,6 +83,16 @@ const Classification = () => {
             name: '分类0',
             description: '这是分类0的描述',
             createdTime: '2023-10-01 12:00:00',
+            children: [
+              {
+                _id: '0-1',
+                picture:
+                  'https://fantastic-trout-ppxx6g5xvxj3q5-3000.app.github.dev/image/png/2025040703/a55f5bdf-f549-4627-ba29-2d9a4ec98ad0.png',
+                name: '分类0-1',
+                description: '这是分类0-1的描述',
+                createdTime: '2023-10-01 12:00:00',
+              },
+            ],
           },
           {
             _id: '1',
