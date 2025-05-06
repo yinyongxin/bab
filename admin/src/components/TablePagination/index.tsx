@@ -23,6 +23,8 @@ import { Key, useRef, useState } from 'react';
 import Empty from '../Empty/Empty';
 import classes from './TablePagination.module.css';
 import {
+  IconChevronDown,
+  IconChevronRight,
   IconMaximize,
   IconMinimize,
   IconSpacingVertical,
@@ -30,6 +32,7 @@ import {
 import clsx from 'clsx';
 import { Option } from '@/@types';
 import { getPageTotal } from '@/utils';
+import { useMap } from '@mantine/hooks';
 
 type Column<
   D = Record<string, any>,
@@ -81,6 +84,10 @@ function TablePagination<D = Record<string, any>>(
   const [verticalSpacing, setVerticalSpacing] = useState<MantineSpacing>('md');
   const [fullscreen, setFullscreen] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement>(null);
+  const openList = useMap<Key, boolean>();
+  const hasDataListChildren = dataList.some((data) => {
+    return data.children && data.children.length > 0;
+  });
   const toggle = () => {
     if (!ref.current) {
       return;
@@ -102,6 +109,7 @@ function TablePagination<D = Record<string, any>>(
         className={clsx(classes.header, { [classes.scrolled]: scrolled })}
       >
         <Table.Tr>
+          {hasDataListChildren && <Table.Th w={40} />}
           {props.columns.map((column) => {
             return (
               <Table.Th
@@ -117,13 +125,43 @@ function TablePagination<D = Record<string, any>>(
       </Table.Thead>
     );
   };
-  const getBody = (list: DataListItemType<D>[]) => {
+  const getBody = (list: DataListItemType<D>[], open?: boolean) => {
     return list.map((data) => {
-      const trChildren: React.ReactNode[] =
-        data.children && data.children.length > 0 ? getBody(data.children) : [];
+      const isOpen = openList.get(data[rowkey] as Key) || false;
+      const hasChildren = data.children && data.children.length > 0;
+      const isChildren = !(typeof open === 'undefined');
+      const trChildren: React.ReactNode[] = hasChildren
+        ? getBody(data.children || [], isOpen)
+        : [];
+      if (isChildren && !open) {
+        return null;
+      }
       return (
         <>
-          <Table.Tr key={data[rowkey] as Key}>
+          <Table.Tr
+            // style={{
+            //   display: isChildren && !open ? 'none' : 'table-row',
+            // }}
+            key={data[rowkey] as Key}
+          >
+            {hasDataListChildren && (
+              <Table.Td key={`${data[rowkey]}-children`}>
+                <ActionIcon
+                  variant="subtle"
+                  onClick={() => {
+                    openList.set(data[rowkey] as Key, !isOpen);
+                  }}
+                >
+                  {hasChildren ? (
+                    !isOpen ? (
+                      <IconChevronRight size={16} />
+                    ) : (
+                      <IconChevronDown size={16} />
+                    )
+                  ) : null}
+                </ActionIcon>
+              </Table.Td>
+            )}
             {props.columns.map((column) => {
               let tdContent;
               if (column.render || column.dataKey === 'action') {

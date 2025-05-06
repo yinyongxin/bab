@@ -26,7 +26,6 @@ const Classification = () => {
           {
             title: '分类图片',
             dataKey: 'picture',
-            width: 80,
             render: ({ picture }) => {
               return <AppImage src={picture} w={40} h={40} />;
             },
