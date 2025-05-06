@@ -140,7 +140,7 @@ function TablePagination<D = Record<string, any>>(
         <>
           <Table.Tr
             // style={{
-            //   display: isChildren && !open ? 'none' : 'table-row',
+            // display: isChildren && !open ? 'none' : 'table-row',
             // }}
             key={data[rowkey] as Key}
           >
