@@ -32,7 +32,7 @@ export type ProjectType = {
   detail: string;
   variationList: StandardsItem[][];
   inventoryList: {
-    variations: StandardsItem;
+    variations: StandardsItem[];
     value: number;
   }[];
   timeRange: {

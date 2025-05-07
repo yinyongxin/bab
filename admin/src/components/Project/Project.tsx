@@ -78,6 +78,8 @@ const Project = (props: ProjectProps) => {
 
   useEffect(() => {
     console.log('form.values', form.values);
+    console.log('isEdit', isEdit);
+    console.log('isCreate', isCreate);
   }, [form.values]);
 
   return (

@@ -1,6 +1,5 @@
 import { Card, Group, Radio, Title, Text, Grid } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
-import { useState } from 'react';
 import classes from './Mode.module.css';
 import { ModeEnum } from '../types';
 const data = [

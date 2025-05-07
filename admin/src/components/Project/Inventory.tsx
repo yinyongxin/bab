@@ -12,12 +12,7 @@ import {
 } from '@mantine/core';
 import { TimePicker } from '@mantine/dates';
 import { UseFormReturnType } from '@mantine/form';
-import {
-  ModeEnum,
-  ProjectType,
-  StandardsItem,
-  StandardsTypeEnum,
-} from './types';
+import { ModeEnum, ProjectType, StandardsTypeEnum } from './types';
 const daysOfWeek = [
   { label: '星期一', value: 1 },
   { label: '星期二', value: 2 },
@@ -33,10 +28,7 @@ type InventoryProps = {
 };
 const Inventory = (props: InventoryProps) => {
   const { form } = props;
-  const inventoryList: {
-    variations: StandardsItem[];
-    value: number;
-  }[] = form.values.inventoryList;
+  const inventoryList = form.values.inventoryList;
   const { mode } = form.values;
   const { timeRange, weekRange } = form.values;
   const isTimeRange = mode === ModeEnum.TIMERANGE;
