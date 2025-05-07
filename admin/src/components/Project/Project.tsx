@@ -62,6 +62,11 @@ const Project = (props: ProjectProps) => {
           },
         ],
       ],
+      timeRange: {
+        start: '09:00',
+        end: '18:00',
+      },
+      weekRange: [1, 2, 3, 4, 5],
       discountType: DiscountTypeEnum.NONE,
     });
   }, []);

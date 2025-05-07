@@ -35,6 +35,11 @@ export type ProjectType = {
     variations: StandardsItem;
     value: number;
   }[];
+  timeRange: {
+    start: string;
+    end: string;
+  };
+  weekRange: number[];
   mode: ModeEnum;
   price: number;
   discount: number;
