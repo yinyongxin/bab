@@ -30,6 +30,11 @@ const Project = (props: ProjectProps) => {
       discount: 0,
       discountType: DiscountTypeEnum.NONE,
       mode: ModeEnum.QUANTITY,
+      timeRange: {
+        start: '00:00:00',
+        end: '23:59:59',
+      },
+      weekRange: [1, 2, 3, 4, 5, 6, 7],
     },
     validate: {
       name: hasLength({ min: 1 }, '产品名称不能为空'),

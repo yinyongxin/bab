@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
   Title,
+  UnstyledButton,
 } from '@mantine/core';
 import { TimePicker } from '@mantine/dates';
 import { UseFormReturnType } from '@mantine/form';
@@ -37,10 +38,7 @@ const Inventory = (props: InventoryProps) => {
     value: number;
   }[] = form.values.inventoryList;
   const { mode } = form.values;
-  const {
-    timeRange: { start, end },
-    weekRange,
-  } = form.values;
+  const { timeRange, weekRange } = form.values;
   const isTimeRange = mode === ModeEnum.TIMERANGE;
   const isQuantity = mode === ModeEnum.QUANTITY;
 
@@ -86,7 +84,7 @@ const Inventory = (props: InventoryProps) => {
   );
   const titleRender = () => {
     if (isTimeRange) {
-      return <Title order={4}>时间范围</Title>;
+      return <Title order={4}>可使用时间</Title>;
     }
     if (isQuantity) {
       return <Title order={4}>库存数量</Title>;
@@ -97,18 +95,51 @@ const Inventory = (props: InventoryProps) => {
     return (
       isTimeRange && (
         <Stack gap="md">
-          <TimePicker value={start} label="每天开始时间" withDropdown />
-          <TimePicker value={end} label="每天结束时间" withDropdown />
+          <TimePicker
+            value={timeRange?.start}
+            label="每天开始时间"
+            withDropdown
+            onChange={(val) => {
+              form.setFieldValue('timeRange.start', val);
+            }}
+          />
+          <TimePicker
+            value={timeRange?.end}
+            label="每天结束时间"
+            withDropdown
+            onChange={(val) => {
+              form.setFieldValue('timeRange.end', val);
+            }}
+          />
           <Text size="sm">每周可用时间</Text>
           <Grid>
             {daysOfWeek.map((item) => (
               <Grid.Col span={4} key={item.value}>
-                <Badge
-                  size="lg"
-                  variant={weekRange.includes(item.value) ? 'filled' : 'light'}
+                <UnstyledButton
+                  onClick={() => {
+                    const isSelected = weekRange.includes(item.value);
+                    if (isSelected) {
+                      form.setFieldValue(
+                        'weekRange',
+                        weekRange.filter((i) => i !== item.value),
+                      );
+                    } else {
+                      form.setFieldValue('weekRange', [
+                        ...weekRange,
+                        item.value,
+                      ]);
+                    }
+                  }}
                 >
-                  {item.label}
-                </Badge>
+                  <Badge
+                    size="lg"
+                    variant={
+                      weekRange.includes(item.value) ? 'filled' : 'light'
+                    }
+                  >
+                    {item.label}
+                  </Badge>
+                </UnstyledButton>
               </Grid.Col>
             ))}
           </Grid>
