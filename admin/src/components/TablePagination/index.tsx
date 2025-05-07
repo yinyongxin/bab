@@ -19,7 +19,7 @@ import {
   TableThProps,
   Tooltip,
 } from '@mantine/core';
-import { Key, useRef, useState } from 'react';
+import { Fragment, Key, useRef, useState } from 'react';
 import Empty from '../Empty/Empty';
 import classes from './TablePagination.module.css';
 import {
@@ -109,7 +109,7 @@ function TablePagination<D = Record<string, any>>(
         className={clsx(classes.header, { [classes.scrolled]: scrolled })}
       >
         <Table.Tr>
-          {hasDataListChildren && <Table.Th w={40} />}
+          {hasDataListChildren && <Table.Th key="toogle" w={40} />}
           {props.columns.map((column) => {
             return (
               <Table.Th
@@ -137,15 +137,10 @@ function TablePagination<D = Record<string, any>>(
         return null;
       }
       return (
-        <>
-          <Table.Tr
-            // style={{
-            // display: isChildren && !open ? 'none' : 'table-row',
-            // }}
-            key={data[rowkey] as Key}
-          >
+        <Fragment key={`${data[rowkey]}`}>
+          <Table.Tr>
             {hasDataListChildren && (
-              <Table.Td key={`${data[rowkey]}-children`}>
+              <Table.Td key={`${data[rowkey]}-toogle`}>
                 <ActionIcon
                   variant="subtle"
                   onClick={() => {
@@ -200,7 +195,7 @@ function TablePagination<D = Record<string, any>>(
             })}
           </Table.Tr>
           {trChildren}
-        </>
+        </Fragment>
       );
     });
   };
@@ -329,7 +324,11 @@ function TablePagination<D = Record<string, any>>(
         <Flex justify="space-between">
           {title ? title : <div />}
           <Group p="sm" gap="xs">
-            {toolList.map((tool) => tool.icon)}
+            {toolList.map((tool) => (
+              <Fragment key={tool.key}>
+                <>{tool.icon}</>
+              </Fragment>
+            ))}
           </Group>
         </Flex>
       </header>
