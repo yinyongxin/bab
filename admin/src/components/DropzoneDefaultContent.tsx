@@ -1,14 +1,17 @@
 import { Dropzone } from '@mantine/dropzone';
-import { Stack, Text } from '@mantine/core';
+import { Stack, StackProps, Text } from '@mantine/core';
 import { IconPhoto, IconUpload, IconX } from '@tabler/icons-react';
-
-const DropzoneDefaultContent = () => {
+type DropzoneDefaultContentProps = StackProps & {
+    
+}
+const DropzoneDefaultContent = (props: DropzoneDefaultContentProps) => {
   return (
     <Stack
       justify="center"
       align="center"
       mih={220}
       style={{ pointerEvents: 'none' }}
+      {...props}
     >
       <Dropzone.Accept>
         <IconUpload

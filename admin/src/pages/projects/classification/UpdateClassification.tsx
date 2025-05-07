@@ -10,6 +10,7 @@ import {
   Switch,
   Stack,
   Image,
+  Center,
 } from '@mantine/core';
 import { hasLength, useForm } from '@mantine/form';
 import {
@@ -40,7 +41,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
   const isEditing = initalValues && initalValues._id;
   const form = useForm({
     initialValues: initalValues
-      ? { ...initalValues, roles: initalValues.roles.map((item) => item._id) }
+      ? { ...initalValues }
       : {
           name: '',
           picture: '',
@@ -49,7 +50,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
         },
     validate: {
       name: hasLength({ min: 1 }, '产品名不能为空'),
-      description: hasLength({ min: 1 }, '描述不能为空'),
+      description: hasLength({ min: 1 }, '产品描述不能为空'),
     },
   });
 
@@ -74,7 +75,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
     });
   };
 
-  const update = async () => {
+  const update = async (id: string, values: any) => {
     const addRes = {};
     if (addRes?.error) {
       notifications.show({
@@ -128,7 +129,16 @@ function UpdateClassification(props: UpdateClassificationProps) {
             bg="var(--mantine-primary-color-light)"
           >
             {form.values.picture ? (
-              <AppImage mih={220} preview src={getFilePath(form.values.picture)} />
+              <Center>
+                <AppImage
+                  mih={220}
+                  preview
+                  imageProps={{
+                    w: 'auto',
+                  }}
+                  src={getFilePath(form.values.picture)}
+                />
+              </Center>
             ) : (
               <DropzoneDefaultContent />
             )}

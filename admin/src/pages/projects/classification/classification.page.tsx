@@ -75,7 +75,7 @@ const Classification = () => {
               title: '状态',
               dataKey: 'status',
               render: ({ status }) => {
-                return <Switch checked={status === 1} />;
+                return <Switch checked={status === 'open'} />;
               },
             },
             {
@@ -91,15 +91,30 @@ const Classification = () => {
               title: '操作',
               dataKey: 'action',
               width: 120,
-              render: () => (
+              render: (values) => (
                 <div>
-                  <ActionIcon variant="subtle" color="green">
+                  <ActionIcon
+                    variant="subtle"
+                    color="green"
+                    onClick={() => {
+                      setTitle('查看分类');
+                      setInitalValues(values);
+                      open();
+                    }}
+                  >
                     <IconEye
                       style={{ width: '70%', height: '70%' }}
                       stroke={1.5}
                     />
                   </ActionIcon>
-                  <ActionIcon variant="subtle" onClick={() => {}}>
+                  <ActionIcon
+                    variant="subtle"
+                    onClick={() => {
+                      setTitle('编辑分类');
+                      setInitalValues(values);
+                      open();
+                    }}
+                  >
                     <IconEdit
                       style={{ width: '70%', height: '70%' }}
                       stroke={1.5}
@@ -121,7 +136,7 @@ const Classification = () => {
               picture:
                 'https://fantastic-trout-ppxx6g5xvxj3q5-3000.app.github.dev/image/png/2025040703/a55f5bdf-f549-4627-ba29-2d9a4ec98ad0.png',
               name: '分类0',
-              status: 1,
+              status: 'open',
               description: '这是分类0的描述',
               createdTime: '2023-10-01 12:00:00',
               children: [
@@ -130,7 +145,7 @@ const Classification = () => {
                   picture:
                     'https://fantastic-trout-ppxx6g5xvxj3q5-3000.app.github.dev/image/png/2025040703/a55f5bdf-f549-4627-ba29-2d9a4ec98ad0.png',
                   name: '分类0-1',
-                  status: 0,
+                  status: 'closed',
                   description: '这是分类0-1的描述',
                   createdTime: '2023-10-01 12:00:00',
                 },
