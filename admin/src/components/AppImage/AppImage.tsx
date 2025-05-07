@@ -1,6 +1,7 @@
 import {
   ActionIcon,
   Box,
+  BoxProps,
   Center,
   Image,
   ImageProps,
@@ -10,17 +11,21 @@ import {
 import { useHover } from '@mantine/hooks';
 import { modals } from '@mantine/modals';
 import { IconEye } from '@tabler/icons-react';
-type AppImageProps = Omit<ImageProps, 'radius'> & {
+type AppImageProps = BoxProps & {
   preview?: boolean;
   radius?: MantineSize;
+  src: string;
+  imageProps?: ImageProps;
 };
 const AppImage = (props: AppImageProps) => {
   const {
     preview = true, // default to false
     w,
     h,
+    src,
     radius = 'md',
-    ...imageProps
+    imageProps,
+    ...rest
   } = props;
   const { hovered, ref } = useHover();
 
@@ -47,7 +52,7 @@ const AppImage = (props: AppImageProps) => {
           right: 0,
         },
       },
-      children: <Image h="100%" fit="contain" src={imageProps.src} />,
+      children: <Image h="100%" fit="contain" src={src} />,
     });
   };
   return (
@@ -56,16 +61,19 @@ const AppImage = (props: AppImageProps) => {
       pos="relative"
       w={w}
       h={h}
+      {...rest}
       style={(theme) => ({
         borderRadius: theme.radius[radius],
+        ...rest.style,
       })}
     >
       <Image
-        {...imageProps}
         radius={radius}
         w="100%"
         h="100%"
         fallbackSrc="/images/Empty-Order--Streamline-Bruxelles.png"
+        src={src}
+        {...imageProps}
       />
       {preview && hovered && (
         <Overlay backgroundOpacity={0.3} blur={4} radius={radius}>

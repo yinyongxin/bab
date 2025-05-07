@@ -8,18 +8,26 @@ import {
   Avatar,
   Textarea,
   Switch,
+  Stack,
+  Image,
 } from '@mantine/core';
 import { hasLength, useForm } from '@mantine/form';
 import {
   IconCheck,
   IconExclamationCircle,
+  IconPhoto,
   IconUpload,
   IconUser,
+  IconX,
 } from '@tabler/icons-react';
 import { AdmintorsPageItemDto } from '@/client';
 import { notifications } from '@mantine/notifications';
 import { uploadFile } from '@/utils';
 import useTools from '@/hooks/useTools';
+import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+import { setFiles } from '@testing-library/user-event/dist/types/utils';
+import AppImage from '@/components/AppImage/AppImage';
+import DropzoneDefaultContent from '@/components/DropzoneDefaultContent';
 
 type UpdateClassificationProps = {
   onSuccess: () => void;
@@ -99,31 +107,32 @@ function UpdateClassification(props: UpdateClassificationProps) {
       <Grid>
         <Grid.Col span={12}>
           <Text size="sm">分类图片</Text>
-          <FileButton
-            onChange={async (file) => {
-              const data = await uploadFile(file);
+          <Dropzone
+            multiple={false}
+            onDrop={async (files) => {
+              const data = await uploadFile(files[0]);
               if (data) {
                 form.setFieldValue('picture', data.url);
               }
             }}
-            accept="image/png,image/jpeg"
-          >
-            {(props) => {
-              console.log('props', props);
-              return (
-                <Avatar
-                  radius="sm"
-                  {...props}
-                  size={100}
-                  src={
-                    form.values.picture ? getFilePath(form.values.picture) : ''
-                  }
-                >
-                  <IconUpload stroke={1.5} />
-                </Avatar>
-              );
+            onReject={(files) => {
+              notifications.show({
+                color: 'red',
+                title: '提示',
+                message: files.map((file) => file.errors[0].message).join(','),
+                icon: <IconExclamationCircle />,
+              });
             }}
-          </FileButton>
+            maxSize={5 * 1024 ** 2}
+            accept={IMAGE_MIME_TYPE}
+            bg="var(--mantine-primary-color-light)"
+          >
+            {form.values.picture ? (
+              <AppImage mih={220} preview src={getFilePath(form.values.picture)} />
+            ) : (
+              <DropzoneDefaultContent />
+            )}
+          </Dropzone>
         </Grid.Col>
         <Grid.Col span={12}>
           <TextInput
