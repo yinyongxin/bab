@@ -2678,16 +2678,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/carousel@npm:^7.17.4":
-  version: 7.17.4
-  resolution: "@mantine/carousel@npm:7.17.4"
+"@mantine/carousel@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@mantine/carousel@npm:8.0.0"
   peerDependencies:
-    "@mantine/core": 7.17.4
-    "@mantine/hooks": 7.17.4
-    embla-carousel-react: ">=7.0.0"
+    "@mantine/core": 8.0.0
+    "@mantine/hooks": 8.0.0
+    embla-carousel: ">=8.0.0"
+    embla-carousel-react: ">=8.0.0"
     react: ^18.x || ^19.x
     react-dom: ^18.x || ^19.x
-  checksum: 10c0/bd518fae7bdfb8a465b09c0be0912905a0bd781d0bc89bee117b3c7b43c30b949ed82e8c93aceb1701f04fc2cb489f67511e463519523c2d1636f34313c8db8a
+  checksum: 10c0/363fc3d9b20bf8dfc0aa1466b402a07e0dcc4ec202f7d70eb338149d3144acb5b29a07e9467a3eb3631d0608de606d8fce0b261acf2f53cba3e922a16473fb59
   languageName: node
   linkType: hard
 
@@ -2704,9 +2705,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/core@npm:^7.17.4":
-  version: 7.17.4
-  resolution: "@mantine/core@npm:7.17.4"
+"@mantine/core@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@mantine/core@npm:8.0.0"
   dependencies:
     "@floating-ui/react": "npm:^0.26.28"
     clsx: "npm:^2.1.1"
@@ -2715,25 +2716,25 @@ __metadata:
     react-textarea-autosize: "npm:8.5.9"
     type-fest: "npm:^4.27.0"
   peerDependencies:
-    "@mantine/hooks": 7.17.4
+    "@mantine/hooks": 8.0.0
     react: ^18.x || ^19.x
     react-dom: ^18.x || ^19.x
-  checksum: 10c0/30d3ee636d2d6b77d6c2195867b0ede907de46d65470c59ba7d49427e02cb559da3f9337d8d71c782c82dc816c0946a5224019d4c2d7590ff1c71e2f2671ed9f
+  checksum: 10c0/d23099322ebcbb0632a8182fb5992719ef9dc54168eb136ae3a94f79aaa3c375afe81ab2001f7dd15f6738fa8970c333b8713f9fc125de6f3207ac388b4aacd5
   languageName: node
   linkType: hard
 
-"@mantine/dates@npm:^7.17.3":
-  version: 7.17.3
-  resolution: "@mantine/dates@npm:7.17.3"
+"@mantine/dates@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@mantine/dates@npm:8.0.0"
   dependencies:
     clsx: "npm:^2.1.1"
   peerDependencies:
-    "@mantine/core": 7.17.3
-    "@mantine/hooks": 7.17.3
+    "@mantine/core": 8.0.0
+    "@mantine/hooks": 8.0.0
     dayjs: ">=1.0.0"
     react: ^18.x || ^19.x
     react-dom: ^18.x || ^19.x
-  checksum: 10c0/90e4e59512dee32780087f50b199eeb3ccf5d0f1e230ccf3b72f04b5176d38be0d953cd3dc0aea864aa01757064d6893d5ab61405547a43b9e9e2ad10d5ab9b0
+  checksum: 10c0/e0afe25de3e31a8eb4a12498771514e69d4088105876831ce815043f4baba21a9103c7bd0a3e7ba2159edc4fa7b3e1a1d7c2d0607a88c20752c68476c32ac91c
   languageName: node
   linkType: hard
 
@@ -2763,12 +2764,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/hooks@npm:^7.17.4":
-  version: 7.17.4
-  resolution: "@mantine/hooks@npm:7.17.4"
+"@mantine/hooks@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@mantine/hooks@npm:8.0.0"
   peerDependencies:
     react: ^18.x || ^19.x
-  checksum: 10c0/e0ef1b5a53fa6a1d0be73590221422a45de715f8debc518af3f858272b108e4bcee13399a8129ab475db7af322f563f30b3ba6f839081538dda7fb11b572d8b4
+  checksum: 10c0/d1ff4d99e82abe14e230c1ac77347f2025b78e32f8fb75ca4d0cdee801bdecd8589687b3281138e0251bfed64dc7e4bbb17a97c2be915ddf43abadc794425249
   languageName: node
   linkType: hard
 
@@ -7470,10 +7471,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.11.10":
-  version: 1.11.10
-  resolution: "dayjs@npm:1.11.10"
-  checksum: 10c0/4de9af50639d47df87f2e15fa36bb07e0f9ed1e9c52c6caa1482788ee9a384d668f1dbd00c54f82aaab163db07d61d2899384b8254da3a9184fc6deca080e2fe
+"dayjs@npm:^1.11.13":
+  version: 1.11.13
+  resolution: "dayjs@npm:1.11.13"
+  checksum: 10c0/a3caf6ac8363c7dade9d1ee797848ddcf25c1ace68d9fe8678ecf8ba0675825430de5d793672ec87b24a69bf04a1544b176547b2539982275d5542a7955f35b7
   languageName: node
   linkType: hard
 
@@ -10899,13 +10900,13 @@ __metadata:
     "@hey-api/client-axios": "npm:^0.6.3"
     "@hey-api/client-fetch": "npm:^0.10.0"
     "@hey-api/openapi-ts": "npm:^0.64.15"
-    "@mantine/carousel": "npm:^7.17.4"
+    "@mantine/carousel": "npm:^8.0.0"
     "@mantine/charts": "npm:^7.17.3"
-    "@mantine/core": "npm:^7.17.4"
-    "@mantine/dates": "npm:^7.17.3"
+    "@mantine/core": "npm:^8.0.0"
+    "@mantine/dates": "npm:^8.0.0"
     "@mantine/dropzone": "npm:^7.17.3"
     "@mantine/form": "npm:^7.7.1"
-    "@mantine/hooks": "npm:^7.17.4"
+    "@mantine/hooks": "npm:^8.0.0"
     "@mantine/modals": "npm:^7.17.3"
     "@mantine/notifications": "npm:^7.17.3"
     "@mantine/spotlight": "npm:^7.17.3"
@@ -10940,7 +10941,7 @@ __metadata:
     "@types/react-lottie": "npm:^1"
     "@vitejs/plugin-react": "npm:^4.2.1"
     axios: "npm:^1.6.8"
-    dayjs: "npm:^1.11.10"
+    dayjs: "npm:^1.11.13"
     embla-carousel-react: "npm:^8.6.0"
     eslint: "npm:^9.24.0"
     eslint-config-mantine: "npm:^4.0.3"

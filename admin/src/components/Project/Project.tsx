@@ -9,7 +9,8 @@ import Pricing from './Pricing/Pricing';
 import Variation from './Variation';
 import { useEffect } from 'react';
 import Inventory from './Inventory';
-import { ProjectType, DiscountTypeEnum } from './types';
+import { ProjectType, DiscountTypeEnum, ModeEnum } from './types';
+import Mode from './Mode/Mode';
 type ProjectProps = {
   id?: string;
 };
@@ -28,6 +29,7 @@ const Project = (props: ProjectProps) => {
       price: 0,
       discount: 0,
       discountType: DiscountTypeEnum.NONE,
+      mode: ModeEnum.QUANTITY,
     },
     validate: {
       name: hasLength({ min: 1 }, '产品名称不能为空'),
@@ -74,6 +76,7 @@ const Project = (props: ProjectProps) => {
         <Stack gap="xl">
           <BaseInfo form={form} />
           <Detail form={form} />
+          <Mode form={form} />
           <Variation form={form} />
           <Pricing form={form} />
         </Stack>

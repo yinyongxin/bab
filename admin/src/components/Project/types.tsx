@@ -20,6 +20,11 @@ export enum DiscountTypeEnum {
   FIXED = 'FIXED',
 }
 
+export enum ModeEnum {
+  QUANTITY = 'quantity',
+  TIMERANGE = 'timerange',
+}
+
 export type ProjectType = {
   id?: string;
   name: string;
@@ -30,6 +35,7 @@ export type ProjectType = {
     variations: StandardsItem;
     value: number;
   }[];
+  mode: ModeEnum;
   price: number;
   discount: number;
   discountType: DiscountTypeEnum;

@@ -8,8 +8,10 @@ import {
   Text,
   Title,
 } from '@mantine/core';
+import { TimeGrid, TimePicker, getTimeRange } from '@mantine/dates';
 import { UseFormReturnType } from '@mantine/form';
-import { StandardsItem, StandardsTypeEnum } from './types';
+import { ModeEnum, StandardsItem, StandardsTypeEnum } from './types';
+
 type InventoryProps = {
   form: UseFormReturnType<any>;
 };
@@ -19,8 +21,11 @@ const Inventory = (props: InventoryProps) => {
     variations: StandardsItem[];
     value: number;
   }[] = form.values.inventoryList;
+  const { mode } = form.values;
+  const isTimeRange = mode === ModeEnum.TIMERANGE;
+  const isQuantity = mode === ModeEnum.QUANTITY;
 
-  const rows = (
+  const rows = isQuantity && (
     <Stack gap="md">
       {inventoryList.map(({ variations, value }, index) => (
         <Stack gap="xs" key={index}>
@@ -34,6 +39,7 @@ const Inventory = (props: InventoryProps) => {
               });
             }}
           />
+
           <Group>
             {variations.map((item) => {
               const isColor = item.standardsType === StandardsTypeEnum.COLOR;
@@ -59,12 +65,26 @@ const Inventory = (props: InventoryProps) => {
       ))}
     </Stack>
   );
+  const titleRender = () => {
+    if (isTimeRange) {
+      return <Title order={4}>时间范围</Title>;
+    }
+    if (isQuantity) {
+      return <Title order={4}>库存数量</Title>;
+    }
+  };
   return (
     <Card shadow="sm">
       <Card.Section inheritPadding py="md">
-        <Title order={4}>库存</Title>
+        <Title order={4}>{titleRender()}</Title>
       </Card.Section>
       <Card.Section inheritPadding py="md">
+        {isTimeRange && (
+          <Stack gap="md">
+            <TimePicker label="开始时间" withDropdown />
+            <TimePicker label="结束时间" withDropdown />
+          </Stack>
+        )}
         {rows}
       </Card.Section>
     </Card>
