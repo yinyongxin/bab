@@ -31,7 +31,6 @@ import {
   IconCheck,
   IconClock24,
   IconEdit,
-  IconEye,
   IconGenderBigender,
   IconLockAccess,
   IconPhone,
@@ -297,9 +296,6 @@ export default () => {
       render: (record) => {
         return (
           <div>
-            <ActionIcon variant="subtle" color="green">
-              <IconEye style={{ width: '70%', height: '70%' }} stroke={1.5} />
-            </ActionIcon>
             <ActionIcon
               variant="subtle"
               onClick={() => {

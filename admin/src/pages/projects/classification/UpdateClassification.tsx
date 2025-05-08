@@ -39,7 +39,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
   const isAdding = !initalValues;
   const isEditing = initalValues && initalValues._id;
   const form = useForm<ProjectClassificationsCreateBodyDto>({
-    initialValues: initalValues
+    initialValues: isEditing
       ? { ...initalValues }
       : {
           name: '',
@@ -47,10 +47,11 @@ function UpdateClassification(props: UpdateClassificationProps) {
           description: '',
           status: StatusEnum.OPEN,
           sort: 0,
+          parent: '',
         },
     validate: {
-      name: hasLength({ min: 1 }, '产品名不能为空'),
-      description: hasLength({ min: 1 }, '产品描述不能为空'),
+      name: hasLength({ min: 1 }, '分类名不能为空'),
+      description: hasLength({ min: 1 }, '分类描述不能为空'),
     },
   });
 
@@ -176,7 +177,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
         <Grid.Col span={12}>
           <Switch
             {...form.getInputProps('status')}
-            checked={form.getInputProps('status').value === 'open'}
+            checked={form.getInputProps('status').value === StatusEnum.OPEN}
             label="分类是否启用"
           />
         </Grid.Col>
