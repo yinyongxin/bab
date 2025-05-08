@@ -43,7 +43,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
       ? { ...initalValues }
       : {
           name: '',
-          picture: 'asdasdad',
+          picture: '',
           description: '',
           status: StatusEnum.OPEN,
           sort: 0,
@@ -59,7 +59,6 @@ function UpdateClassification(props: UpdateClassificationProps) {
     const addRes = await projectClassificationsControllerAddOne({
       body: {
         ...values,
-        picture: 'asdasdad',
         status: values.status ? StatusEnum.OPEN : StatusEnum.CLOSE,
       },
     });
@@ -87,7 +86,14 @@ function UpdateClassification(props: UpdateClassificationProps) {
     values: ProjectClassificationsUpdateDto,
   ) => {
     const updateRes = await projectClassificationsControllerUpdateOne({
-      body: values,
+      body: {
+        name: values.name,
+        description: values.description,
+        picture: values.picture,
+        sort: values.sort,
+        parent: values.parent,
+        status: values.status ? StatusEnum.OPEN : StatusEnum.CLOSE,
+      },
       query: {
         id,
       },
@@ -176,7 +182,14 @@ function UpdateClassification(props: UpdateClassificationProps) {
         </Grid.Col>
         <Grid.Col span={12}>
           <Switch
-            {...form.getInputProps('status')}
+            onChange={(event) => {
+              form.setFieldValue(
+                'status',
+                event.currentTarget.checked
+                  ? StatusEnum.OPEN
+                  : StatusEnum.CLOSE,
+              );
+            }}
             checked={form.getInputProps('status').value === StatusEnum.OPEN}
             label="分类是否启用"
           />

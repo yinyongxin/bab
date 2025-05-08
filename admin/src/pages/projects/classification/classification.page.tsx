@@ -21,8 +21,10 @@ import {
   StatusEnum,
 } from '@/client';
 import { modals } from '@mantine/modals';
+import useTools from '@/hooks/useTools';
 
 const Classification = () => {
+  const { getFilePath } = useTools();
   const [opened, { open, close }] = useDisclosure(false);
   const [loading, loadingAction] = useDisclosure(false);
   const [title, setTitle] = useState('');
@@ -121,7 +123,7 @@ const Classification = () => {
               width: 100,
               dataKey: 'picture',
               render: ({ picture }) => {
-                return <AppImage src={picture} w={40} h={40} />;
+                return <AppImage src={getFilePath(picture)} w={40} h={40} />;
               },
             },
             {
@@ -209,10 +211,8 @@ const Classification = () => {
         <UpdateClassification
           initalValues={initalValues}
           onSuccess={() => {
-            if (!initalValues) {
-              getData();
-            }
             close();
+            getData();
           }}
         />
       </Modal>
