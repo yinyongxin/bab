@@ -14,7 +14,14 @@ import {
   IconExclamationCircle,
   IconUser,
 } from '@tabler/icons-react';
-import { AdmintorsPageItemDto } from '@/client';
+import {
+  projectClassificationsControllerAddOne,
+  projectClassificationsControllerUpdateOne,
+  ProjectClassificationsCreateBodyDto,
+  ProjectClassificationsResultDto,
+  ProjectClassificationsUpdateDto,
+  StatusEnum,
+} from '@/client';
 import { notifications } from '@mantine/notifications';
 import { uploadFile } from '@/utils';
 import useTools from '@/hooks/useTools';
@@ -24,21 +31,22 @@ import DropzoneDefaultContent from '@/components/DropzoneDefaultContent';
 
 type UpdateClassificationProps = {
   onSuccess: () => void;
-  initalValues?: AdmintorsPageItemDto;
+  initalValues?: ProjectClassificationsResultDto;
 };
 function UpdateClassification(props: UpdateClassificationProps) {
   const { getFilePath } = useTools();
   const { onSuccess, initalValues } = props;
   const isAdding = !initalValues;
   const isEditing = initalValues && initalValues._id;
-  const form = useForm({
+  const form = useForm<ProjectClassificationsCreateBodyDto>({
     initialValues: initalValues
       ? { ...initalValues }
       : {
           name: '',
-          picture: '',
+          picture: 'asdasdad',
           description: '',
-          status: 'open',
+          status: StatusEnum.OPEN,
+          sort: 0,
         },
     validate: {
       name: hasLength({ min: 1 }, '产品名不能为空'),
@@ -46,8 +54,14 @@ function UpdateClassification(props: UpdateClassificationProps) {
     },
   });
 
-  const create = async () => {
-    const addRes = {};
+  const create = async (values: ProjectClassificationsCreateBodyDto) => {
+    const addRes = await projectClassificationsControllerAddOne({
+      body: {
+        ...values,
+        picture: 'asdasdad',
+        status: values.status ? StatusEnum.OPEN : StatusEnum.CLOSE,
+      },
+    });
 
     if (addRes?.error) {
       notifications.show({
@@ -67,9 +81,17 @@ function UpdateClassification(props: UpdateClassificationProps) {
     });
   };
 
-  const update = async (id: string, values: any) => {
-    const addRes = {};
-    if (addRes?.error) {
+  const update = async (
+    id: string,
+    values: ProjectClassificationsUpdateDto,
+  ) => {
+    const updateRes = await projectClassificationsControllerUpdateOne({
+      body: values,
+      query: {
+        id,
+      },
+    });
+    if (updateRes?.error) {
       notifications.show({
         color: 'red',
         title: '提示',

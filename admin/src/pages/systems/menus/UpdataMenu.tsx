@@ -11,7 +11,7 @@ import {
   LoadingOverlay,
   Switch,
 } from '@mantine/core';
-import { hasLength, isNotEmpty, useForm } from '@mantine/form';
+import { isNotEmpty, useForm } from '@mantine/form';
 import {
   IconCheck,
   IconExclamationCircle,

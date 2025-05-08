@@ -1,7 +1,7 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
-import { MenuTypeEnum, StatusEnum } from 'src/enums';
+import { StatusEnum } from 'src/enums';
 
 @Schema()
 export class ProjectClassifications extends BaseDocument {
@@ -81,7 +81,7 @@ export class ProjectClassifications extends BaseDocument {
   @Prop({
     required: true,
     default: '',
-    enum: MenuTypeEnum,
+    enum: StatusEnum,
   })
   // swagger
   @ApiProperty({
