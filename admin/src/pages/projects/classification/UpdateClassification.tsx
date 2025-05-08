@@ -7,12 +7,12 @@ import {
   Textarea,
   Switch,
   Center,
+  Image,
 } from '@mantine/core';
 import { hasLength, useForm } from '@mantine/form';
 import {
   IconCheck,
   IconExclamationCircle,
-  IconUser,
 } from '@tabler/icons-react';
 import {
   projectClassificationsControllerAddOne,
@@ -26,7 +26,6 @@ import { notifications } from '@mantine/notifications';
 import { uploadFile } from '@/utils';
 import useTools from '@/hooks/useTools';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import AppImage from '@/components/AppImage/AppImage';
 import DropzoneDefaultContent from '@/components/DropzoneDefaultContent';
 
 type UpdateClassificationProps = {
@@ -151,12 +150,9 @@ function UpdateClassification(props: UpdateClassificationProps) {
           >
             {form.values.picture ? (
               <Center>
-                <AppImage
-                  mih={220}
-                  preview
-                  imageProps={{
-                    w: 'auto',
-                  }}
+                <Image
+                  fit="contain"
+                  h="200px"
                   src={getFilePath(form.values.picture)}
                 />
               </Center>
@@ -169,7 +165,6 @@ function UpdateClassification(props: UpdateClassificationProps) {
           <TextInput
             {...form.getInputProps('name')}
             label="分类名称"
-            leftSection={<IconUser size={16} />}
             placeholder="填写分类名称"
           />
         </Grid.Col>
