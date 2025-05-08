@@ -39,12 +39,12 @@ export class ProjectClassificationsController {
 
   @Put('addOne')
   @ApiOkResponse({
-    description: '添加菜单成功',
+    description: '添加产品分类成功',
     type: ProjectClassificationsResultDto,
   })
   @ApiOperation({
-    description: '添加一个菜单',
-    summary: '添加一个菜单',
+    description: '添加一个产品分类',
+    summary: '添加一个产品分类',
   })
   async addOne(@Body() body: ProjectClassificationsCreateBodyDto) {
     const res = await this.projectClassificationsService.addOne(body);
@@ -57,8 +57,8 @@ export class ProjectClassificationsController {
     type: IntersectionType(UpdateResDto, DeleteResDto),
   })
   @ApiOperation({
-    description: '通过Ids删除菜单',
-    summary: '通过Id删除菜单',
+    description: '通过Ids删除产品分类',
+    summary: '通过Id删除产品分类',
   })
   async deleteByIds(@Body() body: DeleteIdsDto) {
     const res = await this.projectClassificationsService.deleteByIds(body.ids);
@@ -91,8 +91,8 @@ export class ProjectClassificationsController {
     type: ProjectClassificationsResultDto,
   })
   @ApiOperation({
-    description: '通过Id查找菜单',
-    summary: '通过Id查找菜单',
+    description: '通过Id查找产品分类',
+    summary: '通过Id查找产品分类',
   })
   async findById(@Query() query: QueryIdDto) {
     const res = await this.projectClassificationsService.findById(query.id);
@@ -115,12 +115,12 @@ export class ProjectClassificationsController {
 
   @Post('getAllByFilter')
   @ApiOkResponse({
-    description: '获取所有菜单',
+    description: '获取所有产品分类',
     type: [ProjectClassificationsResultDto],
   })
   @ApiOperation({
-    description: '获取所有菜单',
-    summary: '获取所有菜单',
+    description: '获取所有产品分类',
+    summary: '获取所有产品分类',
   })
   async getAllByFilter(@Body() body: ProjectClassificationsQueryDto) {
     const res = await this.projectClassificationsService.getAllByFilter(body);

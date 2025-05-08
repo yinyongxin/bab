@@ -55,7 +55,7 @@ export class ProjectClassificationsService {
   }
 
   async getTreeData() {
-    // 获取所有菜单数据
+    // 获取所有产品分类数据
     const dataList = await this.projectClassificationsModel.find().exec();
 
     // 将 dataList 转换为一个 Map，便于快速查找
@@ -70,7 +70,7 @@ export class ProjectClassificationsService {
         .filter((menuItem) => menuItem.parent === parentId)
         .map((menuItem) => ({
           ...menuItem.toObject(), // 确保转换为普通对象
-          children: getTree(menuItem._id.toString()), // 递归调用自身以查找子菜单
+          children: getTree(menuItem._id.toString()), // 递归调用自身以查找子产品分类
         }));
     };
 
