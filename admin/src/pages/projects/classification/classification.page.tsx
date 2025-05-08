@@ -30,6 +30,7 @@ const Classification = () => {
   const [title, setTitle] = useState('');
   const [initalValues, setInitalValues] =
     useState<ProjectClassificationsResultDto>();
+  const [parentId, setParentId] = useState<string | undefined>(undefined);
   const [dataList, setDataList] = useState<ProjectClassificationsTreeDto[]>([]);
 
   const getData = async () => {
@@ -179,6 +180,20 @@ const Classification = () => {
                   </ActionIcon>
                   <ActionIcon
                     variant="subtle"
+                    color="green"
+                    onClick={() => {
+                      setTitle('添加子类');
+                      setParentId(values._id);
+                      open();
+                    }}
+                  >
+                    <IconPlus
+                      style={{ width: '70%', height: '70%' }}
+                      stroke={1.5}
+                    />
+                  </ActionIcon>
+                  <ActionIcon
+                    variant="subtle"
                     color="red"
                     onClick={() => {
                       deleteById(values._id);
@@ -201,15 +216,15 @@ const Classification = () => {
         opened={opened}
         onClose={() => {
           close();
-          if (initalValues) {
-            setInitalValues(undefined);
-          }
+          setParentId(undefined);
+          setInitalValues(undefined);
         }}
         title={title}
         centered
       >
         <UpdateClassification
           initalValues={initalValues}
+          parentId={parentId}
           onSuccess={() => {
             close();
             getData();

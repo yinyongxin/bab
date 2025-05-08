@@ -10,10 +10,7 @@ import {
   Image,
 } from '@mantine/core';
 import { hasLength, useForm } from '@mantine/form';
-import {
-  IconCheck,
-  IconExclamationCircle,
-} from '@tabler/icons-react';
+import { IconCheck, IconExclamationCircle } from '@tabler/icons-react';
 import {
   projectClassificationsControllerAddOne,
   projectClassificationsControllerUpdateOne,
@@ -31,23 +28,36 @@ import DropzoneDefaultContent from '@/components/DropzoneDefaultContent';
 type UpdateClassificationProps = {
   onSuccess: () => void;
   initalValues?: ProjectClassificationsResultDto;
+  parentId?: string;
 };
 function UpdateClassification(props: UpdateClassificationProps) {
   const { getFilePath } = useTools();
-  const { onSuccess, initalValues } = props;
+  const { onSuccess, initalValues, parentId } = props;
+  const isAddChildren = parentId !== undefined;
   const isAdding = !initalValues;
   const isEditing = initalValues && initalValues._id;
+  const getInitialValues = () => {
+    if (isAddChildren) {
+      return {
+        name: '',
+        picture: '',
+        description: '',
+        status: StatusEnum.OPEN,
+        sort: 0,
+        parent: parentId,
+      };
+    }
+    return {
+      name: initalValues?.name || '',
+      picture: initalValues?.picture || '',
+      description: initalValues?.description || '',
+      status: initalValues?.status || StatusEnum.OPEN,
+      sort: initalValues?.sort || 0,
+      parent: initalValues?.parent || '',
+    };
+  };
   const form = useForm<ProjectClassificationsCreateBodyDto>({
-    initialValues: isEditing
-      ? { ...initalValues }
-      : {
-          name: '',
-          picture: '',
-          description: '',
-          status: StatusEnum.OPEN,
-          sort: 0,
-          parent: '',
-        },
+    initialValues: getInitialValues(),
     validate: {
       name: hasLength({ min: 1 }, '分类名不能为空'),
       description: hasLength({ min: 1 }, '分类描述不能为空'),
