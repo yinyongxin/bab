@@ -4,7 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { SignInDto } from './dto';
 import { RolesService } from '../roles';
 import { uniq } from 'lodash';
-import { AdmintorStatusEnum } from 'src/enums';
+import { StatusEnum } from 'src/enums';
 
 @Injectable()
 export class AuthService {
@@ -31,7 +31,7 @@ export class AuthService {
         message: '用户名或密码错误',
       });
     }
-    if (user?.status === AdmintorStatusEnum.Close) {
+    if (user?.status === StatusEnum.Close) {
       throw new BadRequestException({
         message: '用户已被禁用',
       });

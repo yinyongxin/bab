@@ -1,4 +1,4 @@
-import { AdmintorStatusEnum, SexEnum } from '@/client';
+import { StatusEnum, SexEnum } from '@/client';
 import { Option } from '@/@types';
 import {
   IconGenderFemale,
@@ -42,10 +42,10 @@ export const sexOptions: Option<SexEnum>[] = [
 
 export const sexOptionsObj = convertToObject(sexOptions);
 
-export const admintorsStatusOptions: Option<AdmintorStatusEnum>[] = [
+export const admintorsStatusOptions: Option<StatusEnum>[] = [
   {
     label: '开启',
-    value: AdmintorStatusEnum.OPEN,
+    value: StatusEnum.OPEN,
     icon: sexIcons.Male,
     renderContent: (
       <Group gap="xs">
@@ -56,7 +56,7 @@ export const admintorsStatusOptions: Option<AdmintorStatusEnum>[] = [
   },
   {
     label: '关闭',
-    value: AdmintorStatusEnum.CLOSE,
+    value: StatusEnum.CLOSE,
     icon: sexIcons.Female,
     renderContent: (
       <Group gap="xs">

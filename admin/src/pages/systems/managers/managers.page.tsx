@@ -1,6 +1,6 @@
 import {
   AdmintorPaginationResultDto,
-  AdmintorStatusEnum,
+  StatusEnum,
   AdmintorsFilterDto,
   AdmintorsPageItemDto,
   AdmintorsResultDto,
@@ -235,10 +235,7 @@ export default () => {
             onClick={() => {
               updateStatus({
                 _id,
-                status:
-                  status === 'Open'
-                    ? AdmintorStatusEnum.CLOSE
-                    : AdmintorStatusEnum.OPEN,
+                status: status === 'Open' ? StatusEnum.CLOSE : StatusEnum.OPEN,
               });
             }}
             color="teal"

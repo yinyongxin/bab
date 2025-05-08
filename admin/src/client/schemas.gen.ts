@@ -28,7 +28,7 @@ export const SexEnumSchema = {
   description: '性别',
 } as const;
 
-export const AdmintorStatusEnumSchema = {
+export const StatusEnumSchema = {
   type: 'string',
   enum: ['Open', 'Close'],
   description: '状态',
@@ -41,13 +41,13 @@ export const AdmintorsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     username: {
       type: 'string',
@@ -96,7 +96,7 @@ export const AdmintorsResultDtoSchema = {
       example: 'Open',
       allOf: [
         {
-          $ref: '#/components/schemas/AdmintorStatusEnum',
+          $ref: '#/components/schemas/StatusEnum',
         },
       ],
     },
@@ -289,7 +289,7 @@ export const AdmintorsUpdateDtoSchema = {
       example: 'Open',
       allOf: [
         {
-          $ref: '#/components/schemas/AdmintorStatusEnum',
+          $ref: '#/components/schemas/StatusEnum',
         },
       ],
     },
@@ -409,7 +409,7 @@ export const AdmintorsFilterDtoSchema = {
       example: 'Open',
       allOf: [
         {
-          $ref: '#/components/schemas/AdmintorStatusEnum',
+          $ref: '#/components/schemas/StatusEnum',
         },
       ],
     },
@@ -439,13 +439,13 @@ export const RolesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     name: {
       type: 'string',
@@ -485,13 +485,13 @@ export const AdmintorsPageItemDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     username: {
       type: 'string',
@@ -532,7 +532,7 @@ export const AdmintorsPageItemDtoSchema = {
       example: 'Open',
       allOf: [
         {
-          $ref: '#/components/schemas/AdmintorStatusEnum',
+          $ref: '#/components/schemas/StatusEnum',
         },
       ],
     },
@@ -627,7 +627,7 @@ export const RolesUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     name: {
       type: 'string',
@@ -662,13 +662,13 @@ export const RolesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     name: {
       type: 'string',
@@ -790,13 +790,13 @@ export const MenusResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     name: {
       type: 'string',
@@ -865,7 +865,7 @@ export const MenusUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     name: {
       type: 'string',
@@ -926,13 +926,13 @@ export const TreeMenuDataDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     name: {
       type: 'string',
@@ -1010,13 +1010,13 @@ export const MenusQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     name: {
       type: 'string',
@@ -1161,13 +1161,13 @@ export const FilesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1744682027477,
+      default: 1746673090660,
     },
     originalname: {
       type: 'string',
@@ -1289,4 +1289,290 @@ export const FileUpdateDtoSchema = {
     },
   },
   required: ['file', 'fileInfo'],
+} as const;
+
+export const ProjectClassificationsCreateBodyDtoSchema = {
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+      description: '分类名称',
+      example: 'classificationName',
+    },
+    description: {
+      type: 'string',
+      description: '分类名称',
+      example: '我是分类描述',
+    },
+    sort: {
+      type: 'number',
+      description: '用作分类排序',
+      example: 0,
+    },
+    picture: {
+      type: 'string',
+      description: '分类图片',
+      example: '',
+    },
+    parent: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    status: {
+      description: '分类类型',
+      example: 'Open',
+      allOf: [
+        {
+          $ref: '#/components/schemas/StatusEnum',
+        },
+      ],
+    },
+  },
+  required: ['name', 'description', 'sort', 'picture', 'status'],
+} as const;
+
+export const ProjectClassificationsResultDtoSchema = {
+  type: 'object',
+  properties: {
+    createdTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '创建日期',
+      default: 1746673090660,
+    },
+    updatedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '更新日期',
+      default: 1746673090660,
+    },
+    name: {
+      type: 'string',
+      description: '分类名称',
+      example: 'classificationName',
+    },
+    description: {
+      type: 'string',
+      description: '分类名称',
+      example: '我是分类描述',
+    },
+    sort: {
+      type: 'number',
+      description: '用作分类排序',
+      example: 0,
+    },
+    picture: {
+      type: 'string',
+      description: '分类图片',
+      example: '',
+    },
+    parent: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    status: {
+      description: '分类类型',
+      example: 'Open',
+      allOf: [
+        {
+          $ref: '#/components/schemas/StatusEnum',
+        },
+      ],
+    },
+    _id: {
+      type: 'string',
+      description: '唯一值',
+    },
+  },
+  required: [
+    'createdTime',
+    'updatedTime',
+    'name',
+    'description',
+    'sort',
+    'picture',
+    'status',
+    '_id',
+  ],
+} as const;
+
+export const ProjectClassificationsUpdateDtoSchema = {
+  type: 'object',
+  properties: {
+    updatedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '更新日期',
+      default: 1746673090660,
+    },
+    name: {
+      type: 'string',
+      description: '分类名称',
+      example: 'classificationName',
+    },
+    description: {
+      type: 'string',
+      description: '分类名称',
+      example: '我是分类描述',
+    },
+    sort: {
+      type: 'number',
+      description: '用作分类排序',
+      example: 0,
+    },
+    picture: {
+      type: 'string',
+      description: '分类图片',
+      example: '',
+    },
+    parent: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    status: {
+      description: '分类类型',
+      example: 'Open',
+      allOf: [
+        {
+          $ref: '#/components/schemas/StatusEnum',
+        },
+      ],
+    },
+  },
+} as const;
+
+export const ProjectClassificationsTreeDtoSchema = {
+  type: 'object',
+  properties: {
+    deletedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '删除时间',
+      default: '',
+    },
+    createdTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '创建日期',
+      default: 1746673090660,
+    },
+    updatedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '更新日期',
+      default: 1746673090660,
+    },
+    name: {
+      type: 'string',
+      description: '分类名称',
+      example: 'classificationName',
+    },
+    description: {
+      type: 'string',
+      description: '分类名称',
+      example: '我是分类描述',
+    },
+    sort: {
+      type: 'number',
+      description: '用作分类排序',
+      example: 0,
+    },
+    picture: {
+      type: 'string',
+      description: '分类图片',
+      example: '',
+    },
+    parent: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    status: {
+      description: '分类类型',
+      example: 'Open',
+      allOf: [
+        {
+          $ref: '#/components/schemas/StatusEnum',
+        },
+      ],
+    },
+    _id: {
+      type: 'string',
+      description: '唯一值',
+    },
+    children: {
+      description: '唯一值',
+      examples: [],
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/ProjectClassificationsTreeDto',
+      },
+    },
+  },
+  required: [
+    'createdTime',
+    'updatedTime',
+    'name',
+    'description',
+    'sort',
+    'picture',
+    'status',
+    '_id',
+    'children',
+  ],
+} as const;
+
+export const ProjectClassificationsQueryDtoSchema = {
+  type: 'object',
+  properties: {
+    createdTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '创建日期',
+      default: 1746673090660,
+    },
+    updatedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '更新日期',
+      default: 1746673090660,
+    },
+    name: {
+      type: 'string',
+      description: '分类名称',
+      example: 'classificationName',
+    },
+    description: {
+      type: 'string',
+      description: '分类名称',
+      example: '我是分类描述',
+    },
+    sort: {
+      type: 'number',
+      description: '用作分类排序',
+      example: 0,
+    },
+    picture: {
+      type: 'string',
+      description: '分类图片',
+      example: '',
+    },
+    parent: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    status: {
+      description: '分类类型',
+      example: 'Open',
+      allOf: [
+        {
+          $ref: '#/components/schemas/StatusEnum',
+        },
+      ],
+    },
+  },
 } as const;

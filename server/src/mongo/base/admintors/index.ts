@@ -1,7 +1,7 @@
 import { MongooseModule, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { BaseDocument } from '../../global';
 import { ApiProperty } from '@nestjs/swagger';
-import { AdmintorStatusEnum, SexEnum } from '../../../enums';
+import { StatusEnum, SexEnum } from '../../../enums';
 import { ObjectId, Types } from 'mongoose';
 
 @Schema()
@@ -105,15 +105,15 @@ export class Admintors extends BaseDocument {
   email: string;
 
   @Prop({
-    default: AdmintorStatusEnum.Open,
+    default: StatusEnum.Open,
     required: true,
-    enum: AdmintorStatusEnum,
+    enum: StatusEnum,
   })
   @ApiProperty({
     description: '状态',
-    example: AdmintorStatusEnum.Open,
-    enum: AdmintorStatusEnum,
-    enumName: 'AdmintorStatusEnum',
+    example: StatusEnum.Open,
+    enum: StatusEnum,
+    enumName: 'StatusEnum',
   })
   status: 'Open' | 'Close';
 }

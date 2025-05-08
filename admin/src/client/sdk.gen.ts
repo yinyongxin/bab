@@ -63,6 +63,18 @@ import type {
   FilesControllerUpdateFileData,
   FilesControllerUpdateFileResponse,
   FilesControllerUpdateFileError,
+  ProjectClassificationsControllerAddOneData,
+  ProjectClassificationsControllerAddOneResponse,
+  ProjectClassificationsControllerDeleteByIdsData,
+  ProjectClassificationsControllerDeleteByIdsResponse,
+  ProjectClassificationsControllerUpdateOneData,
+  ProjectClassificationsControllerUpdateOneResponse,
+  ProjectClassificationsControllerFindByIdData,
+  ProjectClassificationsControllerFindByIdResponse,
+  ProjectClassificationsControllerGetTreeDataData,
+  ProjectClassificationsControllerGetTreeDataResponse,
+  ProjectClassificationsControllerGetAllByFilterData,
+  ProjectClassificationsControllerGetAllByFilterResponse,
 } from './types.gen';
 import {
   authControllerSignInResponseTransformer,
@@ -78,6 +90,10 @@ import {
   menusControllerGetTreeDataResponseTransformer,
   menusControllerGetAllByFilterResponseTransformer,
   filesControllerGetPaginationListResponseTransformer,
+  projectClassificationsControllerAddOneResponseTransformer,
+  projectClassificationsControllerFindByIdResponseTransformer,
+  projectClassificationsControllerGetTreeDataResponseTransformer,
+  projectClassificationsControllerGetAllByFilterResponseTransformer,
 } from './transformers.gen';
 import { client as _heyApiClient } from './client.gen';
 
@@ -605,6 +621,153 @@ export const filesControllerUpdateFile = <ThrowOnError extends boolean = false>(
     ...options,
     headers: {
       'Content-Type': null,
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 添加一个菜单
+ * 添加一个菜单
+ */
+export const projectClassificationsControllerAddOne = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ProjectClassificationsControllerAddOneData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).put<
+    ProjectClassificationsControllerAddOneResponse,
+    unknown,
+    ThrowOnError
+  >({
+    responseTransformer:
+      projectClassificationsControllerAddOneResponseTransformer,
+    url: '/api/projectClassifications/addOne',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 通过Id删除菜单
+ * 通过Ids删除菜单
+ */
+export const projectClassificationsControllerDeleteByIds = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    ProjectClassificationsControllerDeleteByIdsData,
+    ThrowOnError
+  >,
+) => {
+  return (options.client ?? _heyApiClient).delete<
+    ProjectClassificationsControllerDeleteByIdsResponse,
+    unknown,
+    ThrowOnError
+  >({
+    url: '/api/projectClassifications/deleteByIds',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 更新单条数据
+ * 更新单条数据
+ */
+export const projectClassificationsControllerUpdateOne = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ProjectClassificationsControllerUpdateOneData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).patch<
+    ProjectClassificationsControllerUpdateOneResponse,
+    unknown,
+    ThrowOnError
+  >({
+    url: '/api/projectClassifications/updateOne',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 通过Id查找菜单
+ * 通过Id查找菜单
+ */
+export const projectClassificationsControllerFindById = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<ProjectClassificationsControllerFindByIdData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    ProjectClassificationsControllerFindByIdResponse,
+    unknown,
+    ThrowOnError
+  >({
+    responseTransformer:
+      projectClassificationsControllerFindByIdResponseTransformer,
+    url: '/api/projectClassifications/findById',
+    ...options,
+  });
+};
+
+/**
+ * 获取树形结构
+ * 获取树形结构
+ */
+export const projectClassificationsControllerGetTreeData = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<
+    ProjectClassificationsControllerGetTreeDataData,
+    ThrowOnError
+  >,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    ProjectClassificationsControllerGetTreeDataResponse,
+    unknown,
+    ThrowOnError
+  >({
+    responseTransformer:
+      projectClassificationsControllerGetTreeDataResponseTransformer,
+    url: '/api/projectClassifications/getTreeData',
+    ...options,
+  });
+};
+
+/**
+ * 获取所有菜单
+ * 获取所有菜单
+ */
+export const projectClassificationsControllerGetAllByFilter = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<
+    ProjectClassificationsControllerGetAllByFilterData,
+    ThrowOnError
+  >,
+) => {
+  return (options.client ?? _heyApiClient).post<
+    ProjectClassificationsControllerGetAllByFilterResponse,
+    unknown,
+    ThrowOnError
+  >({
+    responseTransformer:
+      projectClassificationsControllerGetAllByFilterResponseTransformer,
+    url: '/api/projectClassifications/getAllByFilter',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
       ...options?.headers,
     },
   });

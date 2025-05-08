@@ -4,29 +4,21 @@ import {
   TextInput,
   Text,
   Grid,
-  FileButton,
-  Avatar,
   Textarea,
   Switch,
-  Stack,
-  Image,
   Center,
 } from '@mantine/core';
 import { hasLength, useForm } from '@mantine/form';
 import {
   IconCheck,
   IconExclamationCircle,
-  IconPhoto,
-  IconUpload,
   IconUser,
-  IconX,
 } from '@tabler/icons-react';
 import { AdmintorsPageItemDto } from '@/client';
 import { notifications } from '@mantine/notifications';
 import { uploadFile } from '@/utils';
 import useTools from '@/hooks/useTools';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import { setFiles } from '@testing-library/user-event/dist/types/utils';
 import AppImage from '@/components/AppImage/AppImage';
 import DropzoneDefaultContent from '@/components/DropzoneDefaultContent';
 
@@ -147,16 +139,16 @@ function UpdateClassification(props: UpdateClassificationProps) {
         <Grid.Col span={12}>
           <TextInput
             {...form.getInputProps('name')}
-            label="产品名"
+            label="分类名称"
             leftSection={<IconUser size={16} />}
-            placeholder="填写产品名"
+            placeholder="填写分类名称"
           />
         </Grid.Col>
         <Grid.Col span={12}>
           <Textarea
             {...form.getInputProps('description')}
-            label="描述"
-            placeholder="填写描述"
+            label="分类描述"
+            placeholder="填写分类描述"
           />
         </Grid.Col>
         <Grid.Col span={12}>

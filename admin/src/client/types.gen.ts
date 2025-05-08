@@ -31,12 +31,12 @@ export const SexEnum = {
 /**
  * 状态
  */
-export type AdmintorStatusEnum = 'Open' | 'Close';
+export type StatusEnum = 'Open' | 'Close';
 
 /**
  * 状态
  */
-export const AdmintorStatusEnum = {
+export const StatusEnum = {
   OPEN: 'Open',
   CLOSE: 'Close',
 } as const;
@@ -81,7 +81,7 @@ export type AdmintorsResultDto = {
   /**
    * 状态
    */
-  status: AdmintorStatusEnum;
+  status: StatusEnum;
   /**
    * 唯一值
    */
@@ -186,7 +186,7 @@ export type AdmintorsUpdateDto = {
   /**
    * 状态
    */
-  status?: AdmintorStatusEnum;
+  status?: StatusEnum;
 };
 
 export type UpdateResDto = {
@@ -258,7 +258,7 @@ export type AdmintorsFilterDto = {
   /**
    * 状态
    */
-  status?: AdmintorStatusEnum;
+  status?: StatusEnum;
   /**
    * 时间范围
    */
@@ -336,7 +336,7 @@ export type AdmintorsPageItemDto = {
   /**
    * 状态
    */
-  status: AdmintorStatusEnum;
+  status: StatusEnum;
   /**
    * 唯一值
    */
@@ -811,6 +811,185 @@ export type FileInfo = {
 export type FileUpdateDto = {
   file: Blob | File;
   fileInfo: FileInfo;
+};
+
+export type ProjectClassificationsCreateBodyDto = {
+  /**
+   * 分类名称
+   */
+  name: string;
+  /**
+   * 分类名称
+   */
+  description: string;
+  /**
+   * 用作分类排序
+   */
+  sort: number;
+  /**
+   * 分类图片
+   */
+  picture: string;
+  /**
+   * 图标
+   */
+  parent?: string;
+  /**
+   * 分类类型
+   */
+  status: StatusEnum;
+};
+
+export type ProjectClassificationsResultDto = {
+  /**
+   * 创建日期
+   */
+  createdTime: Date;
+  /**
+   * 更新日期
+   */
+  updatedTime: Date;
+  /**
+   * 分类名称
+   */
+  name: string;
+  /**
+   * 分类名称
+   */
+  description: string;
+  /**
+   * 用作分类排序
+   */
+  sort: number;
+  /**
+   * 分类图片
+   */
+  picture: string;
+  /**
+   * 图标
+   */
+  parent?: string;
+  /**
+   * 分类类型
+   */
+  status: StatusEnum;
+  /**
+   * 唯一值
+   */
+  _id: string;
+};
+
+export type ProjectClassificationsUpdateDto = {
+  /**
+   * 更新日期
+   */
+  updatedTime?: Date;
+  /**
+   * 分类名称
+   */
+  name?: string;
+  /**
+   * 分类名称
+   */
+  description?: string;
+  /**
+   * 用作分类排序
+   */
+  sort?: number;
+  /**
+   * 分类图片
+   */
+  picture?: string;
+  /**
+   * 图标
+   */
+  parent?: string;
+  /**
+   * 分类类型
+   */
+  status?: StatusEnum;
+};
+
+export type ProjectClassificationsTreeDto = {
+  /**
+   * 删除时间
+   */
+  deletedTime?: Date;
+  /**
+   * 创建日期
+   */
+  createdTime: Date;
+  /**
+   * 更新日期
+   */
+  updatedTime: Date;
+  /**
+   * 分类名称
+   */
+  name: string;
+  /**
+   * 分类名称
+   */
+  description: string;
+  /**
+   * 用作分类排序
+   */
+  sort: number;
+  /**
+   * 分类图片
+   */
+  picture: string;
+  /**
+   * 图标
+   */
+  parent?: string;
+  /**
+   * 分类类型
+   */
+  status: StatusEnum;
+  /**
+   * 唯一值
+   */
+  _id: string;
+  /**
+   * 唯一值
+   */
+  children: Array<ProjectClassificationsTreeDto>;
+};
+
+export type ProjectClassificationsQueryDto = {
+  /**
+   * 创建日期
+   */
+  createdTime?: Date;
+  /**
+   * 更新日期
+   */
+  updatedTime?: Date;
+  /**
+   * 分类名称
+   */
+  name?: string;
+  /**
+   * 分类名称
+   */
+  description?: string;
+  /**
+   * 用作分类排序
+   */
+  sort?: number;
+  /**
+   * 分类图片
+   */
+  picture?: string;
+  /**
+   * 图标
+   */
+  parent?: string;
+  /**
+   * 分类类型
+   */
+  status?: StatusEnum;
 };
 
 export type AuthControllerSignInData = {
@@ -1374,6 +1553,118 @@ export type FilesControllerUpdateFileResponses = {
 
 export type FilesControllerUpdateFileResponse =
   FilesControllerUpdateFileResponses[keyof FilesControllerUpdateFileResponses];
+
+export type ProjectClassificationsControllerAddOneData = {
+  body: ProjectClassificationsCreateBodyDto;
+  path?: never;
+  query?: never;
+  url: '/api/projectClassifications/addOne';
+};
+
+export type ProjectClassificationsControllerAddOneResponses = {
+  /**
+   * 添加菜单成功
+   */
+  200: ProjectClassificationsResultDto;
+};
+
+export type ProjectClassificationsControllerAddOneResponse =
+  ProjectClassificationsControllerAddOneResponses[keyof ProjectClassificationsControllerAddOneResponses];
+
+export type ProjectClassificationsControllerDeleteByIdsData = {
+  body: DeleteIdsDto;
+  path?: never;
+  query?: never;
+  url: '/api/projectClassifications/deleteByIds';
+};
+
+export type ProjectClassificationsControllerDeleteByIdsResponses = {
+  /**
+   * 删除成功
+   */
+  default: IntersectionUpdateResDtoDeleteResDto;
+};
+
+export type ProjectClassificationsControllerDeleteByIdsResponse =
+  ProjectClassificationsControllerDeleteByIdsResponses[keyof ProjectClassificationsControllerDeleteByIdsResponses];
+
+export type ProjectClassificationsControllerUpdateOneData = {
+  body: ProjectClassificationsUpdateDto;
+  path?: never;
+  query: {
+    /**
+     * 唯一值
+     */
+    id: string;
+  };
+  url: '/api/projectClassifications/updateOne';
+};
+
+export type ProjectClassificationsControllerUpdateOneResponses = {
+  /**
+   * 更新结果
+   */
+  default: UpdateResDto;
+};
+
+export type ProjectClassificationsControllerUpdateOneResponse =
+  ProjectClassificationsControllerUpdateOneResponses[keyof ProjectClassificationsControllerUpdateOneResponses];
+
+export type ProjectClassificationsControllerFindByIdData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * 唯一值
+     */
+    id: string;
+  };
+  url: '/api/projectClassifications/findById';
+};
+
+export type ProjectClassificationsControllerFindByIdResponses = {
+  /**
+   * 查找成功
+   */
+  200: ProjectClassificationsResultDto;
+};
+
+export type ProjectClassificationsControllerFindByIdResponse =
+  ProjectClassificationsControllerFindByIdResponses[keyof ProjectClassificationsControllerFindByIdResponses];
+
+export type ProjectClassificationsControllerGetTreeDataData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: '/api/projectClassifications/getTreeData';
+};
+
+export type ProjectClassificationsControllerGetTreeDataResponses = {
+  /**
+   * 获取树形结构
+   */
+  200: Array<ProjectClassificationsTreeDto>;
+};
+
+export type ProjectClassificationsControllerGetTreeDataResponse =
+  ProjectClassificationsControllerGetTreeDataResponses[keyof ProjectClassificationsControllerGetTreeDataResponses];
+
+export type ProjectClassificationsControllerGetAllByFilterData = {
+  body: ProjectClassificationsQueryDto;
+  path?: never;
+  query?: never;
+  url: '/api/projectClassifications/getAllByFilter';
+};
+
+export type ProjectClassificationsControllerGetAllByFilterResponses = {
+  /**
+   * 获取所有菜单
+   */
+  200: Array<ProjectClassificationsResultDto>;
+};
+
+export type ProjectClassificationsControllerGetAllByFilterResponse =
+  ProjectClassificationsControllerGetAllByFilterResponses[keyof ProjectClassificationsControllerGetAllByFilterResponses];
 
 export type ClientOptions = {
   baseUrl: string;

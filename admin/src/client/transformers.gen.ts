@@ -14,6 +14,10 @@ import type {
   MenusControllerGetTreeDataResponse,
   MenusControllerGetAllByFilterResponse,
   FilesControllerGetPaginationListResponse,
+  ProjectClassificationsControllerAddOneResponse,
+  ProjectClassificationsControllerFindByIdResponse,
+  ProjectClassificationsControllerGetTreeDataResponse,
+  ProjectClassificationsControllerGetAllByFilterResponse,
 } from './types.gen';
 
 const admintorsResultDtoSchemaResponseTransformer = (data: any) => {
@@ -183,3 +187,58 @@ export const filesControllerGetPaginationListResponseTransformer = async (
   data = filesPaginationResultDtoSchemaResponseTransformer(data);
   return data;
 };
+
+const projectClassificationsResultDtoSchemaResponseTransformer = (
+  data: any,
+) => {
+  data.createdTime = new Date(data.createdTime);
+  data.updatedTime = new Date(data.updatedTime);
+  return data;
+};
+
+export const projectClassificationsControllerAddOneResponseTransformer = async (
+  data: any,
+): Promise<ProjectClassificationsControllerAddOneResponse> => {
+  data = projectClassificationsResultDtoSchemaResponseTransformer(data);
+  return data;
+};
+
+export const projectClassificationsControllerFindByIdResponseTransformer =
+  async (
+    data: any,
+  ): Promise<ProjectClassificationsControllerFindByIdResponse> => {
+    data = projectClassificationsResultDtoSchemaResponseTransformer(data);
+    return data;
+  };
+
+const projectClassificationsTreeDtoSchemaResponseTransformer = (data: any) => {
+  if (data.deletedTime) {
+    data.deletedTime = new Date(data.deletedTime);
+  }
+  data.createdTime = new Date(data.createdTime);
+  data.updatedTime = new Date(data.updatedTime);
+  data.children = data.children.map((item: any) => {
+    return projectClassificationsTreeDtoSchemaResponseTransformer(item);
+  });
+  return data;
+};
+
+export const projectClassificationsControllerGetTreeDataResponseTransformer =
+  async (
+    data: any,
+  ): Promise<ProjectClassificationsControllerGetTreeDataResponse> => {
+    data = data.map((item: any) => {
+      return projectClassificationsTreeDtoSchemaResponseTransformer(item);
+    });
+    return data;
+  };
+
+export const projectClassificationsControllerGetAllByFilterResponseTransformer =
+  async (
+    data: any,
+  ): Promise<ProjectClassificationsControllerGetAllByFilterResponse> => {
+    data = data.map((item: any) => {
+      return projectClassificationsResultDtoSchemaResponseTransformer(item);
+    });
+    return data;
+  };

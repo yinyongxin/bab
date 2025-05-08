@@ -6,32 +6,28 @@ import { useDisclosure } from '@mantine/hooks';
 import {
   IconClock24,
   IconEdit,
-  IconEye,
   IconPlus,
   IconTrash,
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import UpdateClassification from './UpdateClassification';
+import { projectClassificationsControllerGetTreeData } from '@/client';
 
 const Classification = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const [loading, loadingAction] = useDisclosure(false);
   const [title, setTitle] = useState('');
   const [initalValues, setInitalValues] = useState();
-  const getData = async (params: any) => {
-    console.log('params', params);
+  const [dataList, setDataList] = useState<any[]>([]);
+  const getData = async () => {
     loadingAction.open();
-    // Simulate an API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    const res = await projectClassificationsControllerGetTreeData();
+    setDataList(res?.data || []);
     loadingAction.close();
-    return {
-      total: 100,
-      data: [],
-    };
   };
   useEffect(() => {
-    getData({ page: 1, pageSize: 10 });
+    getData();
   }, []);
 
   return (
@@ -95,20 +91,6 @@ const Classification = () => {
                 <div>
                   <ActionIcon
                     variant="subtle"
-                    color="green"
-                    onClick={() => {
-                      setTitle('查看分类');
-                      setInitalValues(values);
-                      open();
-                    }}
-                  >
-                    <IconEye
-                      style={{ width: '70%', height: '70%' }}
-                      stroke={1.5}
-                    />
-                  </ActionIcon>
-                  <ActionIcon
-                    variant="subtle"
                     onClick={() => {
                       setTitle('编辑分类');
                       setInitalValues(values);
@@ -130,28 +112,7 @@ const Classification = () => {
               ),
             },
           ]}
-          dataList={[
-            {
-              _id: '0',
-              picture:
-                'https://fantastic-trout-ppxx6g5xvxj3q5-3000.app.github.dev/image/png/2025040703/a55f5bdf-f549-4627-ba29-2d9a4ec98ad0.png',
-              name: '分类0',
-              status: 'open',
-              description: '这是分类0的描述',
-              createdTime: '2023-10-01 12:00:00',
-              children: [
-                {
-                  _id: '0-1',
-                  picture:
-                    'https://fantastic-trout-ppxx6g5xvxj3q5-3000.app.github.dev/image/png/2025040703/a55f5bdf-f549-4627-ba29-2d9a4ec98ad0.png',
-                  name: '分类0-1',
-                  status: 'closed',
-                  description: '这是分类0-1的描述',
-                  createdTime: '2023-10-01 12:00:00',
-                },
-              ],
-            },
-          ]}
+          dataList={dataList}
         />
       </Page>
       <Modal

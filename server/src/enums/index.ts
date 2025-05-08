@@ -1,4 +1,4 @@
-export enum AdmintorStatusEnum {
+export enum StatusEnum {
   Open = 'Open',
   Close = 'Close',
 }

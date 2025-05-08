@@ -1,6 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { BaseMongooseModule } from '../mongo';
 import BaseModuleList from './base';
+import ProjectsModuleList from './projects';
 import { LoggerMiddleware } from 'src/middlewares';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
@@ -16,6 +17,7 @@ import { join } from 'path';
     }),
     BaseMongooseModule,
     ...BaseModuleList,
+    ...ProjectsModuleList,
   ],
   controllers: [],
   providers: [],
