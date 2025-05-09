@@ -1,4 +1,4 @@
-import { Card, Title, Stack, Center, Text, Image, Grid } from '@mantine/core';
+import { Card, Title, Center, Text, Image, Grid } from '@mantine/core';
 import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { UseFormReturnType } from '@mantine/form';
 import { IconUpload, IconX, IconPhoto } from '@tabler/icons-react';
@@ -11,14 +11,15 @@ const Thumbnail = (props: ThumbnailProps) => {
   const { form } = props;
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const previews = (
-    <Grid mt="md" gutter="sm" >
+    <Grid mt="md" gutter="sm">
       {files.map((file, index) => {
         const imageUrl = URL.createObjectURL(file);
         return (
-          <Grid.Col span={4} key={index}>
+          <Grid.Col span={4} key={index} bd="sm">
             <Image
               w="100%"
               h={60}
+              fit="cover"
               key={index}
               src={imageUrl}
               onLoad={() => URL.revokeObjectURL(imageUrl)}

@@ -24,6 +24,7 @@ import { uploadFile } from '@/utils';
 import useTools from '@/hooks/useTools';
 import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import DropzoneDefaultContent from '@/components/DropzoneDefaultContent';
+import UploadImage from '@/components/UploadImage/UploadImage';
 
 type UpdateClassificationProps = {
   onSuccess: () => void;
@@ -138,7 +139,8 @@ function UpdateClassification(props: UpdateClassificationProps) {
       <Grid>
         <Grid.Col span={12}>
           <Text size="sm">分类图片</Text>
-          <Dropzone
+          <UploadImage />
+          {/* <Dropzone
             multiple={false}
             onDrop={async (files) => {
               const data = await uploadFile(files[0]);
@@ -169,7 +171,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
             ) : (
               <DropzoneDefaultContent />
             )}
-          </Dropzone>
+          </Dropzone> */}
         </Grid.Col>
         <Grid.Col span={12}>
           <TextInput
