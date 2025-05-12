@@ -139,7 +139,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
       <Grid>
         <Grid.Col span={12}>
           <Text size="sm">分类图片</Text>
-          <UploadImage />
+          <UploadImage imageList={[getFilePath(form.values.picture)]} />
           {/* <Dropzone
             multiple={false}
             onDrop={async (files) => {
