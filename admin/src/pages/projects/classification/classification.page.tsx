@@ -45,7 +45,7 @@ const Classification = () => {
   }, []);
 
   const updateStatus = async (
-    params: Pick<ProjectClassificationsResultDto, '_id' | 'status'>,
+    params: Pick<ProjectClassificationsResultDto, '_id' | 'status' | 'parent'>,
   ) => {
     projectClassificationsControllerUpdateOne({
       query: {
@@ -58,17 +58,23 @@ const Classification = () => {
     if (!dataList) {
       return;
     }
-    setDataList(
-      (dataList || []).map((item) => {
-        if (item._id === params._id) {
-          return {
-            ...item,
-            status: params.status,
-          };
+    if (params.parent) {
+      const parent = dataList.find((item) => item._id === params.parent);
+      if (parent) {
+        const children = parent.children || [];
+        const child = children.find((item) => item._id === params._id);
+        if (child) {
+          child.status = params.status;
         }
-        return item;
-      }),
-    );
+      }
+    } else {
+      const item = dataList.find((item) => item._id === params._id);
+      if (item) {
+        item.status = params.status;
+      }
+    }
+    // Update the status of the current item
+    setDataList([...dataList]);
   };
 
   const deleteById = async (id: string) => {
@@ -134,13 +140,14 @@ const Classification = () => {
             {
               title: '状态',
               dataKey: 'status',
-              render: ({ _id, status }) => {
+              render: ({ _id, status, parent }) => {
                 return (
                   <Switch
                     checked={status === StatusEnum.OPEN}
                     onChange={(event) => {
                       updateStatus({
                         _id,
+                        parent,
                         status: event.currentTarget.checked
                           ? StatusEnum.OPEN
                           : StatusEnum.CLOSE,
