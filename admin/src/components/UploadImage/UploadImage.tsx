@@ -74,7 +74,7 @@ const UploadImage = (props: UploadImageProps) => {
           {!isList && imageList[0] ? (
             <Image src={getFilePath(imageList[0])} radius={radius} />
           ) : (
-            <Center>
+            <Center h="100%">
               <IconUpload />
             </Center>
           )}

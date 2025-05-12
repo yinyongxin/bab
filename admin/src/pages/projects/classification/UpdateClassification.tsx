@@ -6,8 +6,6 @@ import {
   Grid,
   Textarea,
   Switch,
-  Center,
-  Image,
 } from '@mantine/core';
 import { hasLength, useForm } from '@mantine/form';
 import { IconCheck, IconExclamationCircle } from '@tabler/icons-react';
@@ -20,10 +18,7 @@ import {
   StatusEnum,
 } from '@/client';
 import { notifications } from '@mantine/notifications';
-import { uploadFile } from '@/utils';
 import useTools from '@/hooks/useTools';
-import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
-import DropzoneDefaultContent from '@/components/DropzoneDefaultContent';
 import UploadImage from '@/components/UploadImage/UploadImage';
 
 type UpdateClassificationProps = {
@@ -67,10 +62,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
 
   const create = async (values: ProjectClassificationsCreateBodyDto) => {
     const addRes = await projectClassificationsControllerAddOne({
-      body: {
-        ...values,
-        status: values.status ? StatusEnum.OPEN : StatusEnum.CLOSE,
-      },
+      body: values,
     });
 
     if (addRes?.error) {
@@ -102,7 +94,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
         picture: values.picture,
         sort: values.sort,
         parent: values.parent,
-        status: values.status ? StatusEnum.OPEN : StatusEnum.CLOSE,
+        status: values.status,
       },
       query: {
         id,
