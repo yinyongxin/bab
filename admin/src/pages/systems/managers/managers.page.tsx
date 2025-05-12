@@ -230,16 +230,19 @@ export default () => {
       render: ({ _id, status }) => {
         return (
           <Switch
-            checked={status === 'Open'}
+            checked={status === StatusEnum.OPEN}
             onClick={() => {
               updateStatus({
                 _id,
-                status: status === 'Open' ? StatusEnum.CLOSE : StatusEnum.OPEN,
+                status:
+                  status === StatusEnum.OPEN
+                    ? StatusEnum.CLOSE
+                    : StatusEnum.OPEN,
               });
             }}
             color="teal"
             thumbIcon={
-              status === 'Open' ? (
+              status === StatusEnum.OPEN ? (
                 <IconCheck
                   size={12}
                   color="var(--mantine-color-teal-6)"
