@@ -49,11 +49,11 @@ export class FilesController {
   @Post('uploadFile')
   @ApiConsumes('multipart/form-data')
   @ApiBody({
-    description: '单文件上传',
+    description: '多文件上传',
     type: FileUploadDto,
   })
   @ApiOkResponse({
-    description: '单文件上传成功后返回',
+    description: '多文件上传成功后返回',
     type: FileUploadSuccessResultDto,
   })
   @UseInterceptors(FileInterceptor('file'))

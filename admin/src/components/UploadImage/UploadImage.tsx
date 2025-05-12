@@ -23,6 +23,7 @@ type UploadImageProps = {
   isList?: boolean;
   preview?: boolean;
   radius?: MantineSize;
+  onChange?: (val: string[]) => void;
 };
 
 const UploadImage = (props: UploadImageProps) => {
@@ -33,6 +34,7 @@ const UploadImage = (props: UploadImageProps) => {
     preview = true,
     imageList: defaultImageList = [],
     radius = 'default',
+    onChange,
   } = props;
 
   const [imageList, setImageList] = useState<string[]>(defaultImageList);
@@ -49,6 +51,7 @@ const UploadImage = (props: UploadImageProps) => {
           const data = await uploadFile(val);
           if (data) {
             setImageList([data.url]);
+            onChange?.([data.url]);
           }
         }
       }}
