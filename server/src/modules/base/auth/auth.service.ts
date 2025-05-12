@@ -31,7 +31,7 @@ export class AuthService {
         message: '用户名或密码错误',
       });
     }
-    if (user?.status === StatusEnum.Close) {
+    if (user?.status === StatusEnum.CLOSE) {
       throw new BadRequestException({
         message: '用户已被禁用',
       });

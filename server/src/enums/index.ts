@@ -8,13 +8,8 @@ export enum SexEnum {
   FEMALE = 'female',
 }
 
-export enum UserStatusEnum {
-  Normal = 'Normal',
-  Disable = 'Disable',
-}
-
 export enum MenuTypeEnum {
-  Directory = 'Directory',
-  Page = 'Page',
-  FunctionArea = 'FunctionArea',
+  DIRECTORY = 'directory',
+  PAGE = 'page',
+  FUNCTION_AREA = 'function-area',
 }

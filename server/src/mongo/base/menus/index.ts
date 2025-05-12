@@ -99,7 +99,7 @@ export class Menus extends BaseDocument {
   @ApiProperty({
     required: true,
     description: '菜单类型',
-    example: MenuTypeEnum.Directory,
+    example: MenuTypeEnum.DIRECTORY,
     enum: MenuTypeEnum,
     enumName: 'MenuTypeEnum',
   })

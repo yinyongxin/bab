@@ -70,14 +70,14 @@ export class Admintors extends BaseDocument {
    * 性别
    */
   @Prop({
-    default: SexEnum.Male,
+    default: SexEnum.MALE,
     enum: SexEnum,
   })
   // swagger
   @ApiProperty({
     required: false,
     description: '性别',
-    example: SexEnum.Male,
+    example: SexEnum.MALE,
     enum: SexEnum,
     enumName: 'SexEnum',
   })
@@ -105,17 +105,17 @@ export class Admintors extends BaseDocument {
   email: string;
 
   @Prop({
-    default: StatusEnum.Open,
+    default: StatusEnum.OPEN,
     required: true,
     enum: StatusEnum,
   })
   @ApiProperty({
     description: '状态',
-    example: StatusEnum.Open,
+    example: StatusEnum.OPEN,
     enum: StatusEnum,
     enumName: 'StatusEnum',
   })
-  status: 'Open' | 'Close';
+  status: string;
 }
 
 export const AdmintorsSchema = SchemaFactory.createForClass(Admintors);

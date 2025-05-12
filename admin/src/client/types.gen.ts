@@ -457,15 +457,15 @@ export type RoleQueryPaginationResultDto = {
 /**
  * 菜单类型
  */
-export type MenuTypeEnum = 'Directory' | 'Page' | 'FunctionArea';
+export type MenuTypeEnum = 'directory' | 'page' | 'function-area';
 
 /**
  * 菜单类型
  */
 export const MenuTypeEnum = {
-  DIRECTORY: 'Directory',
-  PAGE: 'Page',
-  FUNCTION_AREA: 'FunctionArea',
+  DIRECTORY: 'directory',
+  PAGE: 'page',
+  FUNCTION_AREA: 'function-area',
 } as const;
 
 export type MenusCreateBodyDto = {

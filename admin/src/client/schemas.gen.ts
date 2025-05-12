@@ -41,13 +41,13 @@ export const AdmintorsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     username: {
       type: 'string',
@@ -74,6 +74,7 @@ export const AdmintorsResultDtoSchema = {
     },
     sex: {
       description: '性别',
+      example: 'male',
       allOf: [
         {
           $ref: '#/components/schemas/SexEnum',
@@ -92,6 +93,7 @@ export const AdmintorsResultDtoSchema = {
     },
     status: {
       description: '状态',
+      example: 'open',
       allOf: [
         {
           $ref: '#/components/schemas/StatusEnum',
@@ -265,6 +267,7 @@ export const AdmintorsUpdateDtoSchema = {
     },
     sex: {
       description: '性别',
+      example: 'male',
       allOf: [
         {
           $ref: '#/components/schemas/SexEnum',
@@ -283,6 +286,7 @@ export const AdmintorsUpdateDtoSchema = {
     },
     status: {
       description: '状态',
+      example: 'open',
       allOf: [
         {
           $ref: '#/components/schemas/StatusEnum',
@@ -388,6 +392,7 @@ export const AdmintorsFilterDtoSchema = {
     },
     sex: {
       description: '性别',
+      example: 'male',
       allOf: [
         {
           $ref: '#/components/schemas/SexEnum',
@@ -401,6 +406,7 @@ export const AdmintorsFilterDtoSchema = {
     },
     status: {
       description: '状态',
+      example: 'open',
       allOf: [
         {
           $ref: '#/components/schemas/StatusEnum',
@@ -433,13 +439,13 @@ export const RolesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -479,13 +485,13 @@ export const AdmintorsPageItemDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     username: {
       type: 'string',
@@ -504,6 +510,7 @@ export const AdmintorsPageItemDtoSchema = {
     },
     sex: {
       description: '性别',
+      example: 'male',
       allOf: [
         {
           $ref: '#/components/schemas/SexEnum',
@@ -522,6 +529,7 @@ export const AdmintorsPageItemDtoSchema = {
     },
     status: {
       description: '状态',
+      example: 'open',
       allOf: [
         {
           $ref: '#/components/schemas/StatusEnum',
@@ -619,7 +627,7 @@ export const RolesUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -654,13 +662,13 @@ export const RolesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -721,7 +729,7 @@ export const RoleQueryPaginationResultDtoSchema = {
 
 export const MenuTypeEnumSchema = {
   type: 'string',
-  enum: ['Directory', 'Page', 'FunctionArea'],
+  enum: ['directory', 'page', 'function-area'],
   description: '菜单类型',
 } as const;
 
@@ -760,7 +768,7 @@ export const MenusCreateBodyDtoSchema = {
     },
     menuType: {
       description: '菜单类型',
-      example: 'Directory',
+      example: 'directory',
       allOf: [
         {
           $ref: '#/components/schemas/MenuTypeEnum',
@@ -782,13 +790,13 @@ export const MenusResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -822,7 +830,7 @@ export const MenusResultDtoSchema = {
     },
     menuType: {
       description: '菜单类型',
-      example: 'Directory',
+      example: 'directory',
       allOf: [
         {
           $ref: '#/components/schemas/MenuTypeEnum',
@@ -857,7 +865,7 @@ export const MenusUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -891,7 +899,7 @@ export const MenusUpdateDtoSchema = {
     },
     menuType: {
       description: '菜单类型',
-      example: 'Directory',
+      example: 'directory',
       allOf: [
         {
           $ref: '#/components/schemas/MenuTypeEnum',
@@ -918,13 +926,13 @@ export const TreeMenuDataDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -958,7 +966,7 @@ export const TreeMenuDataDtoSchema = {
     },
     menuType: {
       description: '菜单类型',
-      example: 'Directory',
+      example: 'directory',
       allOf: [
         {
           $ref: '#/components/schemas/MenuTypeEnum',
@@ -1002,13 +1010,13 @@ export const MenusQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -1042,7 +1050,7 @@ export const MenusQueryDtoSchema = {
     },
     menuType: {
       description: '菜单类型',
-      example: 'Directory',
+      example: 'directory',
       allOf: [
         {
           $ref: '#/components/schemas/MenuTypeEnum',
@@ -1153,13 +1161,13 @@ export const FilesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     originalname: {
       type: 'string',
@@ -1313,6 +1321,7 @@ export const ProjectClassificationsCreateBodyDtoSchema = {
     },
     status: {
       description: '分类类型',
+      example: 'open',
       allOf: [
         {
           $ref: '#/components/schemas/StatusEnum',
@@ -1330,13 +1339,13 @@ export const ProjectClassificationsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -1365,6 +1374,7 @@ export const ProjectClassificationsResultDtoSchema = {
     },
     status: {
       description: '分类类型',
+      example: 'open',
       allOf: [
         {
           $ref: '#/components/schemas/StatusEnum',
@@ -1395,7 +1405,7 @@ export const ProjectClassificationsUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -1424,6 +1434,7 @@ export const ProjectClassificationsUpdateDtoSchema = {
     },
     status: {
       description: '分类类型',
+      example: 'open',
       allOf: [
         {
           $ref: '#/components/schemas/StatusEnum',
@@ -1446,13 +1457,13 @@ export const ProjectClassificationsTreeDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -1481,6 +1492,7 @@ export const ProjectClassificationsTreeDtoSchema = {
     },
     status: {
       description: '分类类型',
+      example: 'open',
       allOf: [
         {
           $ref: '#/components/schemas/StatusEnum',
@@ -1520,13 +1532,13 @@ export const ProjectClassificationsQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747035381883,
+      default: 1747038143560,
     },
     name: {
       type: 'string',
@@ -1555,6 +1567,7 @@ export const ProjectClassificationsQueryDtoSchema = {
     },
     status: {
       description: '分类类型',
+      example: 'open',
       allOf: [
         {
           $ref: '#/components/schemas/StatusEnum',

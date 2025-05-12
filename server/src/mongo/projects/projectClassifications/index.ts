@@ -87,7 +87,7 @@ export class ProjectClassifications extends BaseDocument {
   @ApiProperty({
     required: true,
     description: '分类类型',
-    example: StatusEnum.Open,
+    example: StatusEnum.OPEN,
     enum: StatusEnum,
     enumName: 'StatusEnum',
   })
