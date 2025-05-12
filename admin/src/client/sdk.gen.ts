@@ -627,8 +627,8 @@ export const filesControllerUpdateFile = <ThrowOnError extends boolean = false>(
 };
 
 /**
- * 添加一个菜单
- * 添加一个菜单
+ * 添加一个产品分类
+ * 添加一个产品分类
  */
 export const projectClassificationsControllerAddOne = <
   ThrowOnError extends boolean = false,
@@ -652,8 +652,8 @@ export const projectClassificationsControllerAddOne = <
 };
 
 /**
- * 通过Id删除菜单
- * 通过Ids删除菜单
+ * 通过Id删除产品分类
+ * 通过Ids删除产品分类
  */
 export const projectClassificationsControllerDeleteByIds = <
   ThrowOnError extends boolean = false,
@@ -701,8 +701,8 @@ export const projectClassificationsControllerUpdateOne = <
 };
 
 /**
- * 通过Id查找菜单
- * 通过Id查找菜单
+ * 通过Id查找产品分类
+ * 通过Id查找产品分类
  */
 export const projectClassificationsControllerFindById = <
   ThrowOnError extends boolean = false,
@@ -746,8 +746,8 @@ export const projectClassificationsControllerGetTreeData = <
 };
 
 /**
- * 获取所有菜单
- * 获取所有菜单
+ * 获取所有产品分类
+ * 获取所有产品分类
  */
 export const projectClassificationsControllerGetAllByFilter = <
   ThrowOnError extends boolean = false,

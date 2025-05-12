@@ -1,11 +1,11 @@
 export enum StatusEnum {
-  Open = 'Open',
-  Close = 'Close',
+  OPEN = 'open',
+  CLOSE = 'close',
 }
 
 export enum SexEnum {
-  Male = 'Male',
-  Female = 'Female',
+  MALE = 'male',
+  FEMALE = 'female',
 }
 
 export enum UserStatusEnum {

@@ -18,27 +18,27 @@ export type SignInDto = {
 /**
  * 性别
  */
-export type SexEnum = 'Male' | 'Female';
+export type SexEnum = 'male' | 'female';
 
 /**
  * 性别
  */
 export const SexEnum = {
-  MALE: 'Male',
-  FEMALE: 'Female',
+  MALE: 'male',
+  FEMALE: 'female',
 } as const;
 
 /**
  * 状态
  */
-export type StatusEnum = 'Open' | 'Close';
+export type StatusEnum = 'open' | 'close';
 
 /**
  * 状态
  */
 export const StatusEnum = {
-  OPEN: 'Open',
-  CLOSE: 'Close',
+  OPEN: 'open',
+  CLOSE: 'close',
 } as const;
 
 export type AdmintorsResultDto = {
@@ -1409,7 +1409,7 @@ export type MenusControllerGetAllByFilterResponse =
 
 export type FilesControllerUploadFileData = {
   /**
-   * 单文件上传
+   * 多文件上传
    */
   body: FileUploadDto;
   path?: never;
@@ -1429,7 +1429,7 @@ export type FilesControllerUploadFileError =
 
 export type FilesControllerUploadFileResponses = {
   /**
-   * 单文件上传成功后返回
+   * 多文件上传成功后返回
    */
   200: FileUploadSuccessResultDto;
 };
@@ -1563,7 +1563,7 @@ export type ProjectClassificationsControllerAddOneData = {
 
 export type ProjectClassificationsControllerAddOneResponses = {
   /**
-   * 添加菜单成功
+   * 添加产品分类成功
    */
   200: ProjectClassificationsResultDto;
 };
@@ -1658,7 +1658,7 @@ export type ProjectClassificationsControllerGetAllByFilterData = {
 
 export type ProjectClassificationsControllerGetAllByFilterResponses = {
   /**
-   * 获取所有菜单
+   * 获取所有产品分类
    */
   200: Array<ProjectClassificationsResultDto>;
 };
