@@ -36,12 +36,13 @@ import {
   IconUpload,
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
-import { getPageTotal, uploadFile } from '@/utils';
+import { uploadFile } from '@/utils';
 import { modals } from '@mantine/modals';
 import useAppConfig from '@/store/hook/useAppConfig';
 import DateRangeSelect from '@/components/DateRangeSelect/DateRangeSelect';
 import useTools from '@/hooks/useTools';
 import { fileMIMEOptions } from '@/constants/options';
+import { imagePreview } from '@/utils/imageTools';
 
 export default () => {
   const { getFilePath } = useTools();
@@ -258,14 +259,18 @@ export default () => {
                         </Tooltip>
                       )}
                     </CopyButton>
-                    <Anchor href={getFilePath(record.path)} target="_blank">
-                      <ActionIcon variant="subtle" color="green">
-                        <IconEye
-                          style={{ width: '70%', height: '70%' }}
-                          stroke={1.5}
-                        />
-                      </ActionIcon>
-                    </Anchor>
+                    <ActionIcon
+                      variant="subtle"
+                      color="green"
+                      onClick={() => {
+                        imagePreview(getFilePath(record.path));
+                      }}
+                    >
+                      <IconEye
+                        style={{ width: '70%', height: '70%' }}
+                        stroke={1.5}
+                      />
+                    </ActionIcon>
                     <FileButton
                       onChange={async (file) => {
                         if (!file) {
