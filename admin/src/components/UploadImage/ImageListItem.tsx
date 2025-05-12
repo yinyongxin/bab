@@ -9,16 +9,17 @@ import {
   MantineSize,
 } from '@mantine/core';
 import { useHover } from '@mantine/hooks';
-import { IconEye, IconEdit, IconTrash } from '@tabler/icons-react';
+import { IconEye, IconTrash } from '@tabler/icons-react';
 type ImageListItemProps = {
   listType?: 'text' | 'picture' | 'picture-card';
   radius?: MantineSize;
   src: string;
   edit?: boolean;
+  onDelete?: () => void;
 };
 
 const ImageListItem = (props: ImageListItemProps) => {
-  const { src, radius = 'default' } = props;
+  const { src, radius = 'default', onDelete } = props;
   const { hovered, ref } = useHover();
   return (
     <UnstyledButton
@@ -46,10 +47,7 @@ const ImageListItem = (props: ImageListItemProps) => {
             >
               <IconEye color="light-dark(var(--mantine-color-white), var(--mantine-color-white))" />
             </ActionIcon>
-            <ActionIcon variant="transparent">
-              <IconEdit color="light-dark(var(--mantine-color-white), var(--mantine-color-white))" />
-            </ActionIcon>
-            <ActionIcon variant="transparent">
+            <ActionIcon variant="transparent" onClick={onDelete}>
               <IconTrash color="light-dark(var(--mantine-color-white), var(--mantine-color-white))" />
             </ActionIcon>
           </Group>

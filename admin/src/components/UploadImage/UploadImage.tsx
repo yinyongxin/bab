@@ -23,8 +23,8 @@ type UploadImageProps = {
   isList?: boolean;
   preview?: boolean;
   radius?: MantineSize;
-  edit?: boolean;
 };
+
 const UploadImage = (props: UploadImageProps) => {
   const { getFilePath } = useTools();
   const {
@@ -33,7 +33,6 @@ const UploadImage = (props: UploadImageProps) => {
     preview = true,
     imageList: defaultImageList = [],
     radius = 'default',
-    edit = true,
   } = props;
 
   const [imageList, setImageList] = useState<string[]>(defaultImageList);
@@ -88,9 +87,11 @@ const UploadImage = (props: UploadImageProps) => {
                 >
                   <IconEye color="light-dark(var(--mantine-color-white), var(--mantine-color-white))" />
                 </ActionIcon>
-                <ActionIcon variant="transparent">
-                  <IconEdit color="light-dark(var(--mantine-color-white), var(--mantine-color-white))" />
-                </ActionIcon>
+                {!multiple && (
+                  <ActionIcon variant="transparent">
+                    <IconEdit color="light-dark(var(--mantine-color-white), var(--mantine-color-white))" />
+                  </ActionIcon>
+                )}
               </Group>
             </Overlay>
           )}
