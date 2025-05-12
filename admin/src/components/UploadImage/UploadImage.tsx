@@ -1,5 +1,6 @@
 import useTools from '@/hooks/useTools';
 import { uploadFile } from '@/utils';
+import { imagePreview } from '@/utils/imageTools';
 import {
   FileButton,
   UnstyledButton,
@@ -12,7 +13,6 @@ import {
 } from '@mantine/core';
 import { IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { useHover } from '@mantine/hooks';
-import { modals } from '@mantine/modals';
 import { IconEdit, IconEye, IconUpload } from '@tabler/icons-react';
 import { isArray } from 'lodash';
 import { useState } from 'react';
@@ -38,38 +38,6 @@ const UploadImage = (props: UploadImageProps) => {
 
   const [imageList, setImageList] = useState<string[]>(defaultImageList);
   const { hovered, ref } = useHover();
-
-  const imagetPreview = (src: string) => {
-    modals.open({
-      fullScreen: true,
-      withCloseButton: true,
-      lockScroll: true,
-      styles: {
-        content: {
-          display: 'flex',
-          flexDirection: 'column',
-          backgroundColor: 'transparent',
-        },
-        body: {
-          flex: 1,
-          overflow: 'hidden',
-          padding: 'var(--mantine-spacing-md)',
-        },
-        header: {
-          backgroundColor: 'transparent',
-          position: 'absolute',
-          top: 0,
-          right: 0,
-        },
-      },
-      children: <Image h="100%" fit="contain" src={getFilePath(src)} />,
-    });
-  };
-
-  const imageShow = () => {
-    return <div>asdasd</div>;
-  };
-
   return (
     <FileButton
       onChange={async (val) => {
@@ -90,6 +58,7 @@ const UploadImage = (props: UploadImageProps) => {
     >
       {(props) => (
         <UnstyledButton
+          component="div"
           ref={ref}
           w={100}
           h={100}
@@ -107,14 +76,14 @@ const UploadImage = (props: UploadImageProps) => {
               <IconUpload />
             </Center>
           )}
-          {preview && imageList[0] && (
+          {preview && hovered && imageList[0] && (
             <Overlay backgroundOpacity={0.3} blur={4} radius={radius}>
               <Group justify="center" align="center" h="100%" gap="xs">
                 <ActionIcon
                   variant="transparent"
                   onClick={(event) => {
                     event.stopPropagation();
-                    imagetPreview(imageList[0]);
+                    imagePreview(imageList[0]);
                   }}
                 >
                   <IconEye color="light-dark(var(--mantine-color-white), var(--mantine-color-white))" />

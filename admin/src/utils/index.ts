@@ -1,6 +1,7 @@
 import { filesControllerUploadFile } from '@/client';
 import { Option } from '@/@types';
 
+
 export const getFilePath = (path?: string) => {
   if (!path) {
     return '';
@@ -46,3 +47,5 @@ export function convertToObject<T = any>(arr: Option<T>[]) {
     {} as Record<T, Option<T>>,
   );
 }
+
+
