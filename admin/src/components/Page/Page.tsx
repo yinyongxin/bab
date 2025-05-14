@@ -115,6 +115,7 @@ const Page = (props: PageProps) => {
   const navigate = useNavigate();
 
   const titleRender = () => {
+    console.log('defaultInfo', defaultInfo);
     let text = defaultInfo?.name;
     if (title) {
       text = title;

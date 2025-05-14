@@ -9,8 +9,14 @@ import Pricing from './Pricing/Pricing';
 import Variation from './Variation';
 import { useEffect } from 'react';
 import Inventory from './Inventory';
-import { ProjectType, DiscountTypeEnum, ModeEnum } from './types';
+import {
+  ProjectType,
+  DiscountTypeEnum,
+  ModeEnum,
+  ProjectStatusEnum,
+} from './types';
 import Mode from './Mode/Mode';
+import Other from './Other/Other';
 type ProjectProps = {
   id?: string;
 };
@@ -35,6 +41,7 @@ const Project = (props: ProjectProps) => {
         end: '23:59:59',
       },
       weekRange: [1, 2, 3, 4, 5, 6, 7],
+      status: ProjectStatusEnum.PUBLISH,
     },
     validate: {
       name: hasLength({ min: 1 }, '产品名称不能为空'),
@@ -100,6 +107,7 @@ const Project = (props: ProjectProps) => {
           <Classification />
           <Tag />
           <Inventory form={form} />
+          <Other form={form} />
         </Stack>
       </Grid.Col>
     </Grid>

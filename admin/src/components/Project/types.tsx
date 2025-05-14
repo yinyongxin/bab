@@ -25,6 +25,11 @@ export enum ModeEnum {
   TIMERANGE = 'timerange',
 }
 
+export enum ProjectStatusEnum {
+  PUBLISH = 'publish ',
+  UNPUBLISH = 'unpublish',
+}
+
 export type ProjectType = {
   id?: string;
   name: string;
@@ -44,4 +49,5 @@ export type ProjectType = {
   price: number;
   discount: number;
   discountType: DiscountTypeEnum;
+  status: ProjectStatusEnum;
 };

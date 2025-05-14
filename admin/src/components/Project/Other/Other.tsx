@@ -1,26 +1,26 @@
 import { Card, Group, Radio, Title, Text, Grid } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
-import classes from './Mode.module.css';
-import { ModeEnum, ProjectType } from '../types';
+import classes from './Other.module.css';
+import { ProjectStatusEnum, ProjectType } from '../types';
 const data = [
   {
-    name: '数量',
-    description: '表示产品的库存数量',
-    value: ModeEnum.QUANTITY,
+    name: '上架',
+    description: '可见并可购买',
+    value: ProjectStatusEnum.PUBLISH,
   },
   {
-    name: '时间范围',
-    description: '表示产品服务的时间范围',
-    value: ModeEnum.TIMERANGE,
+    name: '下架',
+    description: '隐藏或停止销售',
+    value: ProjectStatusEnum.UNPUBLISH,
   },
 ];
 
-type ModeProps = {
+type OtherProps = {
   form: UseFormReturnType<ProjectType>;
 };
-const Mode = (props: ModeProps) => {
+const Other = (props: OtherProps) => {
   const { form } = props;
-  const { mode } = form.values;
+  const { status } = form.values;
 
   const cards = data.map((item) => (
     <Grid.Col span={6} key={item.value}>
@@ -38,15 +38,15 @@ const Mode = (props: ModeProps) => {
   return (
     <Card shadow="sm">
       <Card.Section inheritPadding py="md">
-        <Title order={4}>模式</Title>
+        <Title order={4}>其他信息</Title>
       </Card.Section>
       <Card.Section inheritPadding py="md">
         <Radio.Group
-          value={mode}
+          value={status}
           onChange={(val) => {
-            form.setFieldValue('mode', val as ModeEnum);
+            form.setFieldValue('status', val as unknown as ProjectStatusEnum);
           }}
-          label="商品模式"
+          label="商品状态"
         >
           <Grid>{cards}</Grid>
         </Radio.Group>
@@ -55,4 +55,4 @@ const Mode = (props: ModeProps) => {
   );
 };
 
-export default Mode;
+export default Other;

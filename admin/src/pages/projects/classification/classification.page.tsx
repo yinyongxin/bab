@@ -185,20 +185,22 @@ const Classification = () => {
                       stroke={1.5}
                     />
                   </ActionIcon>
-                  <ActionIcon
-                    variant="subtle"
-                    color="green"
-                    onClick={() => {
-                      setTitle('添加子类');
-                      setParentId(values._id);
-                      open();
-                    }}
-                  >
-                    <IconPlus
-                      style={{ width: '70%', height: '70%' }}
-                      stroke={1.5}
-                    />
-                  </ActionIcon>
+                  {!values.parent && (
+                    <ActionIcon
+                      variant="subtle"
+                      color="green"
+                      onClick={() => {
+                        setTitle('添加子类');
+                        setParentId(values._id);
+                        open();
+                      }}
+                    >
+                      <IconPlus
+                        style={{ width: '70%', height: '70%' }}
+                        stroke={1.5}
+                      />
+                    </ActionIcon>
+                  )}
                   <ActionIcon
                     variant="subtle"
                     color="red"
