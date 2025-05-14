@@ -3,6 +3,7 @@ import { AppModule } from './modules';
 import { initSwagger } from './plugins/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { getLocalExternalIP } from './utils';
+import { ConsoleLogger } from '@nestjs/common';
 declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -11,6 +12,9 @@ async function bootstrap() {
      * https://docs.nestjs.com/security/cors
      */
     cors: true,
+    logger: new ConsoleLogger({
+      prefix: 'MyApp', // Default is "Nest"
+    }),
   });
   app.setGlobalPrefix('api'); // 设置全局前缀为 'api'
 

@@ -295,7 +295,7 @@ function TablePagination<D = Record<string, any>>(
   ];
 
   const paginationRender = () => {
-    if (!pagination) {
+    if (!pagination || !pagination.total) {
       return null;
     }
     return (

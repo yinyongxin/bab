@@ -23,7 +23,6 @@ import {
 export class FilesService {
   constructor(@InjectModel(Files.name) private filesModel: Model<Files>) {}
   async uploadFile(file: Express.Multer.File) {
-    console.log(file);
     const { mimetype, originalname } = file;
     const uuid = randomUUID();
     const uniquedName = `${uuid}.${originalname.split('.').pop()}`;

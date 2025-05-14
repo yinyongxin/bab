@@ -48,7 +48,6 @@ export class AdmintorsService {
   }
 
   findOneByFilter(filter: { username?: string; email?: string }) {
-    console.log(filter, 'filter');
     const filterRes = Object.fromEntries(
       Object.entries(filter).filter(([, value]) => value !== undefined),
     );
@@ -81,7 +80,6 @@ export class AdmintorsService {
 
   async getPageList(pagination: PaginationDto, filter: AdmintorsFilterDto) {
     const { dateTimeRange, fuzzyFields, ...fields } = filter;
-    console.log(filter, 'filter');
     const match = {
       ...fields,
       ...toFuzzyParams(fuzzyFields),
