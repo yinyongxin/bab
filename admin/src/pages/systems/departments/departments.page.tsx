@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import UpdateDepartment from './UpdateDepartment';
 import {
+  departmentsControllerDeleteByIds,
   departmentsControllerGetTreeData,
   DepartmentsResultDto,
   projectClassificationsControllerDeleteByIds,
@@ -85,7 +86,7 @@ const Classification = () => {
       onConfirm: async () => {
         try {
           loadingAction.open();
-          await projectClassificationsControllerDeleteByIds({
+          await departmentsControllerDeleteByIds({
             body: {
               ids: [id],
             },
