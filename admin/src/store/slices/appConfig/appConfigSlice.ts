@@ -28,8 +28,8 @@ const initialState: AppConfigState = {
   authenticatedEntryPath: '/home',
   unAuthenticatedEntryPath: '/sign-in',
   locale: 'cn',
-  // fileBaseUrl: 'http://localhost:3000',
-  fileBaseUrl: 'https://fantastic-trout-ppxx6g5xvxj3q5-3000.app.github.dev',
+  fileBaseUrl: 'http://localhost:3000',
+  // fileBaseUrl: 'https://fantastic-trout-ppxx6g5xvxj3q5-3000.app.github.dev',
   dateTimeFormat: 'YYYY-MM-DD HH:mm:ss',
 };
 
