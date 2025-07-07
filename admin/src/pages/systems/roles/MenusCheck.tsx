@@ -72,9 +72,6 @@ const renderTreeNode = ({
               )}
             </Group>
           </Group>
-          <Text pl={rem(64)} c="dimmed">
-            {node.nodeProps?.description}
-          </Text>
         </Stack>
       </Group>
     </Group>
