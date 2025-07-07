@@ -11,29 +11,29 @@ import { convertToObject } from '@/utils';
 import { iconProps } from './base';
 
 export const sexIcons: Record<SexEnum, React.ReactNode> = {
-  Male: <IconGenderMale color="blue" {...iconProps} />,
-  Female: <IconGenderFemale color="red" {...iconProps} />,
+  [SexEnum.MALE]: <IconGenderMale color="blue" {...iconProps} />,
+  [SexEnum.FEMALE]: <IconGenderFemale color="red" {...iconProps} />,
 };
 
 export const sexOptions: Option<SexEnum>[] = [
   {
     label: '男',
-    value: 'Male',
-    icon: sexIcons.Male,
+    value: SexEnum.MALE,
+    icon: sexIcons[SexEnum.MALE],
     renderContent: (
       <Group gap="2">
-        {sexIcons.Male}
+        {sexIcons[SexEnum.MALE]}
         <Text>男</Text>
       </Group>
     ),
   },
   {
     label: '女',
-    value: 'Female',
-    icon: sexIcons.Female,
+    value: SexEnum.FEMALE,
+    icon: sexIcons[SexEnum.FEMALE],
     renderContent: (
       <Group gap="2">
-        {sexIcons.Female}
+        {sexIcons[SexEnum.FEMALE]}
         <Text>女</Text>
       </Group>
     ),
@@ -46,7 +46,7 @@ export const admintorsStatusOptions: Option<StatusEnum>[] = [
   {
     label: '开启',
     value: StatusEnum.OPEN,
-    icon: sexIcons.Male,
+    icon: sexIcons[SexEnum.MALE],
     renderContent: (
       <Group gap="xs">
         <IconLockOpen color="green" {...iconProps} />
@@ -57,7 +57,7 @@ export const admintorsStatusOptions: Option<StatusEnum>[] = [
   {
     label: '关闭',
     value: StatusEnum.CLOSE,
-    icon: sexIcons.Female,
+    icon: sexIcons[SexEnum.FEMALE],
     renderContent: (
       <Group gap="xs">
         <IconLock color="red" {...iconProps} />

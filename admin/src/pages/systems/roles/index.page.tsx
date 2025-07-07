@@ -124,9 +124,9 @@ export default () => {
               <Grid.Col
                 key={item._id}
                 span={{
-                  sm: 5,
-                  md: 4,
-                  lg: 3,
+                  sm: 8,
+                  md: 6,
+                  lg: 4,
                   xl: 2,
                 }}
               >
