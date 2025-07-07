@@ -8,16 +8,16 @@ import { DeleteIdsDto } from 'src/dtos';
 
 @Injectable()
 export class DepartmentsService {
-  constructor(@InjectModel(Departments.name) private menusModel: Model<Departments>) {}
+  constructor(@InjectModel(Departments.name) private departmentsModel: Model<Departments>) {}
 
   async addOne(data: DepartmentsCreateBodyDto) {
-    const createdMenu = new this.menusModel(data);
+    const createdMenu = new this.departmentsModel(data);
     const res = await createdMenu.save();
     return res;
   }
 
   async findById(id: string) {
-    const res = this.menusModel.findById(id, {
+    const res = this.departmentsModel.findById(id, {
       password: false,
     });
     return res;
@@ -25,14 +25,14 @@ export class DepartmentsService {
 
   async deleteByIds(idsToUpdate: DeleteIdsDto['ids']) {
     const res = await deleteByIds(
-      this.menusModel,
+      this.departmentsModel,
       idsToUpdate as unknown as ObjectId[],
     );
     return res;
   }
 
   async updateOne(id: string, data: DepartmentsUpdateDto) {
-    const res = await this.menusModel
+    const res = await this.departmentsModel
       .updateOne(
         { _id: id },
         {
@@ -49,7 +49,7 @@ export class DepartmentsService {
 
   async getTreeData() {
     // 获取所有菜单数据
-    const dataList = await this.menusModel.find().exec();
+    const dataList = await this.departmentsModel.find().exec();
 
     // 将 dataList 转换为一个 Map，便于快速查找
     const menuMap = new Map<string, (typeof dataList)[0]>();
@@ -72,7 +72,7 @@ export class DepartmentsService {
   }
 
   getAllByFilter(filter: DepartmentsQueryDto) {
-    return this.menusModel
+    return this.departmentsModel
       .find(filter)
       .sort({
         sort: 1,

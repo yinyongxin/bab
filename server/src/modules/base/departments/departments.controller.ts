@@ -30,22 +30,22 @@ import {
   UpdateResDto,
 } from '../../../dtos';
 
-@ApiTags('菜单-Departments')
-@Controller('menus')
+@ApiTags('部门-Departments')
+@Controller('departments')
 export class DepartmentsController {
-  constructor(private readonly menusService: DepartmentsService) {}
+  constructor(private readonly departmentsService: DepartmentsService) {}
 
   @Put('addOne')
   @ApiOkResponse({
-    description: '添加菜单成功',
+    description: '添加部门成功',
     type: DepartmentsResultDto,
   })
   @ApiOperation({
-    description: '添加一个菜单',
-    summary: '添加一个菜单',
+    description: '添加一个部门',
+    summary: '添加一个部门',
   })
   async addOne(@Body() body: DepartmentsCreateBodyDto) {
-    const res = await this.menusService.addOne(body);
+    const res = await this.departmentsService.addOne(body);
     return res;
   }
 
@@ -55,11 +55,11 @@ export class DepartmentsController {
     type: IntersectionType(UpdateResDto, DeleteResDto),
   })
   @ApiOperation({
-    description: '通过Ids删除菜单',
-    summary: '通过Id删除菜单',
+    description: '通过Ids删除部门',
+    summary: '通过Id删除部门',
   })
   async deleteByIds(@Body() body: DeleteIdsDto) {
-    const res = await this.menusService.deleteByIds(body.ids);
+    const res = await this.departmentsService.deleteByIds(body.ids);
     return res;
   }
 
@@ -73,7 +73,7 @@ export class DepartmentsController {
     summary: '更新单条数据',
   })
   async updateOne(@Query() query: QueryIdDto, @Body() body: DepartmentsUpdateDto) {
-    const res = await this.menusService.updateOne(query.id, body);
+    const res = await this.departmentsService.updateOne(query.id, body);
     return res;
   }
 
@@ -83,11 +83,11 @@ export class DepartmentsController {
     type: DepartmentsResultDto,
   })
   @ApiOperation({
-    description: '通过Id查找菜单',
-    summary: '通过Id查找菜单',
+    description: '通过Id查找部门',
+    summary: '通过Id查找部门',
   })
   async findById(@Query() query: QueryIdDto) {
-    const res = await this.menusService.findById(query.id);
+    const res = await this.departmentsService.findById(query.id);
     return res;
   }
 
@@ -101,21 +101,21 @@ export class DepartmentsController {
     summary: '获取树形结构',
   })
   async getTreeData() {
-    const res = await this.menusService.getTreeData();
+    const res = await this.departmentsService.getTreeData();
     return res;
   }
 
   @Post('getAllByFilter')
   @ApiOkResponse({
-    description: '获取所有菜单',
+    description: '获取所有部门',
     type: [DepartmentsResultDto],
   })
   @ApiOperation({
-    description: '获取所有菜单',
-    summary: '获取所有菜单',
+    description: '获取所有部门',
+    summary: '获取所有部门',
   })
   async getAllByFilter(@Body() body: DepartmentsQueryDto) {
-    const res = await this.menusService.getAllByFilter(body);
+    const res = await this.departmentsService.getAllByFilter(body);
     return res;
   }
 }
