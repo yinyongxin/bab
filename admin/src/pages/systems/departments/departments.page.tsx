@@ -14,9 +14,8 @@ import UpdateDepartment from './UpdateDepartment';
 import {
   departmentsControllerDeleteByIds,
   departmentsControllerGetTreeData,
+  departmentsControllerUpdateOne,
   DepartmentsResultDto,
-  projectClassificationsControllerDeleteByIds,
-  projectClassificationsControllerUpdateOne,
   ProjectClassificationsResultDto,
   StatusEnum,
   TreeDepartmentsDataDto,
@@ -46,7 +45,7 @@ const Classification = () => {
   const updateStatus = async (
     params: Pick<ProjectClassificationsResultDto, '_id' | 'status' | 'parent'>,
   ) => {
-    projectClassificationsControllerUpdateOne({
+   departmentsControllerUpdateOne({
       query: {
         id: params._id,
       },
