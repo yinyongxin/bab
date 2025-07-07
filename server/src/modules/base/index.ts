@@ -1,12 +1,13 @@
 import { AdmintorsModule } from './admintors';
-import { AuthModule } from './auth';
+import { AuthModule } from './auth/auth.module';
 import { RolesModule } from './roles/roles.module';
 import { MenusModule } from './menus/menus.module';
-import { FilesModule } from './files';
+import { FilesModule } from './files/files.module';
+import { DepartmentsModule } from './departments/departments.module';
 
-export * from './admintors';
-export * from './roles';
-export * from './auth';
+export * from './admintors/admintors.module';
+export * from './roles/roles.module';
+export * from './auth/auth.module';
 export * from './menus/menus.module';
 
 export default [
@@ -15,4 +16,5 @@ export default [
   RolesModule,
   MenusModule,
   FilesModule,
+  DepartmentsModule,
 ];

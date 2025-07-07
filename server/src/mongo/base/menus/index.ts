@@ -24,7 +24,7 @@ export class Menus extends BaseDocument {
   @Prop({
     required: false,
     default: '',
-    maxlength: 10000,
+    maxlength: 1000,
   })
   // swagger
   @ApiProperty({
