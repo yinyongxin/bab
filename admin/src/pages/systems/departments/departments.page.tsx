@@ -1,4 +1,3 @@
-import AppImage from '@/components/AppImage/AppImage';
 import Page from '@/components/Page/Page';
 import TablePagination from '@/components/TablePagination';
 import { ActionIcon, Button, Modal, Switch, Text } from '@mantine/core';
@@ -11,14 +10,15 @@ import {
 } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import UpdateClassification from './UpdateClassification';
+import UpdateDepartment from './UpdateDepartment';
 import {
+  departmentsControllerGetTreeData,
+  DepartmentsResultDto,
   projectClassificationsControllerDeleteByIds,
-  projectClassificationsControllerGetTreeData,
   projectClassificationsControllerUpdateOne,
   ProjectClassificationsResultDto,
-  ProjectClassificationsTreeDto,
   StatusEnum,
+  TreeDepartmentsDataDto,
 } from '@/client';
 import { modals } from '@mantine/modals';
 import useTools from '@/hooks/useTools';
@@ -29,13 +29,13 @@ const Classification = () => {
   const [loading, loadingAction] = useDisclosure(false);
   const [title, setTitle] = useState('');
   const [initalValues, setInitalValues] =
-    useState<ProjectClassificationsResultDto>();
+    useState<DepartmentsResultDto>();
   const [parentId, setParentId] = useState<string | undefined>(undefined);
-  const [dataList, setDataList] = useState<ProjectClassificationsTreeDto[]>([]);
+  const [dataList, setDataList] = useState<TreeDepartmentsDataDto[]>([]);
 
   const getData = async () => {
     loadingAction.open();
-    const res = await projectClassificationsControllerGetTreeData();
+    const res = await departmentsControllerGetTreeData();
     setDataList(res?.data || []);
     loadingAction.close();
   };
@@ -124,14 +124,6 @@ const Classification = () => {
             {
               title: '分类名称',
               dataKey: 'name',
-            },
-            {
-              title: '分类图片',
-              width: 100,
-              dataKey: 'picture',
-              render: ({ picture }) => {
-                return <AppImage src={getFilePath(picture)} w={40} h={40} />;
-              },
             },
             {
               title: '分类描述',
@@ -231,7 +223,7 @@ const Classification = () => {
         title={title}
         centered
       >
-        <UpdateClassification
+        <UpdateDepartment
           initalValues={initalValues}
           parentId={parentId}
           onSuccess={() => {

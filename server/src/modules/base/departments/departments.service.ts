@@ -11,8 +11,8 @@ export class DepartmentsService {
   constructor(@InjectModel(Departments.name) private departmentsModel: Model<Departments>) {}
 
   async addOne(data: DepartmentsCreateBodyDto) {
-    const createdMenu = new this.departmentsModel(data);
-    const res = await createdMenu.save();
+    const createdDepartment = new this.departmentsModel(data);
+    const res = await createdDepartment.save();
     return res;
   }
 

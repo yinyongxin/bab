@@ -19,7 +19,7 @@ import { DepartmentsService } from './departments.service';
 import {
   DepartmentsCreateBodyDto,
   DepartmentsResultDto,
-  TreeMenuDataDto,
+  TreeDepartmentsDataDto,
   DepartmentsUpdateDto,
   DepartmentsQueryDto,
 } from './dto';
@@ -94,7 +94,7 @@ export class DepartmentsController {
   @Get('getTreeData')
   @ApiOkResponse({
     description: '获取树形结构',
-    type: [TreeMenuDataDto],
+    type: [TreeDepartmentsDataDto],
   })
   @ApiOperation({
     description: '获取树形结构',

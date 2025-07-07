@@ -14,6 +14,10 @@ import type {
   MenusControllerGetTreeDataResponse,
   MenusControllerGetAllByFilterResponse,
   FilesControllerGetPaginationListResponse,
+  DepartmentsControllerAddOneResponse,
+  DepartmentsControllerFindByIdResponse,
+  DepartmentsControllerGetTreeDataResponse,
+  DepartmentsControllerGetAllByFilterResponse,
   ProjectClassificationsControllerAddOneResponse,
   ProjectClassificationsControllerFindByIdResponse,
   ProjectClassificationsControllerGetTreeDataResponse,
@@ -185,6 +189,56 @@ export const filesControllerGetPaginationListResponseTransformer = async (
   data: any,
 ): Promise<FilesControllerGetPaginationListResponse> => {
   data = filesPaginationResultDtoSchemaResponseTransformer(data);
+  return data;
+};
+
+const departmentsResultDtoSchemaResponseTransformer = (data: any) => {
+  data.createdTime = new Date(data.createdTime);
+  data.updatedTime = new Date(data.updatedTime);
+  return data;
+};
+
+export const departmentsControllerAddOneResponseTransformer = async (
+  data: any,
+): Promise<DepartmentsControllerAddOneResponse> => {
+  data = departmentsResultDtoSchemaResponseTransformer(data);
+  return data;
+};
+
+export const departmentsControllerFindByIdResponseTransformer = async (
+  data: any,
+): Promise<DepartmentsControllerFindByIdResponse> => {
+  data = departmentsResultDtoSchemaResponseTransformer(data);
+  return data;
+};
+
+const treeDepartmentsDataDtoSchemaResponseTransformer = (data: any) => {
+  if (data.deletedTime) {
+    data.deletedTime = new Date(data.deletedTime);
+  }
+  data.createdTime = new Date(data.createdTime);
+  data.updatedTime = new Date(data.updatedTime);
+  data.children = data.children.map((item: any) => {
+    return treeDepartmentsDataDtoSchemaResponseTransformer(item);
+  });
+  return data;
+};
+
+export const departmentsControllerGetTreeDataResponseTransformer = async (
+  data: any,
+): Promise<DepartmentsControllerGetTreeDataResponse> => {
+  data = data.map((item: any) => {
+    return treeDepartmentsDataDtoSchemaResponseTransformer(item);
+  });
+  return data;
+};
+
+export const departmentsControllerGetAllByFilterResponseTransformer = async (
+  data: any,
+): Promise<DepartmentsControllerGetAllByFilterResponse> => {
+  data = data.map((item: any) => {
+    return departmentsResultDtoSchemaResponseTransformer(item);
+  });
   return data;
 };
 

@@ -63,6 +63,18 @@ import type {
   FilesControllerUpdateFileData,
   FilesControllerUpdateFileResponse,
   FilesControllerUpdateFileError,
+  DepartmentsControllerAddOneData,
+  DepartmentsControllerAddOneResponse,
+  DepartmentsControllerDeleteByIdsData,
+  DepartmentsControllerDeleteByIdsResponse,
+  DepartmentsControllerUpdateOneData,
+  DepartmentsControllerUpdateOneResponse,
+  DepartmentsControllerFindByIdData,
+  DepartmentsControllerFindByIdResponse,
+  DepartmentsControllerGetTreeDataData,
+  DepartmentsControllerGetTreeDataResponse,
+  DepartmentsControllerGetAllByFilterData,
+  DepartmentsControllerGetAllByFilterResponse,
   ProjectClassificationsControllerAddOneData,
   ProjectClassificationsControllerAddOneResponse,
   ProjectClassificationsControllerDeleteByIdsData,
@@ -90,6 +102,10 @@ import {
   menusControllerGetTreeDataResponseTransformer,
   menusControllerGetAllByFilterResponseTransformer,
   filesControllerGetPaginationListResponseTransformer,
+  departmentsControllerAddOneResponseTransformer,
+  departmentsControllerFindByIdResponseTransformer,
+  departmentsControllerGetTreeDataResponseTransformer,
+  departmentsControllerGetAllByFilterResponseTransformer,
   projectClassificationsControllerAddOneResponseTransformer,
   projectClassificationsControllerFindByIdResponseTransformer,
   projectClassificationsControllerGetTreeDataResponseTransformer,
@@ -621,6 +637,140 @@ export const filesControllerUpdateFile = <ThrowOnError extends boolean = false>(
     ...options,
     headers: {
       'Content-Type': null,
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 添加一个部门
+ * 添加一个部门
+ */
+export const departmentsControllerAddOne = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<DepartmentsControllerAddOneData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).put<
+    DepartmentsControllerAddOneResponse,
+    unknown,
+    ThrowOnError
+  >({
+    responseTransformer: departmentsControllerAddOneResponseTransformer,
+    url: '/api/departments/addOne',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 通过Id删除部门
+ * 通过Ids删除部门
+ */
+export const departmentsControllerDeleteByIds = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<DepartmentsControllerDeleteByIdsData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).delete<
+    DepartmentsControllerDeleteByIdsResponse,
+    unknown,
+    ThrowOnError
+  >({
+    url: '/api/departments/deleteByIds',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 更新单条数据
+ * 更新单条数据
+ */
+export const departmentsControllerUpdateOne = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<DepartmentsControllerUpdateOneData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).patch<
+    DepartmentsControllerUpdateOneResponse,
+    unknown,
+    ThrowOnError
+  >({
+    url: '/api/departments/updateOne',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
+      ...options?.headers,
+    },
+  });
+};
+
+/**
+ * 通过Id查找部门
+ * 通过Id查找部门
+ */
+export const departmentsControllerFindById = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<DepartmentsControllerFindByIdData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).get<
+    DepartmentsControllerFindByIdResponse,
+    unknown,
+    ThrowOnError
+  >({
+    responseTransformer: departmentsControllerFindByIdResponseTransformer,
+    url: '/api/departments/findById',
+    ...options,
+  });
+};
+
+/**
+ * 获取树形结构
+ * 获取树形结构
+ */
+export const departmentsControllerGetTreeData = <
+  ThrowOnError extends boolean = false,
+>(
+  options?: Options<DepartmentsControllerGetTreeDataData, ThrowOnError>,
+) => {
+  return (options?.client ?? _heyApiClient).get<
+    DepartmentsControllerGetTreeDataResponse,
+    unknown,
+    ThrowOnError
+  >({
+    responseTransformer: departmentsControllerGetTreeDataResponseTransformer,
+    url: '/api/departments/getTreeData',
+    ...options,
+  });
+};
+
+/**
+ * 获取所有部门
+ * 获取所有部门
+ */
+export const departmentsControllerGetAllByFilter = <
+  ThrowOnError extends boolean = false,
+>(
+  options: Options<DepartmentsControllerGetAllByFilterData, ThrowOnError>,
+) => {
+  return (options.client ?? _heyApiClient).post<
+    DepartmentsControllerGetAllByFilterResponse,
+    unknown,
+    ThrowOnError
+  >({
+    responseTransformer: departmentsControllerGetAllByFilterResponseTransformer,
+    url: '/api/departments/getAllByFilter',
+    ...options,
+    headers: {
+      'Content-Type': 'application/json',
       ...options?.headers,
     },
   });

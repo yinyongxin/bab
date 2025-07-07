@@ -7,12 +7,12 @@ export class DepartmentsResultDto extends IntersectionType(
   Result_idDto,
 ) {}
 
-export class TreeMenuDataDto extends IntersectionType(Departments, Result_idDto) {
+export class TreeDepartmentsDataDto extends IntersectionType(Departments, Result_idDto) {
   @ApiProperty({
     required: true,
     description: '唯一值',
-    type: [TreeMenuDataDto],
+    type: [TreeDepartmentsDataDto],
     examples: [],
   })
-  children: TreeMenuDataDto[];
+  children: TreeDepartmentsDataDto[];
 }

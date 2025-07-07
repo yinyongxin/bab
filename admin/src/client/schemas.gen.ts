@@ -41,13 +41,13 @@ export const AdmintorsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     username: {
       type: 'string',
@@ -439,13 +439,13 @@ export const RolesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',
@@ -485,13 +485,13 @@ export const AdmintorsPageItemDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     username: {
       type: 'string',
@@ -627,7 +627,7 @@ export const RolesUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',
@@ -662,13 +662,13 @@ export const RolesQueryFilterDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',
@@ -790,13 +790,13 @@ export const MenusResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',
@@ -865,7 +865,7 @@ export const MenusUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',
@@ -926,13 +926,13 @@ export const TreeMenuDataDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',
@@ -1010,13 +1010,13 @@ export const MenusQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',
@@ -1161,13 +1161,13 @@ export const FilesResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     originalname: {
       type: 'string',
@@ -1291,6 +1291,281 @@ export const FileUpdateDtoSchema = {
   required: ['file', 'fileInfo'],
 } as const;
 
+export const DepartmentsCreateBodyDtoSchema = {
+  type: 'object',
+  properties: {
+    name: {
+      type: 'string',
+      description: '部门名称',
+      example: 'departmentName',
+    },
+    description: {
+      type: 'string',
+      description: '部门名称',
+      example: '我是部门描述',
+    },
+    sort: {
+      type: 'number',
+      description: '用作部门排序',
+      example: 0,
+    },
+    icon: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    parent: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    status: {
+      description: '状态',
+      example: 'open',
+      allOf: [
+        {
+          $ref: '#/components/schemas/StatusEnum',
+        },
+      ],
+    },
+  },
+  required: ['name', 'sort', 'status'],
+} as const;
+
+export const DepartmentsResultDtoSchema = {
+  type: 'object',
+  properties: {
+    createdTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '创建日期',
+      default: 1751871385644,
+    },
+    updatedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '更新日期',
+      default: 1751871385644,
+    },
+    name: {
+      type: 'string',
+      description: '部门名称',
+      example: 'departmentName',
+    },
+    description: {
+      type: 'string',
+      description: '部门名称',
+      example: '我是部门描述',
+    },
+    sort: {
+      type: 'number',
+      description: '用作部门排序',
+      example: 0,
+    },
+    icon: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    parent: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    status: {
+      description: '状态',
+      example: 'open',
+      allOf: [
+        {
+          $ref: '#/components/schemas/StatusEnum',
+        },
+      ],
+    },
+    _id: {
+      type: 'string',
+      description: '唯一值',
+    },
+  },
+  required: ['createdTime', 'updatedTime', 'name', 'sort', 'status', '_id'],
+} as const;
+
+export const DepartmentsUpdateDtoSchema = {
+  type: 'object',
+  properties: {
+    updatedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '更新日期',
+      default: 1751871385644,
+    },
+    name: {
+      type: 'string',
+      description: '部门名称',
+      example: 'departmentName',
+    },
+    description: {
+      type: 'string',
+      description: '部门名称',
+      example: '我是部门描述',
+    },
+    sort: {
+      type: 'number',
+      description: '用作部门排序',
+      example: 0,
+    },
+    icon: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    parent: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    status: {
+      description: '状态',
+      example: 'open',
+      allOf: [
+        {
+          $ref: '#/components/schemas/StatusEnum',
+        },
+      ],
+    },
+  },
+} as const;
+
+export const TreeDepartmentsDataDtoSchema = {
+  type: 'object',
+  properties: {
+    deletedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '删除时间',
+      default: '',
+    },
+    createdTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '创建日期',
+      default: 1751871385644,
+    },
+    updatedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '更新日期',
+      default: 1751871385644,
+    },
+    name: {
+      type: 'string',
+      description: '部门名称',
+      example: 'departmentName',
+    },
+    description: {
+      type: 'string',
+      description: '部门名称',
+      example: '我是部门描述',
+    },
+    sort: {
+      type: 'number',
+      description: '用作部门排序',
+      example: 0,
+    },
+    icon: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    parent: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    status: {
+      description: '状态',
+      example: 'open',
+      allOf: [
+        {
+          $ref: '#/components/schemas/StatusEnum',
+        },
+      ],
+    },
+    _id: {
+      type: 'string',
+      description: '唯一值',
+    },
+    children: {
+      description: '唯一值',
+      examples: [],
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/TreeDepartmentsDataDto',
+      },
+    },
+  },
+  required: [
+    'createdTime',
+    'updatedTime',
+    'name',
+    'sort',
+    'status',
+    '_id',
+    'children',
+  ],
+} as const;
+
+export const DepartmentsQueryDtoSchema = {
+  type: 'object',
+  properties: {
+    createdTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '创建日期',
+      default: 1751871385644,
+    },
+    updatedTime: {
+      format: 'date-time',
+      type: 'string',
+      description: '更新日期',
+      default: 1751871385644,
+    },
+    name: {
+      type: 'string',
+      description: '部门名称',
+      example: 'departmentName',
+    },
+    description: {
+      type: 'string',
+      description: '部门名称',
+      example: '我是部门描述',
+    },
+    sort: {
+      type: 'number',
+      description: '用作部门排序',
+      example: 0,
+    },
+    icon: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    parent: {
+      type: 'string',
+      description: '图标',
+      example: '',
+    },
+    status: {
+      description: '状态',
+      example: 'open',
+      allOf: [
+        {
+          $ref: '#/components/schemas/StatusEnum',
+        },
+      ],
+    },
+  },
+} as const;
+
 export const ProjectClassificationsCreateBodyDtoSchema = {
   type: 'object',
   properties: {
@@ -1339,13 +1614,13 @@ export const ProjectClassificationsResultDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',
@@ -1405,7 +1680,7 @@ export const ProjectClassificationsUpdateDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',
@@ -1457,13 +1732,13 @@ export const ProjectClassificationsTreeDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',
@@ -1532,13 +1807,13 @@ export const ProjectClassificationsQueryDtoSchema = {
       format: 'date-time',
       type: 'string',
       description: '创建日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     updatedTime: {
       format: 'date-time',
       type: 'string',
       description: '更新日期',
-      default: 1747038143560,
+      default: 1751871385644,
     },
     name: {
       type: 'string',

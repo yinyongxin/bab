@@ -813,6 +813,185 @@ export type FileUpdateDto = {
   fileInfo: FileInfo;
 };
 
+export type DepartmentsCreateBodyDto = {
+  /**
+   * 部门名称
+   */
+  name: string;
+  /**
+   * 部门名称
+   */
+  description?: string;
+  /**
+   * 用作部门排序
+   */
+  sort: number;
+  /**
+   * 图标
+   */
+  icon?: string;
+  /**
+   * 图标
+   */
+  parent?: string;
+  /**
+   * 状态
+   */
+  status: StatusEnum;
+};
+
+export type DepartmentsResultDto = {
+  /**
+   * 创建日期
+   */
+  createdTime: Date;
+  /**
+   * 更新日期
+   */
+  updatedTime: Date;
+  /**
+   * 部门名称
+   */
+  name: string;
+  /**
+   * 部门名称
+   */
+  description?: string;
+  /**
+   * 用作部门排序
+   */
+  sort: number;
+  /**
+   * 图标
+   */
+  icon?: string;
+  /**
+   * 图标
+   */
+  parent?: string;
+  /**
+   * 状态
+   */
+  status: StatusEnum;
+  /**
+   * 唯一值
+   */
+  _id: string;
+};
+
+export type DepartmentsUpdateDto = {
+  /**
+   * 更新日期
+   */
+  updatedTime?: Date;
+  /**
+   * 部门名称
+   */
+  name?: string;
+  /**
+   * 部门名称
+   */
+  description?: string;
+  /**
+   * 用作部门排序
+   */
+  sort?: number;
+  /**
+   * 图标
+   */
+  icon?: string;
+  /**
+   * 图标
+   */
+  parent?: string;
+  /**
+   * 状态
+   */
+  status?: StatusEnum;
+};
+
+export type TreeDepartmentsDataDto = {
+  /**
+   * 删除时间
+   */
+  deletedTime?: Date;
+  /**
+   * 创建日期
+   */
+  createdTime: Date;
+  /**
+   * 更新日期
+   */
+  updatedTime: Date;
+  /**
+   * 部门名称
+   */
+  name: string;
+  /**
+   * 部门名称
+   */
+  description?: string;
+  /**
+   * 用作部门排序
+   */
+  sort: number;
+  /**
+   * 图标
+   */
+  icon?: string;
+  /**
+   * 图标
+   */
+  parent?: string;
+  /**
+   * 状态
+   */
+  status: StatusEnum;
+  /**
+   * 唯一值
+   */
+  _id: string;
+  /**
+   * 唯一值
+   */
+  children: Array<TreeDepartmentsDataDto>;
+};
+
+export type DepartmentsQueryDto = {
+  /**
+   * 创建日期
+   */
+  createdTime?: Date;
+  /**
+   * 更新日期
+   */
+  updatedTime?: Date;
+  /**
+   * 部门名称
+   */
+  name?: string;
+  /**
+   * 部门名称
+   */
+  description?: string;
+  /**
+   * 用作部门排序
+   */
+  sort?: number;
+  /**
+   * 图标
+   */
+  icon?: string;
+  /**
+   * 图标
+   */
+  parent?: string;
+  /**
+   * 状态
+   */
+  status?: StatusEnum;
+};
+
 export type ProjectClassificationsCreateBodyDto = {
   /**
    * 分类名称
@@ -1409,7 +1588,7 @@ export type MenusControllerGetAllByFilterResponse =
 
 export type FilesControllerUploadFileData = {
   /**
-   * 多文件上传
+   * 单文件上传
    */
   body: FileUploadDto;
   path?: never;
@@ -1429,7 +1608,7 @@ export type FilesControllerUploadFileError =
 
 export type FilesControllerUploadFileResponses = {
   /**
-   * 多文件上传成功后返回
+   * 单文件上传成功后返回
    */
   200: FileUploadSuccessResultDto;
 };
@@ -1553,6 +1732,118 @@ export type FilesControllerUpdateFileResponses = {
 
 export type FilesControllerUpdateFileResponse =
   FilesControllerUpdateFileResponses[keyof FilesControllerUpdateFileResponses];
+
+export type DepartmentsControllerAddOneData = {
+  body: DepartmentsCreateBodyDto;
+  path?: never;
+  query?: never;
+  url: '/api/departments/addOne';
+};
+
+export type DepartmentsControllerAddOneResponses = {
+  /**
+   * 添加部门成功
+   */
+  200: DepartmentsResultDto;
+};
+
+export type DepartmentsControllerAddOneResponse =
+  DepartmentsControllerAddOneResponses[keyof DepartmentsControllerAddOneResponses];
+
+export type DepartmentsControllerDeleteByIdsData = {
+  body: DeleteIdsDto;
+  path?: never;
+  query?: never;
+  url: '/api/departments/deleteByIds';
+};
+
+export type DepartmentsControllerDeleteByIdsResponses = {
+  /**
+   * 删除成功
+   */
+  default: IntersectionUpdateResDtoDeleteResDto;
+};
+
+export type DepartmentsControllerDeleteByIdsResponse =
+  DepartmentsControllerDeleteByIdsResponses[keyof DepartmentsControllerDeleteByIdsResponses];
+
+export type DepartmentsControllerUpdateOneData = {
+  body: DepartmentsUpdateDto;
+  path?: never;
+  query: {
+    /**
+     * 唯一值
+     */
+    id: string;
+  };
+  url: '/api/departments/updateOne';
+};
+
+export type DepartmentsControllerUpdateOneResponses = {
+  /**
+   * 更新结果
+   */
+  default: UpdateResDto;
+};
+
+export type DepartmentsControllerUpdateOneResponse =
+  DepartmentsControllerUpdateOneResponses[keyof DepartmentsControllerUpdateOneResponses];
+
+export type DepartmentsControllerFindByIdData = {
+  body?: never;
+  path?: never;
+  query: {
+    /**
+     * 唯一值
+     */
+    id: string;
+  };
+  url: '/api/departments/findById';
+};
+
+export type DepartmentsControllerFindByIdResponses = {
+  /**
+   * 查找成功
+   */
+  200: DepartmentsResultDto;
+};
+
+export type DepartmentsControllerFindByIdResponse =
+  DepartmentsControllerFindByIdResponses[keyof DepartmentsControllerFindByIdResponses];
+
+export type DepartmentsControllerGetTreeDataData = {
+  body?: never;
+  path?: never;
+  query?: never;
+  url: '/api/departments/getTreeData';
+};
+
+export type DepartmentsControllerGetTreeDataResponses = {
+  /**
+   * 获取树形结构
+   */
+  200: Array<TreeDepartmentsDataDto>;
+};
+
+export type DepartmentsControllerGetTreeDataResponse =
+  DepartmentsControllerGetTreeDataResponses[keyof DepartmentsControllerGetTreeDataResponses];
+
+export type DepartmentsControllerGetAllByFilterData = {
+  body: DepartmentsQueryDto;
+  path?: never;
+  query?: never;
+  url: '/api/departments/getAllByFilter';
+};
+
+export type DepartmentsControllerGetAllByFilterResponses = {
+  /**
+   * 获取所有部门
+   */
+  200: Array<DepartmentsResultDto>;
+};
+
+export type DepartmentsControllerGetAllByFilterResponse =
+  DepartmentsControllerGetAllByFilterResponses[keyof DepartmentsControllerGetAllByFilterResponses];
 
 export type ProjectClassificationsControllerAddOneData = {
   body: ProjectClassificationsCreateBodyDto;
