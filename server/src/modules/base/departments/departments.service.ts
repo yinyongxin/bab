@@ -23,10 +23,10 @@ export class DepartmentsService {
     return res;
   }
 
-  async deleteByIds(idsToUpdate: DeleteIdsDto['ids']) {
+  async deleteByIds(ids: DeleteIdsDto['ids']) {
     const res = await deleteByIds(
       this.departmentsModel,
-      idsToUpdate as unknown as ObjectId[],
+      ids as unknown as ObjectId[],
     );
     return res;
   }
