@@ -17,6 +17,7 @@ import {
   DepartmentsUpdateDto,
   StatusEnum,
   departmentsControllerAddOne,
+  departmentsControllerUpdateOne,
 } from '@/client';
 import { notifications } from '@mantine/notifications';
 import useTools from '@/hooks/useTools';
@@ -87,7 +88,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
     id: string,
     values: DepartmentsUpdateDto,
   ) => {
-    const updateRes = await projectClassificationsControllerUpdateOne({
+    const updateRes = await departmentsControllerUpdateOne({
       body: {
         name: values.name,
         description: values.description,
