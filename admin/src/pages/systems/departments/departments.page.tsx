@@ -21,10 +21,8 @@ import {
   TreeDepartmentsDataDto,
 } from '@/client';
 import { modals } from '@mantine/modals';
-import useTools from '@/hooks/useTools';
 
 const Classification = () => {
-  const { getFilePath } = useTools();
   const [opened, { open, close }] = useDisclosure(false);
   const [loading, loadingAction] = useDisclosure(false);
   const [title, setTitle] = useState('');
@@ -79,9 +77,9 @@ const Classification = () => {
 
   const deleteById = async (id: string) => {
     modals.openConfirmModal({
-      title: '确认删除当前分类？',
+      title: '确认删除当前部门？',
       centered: true,
-      children: <Text size="sm">请注意，删除分类后，将无法恢复。</Text>,
+      children: <Text size="sm">请注意，删除部门后，将无法恢复。</Text>,
       labels: { confirm: '删除', cancel: '取消' },
       confirmProps: { color: 'red' },
       onConfirm: async () => {
@@ -108,12 +106,12 @@ const Classification = () => {
             leftSection={<IconPlus size={16} />}
             key="save"
             onClick={() => {
-              setTitle('新增分类');
+              setTitle('新增部门');
               setInitalValues(undefined);
               open();
             }}
           >
-            新增分类
+            新增部门
           </Button>,
         ]}
       >
@@ -122,11 +120,11 @@ const Classification = () => {
           rowkey="_id"
           columns={[
             {
-              title: '分类名称',
+              title: '部门名称',
               dataKey: 'name',
             },
             {
-              title: '分类描述',
+              title: '部门描述',
               dataKey: 'description',
             },
             {
@@ -167,7 +165,7 @@ const Classification = () => {
                   <ActionIcon
                     variant="subtle"
                     onClick={() => {
-                      setTitle('编辑分类');
+                      setTitle('编辑部门');
                       setInitalValues(values);
                       open();
                     }}

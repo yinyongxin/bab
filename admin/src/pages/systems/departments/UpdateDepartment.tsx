@@ -55,8 +55,8 @@ function UpdateClassification(props: UpdateClassificationProps) {
   const form = useForm<DepartmentsCreateBodyDto>({
     initialValues: getInitialValues(),
     validate: {
-      name: hasLength({ min: 1 }, '分类名不能为空'),
-      description: hasLength({ min: 1 }, '分类描述不能为空'),
+      name: hasLength({ min: 1 }, '部门名不能为空'),
+      description: hasLength({ min: 1 }, '部门描述不能为空'),
     },
   });
 
@@ -131,15 +131,15 @@ function UpdateClassification(props: UpdateClassificationProps) {
         <Grid.Col span={12}>
           <TextInput
             {...form.getInputProps('name')}
-            label="分类名称"
-            placeholder="填写分类名称"
+            label="部门名称"
+            placeholder="填写部门名称"
           />
         </Grid.Col>
         <Grid.Col span={12}>
           <Textarea
             {...form.getInputProps('description')}
-            label="分类描述"
-            placeholder="填写分类描述"
+            label="部门描述"
+            placeholder="填写部门描述"
           />
         </Grid.Col>
         <Grid.Col span={12}>
@@ -153,7 +153,7 @@ function UpdateClassification(props: UpdateClassificationProps) {
               );
             }}
             checked={form.getInputProps('status').value === StatusEnum.OPEN}
-            label="分类是否启用"
+            label="部门是否启用"
           />
         </Grid.Col>
       </Grid>
