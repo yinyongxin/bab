@@ -67,24 +67,26 @@ export default function BaseLayout() {
   }, [layoutType, desktop]);
 
   return (
-    <LayoutContext.Provider
-      value={{
-        activeSubLink,
-        setActiveSubLink,
-        activeMainLink,
-        setActiveMainLink,
-        openAppSettings: setAppSettingsAction.open,
-        desktop,
-        setDesktop,
-      }}
-    >
-      <AppShell navbar={appNavBar?.option} header={appHeader?.option}>
-        {appHeader?.content}
-        {appNavBar?.content}
-        <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))">
-          <Views />
-        </AppShell.Main>
-      </AppShell>
+    <>
+      <LayoutContext.Provider
+        value={{
+          activeSubLink,
+          setActiveSubLink,
+          activeMainLink,
+          setActiveMainLink,
+          openAppSettings: setAppSettingsAction.open,
+          desktop,
+          setDesktop,
+        }}
+      >
+        <AppShell navbar={appNavBar?.option} header={appHeader?.option}>
+          {appHeader?.content}
+          {appNavBar?.content}
+          <AppShell.Main bg="light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-8))">
+            <Views />
+          </AppShell.Main>
+        </AppShell>
+      </LayoutContext.Provider>
       <Drawer
         title="应用设置"
         position="right"
@@ -94,6 +96,6 @@ export default function BaseLayout() {
       >
         <AppConfigSettings />
       </Drawer>
-    </LayoutContext.Provider>
+    </>
   );
 }
