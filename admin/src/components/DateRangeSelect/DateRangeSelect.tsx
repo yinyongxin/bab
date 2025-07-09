@@ -167,9 +167,12 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
               range?.[1] && new Date(range?.[1].toDate()),
             ]}
             onChange={(val) => {
+              if (!val[0] || !val[1]) {
+                return;
+              }
               setRange([
-                val[0] && dayjs(val[0]).startOf('day'),
-                val[1] && dayjs(val[1]).endOf('day'),
+                dayjs(val[0]).startOf('day'),
+                dayjs(val[1]).endOf('day'),
               ]);
             }}
           />
