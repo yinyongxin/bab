@@ -44,7 +44,7 @@ const Inventory = (props: InventoryProps) => {
             onChange={(val) => {
               form.setFieldValue(`inventoryList.${index}`, {
                 variations,
-                value: val,
+                value: Number(val),
               });
             }}
           />
