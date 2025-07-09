@@ -8,7 +8,7 @@ import {
 
 export interface AppThemeState extends Partial<MantineTheme> {}
 
-const initialState: AppThemeState = {
+export const initialAppThemeState: AppThemeState = {
   primaryColor: 'blue',
   defaultRadius: 'md',
   cursorType: 'pointer',
@@ -16,7 +16,7 @@ const initialState: AppThemeState = {
 
 const appThemeSlice = createSlice({
   name: `${SLICE_BASE_NAME}/appTheme`,
-  initialState,
+  initialState: initialAppThemeState,
   reducers: {
     setPrimaryColor(
       state,
