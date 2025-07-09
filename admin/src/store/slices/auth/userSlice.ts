@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SLICE_BASE_NAME } from './constants';
-import { AdmintorsResultDto } from '@/client';
+import { AdmintorsResultDto, StatusEnum } from '@/client';
 
 export interface UserState
   extends Omit<Partial<AdmintorsResultDto>, 'createdTime' | 'updatedTime'> {
@@ -16,7 +16,7 @@ export const initialUserState: UserState = {
   phone: '',
   createdTime: undefined,
   updatedTime: undefined,
-  status: 'Open',
+  status: StatusEnum.OPEN,
   _id: '',
 };
 
