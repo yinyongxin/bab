@@ -34,6 +34,7 @@ import { notifications } from '@mantine/notifications';
 import { uploadFile } from '@/utils';
 import { sexIcons } from './common';
 import useTools from '@/hooks/useTools';
+import { sexOptions } from '@/constants/options';
 
 type UpdateManagerProps = {
   onSuccess: () => void;
@@ -187,10 +188,7 @@ function UpdateManager(props: UpdateManagerProps) {
             label="性别"
             leftSection={<IconGenderBigender size={16} />}
             placeholder="选择性别"
-            data={[
-              { label: '男生', value: 'Male' },
-              { label: '女生', value: 'Female' },
-            ]}
+            data={sexOptions}
             renderOption={(item) => (
               <Box w="100%">
                 <Flex justify="space-between">

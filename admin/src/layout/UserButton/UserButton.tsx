@@ -41,7 +41,7 @@ export function UserButton(props: UserButtonProps) {
         width={200}
         position="right-end"
         withOverlay
-        overlayProps={{ blur: '8px' }}
+        // overlayProps={{ blur: '8px' }}
         {...menuProps}
       >
         <Menu.Target>{children}</Menu.Target>
