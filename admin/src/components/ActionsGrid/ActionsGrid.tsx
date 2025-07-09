@@ -1,15 +1,4 @@
 import {
-  IconBuildingBank,
-  IconCashBanknote,
-  IconCoin,
-  IconCreditCard,
-  IconReceipt,
-  IconReceiptRefund,
-  IconReceiptTax,
-  IconRepeat,
-  IconReport,
-} from '@tabler/icons-react';
-import {
   Anchor,
   Card,
   DefaultMantineColor,

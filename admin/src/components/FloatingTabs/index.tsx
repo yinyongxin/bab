@@ -3,7 +3,6 @@ import {
   Box,
   BoxProps,
   FloatingIndicator,
-  MantineStyleProps,
   UnstyledButton,
 } from '@mantine/core';
 import classes from './FloatingTabs.module.css';
