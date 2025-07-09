@@ -1,6 +1,6 @@
 import { FilterType } from '@/@types';
 import AppSelect from '@/components/AppSelect';
-import { Chip, CloseButton, Group, TextInput, Text } from '@mantine/core';
+import { Chip, Group, TextInput, Text } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { UseFormInput } from '@mantine/form/lib/types';
 import { IconX } from '@tabler/icons-react';
