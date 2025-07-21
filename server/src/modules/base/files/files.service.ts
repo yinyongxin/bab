@@ -28,6 +28,9 @@ export class FilesService {
     const uniquedName = `${uuid}.${originalname.split('.').pop()}`;
 
     const time = dayjs().format('YYYYMMDDHH');
+    /**
+     * 文件存储路径
+     */
     const dirPath = `${mimetype}/${time}`;
 
     // 获取文件路径

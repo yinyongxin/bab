@@ -10,7 +10,8 @@ import {
 import { DatePicker } from '@mantine/dates';
 import { IconCalendarCog } from '@tabler/icons-react';
 import dayjs, { Dayjs } from 'dayjs';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+
 const dateRangeSelectData = [
   { value: 'all', label: '全部', range: [] },
   {
@@ -35,12 +36,8 @@ const dateRangeSelectData = [
   },
 ];
 
-type DataRangeSelect<T> = {
-  onChange?: (
-    value?: T extends true
-      ? [Date, Date]
-      : (typeof dateRangeSelectData)[number]['range'],
-  ) => void;
+type DataRangeSelect<T extends boolean> = {
+  onChange?: (value?: T extends true ? [Date, Date] : Dayjs[]) => void;
   defaultValue: (typeof dateRangeSelectData)[number]['value'];
   toDate?: T;
 };
@@ -52,40 +49,42 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
 
   const { onChange, defaultValue, toDate = false } = props;
   const defaultRange = dateRangeSelectData.find(
-    (dateRangeSelectDataItem) => dateRangeSelectDataItem.value === defaultValue,
+    (item) => item.value === defaultValue,
   );
 
-  const [range, setRange] = useState<(Dayjs | null)[]>(
-    defaultRange?.range || [],
-  );
+  const [range, setRange] = useState<Dayjs[]>(defaultRange?.range || []);
   const [value, setValue] = useState<string | null>(defaultValue);
-  const [inputType, setInputType] = useState('presets');
+  const [inputType, setInputType] = useState<'presets' | 'customize'>(
+    'presets',
+  );
 
-  const validValueLength = range.filter((item) => item).length;
+  const validValueLength = range.filter(Boolean).length;
+
   useEffect(() => {
     if (validValueLength === 0) {
       onChange?.(undefined);
       combobox.closeDropdown();
     } else if (validValueLength > 1) {
       const newRange = range.map((item) =>
-        toDate ? item?.toDate() : item,
-      ) as unknown as T extends true
-        ? [Date, Date]
-        : (typeof dateRangeSelectData)[number]['range'];
-      onChange?.(newRange);
+        toDate ? item.toDate() : item,
+      ) as T extends true ? [Date, Date] : Dayjs[];
+      onChange?.(newRange as any);
       combobox.closeDropdown();
     }
-  }, [range]);
+  }, [JSON.stringify(range)]);
 
-  const getValueRender = () => {
+  const getValueRender = useMemo(() => {
     if (inputType === 'customize') {
-      return range.map((item) => item?.format('YYYY-MM-DD')).join('至');
+      return range
+        .map((item) => (item ? item.format('YYYY-MM-DD') : ''))
+        .join('至');
     }
     const option = dateRangeSelectData.find((item) => item.value === value);
-    return `${option?.label}`;
-  };
-  const options = dateRangeSelectData.map((item) => {
-    return (
+    return option?.label || '';
+  }, [inputType, range, value]);
+
+  const options = useMemo(() => {
+    return dateRangeSelectData.map((item) => (
       <Combobox.Option
         value={item.value}
         key={item.value}
@@ -97,8 +96,8 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
       >
         {item.label}
       </Combobox.Option>
-    );
-  });
+    ));
+  }, [value]);
 
   return (
     <Combobox
@@ -136,7 +135,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
             combobox.toggleDropdown();
           }}
         >
-          {getValueRender() || <Input.Placeholder>选择日期</Input.Placeholder>}
+          {getValueRender || <Input.Placeholder>选择日期</Input.Placeholder>}
         </InputBase>
       </Combobox.Target>
 
@@ -145,10 +144,9 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
           value={inputType}
           onChange={(val) => {
             setValue('all');
-            setInputType(val);
+            setInputType(val as 'presets' | 'customize');
           }}
           mb="sm"
-          size="xs"
           fullWidth
           data={[
             { label: '预设', value: 'presets' },
@@ -162,10 +160,7 @@ function DateRangeSelect<T extends boolean>(props: DataRangeSelect<T>) {
           <DatePicker
             size="xs"
             type="range"
-            value={[
-              range?.[0] && new Date(range?.[0].toDate()),
-              range?.[1] && new Date(range?.[1].toDate()),
-            ]}
+            value={[range[0]?.toDate() ?? null, range[1]?.toDate() ?? null]}
             onChange={(val) => {
               if (!val[0] || !val[1]) {
                 return;
