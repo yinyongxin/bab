@@ -1,7 +1,8 @@
 import {
+  ActionIcon,
   AspectRatio,
-  Box,
   Button,
+  Center,
   Divider,
   FileButton,
   Flex,
@@ -11,27 +12,34 @@ import {
   Pagination,
   Stack,
   TextInput,
+  UnstyledButton,
+  useMantineTheme,
 } from '@mantine/core';
 import { FC, useState } from 'react';
 import ImageTypeSelect from '../FormItems/Selects/ImageTypeSelect/ImageTypeSelect';
 import { useForm } from '@mantine/form';
-import { getPageTotal, uploadFile } from '@/utils';
-import { IconUpload } from '@tabler/icons-react';
+import { classNames, getPageTotal, uploadFile } from '@/utils';
+import { IconCheck, IconUpload } from '@tabler/icons-react';
 import { useRequest } from '@/hooks';
 import {
   filesControllerGetPaginationList,
   FilesControllerGetPaginationListData,
+  FilesResultDto,
 } from '@/client';
 import useTools from '@/hooks/useTools';
+import styles from './SelectImageModalContent.module.css';
 
 export interface SelectImageModalContentProps {
-  onConfirm?: (imageSrc: string) => void;
+  onConfirm?: (images: FilesResultDto[]) => void;
+  multiple?: boolean;
 }
 
 const DefultAccept = 'image/*';
 
 const DefaultPageSize = 18;
-const SelectImageModalContent: FC<SelectImageModalContentProps> = () => {
+const SelectImageModalContent: FC<SelectImageModalContentProps> = (props) => {
+  const { onConfirm, multiple } = props;
+  const theme = useMantineTheme();
   const { getFilePath } = useTools();
   const form = useForm({
     mode: 'uncontrolled',
@@ -44,6 +52,8 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = () => {
   form.watch('imageType', ({ value }) => {
     setAccept(value);
   });
+
+  const [selectedList, setSelectedList] = useState<FilesResultDto[]>([]);
 
   const imageListRequest = useRequest(
     async (
@@ -66,6 +76,23 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = () => {
     },
   );
 
+  const handleSelectImage = (value: FilesResultDto) => {
+    if (multiple) {
+      setSelectedList([value]);
+      return;
+    }
+    const isHas = selectedList.some((item) => item._id === value._id);
+    if (isHas) {
+      setSelectedList(selectedList.filter((item) => item._id !== value._id));
+    } else {
+      setSelectedList([...selectedList, value]);
+    }
+  };
+
+  const handleConfirm = async () => {
+    onConfirm?.(selectedList);
+  };
+
   return (
     <div>
       <Stack>
@@ -79,7 +106,7 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = () => {
             key={form.key('imageType')}
             {...form.getInputProps('imageType')}
           />
-          <Flex flex={1} justify="flex-end">
+          <Flex flex={1} justify="flex-end" gap="md">
             <FileButton
               key="upload"
               onChange={async (file) => {
@@ -93,6 +120,17 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = () => {
                 </Button>
               )}
             </FileButton>
+            <ActionIcon
+              variant="filled"
+              size="lg"
+              color={theme.colors.green[5]}
+              disabled={selectedList.length === 0}
+              onClick={() => {
+                handleConfirm();
+              }}
+            >
+              <IconCheck style={{ width: '70%', height: '70%' }} stroke={1.5} />
+            </ActionIcon>
           </Flex>
         </Flex>
         <Divider />
@@ -101,11 +139,27 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = () => {
             <LoadingOverlay visible={imageListRequest.loading} />
             {imageListRequest.data?.list.map((item) => (
               <Grid.Col span={2}>
-                <AspectRatio ratio={1}>
-                  <Box w="100%" h="100%">
-                    <Image src={getFilePath(item.path)} />
-                  </Box>
-                </AspectRatio>
+                <UnstyledButton
+                  className={classNames([
+                    styles.imageItem,
+                    {
+                      [styles.imageItemSelected]:
+                        selectedList.findIndex(
+                          (selected) => selected._id === item._id,
+                        ) !== -1,
+                    },
+                  ])}
+                  display="flex"
+                  onClick={() => {
+                    handleSelectImage(item);
+                  }}
+                >
+                  <AspectRatio ratio={1}>
+                    <Center w="100%" h="100%">
+                      <Image src={getFilePath(item.path)} radius="default" />
+                    </Center>
+                  </AspectRatio>
+                </UnstyledButton>
               </Grid.Col>
             ))}
           </Grid>

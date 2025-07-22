@@ -1,0 +1,13 @@
+.imageItem {
+  /* background: #000; */
+  border-radius: var(--mantine-radius-default);
+  outline-offset: 2px;
+}
+
+.imageItem:hover {
+  outline: 3px solid var(--mantine-color-default-border);
+}
+
+.imageItemSelected {
+  outline: 3px solid var(--mantine-primary-color-filled) !important;
+}

@@ -5,12 +5,15 @@ import SelectImageModalContent, {
 } from './SelectImageModalContent';
 import { FC } from 'react';
 
-export interface SelectImageModalProps extends Partial<ModalProps> {
+export interface SelectImageModalProps
+  extends Partial<ModalProps>,
+    Pick<SelectImageModalContentProps, 'onConfirm'> {
   contentProps?: SelectImageModalContentProps;
   children?: React.ReactNode;
 }
 const SelectImageModal: FC<SelectImageModalProps> = (props) => {
-  const { contentProps, ...modalProps } = props;
+  const { contentProps, onConfirm, onClose, ...modalProps } = props;
+
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <>
@@ -19,13 +22,20 @@ const SelectImageModal: FC<SelectImageModalProps> = (props) => {
         opened={opened}
         centered
         size="lg"
-        onClose={() => {
-          close();
-        }}
         title="选择图片"
         {...modalProps}
+        onClose={() => {
+          close();
+          onClose?.();
+        }}
       >
-        <SelectImageModalContent {...contentProps} />
+        <SelectImageModalContent
+          {...contentProps}
+          onConfirm={(value) => {
+            onConfirm?.(value);
+            close();
+          }}
+        />
       </Modal>
     </>
   );

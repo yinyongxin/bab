@@ -1,5 +1,6 @@
 import { filesControllerUploadFile } from '@/client';
 import { Option } from '@/@types';
+import clsx from 'clsx';
 
 export const getFilePath = (path?: string) => {
   if (!path) {
@@ -60,3 +61,5 @@ export const waitTime = (time: number = 5000) => {
     }, time);
   });
 };
+
+export const classNames = clsx;
