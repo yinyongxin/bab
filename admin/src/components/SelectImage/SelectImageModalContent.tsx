@@ -1,5 +1,6 @@
 import {
   AspectRatio,
+  Box,
   Button,
   Divider,
   FileButton,
@@ -101,7 +102,9 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = () => {
             {imageListRequest.data?.list.map((item) => (
               <Grid.Col span={2}>
                 <AspectRatio ratio={1}>
-                  <Image src={getFilePath(item.path)} />
+                  <Box w="100%" h="100%">
+                    <Image src={getFilePath(item.path)} />
+                  </Box>
                 </AspectRatio>
               </Grid.Col>
             ))}
