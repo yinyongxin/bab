@@ -71,7 +71,7 @@ export const admintorsStatusOptionsObj = convertToObject(
   admintorsStatusOptions,
 );
 
-const imageMIMEOptions = [
+export const imageMIMEOptions = [
   {
     value: 'image/png',
     label: 'PNG 图片',

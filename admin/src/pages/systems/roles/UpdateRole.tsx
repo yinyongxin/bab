@@ -19,12 +19,13 @@ import {
   RoleCreateBodyDto,
   RolesResultDto,
   RolesUpdateDto,
-  filesControllerUploadFile,
   rolesControllerAddOne,
   rolesControllerUpdateOne,
 } from '@/client';
 import { notifications } from '@mantine/notifications';
 import useTools from '@/hooks/useTools';
+import SelectImageModal from '@/components/SelectImage/SelectImageModal';
+import { uploadFile } from '@/utils';
 
 type UpdateRoleProps = {
   onSuccess: () => void;
@@ -114,21 +115,14 @@ function UpdateRole(props: UpdateRoleProps) {
     <form onSubmit={onSubmit}>
       <Grid>
         <Grid.Col span={12}>
+          <SelectImageModal>
+            <Button>上传图标</Button>
+          </SelectImageModal>
           <FileButton
             onChange={async (file) => {
-              if (!file) {
-                return;
-              }
-              const newFile = new File([file], encodeURI(file.name), {
-                type: file.type,
-              });
-              const res = await filesControllerUploadFile({
-                body: {
-                  file: newFile,
-                },
-              });
-              if (res.data) {
-                form.setFieldValue('icon', res.data.url);
+              const uploadFileRes = await uploadFile(file);
+              if (uploadFileRes?.url) {
+                form.setFieldValue('icon', uploadFileRes.url);
               }
             }}
             accept="image/png,image/jpeg"

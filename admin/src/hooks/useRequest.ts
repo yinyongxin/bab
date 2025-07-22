@@ -8,22 +8,21 @@ export interface Options<TData, TParams> {
   onFinally?: (params: TParams, data?: TData, e?: Error) => void;
   defaultParams?: TParams;
   refreshDeps?: DependencyList;
-  ready?: boolean;
 }
 
 export const useRequest = <FP extends unknown[], FD>(
   fun: (...rest: FP) => Promise<FD> | FD,
   options?: Options<FD, FP>,
 ) => {
-  const { refreshDeps } = options || {};
+  const { refreshDeps, manual = false } = options || {};
   const [data, setData] = useState<FD>();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error>();
 
   const run = async (...params: FP) => {
     options?.onBefore?.(params);
-    let newData!: Awaited<FD>
-    let newError!: Error
+    let newData!: Awaited<FD>;
+    let newError!: Error;
     try {
       setLoading(true);
       // 由于 fun 函数期望的参数类型是 FP，而 params 是 FP 类型，直接展开传入以解决类型不匹配问题
@@ -32,7 +31,7 @@ export const useRequest = <FP extends unknown[], FD>(
       setError(undefined);
       options?.onSuccess?.(newData, params);
     } catch (e: unknown) {
-      newError = e as Error
+      newError = e as Error;
       setData(undefined);
       setError(newError);
       options?.onError?.(newError, params);
@@ -43,11 +42,12 @@ export const useRequest = <FP extends unknown[], FD>(
   };
 
   useEffect(() => {
-    if (!options?.manual) {
-      const defaultParams = options?.defaultParams || ([] as unknown as FP);
-      run(...defaultParams);
+    if (manual) {
+      return;
     }
-  }, [refreshDeps]);
+    const defaultParams = options?.defaultParams || ([] as unknown as FP);
+    run(...defaultParams);
+  }, refreshDeps || []);
 
   return {
     data,

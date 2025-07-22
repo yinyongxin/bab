@@ -11,10 +11,16 @@ export const getFilePath = (path?: string) => {
   return `${path}`;
 };
 
-export const getPageTotal = (total?: number, pageSize?: number): number => {
+export const getPageTotal = (
+  total: number,
+  pageSize: number,
+  options?: {
+    defaultValue?: number;
+  },
+): number => {
   // 校验 total 和 pageSize 是否为有效值
-  if (typeof total !== 'number' || total <= 0) {
-    return 0;
+  if (total === 0) {
+    return options?.defaultValue || 1;
   }
   const validPageSize =
     typeof pageSize === 'number' && pageSize > 0 ? pageSize : 10; // 默认值为10
@@ -46,3 +52,11 @@ export function convertToObject<T = any>(arr: Option<T>[]) {
     {} as Record<T, Option<T>>,
   );
 }
+
+export const waitTime = (time: number = 5000) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(true);
+    }, time);
+  });
+};
