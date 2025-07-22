@@ -1,5 +1,4 @@
 import {
-  ActionIcon,
   AspectRatio,
   Button,
   Center,
@@ -13,13 +12,12 @@ import {
   Stack,
   TextInput,
   UnstyledButton,
-  useMantineTheme,
 } from '@mantine/core';
 import { FC, useState } from 'react';
 import ImageTypeSelect from '../FormItems/Selects/ImageTypeSelect/ImageTypeSelect';
 import { useForm } from '@mantine/form';
 import { classNames, getPageTotal, uploadFile } from '@/utils';
-import { IconCheck, IconUpload } from '@tabler/icons-react';
+import { IconCheck, IconTrash, IconUpload } from '@tabler/icons-react';
 import { useRequest } from '@/hooks';
 import {
   filesControllerGetPaginationList,
@@ -39,7 +37,6 @@ const DefultAccept = 'image/*';
 const DefaultPageSize = 18;
 const SelectImageModalContent: FC<SelectImageModalContentProps> = (props) => {
   const { onConfirm, multiple } = props;
-  const theme = useMantineTheme();
   const { getFilePath } = useTools();
   const form = useForm({
     mode: 'uncontrolled',
@@ -120,17 +117,6 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = (props) => {
                 </Button>
               )}
             </FileButton>
-            <ActionIcon
-              variant="filled"
-              size="lg"
-              color={theme.colors.green[5]}
-              disabled={selectedList.length === 0}
-              onClick={() => {
-                handleConfirm();
-              }}
-            >
-              <IconCheck style={{ width: '70%', height: '70%' }} stroke={1.5} />
-            </ActionIcon>
           </Flex>
         </Flex>
         <Divider />
@@ -163,7 +149,7 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = (props) => {
               </Grid.Col>
             ))}
           </Grid>
-          <Flex justify="end">
+          <Flex justify="space-between">
             <Pagination
               total={getPageTotal(
                 imageListRequest.data?.total || 0,
@@ -177,6 +163,30 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = (props) => {
                 });
               }}
             />
+            <Flex gap="md">
+              {selectedList.length > 0 && (
+                <>
+                  <Button
+                    variant="outline"
+                    color="red"
+                    onClick={() => {
+                      setSelectedList([]);
+                    }}
+                    leftSection={<IconTrash />}
+                  >
+                    清除选择
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleConfirm();
+                    }}
+                    leftSection={<IconCheck />}
+                  >
+                    确定
+                  </Button>
+                </>
+              )}
+            </Flex>
           </Flex>
         </Stack>
       </Stack>
