@@ -107,7 +107,7 @@ export default () => {
         footer={
           <Flex justify="flex-end">
             <Pagination
-              total={getPageTotal(data?.total, data?.pageSize)}
+              total={getPageTotal(data?.total || 0, data?.pageSize || 8)}
               value={data?.pageNo}
               onChange={(value) => {
                 getData({
@@ -124,10 +124,10 @@ export default () => {
               <Grid.Col
                 key={item._id}
                 span={{
-                  sm: 8,
-                  md: 6,
+                  sm: 6,
+                  md: 5,
                   lg: 4,
-                  xl: 2,
+                  xl: 3,
                 }}
               >
                 <Card shadow="sm" padding="lg" radius="md" withBorder>
