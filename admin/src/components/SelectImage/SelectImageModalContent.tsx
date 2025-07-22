@@ -9,6 +9,7 @@ import {
   Image,
   LoadingOverlay,
   Pagination,
+  rem,
   Stack,
   TextInput,
   UnstyledButton,
@@ -149,7 +150,7 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = (props) => {
               </Grid.Col>
             ))}
           </Grid>
-          <Flex justify="space-between">
+          <Flex justify="space-between" h={rem(36)} align="center">
             <Pagination
               total={getPageTotal(
                 imageListRequest.data?.total || 0,
@@ -172,6 +173,7 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = (props) => {
                     onClick={() => {
                       setSelectedList([]);
                     }}
+                    size="sm"
                     leftSection={<IconTrash />}
                   >
                     清除选择
@@ -180,6 +182,7 @@ const SelectImageModalContent: FC<SelectImageModalContentProps> = (props) => {
                     onClick={() => {
                       handleConfirm();
                     }}
+                    color="green"
                     leftSection={<IconCheck />}
                   >
                     确定
