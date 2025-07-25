@@ -7,7 +7,7 @@
     "preinstall": "npx -y only-allow pnpm"
   },
   "keywords": [],
-  "author": "",
+  "author": "CurryYYX",
   "license": "ISC",
   "packageManager": "pnpm@10.13.1"
 }
