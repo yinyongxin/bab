@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "vite"
+    "start": "pnpm run -C packages/admin dev && pnpm run -C packages/server start:hot",
+     "preinstall": "npx -y only-allow pnpm"
   },
   "keywords": [],
   "author": "",
