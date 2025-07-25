@@ -4,10 +4,14 @@
   "description": "",
   "scripts": {
     "start": "pnpm run -C packages/admin dev && pnpm run -C packages/server start:hot",
-     "preinstall": "npx -y only-allow pnpm"
+    "preinstall": "npx -y only-allow pnpm"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "pnpm@10.13.1",
+  "workspaces": [
+    "packages/*",
+    "!doc/*"
+  ]
 }
