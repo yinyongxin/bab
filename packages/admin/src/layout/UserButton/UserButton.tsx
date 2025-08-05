@@ -1,0 +1,118 @@
+import {
+  IconLogout,
+  IconMoon,
+  IconSettings,
+  IconSun,
+  IconUser,
+  IconSearch,
+  IconMinimize,
+  IconMaximize,
+} from '@tabler/icons-react';
+import {
+  Text,
+  Menu,
+  useComputedColorScheme,
+  useMantineColorScheme,
+  MenuProps,
+} from '@mantine/core';
+import useAuth from '@/hooks/useAuth';
+import { spotlight } from '@mantine/spotlight';
+import { useContext } from 'react';
+import LayoutContext from '../LayoutContext';
+import { useFullscreen } from '@mantine/hooks';
+
+type UserButtonProps = {
+  children?: React.ReactNode;
+} & MenuProps;
+export function UserButton(props: UserButtonProps) {
+  const { children, ...menuProps } = props;
+  const { setColorScheme } = useMantineColorScheme();
+  const { toggle, fullscreen } = useFullscreen();
+  const computedColorScheme = useComputedColorScheme('light', {
+    getInitialValueInEffect: true,
+  });
+  const { openAppSettings } = useContext(LayoutContext);
+
+  const { signOut } = useAuth();
+  return (
+    <>
+      <Menu
+        shadow="md"
+        width={200}
+        position="right-end"
+        withOverlay
+        // overlayProps={{ blur: '8px' }}
+        {...menuProps}
+      >
+        <Menu.Target>{children}</Menu.Target>
+
+        <Menu.Dropdown>
+          <Menu.Label>功能</Menu.Label>
+          <Menu.Item
+            leftSection={<IconSettings size={14} />}
+            onClick={openAppSettings}
+          >
+            设置
+          </Menu.Item>
+          <Menu.Item
+            leftSection={
+              fullscreen ? (
+                <IconMinimize size={14} />
+              ) : (
+                <IconMaximize size={14} />
+              )
+            }
+            onClick={() => {
+              toggle();
+            }}
+          >
+            {fullscreen ? '取消全屏' : '全屏'}
+          </Menu.Item>
+          {/* <Menu.Item leftSection={<IconMessageCircle size={14} />}>
+            Messages
+          </Menu.Item>
+          <Menu.Item leftSection={<IconPhoto size={14} />}>Gallery</Menu.Item> */}
+          <Menu.Item
+            leftSection={
+              computedColorScheme === 'dark' ? (
+                <IconSun size={14} stroke={1.5} />
+              ) : (
+                <IconMoon size={14} stroke={1.5} />
+              )
+            }
+            onClick={() => {
+              setColorScheme(
+                computedColorScheme === 'light' ? 'dark' : 'light',
+              );
+            }}
+          >
+            {computedColorScheme === 'light' ? '深色模式' : '浅色模式'}
+          </Menu.Item>
+          <Menu.Item
+            leftSection={<IconSearch size={14} />}
+            rightSection={
+              <Text size="xs" c="dimmed">
+                ⌘K
+              </Text>
+            }
+            onClick={spotlight.open}
+          >
+            搜索
+          </Menu.Item>
+
+          <Menu.Divider />
+
+          <Menu.Label>用户</Menu.Label>
+          <Menu.Item leftSection={<IconUser size={14} />}>个人信息</Menu.Item>
+          <Menu.Item
+            color="red"
+            leftSection={<IconLogout size={14} />}
+            onClick={signOut}
+          >
+            退出登录
+          </Menu.Item>
+        </Menu.Dropdown>
+      </Menu>
+    </>
+  );
+}

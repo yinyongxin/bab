@@ -1,0 +1,14 @@
+.link {
+  border-radius: var(--mantine-radius-default);
+  text-decoration: none;
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+
+  @mixin hover {
+    background-color: light-dark(var(--mantine-primary-color-light), var(--mantine-primary-color-light));
+  }
+
+  [data-mantine-color-scheme] &[data-active] {
+    background-color: var(--mantine-primary-color-filled);
+    color: var(--mantine-color-white);
+  }
+}

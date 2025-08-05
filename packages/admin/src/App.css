@@ -1,0 +1,35 @@
+body {
+  line-height: normal;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.outline-check-sm {
+  outline: calc(0.125rem * var(--mantine-scale)) solid
+    var(--mantine-primary-color-filled);
+  outline-offset: calc(0.125rem * var(--mantine-scale));
+}
+
+.outline-check {
+  outline: calc(0.175rem * var(--mantine-scale)) solid
+    var(--mantine-primary-color-filled);
+  outline-offset: calc(0.175rem * var(--mantine-scale));
+}
+
+.outline-check-lg {
+  outline: calc(0.225rem * var(--mantine-scale)) solid
+    var(--mantine-primary-color-filled);
+  outline-offset: calc(0.225rem * var(--mantine-scale));
+}
